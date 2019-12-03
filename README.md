@@ -7,7 +7,7 @@
 本地编译方法:
 
     pip install Sphinx sphinx-rtd-theme
-    git clone https://github.com/mongodb/docs.git
+    git clone https://github.com/labplus-cn/mpython-docs.git
     cd docs
     make html
 
