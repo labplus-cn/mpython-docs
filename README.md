@@ -1,6 +1,6 @@
 # 掌控板(mPython)编程手册
 
-该存储库是掌控板的编程文档 https://mpython.readthedocs.io 
+该存储库是掌控板的编程文档  https://mpython.readthedocs.io 
 
 ## 编译
 
