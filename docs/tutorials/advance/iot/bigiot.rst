@@ -21,7 +21,7 @@
 
 * 在使用前,需要先到贝壳物联 https://www.bigiot.net 注册账号,并增加智能设备。
 
-* 程序中,需要用到bigiot的mPython库,你可以到 https://github.com/labplus-cn/awesome-mpython/library 获取。 将 bigiot.py 上传到文件系统中。
+* 程序中,需要用到bigiot的mPython库,你可以到 https://github.com/labplus-cn/awesome-mpython/tree/master/library 获取。 将 bigiot.py 上传到文件系统中。
 
 
 

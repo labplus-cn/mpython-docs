@@ -28,7 +28,8 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
   - 最大负载电流:1000mA
   - 掌控板载
 
-    - 三轴加速度计MSA300,测量范围:±2G
+    - 三轴加速度计MSA300,测量范围:±2/4/8/16G
+    - 地磁传感器MMC5983MA,测量范围:±8 Gauss;精度0.4mGz,电子罗盘误差±0.5°
     - 光线传感器
     - 麦克风
     - 3 颗全彩ws2812灯珠
@@ -51,42 +52,13 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 .. image:: /images/掌控-规格图-20190218.png
   :width: 800px
 
-元件布局
+元件布局/引脚定义
 --------------
 
-.. image:: /images/布局-正面.png
-  :width: 800px
-.. image:: /images/布局-背面.png
-  :width: 800px
-
-.. _mpython_pinout:
-
-引脚定义
---------------
-
-.. figure:: /images/掌控板引脚定义-正面.png
+.. figure:: /images/mPython掌控板_pin_define.jpg
   :width: 800px
   :align: center
 
-  掌控板正面-触摸引脚
-
-.. figure:: /images/掌控板引脚定义-背面.png
-  :width: 800px
-  :align: center
-
-  掌控板背面-IO引脚
-
-.. figure:: /images/掌控板-pinout_wroom.png
-  :width: 800px
-  :align: center
-
-  掌控板ESP32引脚定义
-
-.. figure:: /images/pinout_wroom_pinout.png
-  :width: 800px
-  :align: center
-
-  ESP32-WROOM引脚说明
 
 .. _mPythonPindesc:
 
@@ -97,7 +69,6 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 
 =============== ======  ====================================  
  引脚            类型     描述
-=============== ======  ====================================
  P0              I/O     模拟/数字输入,模拟/数字输出,TouchPad
  P1              I/O     模拟/数字输入,模拟/数字输出,TouchPad 
  P2               I      模拟/数字输入
@@ -141,8 +112,9 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 
 * :download:`USB-to-UART Bridge：cp2104 </../docs/hardware/CP2104-SiliconLaboratories.pdf>`
 * :download:`ESP32-WROOM </../docs/hardware/esp32-wroom-32_datasheet_cn.pdf>`
-* :download:`LDO稳压:AP2112K-3.3 </../docs/hardware/AP2112K-3.3.PDF>`
+* :download:`LDO稳压:CE6210 </../docs/hardware/CE6210.jpg>`
 * :download:`加速度计:MSA300 </../docs/hardware/MSA300-V1.0-ENG.pdf>`
+* :download:`地磁传感器:MMC5983MA </../docs/hardware/MMC5983MA.pdf>`
 * :download:`OLED：128x64 </../docs/hardware/1.30-SPEC QG-2864KSWLG01 VER A.pdf>`
 
 外观规格图

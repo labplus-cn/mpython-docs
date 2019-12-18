@@ -39,14 +39,9 @@ Yeelight第三方控制协议：https://www.yeelight.com/download/Yeelight_Inter
 
   Yeelight配置过程
   
-- 掌控板提供 ``yeelight`` 驱动库,该库可在 https://github.com/labplus-cn/awesome-mpython/library 获取。将 ``yeelight.py`` 下载至掌控板的文件系统。
+- 掌控板提供 ``yeelight`` 驱动库,该库可在 `awesome-mpython/libary/yeelight <https://github.com/labplus-cn/awesome-mpython/tree/master/library/yeelight>`_ 获取。里面有更详细的 ``yeelight`` 模块的API说明。 ``yeelight.py`` 下载至掌控板的文件系统。
 
 - 掌控板连接到Yeelight相同的局域网内。 
-
-
-
-
-
 
 
 
@@ -136,7 +131,7 @@ Value亮度参数,未提供支持。只需设置 ``hue`` 、``saturation`` 参�
   Yeelight,目前WiFi智能设备最多支持4个同时TCP连接。连接尝试将被拒绝。对于每个连接，都有一个命令消息配额限制，
   也就是每分钟60个指令。所有LAN也有一个总配额限制,144。
 
-有关更详细的 ``yeelight`` 模块的API说明,请查阅 https://github.com/labplus-cn/awesome-mpython/library
+
 
 
 

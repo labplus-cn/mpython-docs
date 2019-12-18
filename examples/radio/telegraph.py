@@ -60,6 +60,6 @@ while True:
         rgb.fill((0, 10, 0))                            # 指示灯
         rgb.write()
         music.pitch(500, 100, wait=False)
-    else:
+        sleep_ms(50)
         rgb.fill((0, 0, 0))
         rgb.write()

@@ -5,6 +5,11 @@
 :mod:`parrot` --- 掌控拓展板驱动
 ==================================================
 
+
+.. figure:: /images/extboard/extboard_back.png
+    :width: 600
+    :align: center
+
 掌控拓展板parrot是mPython掌控板衍生的一款体积小巧、易于携带。支持电机驱动、语音播放、语音合成等功能的IO引脚扩展板,可扩展12路IO接口和2路I2C接口。
 该库为掌控拓展板提供电机驱动,LED驱动等功能。
 

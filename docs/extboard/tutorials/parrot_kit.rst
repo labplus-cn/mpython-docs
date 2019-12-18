@@ -17,7 +17,6 @@ Python 入门套装含掌控板、掌控拓展板parrot、RGB光环板、直流�
 
 =============  =================== ====
  名称           参数                数量
-=============  =================== ====
 掌控板                                1                      
 掌控拓展板                            1
 RGB光环板        24颗                 1
@@ -67,7 +66,9 @@ RGB光环板
 
 除 ``neopixel`` 模块外,mPython掌控板还提供 ``ledstrip`` 模块(neopixel增强版)，封装多种显示效果，使用简单。 
 
-| *mPython-ledstrip:* https://github.com/labplus-cn/mPython_ledstrip
+| *mPython-ledstrip库:* `awesome-mpython/libary/ledstrip <https://github.com/labplus-cn/awesome-mpython/tree/master/library/ledstrip>`_
+
+
 
 使用前，先将ledstrip.py拷至掌控板::
 

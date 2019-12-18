@@ -13,6 +13,7 @@ MicroPython类库
    framebuf.rst
    machine/machine.rst
    network.rst
+   ubluetooth.rst
    ucryptolib.rst
    uctypes.rst
    micropython.rst

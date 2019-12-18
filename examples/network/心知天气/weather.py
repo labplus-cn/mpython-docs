@@ -53,7 +53,7 @@ def refresh():
     city=nowRsp['results'][0]['location']['name']                 #地理位置
 
     oled.fill(0)
-    oled.Bitmap(10,23,ico[todayIco],38,38,1)                   #显示当前天气现象图标
+    oled.bitmap(10,23,ico[todayIco],38,38,1)                   #显示当前天气现象图标
     oled.DispChar("%s,天气实况" %city,0,0)
     oled.DispChar(today,90,0)
     oled.DispChar("%s℃/%s" %(nowTemper,nowText),70,25)        #显示当前温度

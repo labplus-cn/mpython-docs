@@ -1,4 +1,4 @@
 mPython IDE
 ====================
 
-https://mpythonsoftware.readthedocs.io/
+详细资料请转至: https://mpythonsoftware.readthedocs.io/

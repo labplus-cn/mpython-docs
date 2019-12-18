@@ -41,6 +41,8 @@ MQTT是一种基于发布 - 订阅的“轻量级”消息传递协议，用于�
 
 .. method:: MQTTClient.set_last_will(topic, msg, retain=False, qos=0)
 
+    ``topic`` 和 ``msg`` 为字节类型
+
 设置MQTT“last will”消息。应该在 connect()之前调用。
 
 .. method:: MQTTClient.connect( clean_session=True )
@@ -57,9 +59,13 @@ Ping服务器（响应由wait_msg（）自动处理）
 
 .. method:: MQTTClient.publish(topic, msg, retain=False, qos=0)
 
+    ``topic`` 和 ``msg`` 为字节类型
+
 发布消息
 
 .. method:: MQTTClient.subscribe(topic, qos=0)
+
+    ``topic`` 为字节类型
 
 订阅主题
 
@@ -77,4 +83,4 @@ Ping服务器（响应由wait_msg（）自动处理）
     * wait_msg()并且check_msg()是“主循环迭代”方法，阻塞和非阻塞版本。wait_msg()如果您没有任何其他前台任务要执行（即您的应用只响应订阅的MQTT消息），check_msg() 如果您也处理其他前台任务，则应定期在循环中调用它们 。
     * 请注意，如果您只发布消息，则不需要调用wait_msg()/ check_msg()，也不要订阅消息。
     * 发布和订阅都支持QoS 0和1。不支持QoS2以保持较小的代码大小。除ClientID外，目前只支持“clean session”参数进行连接。
-
+    * 与MQTT消息相关的所有数据均编码为字节。这包括消息内容和主题名称（即使MQTT规范指出主题名称是UTF-8编码的）。原因很简单：通过网络套接字接收的是二进制数据（字节）
