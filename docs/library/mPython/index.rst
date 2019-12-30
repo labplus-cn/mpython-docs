@@ -16,5 +16,6 @@ mPython类库
     bluebit.rst
     parrot.rst
     ds18x20.rst
+    servo.rst
 
 

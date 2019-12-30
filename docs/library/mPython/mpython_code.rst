@@ -5,9 +5,8 @@ mpython.py源码
 =============
 
 
-:download:`mpython.py源码下载</../ports/esp32/modules/mpython.py>` 
+:download:`mpython.py源码下载</_build/py/mpython.py>` 
 
 
-
-.. literalinclude:: /../ports/esp32/modules/mpython.py
+.. literalinclude:: /_build/py/mpython.py
     :linenos:

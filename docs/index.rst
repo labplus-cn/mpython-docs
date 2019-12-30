@@ -8,20 +8,22 @@ mPython帮助文档
 
 欢迎您，使用掌控板！
 
+掌控板是创客教育专家委员会、猫友汇、广大一线老师共同提出需求并与创客教育行业优秀企业代表共同参与研发的教具、学具，是一块为教育而生的开源硬件，也是一个公益项目。
+
 mPython掌控板是一块MicroPython微控制器板，它集成ESP32高性能双核芯片，使用当下最流行的Python编程语言，以便您轻松地将代码从电脑传输到掌控板中，从而体验程序创作的无穷乐趣！
 
+|
 .. image:: /images/掌控-动态.gif
+|
+
+| **掌控板官网**: https://www.mpython.cn
+| **GitHub开源**: https://github.com/labplus-cn/mPython
+| **mPython掌控板文档**: https://mPython.readthedocs.io
+| **mPython IDE 软件编程文档**: https://mpythonsoftware.readthedocs.io/
+| **Awesome-mPython(掌控资源大全)** : https://labplus-cn.github.io/awesome-mpython/
 
 
-| 掌控板官网: https://www.mpython.cn
-| GitHub开源: https://github.com/labplus-cn/mPython
-| mPython掌控板文档: https://mPython.readthedocs.io
-| mPython IDE 软件编程文档: https://mpythonsoftware.readthedocs.io/
-| Awesome-mPython(掌控资源大全) : https://labplus-cn.github.io/awesome-mpython/
-
-.. Hint::
-
-    我们已将掌控板项目的软硬件资源分享至GitHub，供各位掌控板爱好者学习阅览！
+*我们已将掌控板项目的软硬件资源分享至GitHub，供各位掌控板爱好者学习阅览*
 
 .. Attention::
 
@@ -141,6 +143,8 @@ mPython类库
 
 .. toctree::
    :hidden:
+   :maxdepth: 1
+   :caption: 掌控系列
 
    extboard/index.rst
    mpython_classroom_kit/index.rst

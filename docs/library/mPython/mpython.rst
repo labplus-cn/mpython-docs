@@ -91,7 +91,6 @@
 
     ========================== ========= =================
         常量                       值      定义
-    ========================== ========= ================= 
         RANGE_2G                   0        范围±2g
         RANGE_4G                   1        范围±4g
         RANGE_8G                   2        范围±8g
@@ -107,7 +106,6 @@
 
     ========================== ========= =================
         常量                       值      定义
-    ========================== ========= ================= 
         RES_14_BIT                  0      14 bit 分辨率 
         RES_12_BIT                  1      12 bit 分辨率 
         RES_10_BIT                  2      10 bit 分辨率 
@@ -117,6 +115,32 @@
 
 该函数用于校准加速度计的3个轴(x,y,z)的加速值偏差。一般情况下无需校准,只有当遇到加速度偏差较大时修正。
 注意,校准数据断电后不会保存。``x`` , ``y`` , ``z`` 为调整偏差值,可修正范围±1g。
+
+
+compass
+-----------
+
+获取x,y,z轴地磁场强度和获取电子罗盘角度。注意,如果只是测量地磁场强度,应考虑掌控板周边是否存在强磁场干扰。
+
+.. Attention:: 掌控板v2.0版本以上,才有地磁传感器！
+
+.. method:: compass.get_x()
+
+获取x轴的地磁场强度值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+
+.. method:: compass.get_y()
+
+获取y轴的地磁场强度值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+
+.. method:: compass.get_z()
+
+获取z轴的地磁场强度值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+
+.. method:: compass.get_angle()
+
+获取电子罗盘角度,单位角度,范围0~359。
+
+.. Attention:: 如需得到精准的罗盘角度,请确保周边无强磁场干扰！后续将增加电子罗盘的校准功能函数,用于减除地磁以外的磁场量。可有效提高精度。敬请期待！
 
 bme280
 -------
@@ -130,7 +154,7 @@ BME280是一款集成温度、湿度、气压，三位一体的环境传感器�
 
 .. Attention:: 
 
-    掌控板预留BME280芯片位置未贴片,默认配置的掌控板是不带BME280环境传感器,需留意!
+    掌控板没有集成BME280传感器,掌控板会扫描I2C总线是否存在0x77(119)I2C设备,确定是否构建bme280对象!
 
 .. method:: bme280.temperature()
 
@@ -271,7 +295,10 @@ oled对象为framebuf的衍生类，继承framebuf的方法。更多的使用方
 
 .. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
 
-oled屏显示文本。
+oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体，支持英文,简体中文繁体中文，日文和韩文语言。
+当显示字符串超出显示屏宽度可自动换行。
+
+返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
 
     - ``s`` -需要显示的文本。
     - ``x`` 、``y`` -文本的左上角作为起点坐标。
@@ -286,15 +313,14 @@ oled屏显示文本。
 
 将frame缓存发送至oled显示。
 
-::
+.. literalinclude:: /../examples/display/helloworld.py
+    :caption: hello world
+    :linenos:
 
-    from mpython import *
+.. literalinclude:: /../examples/display/oled_effect of typing.py
+    :caption: 打字效果
+    :linenos:
 
-    oled.DispChar('你好世界', 38, 0)
-    oled.DispChar('hello,world', 32, 16)
-    oled.DispChar('안녕하세요', 35, 32)
-    oled.DispChar('こんにちは世界', 24, 48)
-    oled.show()
 
 .. method:: oled.fill(c)
 

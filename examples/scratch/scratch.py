@@ -72,7 +72,7 @@ def ScanTouchpad():
 
 
 while scratchMode:
-    oled.Bitmap(40,10,scratchlogo,48,48,1)
+    oled.bitmap(40,10,scratchlogo,48,48,1)
     oled.show()
 
     uart = UART(1, 38400, rx=3, tx=1)

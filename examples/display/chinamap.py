@@ -68,5 +68,5 @@ bmp = bytearray([\
 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
 ])
 
-oled.Bitmap(0, 0, bmp, 128, 64, 1)
+oled.bitmap(0, 0, bmp, 128, 64, 1)
 oled.show()         #刷新显示屏

@@ -7,13 +7,6 @@
 
 .. image:: /images/extboard/extboard_back.png
 
-准备
--------
-
-首先,需要先将拓展板的 ``parrot`` 模块,你可以到 https://github.com/labplus-cn/mPython_parrot 获取。
-将 ``parrot.py`` 上传到文件系统中。
-或者你也可以用 ``upip.install("mPython-parrot")`` 的方法获取pypi包。
-
 
 电机驱动
 -------
@@ -51,7 +44,7 @@ M1、M2,正转速度设为80::
 音频播放
 -------
 
-拓展板内置扬声器,支持MP3格式为音频播放。可以播放掌控板文件系统的MP3音频,或者网络的MP3音频资源。
+拓展板内置扬声器,支持wav、MP3格式为音频播放。可以播放掌控板文件系统的音频,或者网络的音频资源。
 
 
 播放本地音频
