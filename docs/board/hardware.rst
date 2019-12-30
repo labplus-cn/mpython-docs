@@ -105,7 +105,7 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 原理图
 ++++++
 
-* :download:`mPython掌控板V0.9原理图 </../docs/hardware/labplus_mPython_V0.9.pdf>`
+* :download:`mPython掌控板V2.0.3原理图 </../docs/hardware/掌控板-V2.0.3.pdf>`
 
 主要数据手册
 ++++++++++++++++
