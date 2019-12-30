@@ -3,6 +3,26 @@
 固件发布
 ========
 
+mpython_v2.0.0
+------------------
+
+===============  ====================================
+ **发布日期**：    2019/12/25
+ **固件下载**:     :download:`mpython_firmware_v2.0.0 <https://github-production-release-asset-2e65be.s3.amazonaws.com/145931390/d8b72a80-27e8-11ea-8c52-fea136bedf7c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20191230%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20191230T091508Z&X-Amz-Expires=300&X-Amz-Signature=2252af28086037c4f42f6d90770b8d68be66ab1473eae0d07dd193a7a25ca4f7&X-Amz-SignedHeaders=host&actor_id=8448693&response-content-disposition=attachment%3B%20filename%3Dmpython_v2.0.0.bin&response-content-type=application%2Foctet-stream>`
+===============  ====================================
+
+**日志**：
+
+* 升级micropython，IDF升级到v4.0。
+* 重新构建项目框架。
+* 加入蓝牙ble。
+* 加入录音功能。
+* 加入磁力计。
+* 硬件修改了usb接口，按键。
+* urequest模块,增加POST表单功能
+* oled.DispChar()增加返回字符宽度参数
+* 增加urllib.parse模块(URL解析)
+
 mpython_v1.5.1
 ------------------
 
