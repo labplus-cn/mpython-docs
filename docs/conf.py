@@ -45,9 +45,9 @@ def load_py_modules(url):
 
 RAW_REPO_ROOT_URL = 'https://raw.githubusercontent.com/labplus-cn/mpython/master/'
 
-load_py_modules(RAW_REPO_ROOT_URL+'ports/esp32/modules/mpython.py')
-load_py_modules(RAW_REPO_ROOT_URL+'ports/esp32/modules/parrot.py')
-load_py_modules(RAW_REPO_ROOT_URL+'ports/esp32/modules/bluebit.py')
+load_py_modules(RAW_REPO_ROOT_URL+'port/boards/mpython/modules/mpython.py')
+load_py_modules(RAW_REPO_ROOT_URL+'port/modules/parrot.py')
+load_py_modules(RAW_REPO_ROOT_URL+'port/modules/bluebit.py')
 
 sys.path.insert(0, os.path.abspath('./_build/py'))
 
