@@ -29,6 +29,12 @@
 * ``music.JUMP_DOWN`` 
 * ``music.POWER_UP`` 
 * ``music.POWER_DOWN`` 
+* ``GE_CHANG_ZU_GUO`` - 歌唱祖国
+* ``DONG_FANG_HONG`` - 东方红
+* ``CAI_YUN_ZHUI_YUE`` - 彩云追月
+* ``ZOU_JIN_XIN_SHI_DAI`` - 走进新时代
+* ``MO_LI_HUA`` - 茉莉花
+* ``YI_MENG_SHAN_XIAO_DIAO`` - 沂蒙山小调
 
 我们可以播放一些内置旋律:: 
 
