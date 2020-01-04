@@ -49,7 +49,7 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 外观规格
 --------------
 
-.. image:: /images/掌控-规格图-20190218.png
+.. image:: /images/掌控板V2.0-2D图档-20200102-1.png
   :width: 800px
 
 元件布局/引脚定义
@@ -120,4 +120,4 @@ mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Py
 外观规格图
 +++++++++++++++++
 
-* :download:`mPython掌控板外观规格图 </../docs/hardware/掌控-外观规格图20190218..rar>`
+* :download:`mPython掌控板v2.0外观规格图 </../docs/hardware/掌控板V2.0-3D-2D图档-20200102.rar>`
