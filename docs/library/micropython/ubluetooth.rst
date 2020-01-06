@@ -39,7 +39,7 @@ BLE 类
 
     - ``'mac'``: 返回设备的MAC地址。如果设备具有固定地址（例如PYBD），则将其返回。否则（例如ESP32），当BLE接口处于活动状态时，将生成一个随机地址。
 
-    - ``'rxbuf'``: 设置用于存储传入事件的内部缓冲区的大小（以字节为单位）。该缓冲区是整个BLE驱动程序的全局缓冲区，因此可以处理所有事件（包括所有特征）的传入数据。增加此值可以更好地处理突发的传入数据（例如，扫描结果），并可以使中心角色接收较大的特征值。
+    - ``'rxbuf'``: 设置用于存储传入事件的内部缓冲区的大小（以字节为单位）。该缓冲区是整个BLE驱动程序的全局缓冲区，因此可以处理所有事件（包括所有特征）的传入数据。增加此值可以更好地处理突发的传入数据（例如，扫描结果），并可以使中央设备接收较大的特征值。
 
 事件处理
 --------------
@@ -59,16 +59,16 @@ BLE 类
 
         def bt_irq(event, data):
             if event == _IRQ_CENTRAL_CONNECT:
-                # 中心设备已经连接到这个外围设备
+                # 中央设备已经连接到这个外围设备
                 conn_handle, addr_type, addr = data
             elif event == _IRQ_CENTRAL_DISCONNECT:
-                # 中心设备已与此外围设备断开
+                # 中央设备已与此外围设备断开
                 conn_handle, addr_type, addr = data
             elif event == _IRQ_GATTS_WRITE:
-                # 中心设备已写入此特征或描述符
+                # 中央设备已写入此特征或描述符
                 conn_handle, attr_handle = data
             elif event == _IRQ_GATTS_READ_REQUEST:
-                # 中心设备已发出读请求. Note: 这是一个硬件IRQ
+                # 中央设备已发出读请求. Note: 这是一个硬件IRQ
                 # 返回None来拒绝读操作
                 # Note: 这事件不支持 ESP32.
                 conn_handle, attr_handle = data
@@ -166,10 +166,10 @@ BLE 类
 
 BLE外围设备具有一组注册服务。每个服务可能包含特性，每个特性都有一个值。特征也可以包含描述符，描述符本身具有值。
 
-这些值存储在本地，并通过在服务注册过程中生成的“值柄”进行访问。它们也可以被远程的中心设备读取或写入。
-此外，外围设备可以通过连接句柄将特征“通知”到已连接的中心设备。
+这些值存储在本地，并通过在服务注册过程中生成的“值柄”进行访问。它们也可以被远程的中央设备读取或写入。
+此外，外围设备可以通过连接句柄将特征“通知”到已连接的中央设备。
 
-特征和描述符的默认最大为20个字节。任何由中心设备写给它们的都会被截短到这个长度。但是，任何本地写操作都会增加最大大小,
+特征和描述符的默认最大为20个字节。任何由中央设备写给它们的都会被截短到这个长度。但是，任何本地写操作都会增加最大大小,
 所以，如果你写想更长的数据，请注册后使用 ``gatts_write`` 。例如, gatts_write(char_handle, bytes(100))
 
 
@@ -183,7 +183,7 @@ BLE外围设备具有一组注册服务。每个服务可能包含特性，每�
 
     每个描述符是一个包含UUID和一个flags值的二元元组。
 
-    flags是一个按位或组合的 :data:`ubluetooth.FLAG_READ`，:data:`ubluetooth.FLAG_WRITE`和 :data:`ubluetooth.FLAG_NOTIFY`。如下文所定义的值:
+    flags是一个按位或组合的 :data:`ubluetooth.FLAG_READ`，:data:`ubluetooth.FLAG_WRITE` 和 :data:`ubluetooth.FLAG_NOTIFY` 。如下文所定义的值:
 
     返回值是元组的列表（每个服务一个元素）（每个元素是一个值句柄）。特征和描述符句柄按照定义的顺序被展平到相同的元组中。
 
@@ -208,18 +208,18 @@ BLE外围设备具有一组注册服务。每个服务可能包含特性，每�
 
 .. method:: BLE.gatts_read(value_handle)
 
-    读取本地的值柄 (该值由 :meth:`gatts_write <BLE.gatts_write>` 或远程的中心设备写入)。
+    读取本地的值柄 (该值由 :meth:`gatts_write <BLE.gatts_write>` 或远程的中央设备写入)。
 
 .. method:: BLE.gatts_write(value_handle, data)
 
-    写入本地的值柄，该值可由中心设备读取。
+    写入本地的值柄，该值可由中央设备读取。
 
 
 .. method:: BLE.gatts_notify(conn_handle, value_handle, [data])
 
-    通知连接的中心设备此值已更改，并且应发出此外围设备的当前值的读取值。
+    通知连接的中央设备此值已更改，并且应发出此外围设备的当前值的读取值。
 
-    如果指定了数据，则将该值作为通知的一部分发送到中心设备，从而避免了需要单独的读取请求的情况。请注意，这不会更新存储的本地值。
+    如果指定了数据，则将该值作为通知的一部分发送到中央设备，从而避免了需要单独的读取请求的情况。请注意，这不会更新存储的本地值。
 
 
 .. method:: BLE.gatts_set_buffer(value_handle, len, append=False)
@@ -231,7 +231,7 @@ BLE外围设备具有一组注册服务。每个服务可能包含特性，每�
 
 
 
-中心设备 (GATT Client)
+中央设备 (GATT Client)
 --------------------------
 
 .. method:: BLE.gap_connect(addr_type, addr, scan_duration_ms=2000)
@@ -240,7 +240,7 @@ BLE外围设备具有一组注册服务。每个服务可能包含特性，每�
 
 .. method:: BLE.gap_disconnect(conn_handle)
 
-    断开指定的连接句柄。成功,将触发 ``_IRQ_PERIPHERAL_DISCONNECT``事件。
+    断开指定的连接句柄。成功,将触发 ``_IRQ_PERIPHERAL_DISCONNECT`` 事件。
     如果未连接连接句柄，返回 ``False`` ,否则返回 ``True`` 。
 
 
