@@ -48,7 +48,14 @@ reStructuredText语法
 
 图片插入，gif的动态图也可以。
 
-.. image:: /images/掌控-立2.png
+.. image:: /images/tutorials/drawline.gif
+    :scale: 100 %
+    :align: center
+
+.. figure:: /images/mPython掌控板_pin_define.jpg
+    :width: 800px
+    :align: center
+
 
 提供本地项目内下载方式
 
