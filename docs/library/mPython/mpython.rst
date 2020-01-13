@@ -350,6 +350,45 @@ oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/not
     :linenos:
 
 
+.. method:: oled.DispChar_font(font, s, x, y, invert=False)
+
+自定义字体显示。用户可根据自己需求,在PC端将 `otf` 、 `ttf` 标准字体文件通过Python脚本 `font_to_py.py <https://github.com/peterhinch/micropython-font-to-py/blob/master/font_to_py.py>`_ 转为输出含字体Bitmap的python源码,调用使用。
+
+    - ``font`` - 字体对象。`font_to_py.py` 脚本转换得到的Python源码, 放到文件系统中,注意,在使用函数前须导入font文件。   
+    - ``s`` - 显示的字符串
+    - ``x`` 、 ``y`` - 文本的左上角作为起点坐标。
+    - ``invert`` - 显示像素点翻转。
+
+
+.. literalinclude:: /../examples/display/custom_font/main.py
+    :caption: 自定义字体显示
+    :linenos:
+
+* :download:`以上自定义字体示例中simfang16、freescpt18、stxingkai20<https://github.com/labplus-cn/mpython-docs/tree/master/examples/display/custom_font>`
+
+.. figure:: /images/tutorials/helloworld_customfont.jpg
+    :width: 400px
+    :align: center
+
+.. admonition:: `font_to_py.py` 脚本使用说明
+
+    - 该脚本要Python 3.2或更高版本运行环境。依赖 `freetype` python包。安装方法, `pip3 install freetype-py`  
+    - 默认情况下，只转换ASCII字符集（ `chr(32)` 到 `chr(126)` 字符）。通过命令行参数 `-c`,根据需要修改此范围，以指定任意的Unicode字符集,可以定义非英语和非连续字符集。
+    - `oled.DispChar_font()` 函数只支持hmap水平映射的字体,所以在转换时,需要使用命令行参数 `-x` 固定转换为水平映射。
+    - 固件参数。字体文件路径、转换后的字体高度、输出文件路径。例如: font_to_py.py FreeSans.ttf 20 myfont.py
+
+在PC端使用font_to_py.py脚本转换字体::
+
+    # 转换高度为16像素只包含ASCII字符集
+    font_to_py.py -x FreeSans.ttf 16 myfont.py
+
+    # 转换高度为16像素指定Unicode字符集,-c参数后面为你指定的字符集
+    font_to_py.py -x simfang.ttf 16 simfang.py -c  ¬!"#£$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~°Ωαβγδθλμπωϕ£
+
+
+该函数功能实现,参考来源于 `peterhinch/micropython-font-to <https://github.com/peterhinch/micropython-font-to-py>`_ 开源项目,更详细有关 `font_to_py.py` 详细使用说明,可到此项目获取更多资料。
+
+
 .. method:: oled.fill(c)
 
         用指定的颜色填充整个帧缓存。 ``c`` 为1时,像素点亮；``c`` 为0时,像素点灭。

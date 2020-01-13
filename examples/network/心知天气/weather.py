@@ -1,7 +1,7 @@
 from mpython import*
 import json
 import urequests                    #用于网络访问的模块
-from seniverse import *             #天气图标模块
+import weather_icon                 #天气图标模块
 from machine import Timer           #定时器模块
 
 API_KEY = 'yourkey'                 #心知天气API密钥（key）
@@ -53,7 +53,7 @@ def refresh():
     city=nowRsp['results'][0]['location']['name']                 #地理位置
 
     oled.fill(0)
-    oled.bitmap(10,23,ico[todayIco],38,38,1)                   #显示当前天气现象图标
+    oled.bitmap(10,23,weather_icon.from_code(int(todayIco)),38,38,1)                   #显示当前天气现象图标
     oled.DispChar("%s,天气实况" %city,0,0)
     oled.DispChar(today,90,0)
     oled.DispChar("%s℃/%s" %(nowTemper,nowText),70,25)        #显示当前温度

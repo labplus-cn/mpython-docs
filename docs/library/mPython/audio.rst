@@ -75,7 +75,7 @@
 
 .. py:method:: audio.record(file_name, record_time = 5)
 
-录制音频,并以 `wav` 格式存储。
+录制音频,并以 `wav` 格式存储。音频参数为8000Hz采样率,16位,单声道。
 
 - ``file_name`` - wav文件存储路径
 - ``record_time`` - 录音时长,默认5秒。录音时长受文件系统空间限制,最大时长依实际情况而定。
@@ -97,39 +97,5 @@
     rgb.write()
     audio.recorder_deinit()
 
-----------------------------------------------
 
-.. _tts:
-
-语音合成(TTS)
-+++++++++++++
-
-基于讯飞TTS语音合成API的文字转语音功能,将文字信息转化为声音信息，给掌控板配上“嘴巴”。其合成音在音色、自然度等方面的表现均接近甚至超过了人声。目前应用于掌控拓展板。
-
-
-
-.. py:method:: audio.xunfei_tts_config( api_key,app_id, voice_name="aisxping")
-
-| 讯飞tts配置,使用前须要用 ``audio.player_init()`` 播放初始化。 由于该功能依赖讯飞API,在使用前需要先将掌控板连接至互联网,并设置RTC时钟至准确时间。
-| 讯飞文字转语音功能,使用该功能前需要在讯飞开发平台 https://www.xfyun.cn/ 注册账号,步骤如下：
-|     
-| 1. 注册账号
-| 2. 在产品中,选择“在线语音合成”服务。
-| 3. 在IP白名单中添加网络的公网IP。
-
-    - ``api_key`` (str): 讯飞应用的APIKey
-    - ``app_id`` (str): 讯飞应用的APPID
-    - ``voice_name`` (str): 发音人,默认"aisxping";可选有"xiaoyan","aisjiuxu","aisjinger","aisbabyxu"
-    
-
-
-.. py:method:: audio.xunfei_tts(text)
-
- 文字转语音
-
-    - ``text`` (str): 转换的文本,支持中英文。
-
-.. literalinclude:: /../examples/audio/tts.py
-    :caption: TTS文字转语音示例
-    :linenos:
 
