@@ -1,3 +1,11 @@
+
+# # exec(open('./mPythonFactorytest_2_0.py').read(),globals())
+# exec(open('./mPythonDemo.py').read(),globals())
+
+# Flappy Bird game for mPython
+# frok from github.com/zelacerda/micropython ,2017 - by zelacerda
+# modify from LabPlus@Tangliufeng
+
 import ntptime
 from mpython import*
 from machine import Timer,RTC
@@ -5,14 +13,31 @@ import _thread
 from random import randint
 from math import sin, cos
 
+have_magnetics = True if 48 in i2c.scan() else False
 data=(2018, 12, 15, 6, 8,30, 0, 0)
 RTC().datetime(data)
 clock=Clock(oled,64,32,30)
 
 mode=0
 modeNum=5
+if have_magnetics: modeNum+=1
 Center_x=63
 Center_y=31
+
+# 绘制罗盘中心坐标和半径
+xc,yc,comp_r= 64,32,30
+is_calibrate = False
+
+
+def draw_heading(angle):
+    """绘制磁北指针"""
+    global xc,yc,comp_r
+    angle = 360 - angle
+    am = math.pi * 2.0 * angle / 360
+    xm = round(xc + comp_r * math.sin(am))
+    ym = round(yc - comp_r * math.cos(am))
+    oled.line(xc, yc, xm, ym, 1)
+
 
 def scanBtnThread(_):
     global mode
@@ -104,7 +129,7 @@ cube = ((-20,-20, 20), (20,-20, 20), (20,20, 20), (-20,20, 20),
 
 while True:
     if mode ==1:
-        oled.DispChar("水平仪",0,0)
+        oled.text("level",0,0)
         x=accelerometer.get_x()
         y=accelerometer.get_y()
         if y<=1 and y>=-1:
@@ -115,7 +140,7 @@ while True:
         move_y=Center_y+offsetY
         oled.circle(Center_x,Center_y,6,1)
         oled.fill_circle(move_x,move_y,4,1)
-        oled.DispChar("%0.1f,%0.1f" %(x,y),85,0)
+        oled.text("%0.1f,%0.1f" %(x,y),60,0)
         if offsetX==0 and offsetY==0:
             rgb.fill((0,10,0))
             rgb.write()
@@ -182,9 +207,9 @@ while True:
         sleep_ms(50)                 #刷新时间
 
     if mode ==4:
-        loatmode=mode
+        prevmode=mode
         for angle in range(0, 361, 5):  # 0 to 360 deg 3step
-            if loatmode !=mode:
+            if prevmode !=mode:
                 break
             for i in range(8):
                 r  = angle * 0.0174532  # 1 degree
@@ -220,3 +245,33 @@ while True:
             oled.DispChar('3D cube', 0, 0)
             oled.show()  # display
             oled.fill(0)  # clear
+
+    if mode == 5 and have_magnetics:
+        prevmode=mode
+        oled.DispChar('指北针',0,0)
+        # 电子罗盘校准
+        if not is_calibrate:
+            magnetic.calibrate()
+            is_calibrate =True
+        # sleep(2)
+        oled.DispChar('指北针',0,0)
+        # 绘制罗盘轮廓
+        oled.circle(xc, yc, comp_r+1, 1)
+        oled.show()
+        while True:
+            if prevmode !=mode:
+                oled.fill(0)
+                break
+                # 获取磁力计电子罗盘角度
+            angle = magnetic.get_heading()
+            # 清除指针
+            oled.fill_circle(xc, yc, comp_r, 0)
+            oled.fill_rect(95,0,30,16,0)
+            # 显示罗盘指针
+            draw_heading(angle)
+            oled.text("%03d" %angle,95,0)
+            oled.show()
+            print("磁北极夹角: %d" %angle)
+
+            
+
