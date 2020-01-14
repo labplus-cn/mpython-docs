@@ -323,7 +323,7 @@ oled对象为framebuf的衍生类，继承framebuf的方法。更多的使用方
 
 .. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
 
-oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体，支持英文,简体中文繁体中文，日文和韩文语言。
+oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体。字体高度16像素点,支持英文,简体中文繁体中文，日文和韩文语言。
 当显示字符串超出显示屏宽度可自动换行。
 
 返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
@@ -353,11 +353,14 @@ oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/not
 .. method:: oled.DispChar_font(font, s, x, y, invert=False)
 
 自定义字体显示。用户可根据自己需求,在PC端将 `otf` 、 `ttf` 标准字体文件通过Python脚本 `font_to_py.py <https://github.com/peterhinch/micropython-font-to-py/blob/master/font_to_py.py>`_ 转为输出含字体Bitmap的python源码,调用使用。
+返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
 
     - ``font`` - 字体对象。`font_to_py.py` 脚本转换得到的Python源码, 放到文件系统中,注意,在使用函数前须导入font文件。   
     - ``s`` - 显示的字符串
     - ``x`` 、 ``y`` - 文本的左上角作为起点坐标。
     - ``invert`` - 显示像素点翻转。
+
+
 
 
 .. literalinclude:: /../examples/display/custom_font/main.py

@@ -1,7 +1,7 @@
 显示
 ======================================
 
-掌控板板载1.3英寸OLED显示屏，分辨率128x64。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体，支持简体中文，繁体中文，日文和韩文语言。
+掌控板板载1.3英寸OLED显示屏，分辨率128x64。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体。字体高度16像素点。支持简体中文，繁体中文，日文和韩文语言。
 
 
 .. Hint::
@@ -12,6 +12,30 @@
 文本显示
 -------
 
+使用前，须导入mpython模块::
+
+  from mpython import *
+
+`hello,world` 文本显示::
+
+  # 便于看到字符是如何在显示屏上显示的,模式选择像素点翻转模式
+  oled.DispChar('hello,world!',0,0,mode=TextMode.rev)
+  # 默认模式下,字符背景像素点熄灭
+  oled.DispChar('hello,world!',0,16,mode=TextMode.normal)
+  oled.show()
+
+.. figure:: /images/tutorials/display_char_pixel.png
+   :width: 500px
+   :align: center
+
+   字符像素点是如何在掌控板屏幕上显示
+
+
+- DispChar(str,x,y)函数可以将左上角为坐标的文本将写入FrameBuffer。``str`` 为显示文本内容，支持简体中文，繁体中文，日文和韩文语言。``x`` ``y`` 为oled显示
+  起始xy坐标。`oled.show()` 为将FrameBuffer送至oled刷新并显示屏幕。
+- 采用Noto Sans CJK 16像素等高,不等宽字体。不同字符,宽度会有所不一样,如上图所示。
+
+
 .. literalinclude:: /../examples/display/helloworld.py
     :caption: 在OLED显示屏上显示hello world的中文或其他语言文本:
     :linenos:
@@ -20,21 +44,6 @@
 显示效果：
 
 .. image:: /images/掌控-正面.png
-
-使用前，须导入mpython模块::
-
-  from mpython import *
-
-文本显示::
-
-  >>> oled.DispChar('hello,world!',0,0)
-  >>> oled.show()
-  >>>
-
-.. Note::
-
-  DispChar(str,x,y)函数可以将左上角为坐标的文本将写入FrameBuffer。``str`` 为显示文本内容，支持简体中文，繁体中文，日文和韩文语言。``x`` ``y`` 为oled
-  显示起始xy坐标。oled.show()为将FrameBuffer送至oled刷新并显示屏幕。
 
 ::
 
