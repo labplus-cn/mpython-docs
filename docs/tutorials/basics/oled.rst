@@ -41,9 +41,11 @@
     :linenos:
 
 
-显示效果：
+.. figure:: /images/掌控-正面.png
+    :align: center
 
-.. image:: /images/掌控-正面.png
+    多语言 hello,world 显示
+
 
 ::
 
