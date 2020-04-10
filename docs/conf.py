@@ -53,7 +53,7 @@ sys.path.insert(0, os.path.abspath('./_build/py'))
 
 autodoc_mock_imports = ["time", "micropython", "machine",
                         "framebuf", "ubinascii", "neopixel", "mpython", "random",
-                        "_thread","ustruct"
+                        "_thread","ustruct","rfid"
                         ]
 
 extensions = [

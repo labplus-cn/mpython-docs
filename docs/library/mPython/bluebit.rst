@@ -229,3 +229,22 @@ OLED模块
     :special-members: '__init__' 
     :member-order: bysource
 
+
+
+
+RFID模块
+-------------
+
+.. autoclass:: bluebit.Scan_Rfid
+    :members:
+    :undoc-members: True
+    :exclude-members: 
+    :member-order: bysource
+
+
+.. autoclass:: bluebit.Rfid
+    :members:
+    :undoc-members: True
+    :exclude-members: 
+    :special-members: '__init__' 
+    :member-order: bysource
