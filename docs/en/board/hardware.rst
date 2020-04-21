@@ -1,49 +1,49 @@
-硬件概述
+Hardware Overview
 ====================
 
-mPython掌控是一块MicroPython微控制器板，很好的支持MicroPython/Python软件上功能。
+The mPython Board is a MicroPython microcontroller board with full support for MicroPython/Python software features.
 
 .. image:: /../images/掌控-立2.png
 
 技术参数
 -----------
 
-该板具有以下硬件特性:
+mPython Board had the following hardware features:
 
-  - ESP-32主控
+  - ESP-32 microcontroller
 
-    - 处理器：Tensilica LX6双核处理器（一核处理高速连接；一核独立应用开发）
-    - 主频：高达240MHz的时钟频率
+    - Processor：Tensilica LX6 dual core microprocessor（one for Handling High Speed Connections and the other for Independent Application Development）
+    - Main frequency: up to 240mhz clock frequency
     -	SRAM：520KB
     - Flash：8MB
-    - Wi-Fi标准：FCC/CE/TELEC/KCC
-    - Wi-Fi协议：802.11 b/g/n/d/e/i/k/r (802.11n，速度高达150 Mbps)，A-MPDU和A-MSDU聚合，支持0.4us防护间隔
-    - 频率范围：2.4~2.5 GHz
-    - 蓝牙协议：符合蓝牙v4.2 BR/EDR和BLE标准
-    - 蓝牙音频：CVSD和SBC音频低功耗：10uA
+    - Wi-Fi Standard：FCC/CE/TELEC/KCC
+    - Wi-Fi Alliance：802.11 b/g/n/d/e/i/k/r (802.11n，high speed 150 Mbps)，A-MPDU and A-MSDU packed，support 0.4us protective interval
+    - Frequency Range：2.4~2.5 GHz
+    - BlueTooth Protocol：Comply to BlueTooth 4.2 BR/EDR and BLE standard
+    - Bluetooth Audio Streaming：CVSD and SBC audio low power：10uA
 
-  - 供电方式：Micro USB供电
-  - 工作电压：3.3V
-  - 最大工作电流:200mA
-  - 最大负载电流:1000mA
-  - 掌控板载
+  - Power Supply Mode：Micro USB
+  - Operating Voltage：3.3V
+  - Maximum Operating Current:200mA
+  - Maximum Load Current:1000mA
+  - mPython Board integrated hardwares
 
-    - 三轴加速度计MSA300,测量范围:±2/4/8/16G
-    - 地磁传感器MMC5983MA,测量范围:±8 Gauss;精度0.4mGz,电子罗盘误差±0.5°
-    - 光线传感器
-    - 麦克风
-    - 3 颗全彩ws2812灯珠
-    - 1.3英寸OLED显示屏，支持16*16字符显示，分辨率128x64
-    - 无源蜂鸣器
-    - 支持2个物理按键(A/B)、6个触摸按键
-    - 支持1路鳄鱼夹接口，可方便接入各种阻性传感器
+    - 3-axis Accelerometer MSA300, Range: ±2/4/8/16G
+    - Deomagnetic Sensor MMC5983MA, Range: ±8 Gauss; Accuracy 0.4mGz, Electronic Compass error ±0.5°
+    - Light Sensor
+    - Microphone
+    - 3x ws2812 LED, RGB
+    - 1.3" OLED Panel，support 16*16 characters display，Resolution 128x64
+    - Passive Buzzer
+    - Supports 2x tact switch (User A/B), 1x Reset Button, 6x Touch Button
+    - Supports 1x crocodile clip interface: resistive sensor input
 
-  - 拓展接口
+  - Interface for external device expansion
 
-    - 20通道数字I/O， (其中支持12路PWM，6路触摸输入)
-    - 5通道12bit模拟输入ADC，P0~P4  
-    - 1路的外部输入鳄鱼夹接口:EXT/GND
-    - 支持I2C、UART、SPI通讯协议
+    - 20x digital I/O， (it supports 12x PWM，6x Touch Pad)
+    - 5x 12bit ADC，P0~P4  
+    - 1x external hardware input via crocodile clip interface :EXT/GND
+    - supports I2C、UART、SPI communication protocol
 
 
 外观规格
