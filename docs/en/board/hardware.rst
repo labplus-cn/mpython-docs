@@ -69,11 +69,11 @@ mPython Board interface pin configuration
 
 =============== ======  ====================================  
  PIN            Type     Description
- P0              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad 模拟/数字输入,模拟/数字输出,TouchPad
- P1              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad 模拟/数字输入,模拟/数字输出,TouchPad 
- P2               I      Analogue/Digital Input 模拟/数字输入
+ P0              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad 
+ P1              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad  
+ P2               I      Analogue/Digital Input 
  P3               I      Analogue/Digital Input, connects the Crocodile Clip slot on the Board for external passive sensor input.
- P4               I      Analogue/Digital Input, connects the Light Sensor on the Board 模拟输入,连接掌控板光线传感器  
+ P4               I      Analogue/Digital Input, connects the Light Sensor on the Board  
  P5              I/O     Digital Input, Analogue/Digital Output, connects the USER Button A on the Board, neopixel
  P6              I/O     Digital Input, Analogue/Digital Output, connects the Buzzer OR as Digital I/O, neopixel
  P7              I/O     Digital Input, Analogue/Digital Output,connects the RGB LED on the Board
