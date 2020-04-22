@@ -5,7 +5,7 @@ The mPython Board is a MicroPython microcontroller board with full support for M
 
 .. image:: /../images/掌控-立2.png
 
-技术参数
+Technical Specification
 -----------
 
 mPython Board had the following hardware features:
@@ -46,13 +46,13 @@ mPython Board had the following hardware features:
     - supports I2C、UART、SPI communication protocol
 
 
-外观规格
+Dimension and Layout
 --------------
 
 .. image:: /../images/掌控板V2.0-2D图档-20200102-1.png
   :width: 800px
 
-元件布局/引脚定义
+Component Layout / Pin Definition
 --------------
 
 .. figure:: /../images/mPython掌控板_pin_define.jpg
@@ -62,34 +62,34 @@ mPython Board had the following hardware features:
 
 .. _mPythonPindesc:
 
-掌控板接口引脚说明
+mPython Board interface pin configuration
 +++++++++++++++++++++++++
 
 
 
 =============== ======  ====================================  
- 引脚            类型     描述
- P0              I/O     模拟/数字输入,模拟/数字输出,TouchPad
- P1              I/O     模拟/数字输入,模拟/数字输出,TouchPad 
- P2               I      模拟/数字输入
- P3               I      模拟输入,连接掌控板EXT鳄鱼夹,可连接阻性传感器
- P4               I      模拟输入,连接掌控板光线传感器  
- P5              I/O     数字输入,模拟/数字输出, 连接掌控板按键A,neopixel
- P6              I/O     数字输入,模拟/数字输出, 连接掌控板蜂鸣器,不使用蜂鸣器时,可以作为数字IO使用,neopixel
- P7              I/O     数字输入,模拟/数字输出, 连接掌控板RGB LED
- P8              I/O     数字输入,模拟/数字输出,neopixel
- P9              I/O     数字输入,模拟/数字输出,neopixel
- P10              I      模拟输入,连接掌控板声音传感器
- P11             I/O     数字输入,模拟/数字输出, 连接掌控板按键B,neopixel
- P12             I/O     保留
- P13             I/O     数字输入,模拟/数字输出,neopixel
- P14             I/O     数字输入,模拟/数字输出,neopixel
- P15             I/O     数字输入,模拟/数字输出,neopixel
- P16             I/O     数字输入,模拟/数字输出,neopixel
- 3V3             POWER   电源正输入:连接USB时,掌控板内部稳压输出3.3V,未连接USB可以通过输入(2.7-3.6)V电压为掌控板供电
- P19             I/O     数字输入,模拟/数字输出，I2C总线SCL,与内部的OLED和加速度传感器共享I2C总线,neopixel
- P20             I/O     数字输入,模拟/数字输出，I2C总线SDA,与内部的OLED和加速度传感器共享I2C总线,neopixel
- GND             GND     电源GND
+ PIN            Type     Description
+ P0              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad 模拟/数字输入,模拟/数字输出,TouchPad
+ P1              I/O     Analogue/Digital Input, Analogue/Digital Output, TouchPad 模拟/数字输入,模拟/数字输出,TouchPad 
+ P2               I      Analogue/Digital Input 模拟/数字输入
+ P3               I      Analogue/Digital Input, connects the Crocodile Clip slot on the Board for external passive sensor input.
+ P4               I      Analogue/Digital Input, connects the Light Sensor on the Board 模拟输入,连接掌控板光线传感器  
+ P5              I/O     Digital Input, Analogue/Digital Output, connects the USER Button A on the Board, neopixel
+ P6              I/O     Digital Input, Analogue/Digital Output, connects the Buzzer OR as Digital I/O, neopixel
+ P7              I/O     Digital Input, Analogue/Digital Output,connects the RGB LED on the Board
+ P8              I/O     Digital Input, Analogue/Digital Output, neopixel
+ P9              I/O     Digital Input, Analogue/Digital Output, neopixel
+ P10              I      Digital Input, Analogue/Digital Output, connects the Sound Sensor on the Board
+ P11             I/O     Digital Input, Analogue/Digital Output, connects the USER Button B on the Board, neopixel
+ P12             I/O     NC
+ P13             I/O     Digital Input, Analogue/Digital Output, neopixel
+ P14             I/O     Digital Input, Analogue/Digital Output, neopixel
+ P15             I/O     Digital Input, Analogue/Digital Output, neopixel
+ P16             I/O     Digital Input, Analogue/Digital Output, neopixel
+ 3V3             POWER   Power input via USB: Board regulated output: 3.3V, OR 2.7 ~ 3.6V supply via non-USB mode
+ P19             I/O     Digital Input, Analogue/Digital Output, I2C bus SCL, with OLED and accelerometer to share I2C bus, neopixel
+ P20             I/O     Digital Input, Analogue/Digital Output, I2C bus SDA, with OLED and accelerometer to share I2C bus, neopixel
+ GND             GND     Power GND  
  Touch_P(P23)    I/O     TouchPad
  Touch_Y(P24)    I/O     TouchPad      
  Touch_T(P25)    I/O     TouchPad
@@ -99,15 +99,15 @@ mPython Board had the following hardware features:
 =============== ======  ==================================== 
 
 
-相关下载
+Related Download
 --------------
 
-原理图
+Schematic Diagram
 ++++++
 
 * :download:`mPython掌控板V2.0.3原理图 </../datasheet/掌控板-V2.0.3.pdf>`
 
-主要数据手册
+Data Sheet
 ++++++++++++++++
 
 * :download:`USB-to-UART Bridge：cp2104 </../datasheet/CP2104-SiliconLaboratories.pdf>`
