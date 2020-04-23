@@ -1,4 +1,4 @@
-掌控板资料
+mPython Board Contents
 ==================
 
 .. toctree::
