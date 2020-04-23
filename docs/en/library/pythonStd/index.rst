@@ -1,16 +1,16 @@
 .. _pythonStd:
 
-Python标准库
+Python Standard library
 ===========
 
-标准的Python库被 “微型化”后，就是micropython标准库。它们仅仅提供了该模块的核心功能。一些模块没有直接使用标准的Python的名字，而是冠以"u"，例如 ``ujson`` 代替 ``json`` 。也就是说micropython标准库（=微型库），只实现了一部分模块功能。
-通过他们的名字不同，用户有选择的去写一个Python级模块扩展功能，也是为实现更好的兼容性。（实际上，这是 :term:`micropython-lib` 上面提到的项目所做的）。
+"micropython Standard Library", the miniaturization of "Python Standard Library". Only provide the core functions of the module. Those modules that don't use the standard Python name. was labeled with a "U", for example, "U JSON" instead of "JSON". Which is the micropython standard library could only realize portion of the module functions.。
+For better compatibility, users could choose to write the Python module module extension function by the change of name. (Note: mentioned in "term:`micropython-lib"）。
 
-在嵌入式平台上，可添加Python级别封装库从而实现命名兼容CPython，微模块即可调用他们的u-name，也可以调用non-u-name。
-根据non-u-name包路径的文件可重写。
+On the embedded platform, python Encapsulation Library can be added to achieve compatibility naming with Cpython.
+The path of "non-u-name" packaged files was rewritable.
 
-例如，``import json`` 的话，首先搜索一个 ``json.py`` 文件或 ``json`` 目录进行加载。
-如果没有找到，它回退到加载内置 ``ujson`` 模块。
+For example: for "import json"，First, to search and load the 'JSON. Py' file or 'JSON' directory.
+If not, then go back to load the built-in 'ujson' module.
 
 
 
