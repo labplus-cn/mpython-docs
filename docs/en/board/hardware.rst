@@ -117,7 +117,7 @@ Data Sheet
 * :download:`地磁传感器:MMC5983MA </../datasheet/MMC5983MA.pdf>`
 * :download:`OLED：128x64 </../datasheet/1.30-SPEC QG-2864KSWLG01 VER A.pdf>`
 
-外观规格图
+Mechanical Drawing
 +++++++++++++++++
 
 * :download:`mPython掌控板v2.0外观规格图 </../datasheet/掌控板V2.0-3D-2D图档-20200102.rar>`
