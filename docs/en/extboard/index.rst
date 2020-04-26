@@ -1,4 +1,4 @@
-掌控拓展板
+mPython Expansion Board
 ========
 
 .. toctree::
