@@ -1,37 +1,37 @@
 .. _extboard_introduce:
 
-掌控拓展板介绍
+mPython Expansion Board Introduction
 ================
 
-概述
+Overview
 ----
 
-掌控拓展板(parrot)是掌控板衍生的一款体积小巧、易于携带的拓展板。支持电机驱动、语音播放、语音合成等功能的IO引脚扩展板,可扩展12路IO接口和2路I2C接口。
-通过连接掌控板，带来更加丰富多元的物联网应用与编程体验，你的奇思妙想也将进一步获得延伸，激发你的创意，造起来！
+This mPython Expansion Board (or PARROT as named in Library) is a handy and portable, exquisitely designed as the extension for mPython Board. The 12x I/O interface and 2x I2C interface enable its' extension capability to supports unique functions: motor drive, audio playback, speech synthesis and others. unique functions. Expandable 12 channel IO interface and 2 channel I2C interface.
+Thus, expand its' connectivity for the diversify IoT application and enhance programming experiences. It realize your ideas, stimulate your creativenesss and imagination.LET‘S CREATE.
 
 .. image:: /../images/extboard/extboard.png
 
 
-技术参数
+Technical Data
 -------
 
-该板具有以下特性:
+Characteristics:
 
-    - 两路DC马达驱动,单路电流150mA
-    - 支持音频功放和喇叭输出(掌控板P8，P9引脚)
-    - 支持文字转语音(Text To Speech)的语音合成
-    - 扩展12路IO接口、2路I2C接口
-    - 体积小巧、便携,易于携带
-    - 支持锂电池供电和外接USB电源供电两种方式
-    - 内置330mAH锂电池,支持锂电池循环充电
-    - 工作电压:3.3V
-    - 最大输出电流: `1A@3.3V`
-    - 充电电流: 最大170mA 
+    - 2 ways DC Motor driver, 150mA single way.
+    - Audio power amplifier and speaker output(mPython Board P8，P9 pin)
+    - Speech Synthesis (Text To Speech)
+    - Expansion interface of 12x I/O and 2x I2C
+    - Exquisite, handy and portable
+    - Built-in Lithium Battery or external power input via USB
+    - Built-in rechargeable 330mAH lithium battery
+    - Operating Voltage:3.3V
+    - Current: `1A@3.3V` (Max)
+    - Charging current: 170mA (Max) 
     
 
 
 
-接口说明
+Interface denote
 --------
 
 .. figure:: /../images/extboard/parrot_description.png
@@ -39,73 +39,73 @@
     :align: center
 
 
-- 电源指示灯状态: 
+- Power indicator status: 
 
-    - v1版本
-        - 电源输出指示功能: 3.3V输出,指示灯亮;无输出则灭。
+    - v1 version
+        - Power output indicator: 3.3V supplied, indicator lights ON; if not, the indicator goes OFF.
 
-    - v2版本
-        - 电源输出指示功能: 3.3V输出,指示灯亮;无输出则灭。
-        - 电池电量指示功能: 通过闪烁次数反馈电量,4档电量显示。
+    - v2 version
+        - Power output indicator: 3.3V supplied, indicator lights ON; if not, the indicator goes OFF.
+        - Battery charging indicator: light flashing to indicates the level of charging (total: 4 levels).
 
-- 充电指示灯状态: 
+- Charging indicator status: 
 
-    - v1版本 
-        注意:只能在电源开关打开下,才能指示充电放电状态。
+    - v1 version 
+        Note: the charging and discharging state would only be indicated when the power switch is on.
 
-        - 充电指示功能: 充电中,指示灯亮；充满,指示灯熄灭；
-        - 放电指示功能: 通过指示灯闪烁次数来反馈电池电量。频率越快电量越低,电量满时,常亮。
+        - Charging indicator: during charging, the indicator light is on; when fully charged, the indicator light is off.
+        - Discharge indicator function: the battery power is indicated the rate of the indicator flashes. Higher rate indicates the lower power. Lights ON without indicate it is fully charged.
 
-    - v2版本
-        - 充电指示功能: 充电中,指示灯闪烁；充满,指示灯熄灭；
+    - v2 version
+        - Charging indicator function: during charging, the indicator flashes; when it is full, the indicator goes OFF
+        
+- VCC: the differences with VCC supply and other 3.3V supply. To provide higher than 3.3V for application that require higher voltage and current. Power management, VCC supplied by built-in Lithium battery but when the USB is connected, it will override the VCC supply.
 
-- VCC: VCC电源区别与其他3.3V电压电源。提供3.3V以上更高的电压和更大的电流驱动。用于应付较大的驱动需求。电源路径管理,当没接USB充电时,VCC由电池电压直接提供；接上USB充电时,VCC由USB提供电源。
-
-安装说明
+DIY assembly guide
 -----------
 
-掌控板和掌控拓展板都有3个孔，通过3个铜柱将两板连接连接，拧上螺丝固定，套入软质外壳即可，如图所示。
+Both the mPython Board and Expansion Board have identical three holes. Connect the two boards via the three copper hexagonal rod and fasten it with screws provided, thereafter fix the protective silicon rubber cover as shown in the assembly diagram below.
 
 .. figure:: /../images/extboard/parrot_install.png
     :scale: 70 %
     :align: center
 
-    安装图
+    Assembly diagram
 
 
-使用说明
+User guide
 ----------
 
-功能说明
+Features illustration
 +++++++++
 
 
-**电机驱动**
+**Motor Drive**
 
-    掌控拓展板支持2路的PWM电机驱动(掌控拓展板背面标记M1和M2)，你可以接入直流电机马达(如TT马达、N20)和LED灯(满天星灯带)
+   The 2x PWM motor drive (marked as M1 and M2 on the mPython Expansion Board), connect it directly to external DC Motor or LED stripe/array.
 
 
 **I/O**
 
-    掌控拓展板左右两侧扩展出12路I/O接口、2路I2C接口。可以通过这些接口接入经典的传感器输入模块，输出模块。例如：按键、人体红外、超声波、LED、马达、蜂鸣器、数码管......
-    拓展板扩展引脚有P0、P1、P2、P3、P5、P6、P7、P11、P13、P14、P15、P16、P19(SCL)、P20(SDA)
+    Connect those input sensors modules or output hardware modules, for example: PIR, Ultrasonic, LED, Button, Motor, BUzzer......
+    Expansion pins are: P0、P1、P2、P3、P5、P6、P7、P11、P13、P14、P15、P16、P19(SCL)、P20(SDA)
 
 .. Important:: 
-    由于P5、P11是掌控板的按键A、B的IO引脚,为避免冲突,限定拓展板的P5、P11引脚只能用于数字电平输入,且拓展板会对输入电平进行翻转。在使用时,须重点注意！
+    Be aware: Not to use the digital input P5 and P11 to avoid conflict as it was dedicated for USER A and B switch.
 
-**喇叭—音频播放**
+**Speaker-Audio Playback**
 
-    掌控拓展板内置喇叭,支持音频播放。
-
-
-**语音合成(TTS)**
-
-    将文本转化为文字，让机器能够说话。这样就可以给掌控板添上“嘴巴”。比如在程序内输入你想要说话的内容，让它说给你听。
+    Built-in speaker to support audio playback.
 
 
-Python库
+**Speech Synthesis (TTS)**
+
+    Converts normal language text into speech. Enter the text contents and let the built-in speaker speak it out.
+
+
+Python Library
 +++++++++
 
-- :mod:`parrot` 模块 : 用于电机驱动功能
-- :mod:`audio` 模块 : 用于音频播放功能
+- :mod:`parrot` module : for motor drive function
+- :mod:`audio` module : for audio playback function
 
