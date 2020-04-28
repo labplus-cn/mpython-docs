@@ -1,146 +1,145 @@
 .. _extboard_tutorials:
 
-拓展板入门教程
+Tutorials
 ============
 
-本章节将讲解掌控拓展板parrot基本的使用,如电机驱动、语音播放、TTS语音合成等功能。有关,掌控拓展板技术参数详细说明,请查阅 :ref:`掌控拓展板介绍 <extboard_introduce>` 章节。  
+This chapter will explain the basic use of mPython Expansion Board: Motor Drive, Audio Playback, TTS Speech Synthesis. For technical parameter details, refers to :ref:`mPython Expansion Board Introduction <extboard_introduce>` chapter.  
 
 .. image:: /../images/extboard/extboard_back.png
 
 
-电机驱动
+Motor Drive
 -------
 
-拓展板支持2路的PWM电机驱动,你可以使用直流电机马达,如TT马达,N20等。
+It supports 2-way PWM motor drive for use of DC motor, such as TT motor, N20.
 
-下面讲解,使用电机如何编程
+Programming
 
-首先导入parrot模块::
+First, import the parrot module::
 
     import parrot
 
-M1、M2,正转速度设为80::
+M1、M2 set forward speed as 80::
 
-    import parrot                           # 导入parrot 模块
+    import parrot                           # import parrot module
 
-    parrot.set_speed(parrot.MOTOR_1,80)       #  设置M1正转,速度为80
-    parrot.set_speed(parrot.MOTOR_2,80)       #  设置M2正转,速度为80
+    parrot.set_speed(parrot.MOTOR_1,80)       #  set M1 forward speed as 80
+    parrot.set_speed(parrot.MOTOR_2,80)       #  set M2 forward speed as 80
 
-反转::
+Reverse::
 
-    parrot.set_speed(parrot.MOTOR_1,-80)      #  设置M1反转,速度为80
-    parrot.set_speed(parrot.MOTOR_2,-80)      #  设置M2反转,速度为80
+    parrot.set_speed(parrot.MOTOR_1,-80)      #  set M1 reverse speed as 80
+    parrot.set_speed(parrot.MOTOR_2,-80)      #  set M2 reverse speed as 80
 
-停止::
+Stop::
 
-    parrot.set_speed(parrot.MOTOR_1,0)        # 停止
-    parrot.set_speed(parrot.MOTOR_2,0)        # 停止
-
-
-控制电机速度使用到函数 ``set_speed(motor_no, speed)`` 。``motor_no`` 参数为电机编号,可选编号常量有 ``MOTOR_1`` 、``MOTOR_2`` 。 ``speed`` 参数为速度,范围-100~100,正值表示正转,负值时表示负转。
-当某些时候你需要知道当前设置的速度值,你可以用 ``get_speed(motor_no)`` 返回当前电机速度。
+    parrot.set_speed(parrot.MOTOR_1,0)        # stop
+    parrot.set_speed(parrot.MOTOR_2,0)        # stop
 
 
-音频播放
+Function used to control the motor speed ``set_speed(motor_no, speed)`` 。``motor_no`` The parameter is the motor number, and the optional number constants are ``MOTOR_1`` 、``MOTOR_2`` 。 ``speed`` parameter are speed, range -100~100, +ve value means forward rotation, -ve value for backwards rotation.
+To check the current speed setting   ``get_speed(motor_no)`` return to current motor speed.
+
+
+Audio Playback
 -------
 
-拓展板内置扬声器,支持wav、MP3格式为音频播放。可以播放掌控板文件系统的音频,或者网络的音频资源。
+The built-in speaker supports wav、MP3 format for playback of those audio files in the mPython Board or others from networks. 
 
-
-播放本地音频
+Local Audio Playback
 +++++++
 
 .. Attention:: 
 
-    播放本地mp3音频由于受micropython文件系统限制和RAM大小限制,当文件大于1M基本很难下载下去。所以对音频文件的大小有所限制,应尽可能的小。
+   Playing local MP3 audio is limited by the file system and ram size of micropython. When the file is larger than 1MB, it is difficult to download. As the size of the audio file is limited and should be as small as possible.
 
-首先,将 :download:`音频素材</../../examples/extboad_audio.rar>` 上传至掌控板的文件系统。
+To download :download:`</../../examples/extboad_audio.rar>` upload to the mPython Board file system.
 
 
-首先导入audio模块::
+First, import the audio module::
 
     import audio
 
 
-播放本地mp3音频::
+Play local MP3 audio::
 
-    import audio                            # 导入audio对象
-    audio.player_init()                     # 播放初始化
-    audio.play("music_1.mp3")               # 播放"music_1.mp3"音频
+    import audio                            # import audio object
+    audio.player_init()                     # play initialization
+    audio.play("music_1.mp3")               # play "music_1.mp3"
 
 .. Hint:: 
 
-    可在以下网站获取自己需要的音频。注意，最终上传至文件系统上的音频还需要压缩下，减低文件大小！
+    You can get the audio you need at the below website. Note: the uploading file to be compressed to reduce the file size!
 
-    * 音效素材：http://www.aigei.com/sound/
-    * 音频压缩：https://online-audio-converter.com/cn/
+    * Audio Sound Effects：http://www.aigei.com/sound/
+    * Audio Converter：https://online-audio-converter.com/cn/
 
 
-播放本网络音频
+Play network audio files
 ++++++++++++
 
-要播放网络上mp3音频文件，需要知道音频的URL地址。目前，大部分的音乐网受版权保护，并不直接提供音乐的URL，你可以通过一些插件爬取音频的URL地址。
+To play MP3 audio files on the network, needs to know their URL (web address). But currently most music networks are protected by copyright and don't provide their URL. You may search through use of some plug-ins to locate their URL.
 
 
 .. literalinclude:: /../../examples/audio/audio_play.py
-    :caption: 播放MP3音频
+    :caption: play MP3 audio
     :linenos:
 
 .. Note:: 
 
-    掌控板需要确保连接网络通畅。URL必须是完整的网络地址，否则无法解析。
+    Maintain stable network connectivity of mPython Board with the URL full web address.
+    
+The ``audio`` module use the audio decoding function of  ``audio.play(url)``, the parameter of ``url`` can be the path or network URL address of the local file system of the audio source. For the detail application of ``audio`` module audio decoding function, please refer to:
+:ref:`audio chapter <audio>` 。
 
-音频解码功能使用到 ``audio`` 模块的 ``audio.play(url)`` 函数, ``url`` 参数可以为音源的本地文件系统的路径或网络URL地址。有关 ``audio`` 模块更详细使用,请查阅
-:ref:`audio章节<audio>` 。
-
-语音合成(TTS)
+Speech Synthesis (TTS)
 ------------
 
-TTS是Text To Speech的缩写，即“从文本到语音”，是人机对话的一部分，将文本转化问文字，让机器能够说话。
+TTS (Text To Speech), this is “from Text to Voice”，a big step of man-machine interaction. It transforms text into asking text so that the machine can speak.
 
-准备
+Get ready
 +++++
 
-掌控拓展板的在线语音合成功能是使用 `讯飞在线语音合成API <https://www.xfyun.cn/services/online_tts>`_  ，用户在使用该功能前，需要在讯飞开放平台注册并做相应的配置。
+The online speech synthesis function mPython Board used  `iflytek on;ine speech synthesis API <https://www.xfyun.cn/services/online_tts>`_ , To start, users need to register in iFLYTEK open platform and do the corresponding configuration.
 
-- 步骤1.在讯飞 https://www.xfyun.cn 注册账号。
+- Step 1. Register an account at https://www.xfyun.cn .
 
 .. image:: /../images/extboard/xfyun_1.png
     :scale: 80 %
 
 
-- 步骤2.创建新应用，应用平台选择"WebAPI"
+- Step 2. Create new application, on application platform select "WebAPI"
 
 .. image:: /../images/extboard/xfyun_2.gif
 
 
-- 步骤3.添加"在线语音合成"服务，且在程序中传入APPID、APIKey实例 ``TTS`` ，获取自己的公网IP(http://www.ip138.com)并添加到IP白名单。
+- Step3. Add "Online Speech Synthesis" service，enter into the program APPID、APIKey example ``TTS`` ，get your own public network IP(http://www.ip138.com) and add to IP White list.
 
 .. Attention:: 
 
-    * 在调用该业务接口时，授权认证通过后，服务端会检查调用方IP是否在讯飞开放平台配置的IP白名单中，对于没有配置到白名单中的IP发来的请求，服务端会拒绝服务。
-    * IP白名单，在 控制台-我的应用-相应服务的应用管理卡片上 编辑，保存后五分钟左右生效。
-    * 每个IP白名单最多可设置5个IP，IP为外网IP，请勿设置局域网IP。
+    * While processing and after granted authorization, the server will check whether the caller's IP is in the IP white list configured on iFLYTEK open platform, for caller's IP not configured to the white list, the server will decline service.
+    * IP White List, edit the application management card at the console - my application - corresponding service. It will take effect about five minutes after saving. 
+    * Each IP white list can be set up to 5 IP, which are Internet IP. Do not set LAN IP.
     
 .. image:: /../images/extboard/xfyun_3.gif
 
 
-文字转语音
+Text To Speech
 ++++++++
 
-.. Attention:: TTS功能依赖网络，使用是注意先连接网络并保持网络通畅！
+.. Attention:: TTS function depends on the network. connect to the network and pay attention to maintain the stable network connectivity!
 
 
 .. literalinclude:: /../../examples/audio/tts.py
-    :caption: TTS文字转语音示例
+    :caption: TTS, Text To Speech example
     :linenos:
 
 
 
 
-首先使用 ``ntptime.settime()`` 校准RTC时钟。然后 ``player_init()`` 初始化。用 ``xunfei_tts_config(api_key, appid )`` , ``appid`` , ``api_key`` 为必选参数,在讯飞平台的应用的APPID、API_KET 。然后使用 ``xunfei_tts(text)``
-将文本转为语音并播放。
+First, use  ``ntptime.settime()`` to calibrate RTC clock. Then ``player_init()`` initialize. Use ``xunfei_tts_config(api_key, appid )`` , ``appid`` , ``api_key`` as mandatory parameters, Application in the iFLYTEK platform APPID、API_KET. Finally apply ``xunfei_tts(text)``
+To turn this page from Text To Speech.
 
 
 
-TTS支持中英文的文本转换。你可以将你想要说话的内容，通过文本的形式转化为语音。这样你就可以给你掌控板添上“人嘴”，模拟人机对话场景。
+TTS supports text conversion between Chinese and English.  You can turn what you want to say into speech in the form of text. In this way, you can add "human mouth" to your mPython Board to simulate the human-computer conversation scene.
