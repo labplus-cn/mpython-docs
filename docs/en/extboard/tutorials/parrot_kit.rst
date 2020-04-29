@@ -1,5 +1,5 @@
 
-Python入门套装基础教程
+Python Starter Kit Set
 ====================
 
 .. _extboard_kit:
@@ -10,74 +10,72 @@ Python入门套装基础教程
 
 |
 |
-Python 入门套装含掌控板、掌控拓展板parrot、RGB光环板、直流电机、满天星灯带及blue:bit的(超声波，按键，颜色)模块等。可满足用户的python基础编程学习及DIY造物。
-本教程讲解套装内的模块基本的使用和编程。
+Python Starter Kit consist of mPython Board, mPython Expansion Board, RGB Halo Light，DC Motor，Rainbow LED Light and Labplus blue:bit Smart Sensors Modules (Ultrasonic, Color & Button). An ideal starter kit for Python Programming learning and DIY creation.
+Tutorial for basic application and programming of this starter kit.
+Kit set included:
 
-套装含:
-
-=============  =================== ====
- 名称           参数                数量
-掌控板                                1                      
-掌控拓展板                            1
-RGB光环板        24颗                 1
-超声波模块                            1
-颜色模块                              1                  
-按键模块                              1  
-RGB灯带                               1
-满天星LED灯条                         1 
-TT马达                                2
-舵机                                  1
-热敏电阻                              1  
-光敏电阻                              1  
-=============  =================== ====
-
+==============================     =====
+Item                                Qty
+mPython Board                        1                      
+mPython Expansion Board              1
+RGB Halo Light (24 LEDs)       1
+Ultrasonic Sensor Module             1
+Color Sensor Module                  1                  
+Button Module                        1  
+RGB Strip Light                      1
+Rainbow LED Light                    1 
+TT Motor                             2
+Servomotor                           1
+Thermistor                           1  
+Photoresistor                        1  
+==============================    =====
 
 
-掌控拓展板
+
+mPython Expansion Board
 ++++++++
 
-有关掌控板拓展板的基础使用可查阅 :ref:`拓展板入门教程<extboard_tutorials>`，这里不再作讲解。
+Please refer to :ref:`Expansion Board Tutorials<extboard_tutorials>`，for its' application details.
 
-拓展板的电机驱动为PWM输出。除了可以驱动马达外，还可以驱动本套件内的满天星灯带。
+It supports 2-way PWM motor drive for use of DC motor and also Rainbow LED Light.
 
 
 ::
 
-    import parrot                           # 导入parrot 模块
+    import parrot                           # import parrot module
 
-    parrot.led_on(parrot.MOTOR_1,50)        # 亮度为50%
+    parrot.led_on(parrot.MOTOR_1,50)        # set brightness at 50%
  
 
 
 
-RGB光环板
+RGB Halo Light
 +++++++++++
 
-它是由24颗LED WS2812 排列成外径71mm的圆环。这些灯是串联的(将一个输出引脚连接到另一个输入引脚)。只需要控制器一个引脚来控制！每个LED都可以寻址，因为驱动芯片在LED内部。
-每个LED都有18mA恒流驱动，所以即使电压变化，颜色也会非常一致。
-
+24x ws2812 LEDs uniformly arranged into a ring plate with an outer diameter of 71mm. Connected in series that require only 1 pin to communicate as the WS2811 driver were integrated in the LED. 
+These LED has a constant 18 mA current drive, so even if the voltage varies, the color will be very consistent.
 .. figure:: /../images/extboard/pixelRing.png
     :align: center
     :width: 250
 
-    光环板的WS2812顺时针排序，0~23
+    The WS2812 LED arranged in clockwise as 0~23
 
-有关neopixel用法，可查阅 :ref:`RGB LED-外部灯带<neopixel_strip>`  章节 和 :ref:`neopixel<neopixel>` 模块 ，此处不再重复。
+For use of neopixel refers to:ref:`RGB LED-external strip light<neopixel_strip>`  chapter and :ref:`neopixel<neopixel>` module.
 
-除 ``neopixel`` 模块外,mPython掌控板还提供 ``ledstrip`` 模块(neopixel增强版)，封装多种显示效果，使用简单。 
+Other than ``neopixel`` module, mPython Board also provide ``ledstrip`` module (neopixel enhance version)，Packaed with multiple display effects and it is easy to use. 
 
-| *mPython-ledstrip库:* `awesome-mpython/libary/ledstrip <https://github.com/labplus-cn/awesome-mpython/tree/master/library/ledstrip>`_
+| *mPython-ledstrip library:* `awesome-mpython/libary/ledstrip <https://github.com/labplus-cn/awesome-mpython/tree/master/library/ledstrip>`_
 
 
 
-使用前，先将ledstrip.py拷至掌控板::
+To begin, copy ledstrip.py to mPython Board::
 
-    from ledstrip import *                      # 导入ledstrip
-    from machine import Pin                     # 导入machine的Pin类
+    from ledstrip import *                      # import ledstrip
+    from machine import Pin                     # import Pin to machine
 
-    strip=LedStrip(pin=Pin.P15,n=24,brightness=0.5)     # 实例LedStrip,引脚P15，灯数24，亮度50%
+    strip=LedStrip(pin=Pin.P15,n=24,brightness=0.5)     # sample LedStrip, Pin P15，Led qty 24，Brightness 50%
 
-    # 以下为不同效果演示
+    # List of different effects
     print("rainbow")
     strip.rainbow()  
     print("rainbow_cycle")
@@ -102,84 +100,84 @@ RGB光环板
     for i in  range(5):
         strip.meteorRain((100,100,100),8,60,True,20)
 
-blue:bit模块
+blue:bit module
 +++++++++++
 
-有关blue:bit模块的基本的使用方法，可查阅wiki了解。有关 blue:bit 模块说明,请查阅 :mod:`bluebit` 模块 API说明。
+For the basic application of Blue:bit modules, see Wiki for details. For a description of the blue: bit module, please refer to the: Mod: 'bluebit' module API guide.
 
-- *bluebit套装Wiki*：http://wiki.labplus.cn/index.php?title=Bluebit
+- *bluebit set Wiki*：http://wiki.labplus.cn/index.php?title=Bluebit
 
-按键模块
+Button Module
 ~~~~~~
 
-按键模块的 ``Do`` 连接到拓展板的 ``P5`` ；``VCC`` 、``GND`` 分别连接至掌控板的 ``3.3V`` 、``GND`` ::
+Connect ``Do`` of Button Module to mPython Board ``P5`` ；and its' ``VCC`` 、``GND`` connect to ``3.3V`` 、``GND`` respectively::
 
-    from mpython import *           # 导入mpython模块
+    from mpython import *           # import mpython module
 
-    p5=MPythonPin(5,PinMode.IN)     # 实例化MPythonPin,将按键a引脚(P5)设置为"PinMode.IN"模式
+    p5=MPythonPin(5,PinMode.IN)     # instantiate MPythonPin, button module pin a (P5) set as "PinMode.IN" mode
 
     while True:
-        value=p5.read_digital()      # 读取P5引脚的数字输入
-        oled.DispChar("Button:%d" %value,30,20)   # 将读取到值显示至oled上
-        oled.show()                                  # 刷新
-        oled.fill(0)                                 # 清屏
+        value=p5.read_digital()      # Read the digital input of pin P5
+        oled.DispChar("Button:%d" %value,30,20)   # Display the read value on the OLED
+        oled.show()                                  # Refresh
+        oled.fill(0)                                 # Clear screen
 
 
 
-按键模块，当按键按下Do输出高电平，未按则低电平。有关掌控板引脚的数字输入，请查阅 :ref:`引脚-数字输入<digital_io>` 章节。
+The Button module when pressed, Do to output high level, and vice versa. 按键模块，当按键按下Do输出高电平，For the digital input of the control board pin, refers to :ref:`pin-digital input<digital_io>` chapter。
 
-超声波模块
+Ultrasonic Sensor Module
 ~~~~~~
 
-超声波模块的 ``TRIG``、``ECHO`` 连接到拓展板的 ``SCL`` 、``SDA`` ；``VCC`` 、``GND`` 分别连接至拓展板的 ``3.3V`` 、``GND`` ::
+Connect the ``TRIG``、``ECHO`` of the Ultrasonic module to the ``SCL`` 、``SDA`` of the mPython Expansion Board ；and ``VCC`` 、``GND`` to ``3.3V`` 、``GND`` respectively ::
 
-    from bluebit import *               # 导入bluebit
-    from mpython import *               # 导入mpython
+    from bluebit import *               # import bluebit
+    from mpython import *               # Import mpython
 
-    ultr=Ultrasonic()                   # 实例Ultrasonic类
+    ultr=Ultrasonic()                   # instantiate Ultrasonic array
 
     while True:
-        data=ultr.distance()                    # 读取超声波测距值
-        oled.DispChar("超声波：%d" %data,30,20)  # oled显示数据
-        oled.show()                             # 刷新
-        oled.fill(0)                            # 清屏
+        data=ultr.distance()                    # Read the ultrasonic distance measurement value
+        oled.DispChar("ultrasonic：%d" %data,30,20)  # oled display data 
+        oled.show()                             # Refresh
+        oled.fill(0)                            # Clear screen
 
-颜色模块
+Color Sensor Module
 ~~~~~~
 
-颜色模块的 ``SCL``、``SDA`` 连接到拓展板的 ``SCL`` 、``SDA`` ；``VCC`` 、``GND`` 分别连接至拓展板的 ``3.3V`` 、``GND`` ::
+Connect the  ``SCL``、``SDA`` to the Color Module to the ``SCL`` 、``SDA`` of the mPython Expansion Board ；and ``VCC`` 、``GND`` to  ``3.3V`` 、``GND`` respectively::
 
-    from bluebit import *               # 导入bluebit
-    from mpython import *               # 导入mpython
+    from bluebit import *               # import bluebit
+    from mpython import *               # import mpython
 
-    color=Color()                       # 实例Color类
+    color=Color()                       # instantiate Color array
 
     while True:
-        c=color.getRGB()                # 获取颜色的RGB值，返回(r,g,b)数组
-        oled.DispChar("R:%d,G:%d,B:%d" %(c[0],c[1],c[2]),10,20)   # oled显示数据
-        print(c)                                                # 打印RGB值
-        oled.show()                                             # 刷新
-        oled.fill(0)                                            # 清屏
-        sleep_ms(500)                                           # 延时
+        c=color.getRGB()                # Get RGB value of color, back to (r,g,b) array
+        oled.DispChar("R:%d,G:%d,B:%d" %(c[0],c[1],c[2]),10,20)   # oled display data
+        print(c)                                                # print RGB value
+        oled.show()                                             # Refresh
+        oled.fill(0)                                            # Clear screen
+        sleep_ms(500)                                           # Delay
 
 
-颜色模块工作时，rgb灯会发出RGB颜色的光，将被测物体置于距颜色传感器1CM左右，通过被测物反射回来的颜色光线来测量物体的颜色。
-由于颜色传感器受外界光线影响大，使用是需要注意光线因素，避免影响测试数据。``getRGB()`` 是 ``Color`` 类的获取被测物颜色的rgb的方法，你还可以使用 ``getHSV()`` 获取被测物的HSV颜色值。
+When Color Sensor operate，LED will emit RGB color light. Locate the object about 1cm away from the color sensor, Color Sensor measure the color based on the color light reflected back from the object.
+Pay attention and avoid measurement error due to ambient light factors, as it has an effect on the Color Sensor. ``getRGB()`` is to getting ``Color`` of the object measured OR to use ``getHSV()`` to get the HSV color value of the object measured.
 
 
-光/热敏电阻
+Photoresistor/Thermistor
 ++++++++++
 
-光敏、热敏电阻为阻性元件，阻值与环境的光、热呈某些关系变化。由此，我们可以通过测量电阻的电压变化，来感知外界环境的变化！
+Both was resistive are of resistive elements, the resistance changes with the light and heat of the environment. Therefore, we can sense the change of external environment by measuring the voltage change due to its' resistance changes！
 
 
-通过鳄鱼夹线将阻性元件(如光敏、热敏电阻)接到掌控板的 ``EXT`` 和 ``GND`` 焊盘，读取P3引脚的模拟输入::
+Use Alligator clip to connect external resistive component (such as photoresistor, thermistor) to the ``EXT`` and ``GND`` of the mPython Board solder pad via alligator clip. Read the analog input of P3 pin::
 
-    from mpython import *           # 导入mpython模块
+    from mpython import *           # import mpython module
 
-        p3=MPythonPin(3,PinMode.ANALOG)     # 实例化MPythonPin,将P3设置为"PinMode.ANALOG"模式
+        p3=MPythonPin(3,PinMode.ANALOG)     # instantiate MPythonPin, set P3 as "PinMode.ANALOG" mode
         while True:
-            value=p3.read_analog()          # 读取EXT(P3)引脚模拟量
+            value=p3.read_analog()          # Read the analog value of ext (P3)
             oled.DispChar("analog:%d" %value,30,20)
             oled.show()
             oled.fill(0)
@@ -189,9 +187,9 @@ blue:bit模块
     :align: center
 
 
-.. Hint:: 有关掌控板引脚的模拟输入详细的使用，请查阅 :ref:`引脚-模拟输入<analog_in>` 章节。
+.. Hint:: For application of the analog input of mPython Board in details, refers to  :ref:`Pin-Analog input<analog_in>` chapter.
 
-舵机
+Servomotor
 ++++
 
-有关掌控板驱动舵机的详细教程，请查阅 :ref:`舵机教程<servo_classic>` 章节。
+Detailed tutorial on steering gear driven by mPython Board, refers to :ref:`servo tutorial<servo_classic>` chapter。
