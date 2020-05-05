@@ -9,9 +9,8 @@ For better compatibility, users could choose to write the Python module module e
 On the embedded platform, python Encapsulation Library can be added to achieve compatibility naming with Cpython.
 The path of "non-u-name" packaged files was rewritable.
 
-For example: for "import json"，First, to search and load the 'JSON. Py' file or 'JSON' directory.
-If not, then go back to load the built-in 'ujson' module.
-
+For example: for ”import json“，First, to search and load the “JSON. Py” file or “JSON” directory.
+If not, then go back to load the built-in “ujson” module.
 
 
  .. toctree::
