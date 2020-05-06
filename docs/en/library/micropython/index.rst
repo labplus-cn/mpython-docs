@@ -1,9 +1,9 @@
 .. _microPythonModu:
 
-MicroPython类库
+MicroPython Class Library
 ===============
 
-以下库中提供了特定于MicroPython-ESP32实现的功能。
+The following libraries provide features specific to the implementation of micropython-esp32.
 
 
 .. toctree::
