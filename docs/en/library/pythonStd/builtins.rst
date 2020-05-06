@@ -1,11 +1,11 @@
-:mod:`Builtin` -- 内建函数和异常
+:mod:`Builtin` --Builtins functions and exceptions 内建函数和异常
 ================================
 
-此处描述了所有内置函数和异常。它们也可通过 ``builtins`` 模块获取。
+All built-in functions and exceptions are described here. They can also be obtained through the ``builtins`` module.
 
 
 
-函数
+Function
 -------------------
 
 .. function:: abs()
@@ -17,9 +17,9 @@
 
 .. function:: all()
 
-如果 `iterable` 的所有元素为真（或迭代器为空），返回 `True` 。
+If all elements of `iterable` are true (or the iterator is empty), return to  `True` .
 
-等价于::
+Equivalent to::
 
     def all(iterable):
         for element in iterable:
@@ -29,9 +29,9 @@
 
 .. function:: any()
 
-如果 `iterable` 的任一元素为真则返回 `True` 。 如果迭代器为空，返回 `False` 。
+If any element of `iterable` is true, return `True`  . If the iterator is empty, return to `False` .
 
-等价于::
+Equivalent to::
 
     def any(iterable):
         for element in iterable:
@@ -41,7 +41,7 @@
 
 .. function:: bin()
 
-将一个整数转变为一个前缀为“0b”的二进制字符串。
+Convert an integer to a binary string prefixed with “0b” .
 
 ::
 
@@ -52,7 +52,7 @@
 
 .. class:: bool()
 
-用于将给定参数转换为布尔类型，如果没有参数，返回 `False` 。
+Used to convert a given parameter to a boolean type. If there is no parameter, return `False` .
 
 ::
 
@@ -68,7 +68,7 @@
 
 .. class:: bytearray()
 
-返回一个新的 bytes 数组。 bytearray 类是一个可变序列，包含范围为 0 <= x < 256 的整数。
+Return to a new bytes array. The byte array class is a variable sequence that contains integers in the range 0 < = x < 256.
 
 ::
 
@@ -82,7 +82,7 @@
 
 .. class:: bytes()
 
-bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 区间内的整数不可变序列。它是 bytearray 的不可变版本。参见CPython文档： `bytes <https://docs.python.org/3.5/library/functions.html#bytes>`_
+The bytes function returns a new bytes object, which is an immutable sequence of integers in the range 0 < = x < 256. It is an immutable version of byte array. See CPython document： `bytes <https://docs.python.org/3.5/library/functions.html#bytes>`_
 
 ::
 
@@ -102,7 +102,7 @@ bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 �
 
 .. function:: callable()
 
-函数用于检查一个对象是否是可调用的。如果返回 True，object 仍然可能调用失败；但如果返回 False，调用对象 object 绝对不会成功。
+Function to check whether an object is callable. If true is returned, the object called may still fail; however, if false is returned, the object called will never succeed.
 
 ::
 
@@ -114,16 +114,16 @@ bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 �
     >>> def add(a, b):
     ...     return a + b
     ... 
-    >>> callable(add)             # 函数返回 True
+    >>> callable(add)             # function return True
     True
-    >>> class A:                  # 类
+    >>> class A:                  # class
     ...     def method(self):
     ...             return 0
     ... 
-    >>> callable(A)               # 类返回 True
+    >>> callable(A)               # class return True
     True
     >>> a = A()
-    >>> callable(a)               # 没有实现 __call__, 返回 False
+    >>> callable(a)               # not realized __call__, return False
     False
     >>> class B:
     ...     def __call__(self):
@@ -132,12 +132,12 @@ bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 �
     >>> callable(B)
     True
     >>> b = B()
-    >>> callable(b)               # 实现 __call__, 返回 True
+    >>> callable(b)               # realized __call__, return True
     True
 
 .. function:: chr()
 
-返回 `Unicode` 码为整数 `i` 的字符的字符串格式。
+Returns the string format of the character whose 'Unicode'  `Unicode` code is an integer 'I' .
 
 ::
 
@@ -150,25 +150,25 @@ bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 �
 
 .. decorator:: classmethod()
 
-把一个方法封装成类方法。
+Encapsulate method.
 
-一个类方法把类自己作为第一个实参，就像一个实例方法把实例自己作为第一个实参。请用以下习惯来声明类方法::
+A class method take itself as the first argument, just like an instance example itself as the first argument. Be accustomed to use the following declare class methods::
 
     class C:
         @classmethod
         def f(cls, arg1, arg2, ...): ...
 
-@classmethod 这样的形式称为函数的 decorator。类方法的调用可以在类上进行 (例如 C.f()) 也可以在实例上进行 (例如 C().f())。 
-其所属类以外的类实例会被忽略。 如果类方法在其所属类的派生类上调用，则该派生类对象会被作为隐含的第一个参数被传入。
+@classmethod is a form called the decorator of a function. Class methods can be called on a class (for example, c.f()) or on an instance (for example, c(). F()).
+Class instances other than the class to which they belong will be ignored. If the class method is invoked on the derived class of its class, The derived class object is passed in as the implied first parameter.
 
 .. function:: compile(source, filename, mode[, flags[, dont_inherit]])
 
-将一个字符串编译为字节代码。详细内容参见CPython文档： `compile <https://docs.python.org/zh-cn/3.7/library/functions.html#compile>`_
+Compile a string into bytecode. For details. refers to CPython document： `compile <https://docs.python.org/zh-cn/3.7/library/functions.html#compile>`_
 
 ::
 
     >>>str = "for i in range(0,10): print(i)" 
-    >>> c = compile(str,'','exec')   # 编译为字节代码对象 
+    >>> c = compile(str,'','exec')   # Compile to bytecode object 
     >>> c
     <code object <module> at 0x10141e0b0, file "", line 1>
     >>> exec(c)
@@ -189,29 +189,28 @@ bytes 函数返回一个新的 bytes 对象，该对象是一个 0 <= x < 256 �
 
 .. class:: complex([real[, imag]])
 
-返回值为 real + imag*1j 的复数，或将字符串或数字转换为复数。如果第一个形参是字符串，则它被解释为一个复数，并且函数调用时必须没有第二个形参。第二个形参不能是字符串。每个实参都可以是任意的数值类型（包括复数）。
-如果省略了 imag，则默认值为零，构造函数会像 int 和 float 一样进行数值转换。如果两个实参都省略，则返回 0j。
-
+Returns a complex number with a value of real + imag * 1J, or converts a string or number to a complex number. If the first parameter is a character string, it is interpreted as a complex number and must be called without a second parameter. The second parameter cannot be a character string. Each argument can be of any numeric type (including complex numbers).
+If imag is omitted, the default value is zero, and the constructor performs numerical conversion like int and float. If both arguments are omitted, 0j is returned.
 
 ::
 
     >>>complex(1, 2)
     (1 + 2j)
     
-    >>> complex(1)    # 数字
+    >>> complex(1)    # number
     (1 + 0j)
     
-    >>> complex("1")  # 当做字符串处理
+    >>> complex("1")  # Treat as string
     (1 + 0j)
     
-    # 注意：这个地方在"+"号两边不能有空格，也就是不能写成"1 + 2j"，应该是"1+2j"，否则会报错
+    # Note：Not to have spaces on both sides of the "+" sign, otherwise, an error will be reported这个地方在"+"号两边不能有空格，it cannot be written as "1 + 2j". To avoid error, it should be written as "1+2j".
     >>> complex("1+2j")
     (1 + 2j)
 
 .. function:: delattr(obj, name)
 
-setattr() 相关的函数。实参是一个对象和一个字符串。该字符串必须是对象的某个属性。如果对象允许，该函数将删除指定的属性。
-例如 delattr(x, 'foobar') 等价于 del x.foobar 。
+setattr() Related functions. An argument is an object and a string. The string must be a property of the object. If the object allows it, the function deletes the specified property.
+Such as delattr(x, 'foobar') equivalent to del x.foobar .
 
 ::
 
@@ -228,11 +227,11 @@ setattr() 相关的函数。实参是一个对象和一个字符串。该字符�
     
     delattr(Coordinate, 'z')
     
-    print('--删除 z 属性后--')
+    print('--delete z after attribute--')
     print('x = ',point1.x)
     print('y = ',point1.y)
     
-    # 触发错误
+    # Trigger error
     print('z = ',point1.z)
 
 ----------------------------------------------------------------
@@ -241,43 +240,42 @@ setattr() 相关的函数。实参是一个对象和一个字符串。该字符�
 .. class:: dict(mapping, **kwarg)
 .. class:: dict(iterable, **kwarg)
 
-- ``**kwargs`` -- 关键字
-- ``mapping`` -- 元素的容器。
-- ``iterable`` -- 可迭代对象。
+- ``**kwargs`` -- keyword
+- ``mapping`` -- element container.
+- ``iterable`` -- iteratable object.
 
-dict() 函数用于创建一个字典
+dict() Function to create a dictionary
 
 ::
 
-    >>>dict()                        # 创建空字典
+    >>>dict()                        # Create an empty dictionary
     {}
-    >>> dict(a='a', b='b', t='t')     # 传入关键字
+    >>> dict(a='a', b='b', t='t')     # enter keyword字
     {'a': 'a', 'b': 'b', 't': 't'}
-    >>> dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # 映射函数方式来构造字典
+    >>> dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # Mapping function mode to construct dictionary
     {'three': 3, 'two': 2, 'one': 1} 
-    >>> dict([('one', 1), ('two', 2), ('three', 3)])    # 可迭代对象方式来构造字典
+    >>> dict([('one', 1), ('two', 2), ('three', 3)])    # Iterative object method to construct the dictionary
     {'three': 3, 'two': 2, 'one': 1}
     >>>
 
 
 .. function:: dir(object)
 
-dir() 函数不带参数时，返回当前范围内的变量、方法和定义的类型列表；带参数时，返回参数的属性、方法列表。
-如果参数包含方法__dir__()，该方法将被调用。如果参数不包含__dir__()，该方法将最大限度地收集参数信息。
-
-- ``object`` -- 对象、变量、类型。
+dir() When a function has no parameters, it returns the list of variables, methods and defined types in the current range; when it has parameters, it returns the list of properties and methods of parameters.
+If the parameter contains  __dir__()，if it doesn't contains __dir__()，This method will maximize the collection of parameter information.
+- ``object`` -- object, variable, type.
 
 
 .. function:: divmod()
 
-它将两个（非复数）数字作为实参，并在执行整数除法时返回一对商和余数。对于混合操作数类型，适用双目算术运算符的规则。
-对于整数，结果和 (a // b, a % b) 一致。对于浮点数，结果是 (q, a % b) ，q 通常是 math.floor(a / b) 但可能会比 1 小。
-在任何情况下， q * b + a % b 和 a 基本相等；如果 a % b 非零，它的符号和 b 一样，并且 0 <= abs(a % b) < abs(b) 。
+It takes two (non complex) numbers as arguments and returns a pair of quotients and remainder when integer division is performed. Mixed operand type, applicable to the rules of higher arithmetic operators. 
+For integers, results are consistent with (a // b, a % b). For floating-point numbers, the result is (q, a % b) ，q is usually math.floor(a / b) but it might be smaller than 1.
+In any case, Q * B + a% B and a are basically equal; if a% B is not zero, Its symbol is the same as B, and 0 < = ABS (a% B) < ABS (b).
 
 ::
 
     >>> divmod(7, 2)
-    (3, 1)
+    (3, 1)h
     >>> divmod(8, 2)
     (4, 0)
     >>> divmod(8, -2)
@@ -287,10 +285,10 @@ dir() 函数不带参数时，返回当前范围内的变量、方法和定义�
 
 .. function:: enumerate(sequence, [start=0])
 
-enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
+enumerate() Function is used to combine a traversable data object (such as a list, tuple or string) into an index sequence, and list data and data subscripts. It is generally used in for loop.
 
-- ``sequence`` -- 一个序列、迭代器或其他支持迭代对象。
-- ``start`` -- 下标起始位置。
+- ``sequence`` -- A sequence, iterator, or other object that supports iteration.
+- ``start`` -- Subscript start position.
 
 ::
 
@@ -304,11 +302,11 @@ enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或�
 
 .. function:: eval(expression[, globals[, locals]])
 
-eval() 函数用来执行一个字符串表达式，并返回表达式的值。
+eval() Function to execute a string expression and return the value of the expression.
 
-- ``expression`` -- 表达式。
-- ``globals`` -- 变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。
-- ``locals`` -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+- ``expression`` -- expression form.
+- ``globals`` -- variable scope, global namespace, if provided, it must be a dictionary object.
+- ``locals`` -- variable scope, global namespace, if provided, can be any mapping object.
 
 
 ::
@@ -326,11 +324,11 @@ eval() 函数用来执行一个字符串表达式，并返回表达式的值。
 
 .. function:: exec(object[, globals[, locals]])
 
-exec 执行储存在字符串或文件中的 Python 语句，相比于 eval，exec可以执行更复杂的 Python 代码。
+exec Execute Python statements stored in strings or files, Exec can execute more complex Python code than eval.
 
-- ``object``：必选参数，表示需要被指定的Python代码。它必须是字符串或code对象。如果object是一个字符串，该字符串会先被解析为一组Python语句，然后在执行（除非发生语法错误）。如果object是一个code对象，那么它只是被简单的执行。
-- ``globals``：可选参数，表示全局命名空间（存放全局变量），如果被提供，则必须是一个字典对象。
-- ``locals``：可选参数，表示当前局部命名空间（存放局部变量），如果被提供，可以是任何映射对象。如果该参数被忽略，那么它将会取与globals相同的值。
+- ``object``：Required parameter, indicating the Python code to be specified. It must be a string or code object. If the object is a string, the string is first parsed into a set of Python statements and then executed (unless a syntax error occurs). If the object is a code object, it is simply executed.
+- ``globals``：Optional parameter, representing the global namespace (storing global variables), If provided, it must be a dictionary object.
+- ``locals``：Optional parameter indicating the current local namespace (storing local variables), If provided, it can be any mapping object. If this parameter is ignored, it will take the same value as globals.
 
 ::
 
@@ -340,7 +338,7 @@ exec 执行储存在字符串或文件中的 Python 语句，相比于 eval，ex
     >>> exec("print ('runoob.com')")
     runoob.com
     
-    #  多行语句字符串
+    #  Single line statement string
     >>> exec ("""for i in range(5):
     ...     print ("iter time: %d" % i)
     ... """)
@@ -352,12 +350,12 @@ exec 执行储存在字符串或文件中的 Python 语句，相比于 eval，ex
 
 .. function:: filter(function, iterable)
 
-用于过滤序列，过滤掉不符合条件的元素，返回一个迭代器对象，如果要转换为列表，可以使用 list() 来转换
+Used to filter sequence and filter out unqualified elements, Returns an iterator object. If you want to convert it to a list, you can use list () to convert it.
 
-- ``function`` -- 判断函数。
-- ``iterable`` -- 可迭代对象。
+- ``function`` -- Judgement function.
+- ``iterable`` -- Iteratable objects.
 
-过滤出列表中的所有奇数::
+Filter out all the odd numbers in the list::
  
     def is_odd(n):
         return n % 2 == 1
@@ -369,7 +367,7 @@ exec 执行储存在字符串或文件中的 Python 语句，相比于 eval，ex
 
 .. class:: float([x])
 
-float() 函数用于将整数和字符串转换成浮点数。
+float() Function to convert integers and strings to floating-point numbers.
 
 ::
 
@@ -379,34 +377,34 @@ float() 函数用于将整数和字符串转换成浮点数。
     112.0
     >>> float(-123.6)
     -123.6
-    >>> float('123')     # 字符串
+    >>> float('123')     # string
     123.0
 
 .. function:: format(value[, format_spec])
 
-格式化字符串的函数 str.format()，它增强了字符串格式化的功能。format 函数可以接受不限个参数，位置可以不按顺序。基本语法是通过 {} 和 : 来代替以前的 % 。更详细的语法,请查阅CPython `格式字符串语法 <https://docs.python.org/zh-cn/3.7/library/string.html#format-specification-mini-language>`_
+Functions for formatting strings str.format()，It enhances string formatting. format Function can accept unlimited arguments, position may not in sequence. The basic syntax is to replace the previous% with {} and:.  For more detailed syntax, please refer to CPython 'Format String Syntax'  <https://docs.python.org/zh-cn/3.7/library/string.html#format-specification-mini-language>`_
 
 ::
 
-    >>>"{} {}".format("hello", "world")    # 不设置指定位置，按默认顺序
+    >>>"{} {}".format("hello", "world")    # Do not set the specified location, in the default order.
     'hello world'
     
-    >>> "{0} {1}".format("hello", "world")  # 设置指定位置
+    >>> "{0} {1}".format("hello", "world")  # Set specified location
     'hello world'
     
-    >>> "{1} {0} {1}".format("hello", "world")  # 设置指定位置
+    >>> "{1} {0} {1}".format("hello", "world")  # Set specified location
     'world hello world
 
 .. class:: frozenset([iterable])
 
-返回一个冻结的集合，冻结后集合不能再添加或删除任何元素。
+Returns a frozen collection after which no more elements can be added or removed.
 
-- ``iterable`` -- 可迭代的对象，比如列表、字典、元组等等。
+- ``iterable`` -- Objects that can be iterated, such as lists, dictionaries, tuples, and so on.
 
 
 .. function:: getattr(object, name[, default])
 
-用于返回一个对象属性值。
+Used to return an object property value.
 
 ::
 
@@ -414,13 +412,13 @@ float() 函数用于将整数和字符串转换成浮点数。
     ...     bar = 1
     ... 
     >>> a = A()
-    >>> getattr(a, 'bar')        # 获取属性 bar 值
+    >>> getattr(a, 'bar')        # Get property bar value
     1
-    >>> getattr(a, 'bar2')       # 属性 bar2 不存在，触发异常
+    >>> getattr(a, 'bar2')       # Property bar2 does not exist, triggering exception
     Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
     AttributeError: 'A' object has no attribute 'bar2'
-    >>> getattr(a, 'bar2', 3)    # 属性 bar2 不存在，但设置了默认值
+    >>> getattr(a, 'bar2', 3)    # Property bar2 does not exist, but the default value is set
 
 
 .. function:: globals()
