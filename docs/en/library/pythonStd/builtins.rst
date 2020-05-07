@@ -1,4 +1,4 @@
-:mod:`Builtin` --Builtins functions and exceptions 内建函数和异常
+:mod:`Builtin` --Builtins functions and exceptions 
 ================================
 
 All built-in functions and exceptions are described here. They can also be obtained through the ``builtins`` module.
@@ -10,7 +10,7 @@ Function
 
 .. function:: abs()
 
-返回一个数的绝对值。实参可以是整数或浮点数。如果实参是一个复数，返回它的模。
+Returns the absolute value of a number. Arguments can be integers or floating-point numbers. If the argument is a complex number, return its module. 
 
 
 
@@ -334,7 +334,7 @@ exec Execute Python statements stored in strings or files, Exec can execute more
 
     >>>exec('print("Hello World")')
     Hello World
-    # 单行语句字符串
+    # Single line statement string
     >>> exec("print ('runoob.com')")
     runoob.com
     
@@ -423,14 +423,14 @@ Used to return an object property value.
 
 .. function:: globals()
 
-globals() 函数会以字典类型返回当前位置的全部全局变量。
+globals() Function returns all global variables in the current location as dictionary type.
 
 .. function:: hasattr(object, name)
 
-判断对象是否包含对应的属性。
+Judgement object if it contains corresponding attributes.
 
-- ``object`` -- 对象。
-- ``name`` -- 字符串，属性名。
+- ``object`` -- object.
+- ``name`` -- string，property name.
 
 ::
 
@@ -443,9 +443,9 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
     print(hasattr(point1, 'x'))
     print(hasattr(point1, 'y'))
     print(hasattr(point1, 'z'))
-    print(hasattr(point1, 'no'))  # 没有该属性
+    print(hasattr(point1, 'no'))  # no such attribute
 
-输出结果::
+The output::
 
     True
     True
@@ -454,7 +454,7 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
 
 .. function:: hash(object)
 
-返回该对象的哈希值（如果它有的话）。哈希值是整数。它们在字典查找元素时用来快速比较字典的键。相同大小的数字变量有相同的哈希值
+Returns the hash value of the object, (if any). 返回该对象的哈希值（如果它有的话）。Hash value is an integer. 哈希值是整数。The quick key  use to compare elements in the dictionary. 它们在字典查找元素时用来快速比较字典的键。Numeric variables of the same size have the same hash value. 相同大小的数字变量有相同的哈希值
 
 
 ----------------------------------------------------------------
@@ -462,12 +462,12 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
 
 .. function:: help([object])
 
-查看函数或模块用途的详细说明
+Check the detail description for purpose of the function or module. 查看函数或模块用途的详细说明
 
 
 .. function:: hex(x)
 
-将整数转换为以“0x”为前缀的小写十六进制字符串。
+Converts an integer to a lowercase hexadecimal string prefixed with “0x” .
 
 ::
 
@@ -478,39 +478,39 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
 
 .. function:: id([object])
 
-获取对象的内存地址。
+Get the id of the object. 获取对象的内存地址。
 
 .. function:: input([prompt])
 
-接收一个标准输入数据，返回为 string 类型
+Receive a standard input data and return it as string type.
 
 
 .. class:: int([x])
 .. class:: int(x,base=10)
 
-将一个字符串或数字转换为整型。
+Converts a string or number to an integer. 将一个字符串或数字转换为整型。
 
-- ``x`` -- 字符串或数字。
-- ``base`` -- 进制数，默认十进制
+- ``x`` -- String or number. 字符串或数字。
+- ``base`` -- Decimal number, default decimal 进制数，默认十进制
 
 .. function:: isinstance(object, classinfo)
 
-如果 object 实参是 classinfo 实参的实例，或者是（直接、间接或 虚拟）子类的实例，则返回 true。
-如果 object 不是给定类型的对象，函数始终返回 false。如果 classinfo 是对象类型（或多个递归元组）的元组，如果 object 是其中的任何一个的实例则返回 true。 
-如果 classinfo 既不是类型，也不是类型元组或类型的递归元组，那么会触发 TypeError 异常。
+Returns true if the object argument is an instance of the classInfo argument, or an instance of a (direct, indirect, or virtual) subclass. 如果 object 实参是 classinfo 实参的实例，或者是（直接、间接或 虚拟）子类的实例，则返回 true。
+If the object is not an object of the given type, the function always returns false. Returns true if classInfo is a tuple of object type (or multiple recursion element groups), and if object is an instance of any of them. 如果 object 不是给定类型的对象，函数始终返回 false。如果 classinfo 是对象类型（或多个递归元组）的元组，如果 object 是其中的任何一个的实例则返回 true。 
+If classInfo is neither a type nor a type tuple or a recursive tuple of type, a typeError exception will be triggered.   .如果 classinfo 既不是类型，也不是类型元组或类型的递归元组，那么会触发 TypeError 异常。
 
-.. admonition:: isinstance() 与 type() 区别
+.. admonition:: isinstance() and type() differences
 
-    - `type()` 不会认为子类是一种父类类型，不考虑继承关系。
-    - `isinstance()` 会认为子类是一种父类类型，考虑继承关系。
+    - `type()` does not consider a subclass as a parent type, and does not consider inheritance.不会认为子类是一种父类类型，不考虑继承关系。
+    - `isinstance()` Consider that the subclass is a parent type, and consider inheritance relationship会认为子类是一种父类类型，考虑继承关系。
 
-    *如果要判断两个类型是否相同推荐使用 isinstance()。*
+    *to judge whether two types are the same, recommended to use isinstance()。*
 
 
 .. function:: issubclass(class, classinfo)
 
-如果 class 是 classinfo 的子类（直接、间接或 虚拟 的），则返回 true。classinfo 可以是类对象的元组，此时 classinfo 中的每个元素都会被检查。
-其他情况，会触发 TypeError 异常。
+Returns true if class is a subclass (direct, indirect, or virtual) of classInfo. ClassInfo can be a tuple of a class object, and each element in classInfo is checked.
+In other cases, a typeError exception will be triggered.
 
 ::
 
@@ -519,16 +519,16 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
     class B(A):
         pass
         
-    print(issubclass(B,A))    # 返回 True
+    print(issubclass(B,A))    # return True
 
     
 
 .. function:: iter(object[, sentinel])
 
-用来生成迭代器。
+Used to generate iterators. 用来生成迭代器。
 
-- ``object`` -- 支持迭代的集合对象。
-- ``sentinel`` -- 如果传递了第二个参数，则参数 object 必须是一个可调用的对象（如，函数），此时，iter 创建了一个迭代器对象，每次调用这个迭代器对象的__next__()方法时，都会调用 object。
+- ``object`` -- Object gather that support iterations. 支持迭代的集合对象。
+- ``sentinel`` -- If the second parameter is sent, the parameter object must be a callable object (such as a function). At this time, ITER creates an iterator object, which will be called every time the iterator object's __next__() method, object is called.
 
 ::
 
@@ -542,74 +542,74 @@ globals() 函数会以字典类型返回当前位置的全部全局变量。
 
 .. function:: len()
 
-返回对象（字符、列表、元组等）长度或项目个数。
+Returns the length of an object (character, list, tuple, etc.) or the number of items. 返回对象（字符、列表、元组等）长度或项目个数。
 
 ::
 
     >>>str = "runoob"
-    >>> len(str)             # 字符串长度
+    >>> len(str)             # String length 字符串长度
     6
     >>> l = [1,2,3,4,5]
-    >>> len(l)               # 列表元素个数
+    >>> len(l)               # Number of list elements 列表元素个数
     5
 
 .. class:: list()
 
-用于将元组或字符串转换为列表。
+Used to convert a tuple or string to a list. 用于将元组或字符串转换为列表。
 
 ::
 
     aTuple = (123, 'Google', 'baidu', 'Taobao')
     list1 = list(aTuple)
-    print ("列表元素 : ", list1)
+    print ("element list : ", list1)
 
     str="Hello World"
     list2=list(str)
-    print ("列表元素 : ", list2)
+    print ("element list : ", list2)
 
-输出结果::
+the output::
 
-    列表元素 :  [123, 'Google', 'Runoob', 'Taobao']
-    列表元素 :  ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
+    element list :  [123, 'Google', 'Runoob', 'Taobao']
+    element list :  ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
 
 .. function:: locals()
 
-以字典类型返回当前位置的全部局部变量。
+Returns all local variables in the current location as dictionary type. 以字典类型返回当前位置的全部局部变量。
 
 ::
 
-    >>>def runoob(arg):    # 两个局部变量：arg、z
+    >>>def runoob(arg):    # Two local variables：arg、z
     ...     z = 1
     ...     print (locals())
     ... 
     >>> runoob(4)
-    {'z': 1, 'arg': 4}      # 返回一个名字/值对的字典
+    {'z': 1, 'arg': 4}      # Returns a dictionary of name / value pairs
     >>>
 
 .. function:: map(function, iterable, ...)
 
-map() 会根据提供的函数对指定序列做映射。返回一个将 function 应用于 iterable 中每一项并输出其结果的迭代器。 
-如果传入了额外的 iterable 参数，function 必须接受相同个数的实参并被应用于从所有可迭代对象中并行获取的项。 
-当有多个可迭代对象时，最短的可迭代对象耗尽则整个迭代就将结束。
+map() The specified sequence is mapped according to the provided function. Returns an iterator that applies a function to each item in Iterable and outputs its result. 会根据提供的函数对指定序列做映射。返回一个将 function 应用于 iterable 中每一项并输出其结果的迭代器。 
+If an additional Iterable parameter is entered, the function must accept the same number of arguments and be applied to items obtained in parallel from all iteratable objects. 如果传入了额外的 iterable 参数，function 必须接受相同个数的实参并被应用于从所有可迭代对象中并行获取的项。 
+When there are multiple iteratable objects, the whole iteration will end when the shortest one is exhausted. 当有多个可迭代对象时，最短的可迭代对象耗尽则整个迭代就将结束。
 
 ::
 
-    >>>def square(x) :            # 计算平方数
+    >>>def square(x) :            # compute square sum 
     ...     return x ** 2
     ... 
-    >>> map(square, [1,2,3,4,5])   # 计算列表各个元素的平方
+    >>> map(square, [1,2,3,4,5])   # compute the square sum of each element list
     [1, 4, 9, 16, 25]
-    >>> map(lambda x: x ** 2, [1, 2, 3, 4, 5])  # 使用 lambda 匿名函数
+    >>> map(lambda x: x ** 2, [1, 2, 3, 4, 5])  # use lambda anonymous function
     [1, 4, 9, 16, 25]
     
-    # 提供了两个列表，对相同位置的列表数据进行相加
+    # Two lists are provided to add the list data in the same location 提供了两个列表，对相同位置的列表数据进行相加
     >>> map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
     [3, 7, 11, 15, 19]
 
 
 .. function:: max()
 
-返回给定参数的最大值，参数可以为序列
+Returns the maximum value of the given parameter, which can be a sequence 返回给定参数的最大值，参数可以为序列
 
 ::
 
@@ -618,7 +618,7 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
     print ("max(-80, -20, -10) : ", max(-80, -20, -10))
     print ("max(0, 100, -400) : ", max(0, 100, -400))
 
-输出结果::
+The output::
 
     max(80, 100, 1000) :  1000
     max(-20, 100, 400) :  400
@@ -627,7 +627,7 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
 
 .. class:: memoryview()
 
-返回给定参数的内存查看对象(Momory view)。所谓内存查看对象，是指对支持缓冲区协议的数据进行包装，在不需要复制对象基础上允许Python代码访问。
+Returns the memory view object for the given parameter. 返回给定参数的内存查看对象(Momory view)。The so-called memory view object refers to packaging the data supporting the buffer protocol and allowing Python code access without copying the object. 所谓内存查看对象，是指对支持缓冲区协议的数据进行包装，在不需要复制对象基础上允许Python代码访问。
 
 ::
 
@@ -647,7 +647,7 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
 
 .. function:: min()
 
-返回给定参数的最小值，参数可以为序列。
+Returns the minimum value of a given parameter, which can be a sequence. 返回给定参数的最小值，参数可以为序列。
 
 ::
 
@@ -656,7 +656,7 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
     print ("min(-80, -20, -10) : ", min(-80, -20, -10))
     print ("min(0, 100, -400) : ", min(0, 100, -400))
 
-输出结果::
+The output::
 
     min(80, 100, 1000) :  80
     min(-20, 100, 400) :  -20
@@ -668,27 +668,26 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
 .. function:: next(iterator[, default])
 
 
-返回迭代器的下一个项目。通过调用 iterator 的 __next__() 方法获取下一个元素。如果迭代器耗尽，则返回给定的 default，如果没有默认值则触发 StopIteration。
-
+Returns the next entry for the iterator. Get the next element by calling the iterator's __next__(). If the iterator is exhausted, the given default is returned, and if there is no default value, StopIteration is triggered.
 ::
 
-    # 首先获得Iterator对象:
+    # First, to get the iterator object:
     it = iter([1, 2, 3, 4, 5])
-    # 循环:
+    # loop:
     while True:
         try:
-            # 获得下一个值:
+            # Get the next value:
             x = next(it)
             print(x)
         except StopIteration:
-            # 遇到StopIteration就退出循环
+            # Exit loop when StopIteration is encountered
             break
 
 .. class:: object()
 
 .. function:: oct()
 
-将一个整数转换成8进制字符串。
+Convert an integer to an octal string.
 
 ::
 
@@ -702,29 +701,28 @@ map() 会根据提供的函数对指定序列做映射。返回一个将 functio
 
 .. function:: open()
 
-open() 方法用于打开一个文件，并返回文件对象，在对文件进行处理过程都需要使用到这个函数，如果该文件无法被打开，会抛出 OSError。
-注意：使用 open() 方法一定要保证关闭文件对象，即调用 close() 方法
+open() Method is used to open a file and return the file object. This function is required during the processing of the file. If the file cannot be opened, an oserror will be thrown.
+Note：used open() Method must close the file object, that is, call the close() method.
 
-open() 函数常用形式是接收两个参数：文件名(file)和模式(mode)::
+open() The common form of a function is to receive two parameters: file name and mode::
 
     open(file, mode='r')
 
-mode 是一个可选字符串，用于指定打开文件的模式。默认值是 'r' ，这意味着它以文本模式打开并读取。其他常见模式有：写入 'w' （截断已经存在的文件）；
-排它性创建 'x' ；追加写 'a' （在 一些 Unix 系统上，无论当前的文件指针在什么位置，所有 写入都会追加到文件末尾）。可用的模式有:
+mode Is an optional string that specifies the mode of opening the file. The default value is ' r ' , which means it opens in text mode and reads. Other common modes are: write 'w' (Truncate existing files）；
+Exclusive creation 'x' ；write to add 'a' （On some UNIX systems, no matter where the current file pointer is, all writes are appended to the end of the file）。Available modes are:
 
 =========  =================================
-模式        描述
-'r'        读取（默认）
-'w'        写入，并先截断文件
-'x'        排它性创建，如果文件已存在则失败
-'a'        写入，如果文件存在则在末尾追加
-'a'        写入，如果文件存在则在末尾追加
-'b'        二进制模式
-'t'        文本模式（默认）
-'+'        更新磁盘文件（读取并写入）
+Mode       Description
+'r'        Read (default)
+'w'        Write, and truncate the file first
+'x'        Exclusive creation, failure if file already exists
+'a'        Write, append at the end if the file exists
+'b'        binary mode
+'t'        Text mode (default)
+'+'        Update disk file (read and write)
 =========  =================================
 
-默认的模式是 'r' （打开并读取文本，同 'rt' ）。对于二进制写入， 'w+b' 模式打开并把文件截断成 0 字节； 'r+b' 则不会截断。
+The default mode is 'r' （Open and read text, same as 'rt' ）. For binary write，Open 'w+b' mode and truncate file to 0 bytes； 'r+b' Will not be truncated。
 
 
 .. function:: ord(c)
