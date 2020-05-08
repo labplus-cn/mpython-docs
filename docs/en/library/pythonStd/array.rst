@@ -1,26 +1,26 @@
 .. _array_lib:
-:mod:`array` -- 数值数组
+:mod:`array` -- Array of Values
 ======================================
 
 .. module:: array
-   :synopsis: 高效的数值数组
+   :synopsis: Efficient numerical array
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `array <https://docs.python.org/3.5/library/array.html#module-array>`_
+This module implements the corresponding :term:`CPython` A subset of modules, as follows. For more details, refer to CPython document: `array <https://docs.python.org/3.5/library/array.html#module-array>`_
 
-支持的格式的代码： ``b``, ``B``, ``h``, ``H``, ``i``, ``I``, ``l``,
-``L``, ``q``, ``Q``, ``f``, ``d`` (后者2取决于浮点支持).
+Code in supported formats： ``b``, ``B``, ``h``, ``H``, ``i``, ``I``, ``l``,
+``L``, ``q``, ``Q``, ``f``, ``d`` (The latter 2 depends on floating point support).
 
 Classes
 -------
 
 .. class:: array.array(typecode, [iterable])
 
-   使用给定类型的元素创建数组。数组的初始内容由 `iterable` 给出。如果未提供，则创建空数组。
+   Create an array with elements of the given type. The initial contents of the array are given by 'Iterable'. Empty array were created if not provided. 
 
     .. method:: append(val)
 
-       将新元素val附加到数组的末尾，使其增长.
+       Append the new element Val to the end of the array to grow it.
 
     .. method:: extend(iterable)
 
-       将迭代中包含的新元素追加到数组的末尾，增长它.
+       Append the new element contained in the iteration to the end of the array and build on it.
