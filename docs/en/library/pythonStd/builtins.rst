@@ -724,7 +724,7 @@ The default mode is 'r' （Open and read text, same as 'rt' ）. For binary writ
 
 .. function:: ord(c)
 
-这是 chr() 的逆函数。。它以一个字符串（Unicode 字符）作为参数,返回代表对应 Unicode 的整数。
+This is the inverse function of chr() . It takes a string (Unicode character) as a parameter and returns an integer representing the corresponding Unicode.
 
 ::
 
@@ -736,7 +736,7 @@ The default mode is 'r' （Open and read text, same as 'rt' ）. For binary writ
 
 .. function:: pow(x, y[, z])
 
-返回 xy（x的y次方） 的值。
+Returns the value of X Y (Y power of x). 
 
 ::
 
@@ -745,7 +745,7 @@ The default mode is 'r' （Open and read text, same as 'rt' ）. For binary writ
     print ("pow(2, 4) : ", pow(2, 4))
     print ("pow(3, 0) : ", pow(3, 0))
 
-输出结果::
+The output::
 
     pow(100, 2) :  10000
     pow(100, -2) :  0.0001
@@ -754,18 +754,18 @@ The default mode is 'r' （Open and read text, same as 'rt' ）. For binary writ
 
 .. function:: print(*objects, sep=' ', end='\n', file=sys.stdout)
 
-用于打印输出，最常见的一个函数。
+In printout, the most common function. 
 
-    - ``objects`` ：复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。
-    - ``sep`` ：用来间隔多个对象，默认值是一个空格。
-    - ``end`` ：用来设定以什么结尾。默认值是换行符 \n，我们可以换成其他字符串。
-    - ``file`` ：要写入的文件对象。
+    - ``objects`` ：Phural, indicating that multiple objects can be output onve. When exporting multiple objects, need to separate them.
+    - ``sep`` ：Use a space as the interval to separate to multiple objects. 
+    - ``end`` ：Used to set what to ends with. The default value is newline \n. We can change it to another string.
+    - ``file`` ：The object to write.
 
 ::
 
     >>> print(1)
     1
-    >>> print("Hello World")
+    >>> print("Hello World
     Hello World
     >>> a = 1
     >>> b = 'w3cschool'
@@ -776,15 +776,15 @@ The default mode is 'r' （Open and read text, same as 'rt' ）. For binary writ
     >>> print("aaa","bbb")
     aaa bbb
     >>>
-    >>> print("www","w3cschool","cn",sep=".") # 设置间隔符
+    >>> print("www","w3cschool","cn",sep=".") # Set the interval space
     www.w3cschool.cn
 
 
 .. decorator:: property()
 
-property() 函数的作用是在新式类中返回属性值。将 `property` 函数用作装饰器可以很方便的创建只读属性：
+property() Function to return property values in a new class. Using the 'property' function as a decorator can easily create read-only properties: 
 
-property 的 getter，setter 和 deleter 方法同样可以用作装饰器::
+Property's getter, setter and delete methods can also be used as decorators::
 
     class C(object):
         def __init__(self):
@@ -806,9 +806,9 @@ property 的 getter，setter 和 deleter 方法同样可以用作装饰器::
 
 .. function:: range()
 
-range() 函数返回的是一个可迭代对象（类型是对象），而不是列表类型， 所以打印的时候不会打印列表。
+range() the function returns an iteratable object (the type is an object), not a list type, so the list will not be printed when printing.
 
-函数语法:
+Function syntax:
 
     - ``range(stop)``
     - ``range(start, stop[, step])``
@@ -831,7 +831,7 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
     []
     >>>
 
-有两个参数或三个参数的情况（第二种构造方法）::
+For case with two or three parameters (second construction method)::
 
     >>>list(range(0, 30, 5))
     [0, 5, 10, 15, 20, 25]
@@ -847,8 +847,7 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
 
 .. function:: repr()
 
-返回包含一个对象的可打印表示形式的字符串。
-
+Returns a string containing a printable representation of an object.
 ::
 
     >>>s = 'baidu'
@@ -861,15 +860,15 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
 
 .. function:: reversed(seq)
 
-返回一个反转的迭代器。
+Returns an inverted iterator. 
 
 ::
 
-    # 字符串
+    # string
     seqString = 'Runoob'
     print(list(reversed(seqString)))
     
-    # 元组
+    # tuple
     seqTuple = ('R', 'u', 'n', 'o', 'o', 'b')
     print(list(reversed(seqTuple)))
     
@@ -877,11 +876,11 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
     seqRange = range(5, 9)
     print(list(reversed(seqRange)))
     
-    # 列表
+    # list
     seqList = [1, 2, 4, 3, 5]
     print(list(reversed(seqList)))
 
-输出结果::
+The output::
 
     ['b', 'o', 'o', 'n', 'u', 'R']
     ['b', 'o', 'o', 'n', 'u', 'R']
@@ -891,10 +890,10 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
 
 .. function:: round(x [, n])
 
-返回浮点数x的四舍五入值。
+Returns the rounding value of floating-point number x.
 
-    - ``x`` - 数字表达式。
-    - ``n`` - 表示从小数点位数，其中 x 需要四舍五入，默认值为 0
+    - ``x`` - Numeric expression.
+    - ``n`` - Indicates from decimal places, where x needs to be rounded, and the default value is 0
 
 ::
 
@@ -904,7 +903,7 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
     print ("round(100.000056, 3) : ", round(100.000056, 3))
     print ("round(-100.000056, 3) : ", round(-100.000056, 3))
 
-输出结果::
+The output::
 
     round(70.23456) :  70
     round(56.659,1) :  56.7
@@ -914,17 +913,17 @@ range() 函数返回的是一个可迭代对象（类型是对象），而不是
 
 .. class:: set([iterable])
 
-set() 函数创建一个无序不重复元素集，可进行关系测试，删除重复数据，还可以计算交集、差集、并集等。
+set() Function to create an unordered and unrepeatable element set, which can be used for relationship testing, deletion of duplicate data, and calculation of intersection, subtraction, union, etc
 
     >>> x = set('runoob')
     >>> y = set('google')
     >>> x, y
-    ({'b', 'u', 'n', 'o', 'r'}, {'e', 'l', 'g', 'o'})     # 重复的被删除
-    >>> x & y         # 交集
+    ({'b', 'u', 'n', 'o', 'r'}, {'e', 'l', 'g', 'o'})     # Deleted duplicate
+    >>> x & y         # intersection
     {'o'}
-    >>> x | y         # 并集
+    >>> x | y         # union
     {'e', 'u', 'o', 'n', 'r', 'l', 'g', 'b'}
-    >>> x - y         # 差集
+    >>> x - y         # subtraction
     {'b', 'u', 'n', 'r'}
     >
 
@@ -934,21 +933,21 @@ set() 函数创建一个无序不重复元素集，可进行关系测试，删�
 
 .. function:: setattr(object, name, value)
 
-setattr() 函数对应函数 getattr()，用于设置属性值，该属性不一定是存在的。
+setattr() Function corresponding Function getattr()，Used to set the value of a property that does not necessarily exist.
 
-对已存在的属性进行赋值::
+Assign values to existing properties::
 
     >>>class A(object):
     ...     bar = 1
     ... 
     >>> a = A()
-    >>> getattr(a, 'bar')          # 获取属性 bar 值
+    >>> getattr(a, 'bar')          # get attribute bar value
     1
-    >>> setattr(a, 'bar', 5)       # 设置属性 bar 值
+    >>> setattr(a, 'bar', 5)       # set attribute设置属性 bar value
     >>> a.bar
     5
 
-如果属性不存在会创建一个新的对象属性，并对属性赋值::
+If the property does not exist, a new object property will be created and assigned::
 
     >>>class A():
     ...     name = "runoob"
@@ -965,18 +964,18 @@ setattr() 函数对应函数 getattr()，用于设置属性值，该属性不一
 
 .. function:: sorted(iterable, *, key=None, reverse=False)
 
-对所有可迭代的对象进行排序操作
+Sort all objects that can be iterated
 
-- ``iterable`` -- 可迭代对象。
-- ``key`` -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
-- ``reverse`` -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
+- ``iterable`` -- Iteratable object. 
+- ``key`` -- It is mainly used to compare elements with only one parameter. The parameters of specific functions are taken from the iteratable objects, and one element of the iteratable objects is specified for sorting.
+- ``reverse`` -- collation，reverse = True descending order ， reverse = False ascending order（default）。
 
-sorted 的最简单的使用方法::
+sorted the easiest way to use::
 
     >>>sorted([5, 2, 3, 1, 4])
-    [1, 2, 3, 4, 5]                      # 默认为升序
+    [1, 2, 3, 4, 5]                      # ascending order as default
 
-利用key进行倒序排序::
+Using key to sort in reverse order::
 
     >>>example_list = [5, 0, 6, 1, 2, 7, 3, 4]
     >>> result_list = sorted(example_list, key=lambda x: x*-1)
@@ -984,7 +983,7 @@ sorted 的最简单的使用方法::
     [7, 6, 5, 4, 3, 2, 1, 0]
     >>>
 
-要进行反向排序，也通过传入第三个参数 reverse=True::
+To reverse sorting, also by passing into the third parameter::
 
     >>>example_list = [5, 0, 6, 1, 2, 7, 3, 4]
     >>> sorted(example_list, reverse=True)
@@ -992,20 +991,20 @@ sorted 的最简单的使用方法::
 
 .. decorator:: staticmethod()
 
-将方法转换为静态方法。
+Method to convert to static method.
 
-静态方法不会接收隐式的第一个参数。要声明一个静态方法，请使用此语法::
+Static methods do not receive the first implicit parameter. To declare a static method, use this syntax::
 
     class C:
         @staticmethod
         def f(arg1, arg2, ...): ...
 
-静态方法的调用可以在类上进行 (例如 C.f()) 也可以在实例上进行 (例如 C().f())。
+Static method calls can be made on a class (such as C.f()) It can also be done on the instance (such as C().f())。
 
 
 .. class:: str()
 
-函数将对象转化为str对象。
+Function to convert an object to a str object。
 
 ::
 
@@ -1024,15 +1023,15 @@ sorted 的最简单的使用方法::
 
     >>>sum([0,1,2])
     3
-    >>> sum((2, 3, 4), 1) # 元组计算总和后再加 1
+    >>> sum((2, 3, 4), 1) # Add 1 after calculating the sum of the tuples.
     10
-    >>> sum([0,1,2,3,4], 2) # 列表计算总和后再加 2
+    >>> sum([0,1,2,3,4], 2) # Add 2 after calculating the sum of the list.
     12
 
 
 .. function:: super()
 
-super() 函数是用于调用父类(超类)的一个方法。
+super() Function is a method used to call the parent class (superclass)。
 
 ::
 
@@ -1048,7 +1047,7 @@ super() 函数是用于调用父类(超类)的一个方法。
 
 .. class:: tuple()
 
-将列表转换为元组。
+To convert list to tuple. 
 
 ::
 
@@ -1060,21 +1059,21 @@ super() 函数是用于调用父类(超类)的一个方法。
 
 .. function:: type()
 
-type() 函数如果你只有第一个参数则返回对象的类型，三个参数返回新的类型对象。
+type() Function returns the type of object if ave only the first argument, Three parameters return the new type object. 
 
 - ``type(object)``
 - ``type(name, bases, dict)``
 
-    - ``name`` -- 类的名称。
-    - ``bases`` -- 基类的元组。
-    - ``dict`` -- 字典，类内定义的命名空间变量。
+    - ``name`` -- Name of the class. 
+    - ``bases`` -- Tuple of base class. 
+    - ``dict`` -- Dictionaries, namespace changes defined within classes.
 
-.. Hint:: isinstance() 与 type() 区别
+.. Hint:: isinstance() 与 type() differences
 
-    - type() 不会认为子类是一种父类类型，不考虑继承关系。
-    - isinstance() 会认为子类是一种父类类型，考虑继承关系。
+    - type() The subclass is not considered as a parent type, and inheritance is not considered.
+    - isinstance() The subclass is considered as a type of parent class, and inheritance relationship is considered.
 
-    **如果要判断两个类型是否相同推荐使用 isinstance()。**
+    **To judge whether two types are the same, recommended to use isinstance()。**
 
 ::
 
@@ -1087,18 +1086,18 @@ type() 函数如果你只有第一个参数则返回对象的类型，三个参�
     >>> type({0:'zero'})
     <type 'dict'>
     >>> x = 1          
-    >>> type( x ) == int    # 判断类型是否相等
+    >>> type( x ) == int    # Judge whether the types are equal
     True
     
-    # 三个参数
+    # Three parameters
     >>> class X(object):
     ...     a = 1
     ...
-    >>> X = type('X', (object,), dict(a=1))  # 产生一个新的类型 X
+    >>> X = type('X', (object,), dict(a=1))  # Generate a new type X
     >>> X
     <class '__main__.X'>
 
-type() 与 isinstance()区别::
+type() and isinstance() differences::
 
     class A:
         pass
@@ -1114,24 +1113,24 @@ type() 与 isinstance()区别::
 
 .. function:: zip([iterable, ...])
 
-zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。
+zip() The function is used to package the iteratable objects as parameters, pack the object corresponding elements into tuples, and then return the objects composed of these tuples. The advantage of this is that it saves a lot of memory.
 
-我们可以使用 list() 转换来输出列表。如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表。
+We can use the list() transformation to output the list. If the number of elements of each iterator is different, the length of the returned list is the same as that of the shortest object. Using the * operator, the tuple can be decompressed into a list.
 
 ::
 
     >>>a = [1,2,3]
     >>> b = [4,5,6]
     >>> c = [4,5,6,7,8]
-    >>> zipped = zip(a,b)     # 返回一个对象
+    >>> zipped = zip(a,b)     # Return an object
     >>> zipped
     <zip object at 0x103abc288>
-    >>> list(zipped)  # list() 转换为列表
+    >>> list(zipped)  # list() convert to list
     [(1, 4), (2, 5), (3, 6)]
-    >>> list(zip(a,c))              # 元素个数与最短的列表一致
+    >>> list(zip(a,c))              # The number of elements is consistent with the shortest list
     [(1, 4), (2, 5), (3, 6)]
     
-    >>> a1, a2 = zip(*zip(a,b))          # 与 zip 相反，zip(*) 可理解为解压，返回二维矩阵式
+    >>> a1, a2 = zip(*zip(a,b))          # 与 zip 相反，zip(*) It can be understood as decompression, returning to two-dimensional matrix
     >>> list(a1)
     [1, 2, 3]
     >>> list(a2)
@@ -1139,7 +1138,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
     >>>
 
 
-异常
+Exceptional
 ----------
 
 .. exception:: AssertionError
@@ -1166,7 +1165,7 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 
 .. exception:: OSError
 
-    参见CPython文档： ``OSError`` . MicroPython不实现 ``errno``  属性，而是使用标准方式访问异常参数： ``exc.args[0]`` .
+    Refer to CPython document： ``OSError`` . MicroPython not implement ``errno``  attribute，Instead, use the standard way to access exception parameters： ``exc.args[0]`` .
 
 .. exception:: RuntimeError
 
@@ -1176,11 +1175,11 @@ zip() 函数用于将可迭代的对象作为参数，将对象中对应的元�
 
 .. exception:: SystemExit
 
-   参见CPython文档： ``SystemExit`` .
+   Refer to CPython document： ``SystemExit`` .
 
 .. exception:: TypeError
 
-    参见CPython文档： ``SystemExit`` .
+    Refer to CPython document： ``SystemExit`` .
 
 .. exception:: ValueError
 
