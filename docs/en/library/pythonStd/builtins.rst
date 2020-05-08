@@ -203,7 +203,7 @@ If imag is omitted, the default value is zero, and the constructor performs nume
     >>> complex("1")  # Treat as string
     (1 + 0j)
     
-    # Note：Not to have spaces on both sides of the "+" sign, otherwise, an error will be reported这个地方在"+"号两边不能有空格，it cannot be written as "1 + 2j". To avoid error, it should be written as "1+2j".
+    # Note：Not to have spaces on both sides of the "+" sign, otherwise, an error will be reported, it cannot be written as "1 + 2j". To avoid error, it should be written as "1+2j". 
     >>> complex("1+2j")
     (1 + 2j)
 
@@ -250,7 +250,7 @@ dict() Function to create a dictionary
 
     >>>dict()                        # Create an empty dictionary
     {}
-    >>> dict(a='a', b='b', t='t')     # enter keyword字
+    >>> dict(a='a', b='b', t='t')     # enter keyword
     {'a': 'a', 'b': 'b', 't': 't'}
     >>> dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # Mapping function mode to construct dictionary
     {'three': 3, 'two': 2, 'one': 1} 
@@ -454,7 +454,7 @@ The output::
 
 .. function:: hash(object)
 
-Returns the hash value of the object, (if any). 返回该对象的哈希值（如果它有的话）。Hash value is an integer. 哈希值是整数。The quick key  use to compare elements in the dictionary. 它们在字典查找元素时用来快速比较字典的键。Numeric variables of the same size have the same hash value. 相同大小的数字变量有相同的哈希值
+Returns the hash value of the object, (if any). Hash value is an integer. The quick key  use to compare elements in the dictionary. Numeric variables of the same size have the same hash value. 
 
 
 ----------------------------------------------------------------
@@ -462,7 +462,7 @@ Returns the hash value of the object, (if any). 返回该对象的哈希值（�
 
 .. function:: help([object])
 
-Check the detail description for purpose of the function or module. 查看函数或模块用途的详细说明
+Check the detail description for purpose of the function or module. 
 
 
 .. function:: hex(x)
@@ -478,7 +478,7 @@ Converts an integer to a lowercase hexadecimal string prefixed with “0x” .
 
 .. function:: id([object])
 
-Get the id of the object. 获取对象的内存地址。
+Get the id of the object. 
 
 .. function:: input([prompt])
 
@@ -488,21 +488,21 @@ Receive a standard input data and return it as string type.
 .. class:: int([x])
 .. class:: int(x,base=10)
 
-Converts a string or number to an integer. 将一个字符串或数字转换为整型。
+Converts a string or number to an integer. 
 
-- ``x`` -- String or number. 字符串或数字。
-- ``base`` -- Decimal number, default decimal 进制数，默认十进制
+- ``x`` -- String or number. 
+- ``base`` -- Decimal number, default decimal 
 
 .. function:: isinstance(object, classinfo)
 
-Returns true if the object argument is an instance of the classInfo argument, or an instance of a (direct, indirect, or virtual) subclass. 如果 object 实参是 classinfo 实参的实例，或者是（直接、间接或 虚拟）子类的实例，则返回 true。
-If the object is not an object of the given type, the function always returns false. Returns true if classInfo is a tuple of object type (or multiple recursion element groups), and if object is an instance of any of them. 如果 object 不是给定类型的对象，函数始终返回 false。如果 classinfo 是对象类型（或多个递归元组）的元组，如果 object 是其中的任何一个的实例则返回 true。 
-If classInfo is neither a type nor a type tuple or a recursive tuple of type, a typeError exception will be triggered.   .如果 classinfo 既不是类型，也不是类型元组或类型的递归元组，那么会触发 TypeError 异常。
+Returns true if the object argument is an instance of the classInfo argument, or an instance of a (direct, indirect, or virtual) subclass.
+If the object is not an object of the given type, the function always returns false. Returns true if classInfo is a tuple of object type (or multiple recursion element groups), and if object is an instance of any of them.  
+If classInfo is neither a type nor a type tuple or a recursive tuple of type, a typeError exception will be triggered.
 
 .. admonition:: isinstance() and type() differences
 
-    - `type()` does not consider a subclass as a parent type, and does not consider inheritance.不会认为子类是一种父类类型，不考虑继承关系。
-    - `isinstance()` Consider that the subclass is a parent type, and consider inheritance relationship会认为子类是一种父类类型，考虑继承关系。
+    - `type()` does not consider a subclass as a parent type, and does not consider inheritance.
+    - `isinstance()` Consider that the subclass is a parent type, and consider inheritance relationship. 
 
     *to judge whether two types are the same, recommended to use isinstance()。*
 
@@ -525,9 +525,8 @@ In other cases, a typeError exception will be triggered.
 
 .. function:: iter(object[, sentinel])
 
-Used to generate iterators. 用来生成迭代器。
-
-- ``object`` -- Object gather that support iterations. 支持迭代的集合对象。
+Used to generate iterators. 
+- ``object`` -- Object gather that support iterations. 
 - ``sentinel`` -- If the second parameter is sent, the parameter object must be a callable object (such as a function). At this time, ITER creates an iterator object, which will be called every time the iterator object's __next__() method, object is called.
 
 ::
@@ -542,20 +541,19 @@ Used to generate iterators. 用来生成迭代器。
 
 .. function:: len()
 
-Returns the length of an object (character, list, tuple, etc.) or the number of items. 返回对象（字符、列表、元组等）长度或项目个数。
-
+Returns the length of an object (character, list, tuple, etc.) or the number of items. 
 ::
 
     >>>str = "runoob"
-    >>> len(str)             # String length 字符串长度
+    >>> len(str)             # String length 
     6
     >>> l = [1,2,3,4,5]
-    >>> len(l)               # Number of list elements 列表元素个数
+    >>> len(l)               # Number of list elements 
     5
 
 .. class:: list()
 
-Used to convert a tuple or string to a list. 用于将元组或字符串转换为列表。
+Used to convert a tuple or string to a list. 
 
 ::
 
@@ -574,7 +572,7 @@ the output::
 
 .. function:: locals()
 
-Returns all local variables in the current location as dictionary type. 以字典类型返回当前位置的全部局部变量。
+Returns all local variables in the current location as dictionary type. 
 
 ::
 
@@ -588,9 +586,9 @@ Returns all local variables in the current location as dictionary type. 以字�
 
 .. function:: map(function, iterable, ...)
 
-map() The specified sequence is mapped according to the provided function. Returns an iterator that applies a function to each item in Iterable and outputs its result. 会根据提供的函数对指定序列做映射。返回一个将 function 应用于 iterable 中每一项并输出其结果的迭代器。 
-If an additional Iterable parameter is entered, the function must accept the same number of arguments and be applied to items obtained in parallel from all iteratable objects. 如果传入了额外的 iterable 参数，function 必须接受相同个数的实参并被应用于从所有可迭代对象中并行获取的项。 
-When there are multiple iteratable objects, the whole iteration will end when the shortest one is exhausted. 当有多个可迭代对象时，最短的可迭代对象耗尽则整个迭代就将结束。
+map() The specified sequence is mapped according to the provided function. Returns an iterator that applies a function to each item in Iterable and outputs its result.  
+If an additional Iterable parameter is entered, the function must accept the same number of arguments and be applied to items obtained in parallel from all iteratable objects. 
+When there are multiple iteratable objects, the whole iteration will end when the shortest one is exhausted. 
 
 ::
 
@@ -602,14 +600,14 @@ When there are multiple iteratable objects, the whole iteration will end when th
     >>> map(lambda x: x ** 2, [1, 2, 3, 4, 5])  # use lambda anonymous function
     [1, 4, 9, 16, 25]
     
-    # Two lists are provided to add the list data in the same location 提供了两个列表，对相同位置的列表数据进行相加
+    # Two lists are provided to add the list data in the same location 
     >>> map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
     [3, 7, 11, 15, 19]
 
 
 .. function:: max()
 
-Returns the maximum value of the given parameter, which can be a sequence 返回给定参数的最大值，参数可以为序列
+Returns the maximum value of the given parameter, which can be a sequence 
 
 ::
 
@@ -627,7 +625,7 @@ The output::
 
 .. class:: memoryview()
 
-Returns the memory view object for the given parameter. 返回给定参数的内存查看对象(Momory view)。The so-called memory view object refers to packaging the data supporting the buffer protocol and allowing Python code access without copying the object. 所谓内存查看对象，是指对支持缓冲区协议的数据进行包装，在不需要复制对象基础上允许Python代码访问。
+Returns the memory view object for the given parameter. The so-called memory view object refers to packaging the data supporting the buffer protocol and allowing Python code access without copying the object.
 
 ::
 
@@ -647,8 +645,7 @@ Returns the memory view object for the given parameter. 返回给定参数的内
 
 .. function:: min()
 
-Returns the minimum value of a given parameter, which can be a sequence. 返回给定参数的最小值，参数可以为序列。
-
+Returns the minimum value of a given parameter, which can be a sequence. 
 ::
 
     print ("min(80, 100, 1000) : ", min(80, 100, 1000))
