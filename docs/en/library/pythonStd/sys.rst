@@ -1,64 +1,64 @@
-:mod:`sys` -- 系统特定功能
+:mod:`sys` -- Specific System Functions
 =======================================
 
 .. module:: sys
-   :synopsis: 系统特定功能
+   :synopsis: Specific System Functions
 
 
-sys模块中提供了与MicroPython运行环境有关的函数和变量。
+The system module provides functions and variables related to the MicroPython operating environment.
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `sys <https://docs.python.org/3.5/library/sys.html#module-sys>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows. See the CPython document for details: `sys <https://docs.python.org/3.5/library/sys.html#module-sys>`_
 
 Functions
 ---------
 
 .. function:: exit(retval=0)
 
-   使用给定的退出代码终止当前程序。在此基础上，此功能提升为 ``SystemExit`` 。如果给出一个参数，则将其值作为参数给出 ``SystemExit``  。
+   Terminate the current program with the given exit code. On this basis, this function is upgraded to ``SystemExit`` . If a parameter is given, its value is given as a parameter  ``SystemExit``  .
 
 .. function:: print_exception(exc, file=sys.stdout)
 
 
-    通过回溯到类文件对象文件（或 ``sys.stdout`` 默认情况下）来打印异常。
+    By tracing back to class object file（or ``sys.stdout`` by defauit）to print exceptions. 
 
-.. admonition:: 与CPython的区别
+.. admonition:: differences with CPython
     :class: attention
 
-    这是 ``traceback``  CPython模块中出现的函数的简化版本。与 ``traceback.print_exception()`` 此不同，此函数仅使用异常值而不是异常类型，异常值和回溯对象; file参数应该是位置的; 不支持其他参数。
-    ``traceback``  可以找到CPython兼容 模块 ``micropython-lib`` 。
+    This ``traceback``  simplified versions of functions that appear in CPython modules. 。The difference with  ``traceback.print_exception()`` , This function only uses exception values instead of exception types, exception values and backtracking objects; the file parameter should be positional; other parameters are not supported.
+    ``traceback``  CPython compatible modules can be found ``micropython-lib`` 。
 
-常量
+Constant
 ---------
 
 .. data:: argv
 
-    当前程序启动的可变参数列表。
+    Variable parameter list of current program launch.
 
 .. data:: byteorder
 
-    系统的字节顺序（ ``little`` 或 ``big`` ）。
+    Byte order of the system（ ``little`` or ``big`` ）。
 
 .. data:: implementation
 
-    包含有关当前Python实现的信息的对象。对于MicroPython，它具有以下属性：
+    Objects that contain information about the current Python implementation。对于MicroPython，It has the following attributes：
 
-    * *name* - 字符串 "micropython"
-    * *version* - 元组 (主要，次要，微), e.g. (1, 7, 0)
+    * *name* - string "micropython"
+    * *version* - Tuple (primary, secondary, micro), e.g. (1, 7, 0)
 
-    这个方法推荐用来识别不同平台的MicroPython。
+    This method is recommended to identify MicroPython on different platforms.
 
 
-    示例::
+    Example::
 
         >>> print(sys.implementation)
         (name='micropython', version=(1, 9, 1))
 
 .. data:: maxsize
 
-    本机整数类型可以在当前平台上保存的最大值，或MicroPython整数类型可表示的最大值，如果它小于平台最大值
-    （对于没有长int支持的MicroPython端口的情况）。
+    The maximum integer type value that can be saved on the current platform，If it is less than the platform maximum.
+    （For MicroPython ports without INT support）。
 
-    此属性对于检测平台的“位数”（32位与64位等）非常有用。建议不要直接将此属性与某个值进行比较，而是计算其中的位数::
+    This attribute is useful for detecting the "bits" (32-bit, 64 bit, etc.) of the platform. It is not recommended to directly compare this property with a value, but to calculate the number of digits in it ::::
 
         bits = 0
         v = sys.maxsize
@@ -76,32 +76,32 @@ Functions
 
 .. data:: modules
 
-    已载入模块字典。在某些移植版中，它可能不包含在内建模块中。
+    Loaded module dictionary. In some migration versions, it may not be included in built-in modules.
 
 .. data:: path
 
-    用于搜索导入模块的可变目录列表。
+    List of variable directories to search for import modules.
 
 .. data:: platform
 
-   获取MicroPython运行的平台。
+   Gets the MicroPython operating platform.
 
 .. data:: stderr
 
-  标准错误 ``stream``
+  Standard error ``stream``
 
 .. data:: stdin
 
-   标准输入 ``stream``
+   Standard input ``stream``
 
 .. data:: stdout
 
-   标准输出 ``stream``
+   Standard output ``stream``
 
 .. data:: version
 
-    返回 MicroPython 语言版本，字符串
+    returns MicroPython language version, string
 
 .. data:: version_info
 
-   返回 MicroPython 语言版本，整形元组
+   returns MicroPython language version, restructured tuple
