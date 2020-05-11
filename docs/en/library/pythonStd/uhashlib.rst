@@ -1,48 +1,48 @@
-:mod:`uhashlib` -- 散列算法
+:mod:`uhashlib` -- Hash Algorithm
 =====================================
 
 .. module:: uhashlib
-   :synopsis: 散列算法
+   :synopsis: hash algorithm
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `hashlib <https://docs.python.org/3.5/library/hashlib.html#module-hashlib>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows. Refers to CPython document for details: `hashlib <https://docs.python.org/3.5/library/hashlib.html#module-hashlib>`_
 
-该模块实现二进制数据散列算法。可用算法的确切清单取决于board。在可以实现的算法中：
+This module implements the binary data hash algorithm. The exact list of available algorithms depends on the board. In the algorithms that can be implemented.：
 
-* SHA256 -  当前一代的现代哈希算法（SHA2系列）。它适用于加密安全目的。除非具有特定的代码大小限制，否则建议使用MicroPython内核和任何板提供此功能。
+* SHA256 -  The current generation of modern hash algorithms (Sha2 Series). It is suitable for encryption security purposes. Unless there is a specific code size limit, it is recommended to use the MicroPython kernel and any board to provide this feature.
 
-* SHA1 - 上一代算法。不建议用于新用途，但SHA1是许多Internet标准和现有应用程序的一部分，因此针对网络连接和互操作性的板将尝试提供此功能。
+* SHA1 - Previous generation algorithm. It is not recommended for new application, but SHA1 is part of many Internet standards and existing applications, so circuitry boards for network connectivity and interoperability will try to provide this feature.
 
-* MD5 - 遗留算法，不被认为是加密安全的。只有选定的电路板才能实现与传统应用的互操作性。
+* MD5 -  legacy checksum algorithm, not considered as encrypted. Only the selected circuit board can achieve interoperability with traditional applications. 
 
-构建对象
+Construct Object
 ------------
 
 .. class:: uhashlib.sha256([data])
 
-    创建一个SHA256哈希对象，并可选择 ``data`` 输入其中。
+    create a SHA256 hash object，and option for ``data`` input.
     Create an SHA256 hasher object and optionally feed ``data`` into it.
 
 .. class:: uhashlib.sha1([data])
 
-    创建一个SHA1哈希对象，并可选择 ``data`` 将其输入其中。
+     Create a SHA1 hash object，and option for  ``data`` input.
 
 .. class:: uhashlib.md5([data])
 
-    创建MD5哈希对象并可选择 ``data`` 将其输入其中。
+    Create MD5 hash object and option to select  ``data`` input.
 
-方法
+Method
 -------
 
 .. method:: hash.update(data)
 
-   将更多的二进制数据馈入散列
+   Feed more binary data into hash
 
 .. method:: hash.digest()
 
-  返回通过哈希传递的所有数据的散列，作为字节对象。调用此方法后，无法再将更多的数据送入散列。
+  Returns a hash of all data passed through as a byte object. When this method is called, no more data entry.
 
 .. method:: hash.hexdigest()
 
-  此方法未实现。使用 ``ubinascii.hexlify(hash.digest())`` 来达到类似的效果。
+  If this method is not workable. Then use ``ubinascii.hexlify(hash.digest())`` to achieve a similar effect. 
 
 
