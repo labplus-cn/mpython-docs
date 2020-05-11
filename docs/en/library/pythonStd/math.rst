@@ -113,11 +113,11 @@ absolutely right. If ``x == 0`` ，then the function returns ``(0.0,0)`` ，if n
 
 .. function:: ldexp(x, exp)
 
-   return ``x * (2**exp)``.
+   returns ``x * (2**exp)``.
 
 .. function:: lgamma(x)
 
-   Return the natural logarithm of gamma function ``x``.
+   returns the natural logarithm of gamma function ``x``.
 
 .. function:: log(x)
 
@@ -125,23 +125,23 @@ absolutely right. If ``x == 0`` ，then the function returns ``(0.0,0)`` ，if n
 
 .. function:: log10(x)
 
-  Returns the logarithm of base 10 ``x``.
+  returns the logarithm of base 10 ``x``.
 
 .. function:: log2(x)
 
-  Returns the logarithm of base 2 ``x``.
+  returns the logarithm of base 2 ``x``.
 
 .. function:: modf(x)
 
-   Returns a tuple of two float numbers, it's a fraction of a number and an integral part of it `` x`` . Both return values have the same symbol ``x`` .
+   returns a tuple of two float numbers, it's a fraction of a number and an integral part of it `` x`` . Both return values have the same symbol ``x`` .
 
 .. function:: pow(x, y)
 
-   return  ``y`` the power of ``x `` .
+   returns  ``y`` the power of ``x `` .
 
 .. function:: radians(x)
 
-   return ``x`` convert degrees to radians. 
+   returns ``x`` convert degrees to radians. 
 
 .. function:: sin(x)
 
@@ -172,7 +172,7 @@ Constants
 
 .. data:: e
 
-   The base of natural logarithm
+  tThe base of natural logarithm
 
 .. data:: pi
 
