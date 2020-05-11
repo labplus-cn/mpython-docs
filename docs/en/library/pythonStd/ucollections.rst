@@ -1,42 +1,41 @@
-:mod:`ucollections` -- 容器数据类型
+:mod:`ucollections` -- Container Data Type
 =====================================================
 
 .. module:: ucollections
-   :synopsis: 容器数据类型
+   :synopsis: Container Data Type
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `collections <https://docs.python.org/3.5/library/collections.html#module-collections>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows. Refers to CPython document for details. : `collections <https://docs.python.org/3.5/library/collections.html#module-collections>`_
 
-此模块实现高级集合和容器类型以保存/累积各种对象。
+This module implements advanced collection and container types to hold / accumulate various objects。
 
-类
+Type
 -------
 
 .. function:: deque(iterable, maxlen[, flags])
 
-    Deques（双端队列）是一个类似列表的容器，支持O（1）追加并从双端队列的任一侧弹出。使用以下参数创建新的deques：
+    Deques（Dual terminal queue）is a list type container, Support 0 (1) append and pop-up from either side of the dual end queue. Create a new deques with the following parameters：
 
-    * iterable必须是空元组，并且新的deque创建为空。
-    * 必须指定maxlen并将双端队列限制为此最大长度。一旦双端队列已满，添加的任何新项目将丢弃对方的项目。
-    * 添加项目时，可选标志可以为1以检查溢出。
+    * iterable must be an empty tuple and the newly created deque must be empty. 
+    * Maxlen must be specified and double ended queues limited to this maximum length. Once the two terminal queue is full, any new items added will discard as the other party's items.
+    When adding item, the optional flag can be 1 to check for overflows.
 
-    除了支持 ``bool`` 和 ``len`` deque对象还有以下方法：
+    In addition to supporting ``bool`` and ``len`` deque object also has the following methods：
 
      .. method:: deque.append(x)
 
-    在deque的右边加上x。如果启用溢出检查，并且没有剩余的空间，则会引发索引错误。
+    Add x to the right of deque. If overflow checking is enabled and there is no space left, an index error is raised.
 
      .. method:: deque.popleft()
 
-     从deque的左侧移除并返回一个项目。如果没有项出现，就会引起索引错误。
+     Remove and return an item from the left side of deque. If no entry appears, an index error will be caused.
 
 
 .. function:: namedtuple(name, fields)
 
-    这是工厂函数，用于创建一个具有特定名称和一组字段的新的namedtuple类型。
-    一个namedtuple是元组的子类，它允许不仅通过数字索引来访问它的字段，而且使用符号字段名称的属性访问语法。
-    字段是指定字段名称的字符串序列。为了与CPython兼容，它也可以是一个名为空格分隔字段的字符串（但效率较低）。
-
-    使用示例::
+    THis is factory function, Used to create a new namedtuple type with a specific name and a set of fields.
+    A namedtuple is a subclass of a tuple, which allows access to its fields not only through numeric indexes, but also using the attribute access syntax of the symbolic field name.
+    A field is a string sequence of specified field names. For compatibility with CPython, it can also be a string called a space delimited field (but less efficient).
+    Example::
 
         from ucollections import namedtuple
 
@@ -48,7 +47,7 @@
 
 .. function:: OrderedDict(...)
 
-    ``dict`` 类型子类，它能记住和保留添加的keys的顺序。当遍历有序字典时，keys/items按照添加的顺序返回::
+    ``dict`` type subclass，It memorizes and preserves the order in which keys are added. When traversing an ordered dictionary, keys / items return in the order they were added::
 
         from ucollections import OrderedDict
 
