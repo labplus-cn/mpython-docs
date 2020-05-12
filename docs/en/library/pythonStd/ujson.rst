@@ -1,49 +1,47 @@
-:mod:`ujson` -- JSON 编码和解码
+:mod:`ujson` -- JSON Encoding and Decoding
 ==========================================
 
 .. module:: ujson
-   :synopsis: JSON 编码和解码
+   :synopsis: JSON encoding and decoding
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `json <https://docs.python.org/3.5/library/json.html#module-json>`_
+This module implements the corresponding :term:`CPython` A subset of modules, as described below. Refers to CPython documents for details: `json <https://docs.python.org/3.5/library/json.html#module-json>`_
 
-此模块允许在Python对象和JSON数据格式之间进行转换。
+This module allows conversion between Python objects and JSON data formats.
 
-函数
+Function
 ---------
 
 .. function:: dump(obj, stream)
 
-   将 *obj* 串行化为 *JSON* 字符串，将其写入给定的 *stream* 。
+   Take *obj* serialize to *JSON* string, Write it to the given *stream* .
 
 .. function:: dumps(obj)
 
-  将dict类型的数据转换成str，因为如果直接将dict类型的数据写入json文件中会发生报错，因此在将数据写入时需要用到该函数。
+  Convert dict type data to str，This function is required when writing data of type dict directly to JSON file, because an error will be reported.
+  - ``obj`` Objects to convert
 
-  - ``obj`` 要转换的对象
-
-示例::
+Example::
 
   >>> obj = {1:2, 3:4, "a":6}
-  >>> print(type(obj), obj) #原来为dict类型
+  >>> print(type(obj), obj) #Originally of dict type
   <class 'dict'> {3: 4, 1: 2, 'a': 6}
-  >>> jsObj = ujson.dumps(obj) #将dict类型转换成str
+  >>> jsObj = ujson.dumps(obj) #Convert dict type to str
   >>> print(type(jsObj), jsObj)
   <class 'str'> {3: 4, 1: 2, "a": 6}
 
 
 .. function:: load(stream)
 
+  Parsing given *stream*, interpret it as a JSON string and deserialize the data into Python objects. Returns the result object. 
 
-  解析给定的 *stream* ，将其解释为JSON字符串并将数据反序列化为Python对象。返回结果对象。
-
-  解析继续，直到遇到文件结尾。如果未正确形成流中的数据，则引发 :exc:`ValueError`
+  Parsing continues until the end of the file. If the data in the stream is not properly formed, then raise :exc:`ValueError`
 
 
 .. function:: loads(str)
 
-   解析 JSON 字符串并返回对象。如果字符串格式错误将引发 ValueError 异常。 
-
-示例::
+   Parse the JSON string and return the object. A valueerror exception will be thrown if the string is malformed.
+   
+Example::
 
   >>> obj = {1:2, 3:4, "a":6}
   >>> jsDumps = ujson.dumps(obj)
