@@ -1,86 +1,86 @@
-:mod:`uio` -- 输入/输出流
+:mod:`uio` -- I/O Stream
 ==================================
 
 .. module:: uio
-   :synopsis: 输入/输出流
+   :synopsis: I/O stream
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `io <https://docs.python.org/3.5/library/io.html#module-io>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows. Refers to CPython document for details: `io <https://docs.python.org/3.5/library/io.html#module-io>`_
 
-此模块包含其他类型的stream（类文件）对象和辅助函数。
+This module contains other types of stream (class file) objects and helping functions.
 
-概念层次
+Conceptual level
 --------------------
 
-.. admonition:: 与CPython的区别
+.. admonition:: differences with CPython
    :class: attention
 
-   如本节所述，MicroPython中简化了流基类的概念层次结构。
+   As described in this section, the conceptual hierarchy of stream base classes is simplified in MicroPython.
 
 （摘要）基本流类作为所有具体类行为的基础，在CPython中遵循少量二分法（成对分类）。
 在MicroPython中，它们稍微简化并隐含以实现更高的效率并节省资源。
 
-CPython中的一个重要的二分法是无缓冲流和缓冲流。在MicroPython中，所有流目前都是无缓冲的。这
-是因为所有现代操作系统，甚至许多RTOS和文件系统驱动程序都已经在他们身边执行缓冲。
-添加另一层缓冲是适得其反的（一个称为“bufferbloat”的问题）并占用宝贵的内存。
-请注意，仍然存在缓冲可能有用的情况，因此我们可能会在以后引入可选的缓冲支持。
+n important dichotomy in CPython is unbuffered flow and buffered flow. In MicroPython, all streams are currently unbuffered.
+This is because all modern operating systems, even many RTOS and file system drivers, are already performing buffering around them.
+Adding another layer of buffer is counterproductive（a problem called “bufferbloat”）and takes up valuable memory.
+Note that there are still situations where buffering can be useful, so we may introduce optional buffering support later.
 
-但是在CPython中，另一个重要的二分法与“缓冲”相关 - 这是一个流是否可能导致短读/写。
-短读取是指用户从流中请求例如10个字节，但是对于写入则类似。在CPython中，无缓冲流自动对短操作敏感，而缓冲是对它们的保证。
-无短读/写是一个重要的特性，因为它允许开发更简洁和有效的程序 - 这是MicroPython非常需要的东西。
-因此，虽然MicroPython不支持缓冲流，但它仍然提供非短操作流。
-是否会有短期操作取决于每个特定类别的需求，但强烈建议开发人员支持非短操作行为，原因如上所述。
-例如，MicroPython套接字保证避免短读/写。实际上，此时，核心中没有短操作流类的示例，并且一个是特定于端口的类，其中这种需求由硬件特性决定。
+But in CPython, another important dichotomy is related to "buffering" - whether a stream can cause short reads / writes.
+Short reads are when a user requests, for example, 10 bytes from a stream, but similar for writes. In CPython, unbuffered streams are automatically sensitive to short operations, and buffering is their guarantee.
+No short read / write is an important feature because it allows for simpler and more efficient development of programs - something MicroPython really needs.
+Therefore, although MicroPython does not support buffering streams, it still provides non short operation streams.
+Whether there will be short-term operations depends on the needs of each specific category, but it is highly recommended that developers support non short-term operations for the reasons described above.
+For example, MicroPython sockets guarantee against short reads / writes. In fact, at this point, there is no example of a short operation flow class in the core, and one is a port specific class, where this requirement is determined by the hardware characteristics.
 
-在非阻塞流的情况下，非短操作行为变得棘手，阻塞与非阻塞行为是另一个CPython二分法，完全由MicroPython支持。
-非阻塞流永远不会等待数据到达或被写入 - 它们可能会读/写，或者表示缺少数据（或写入数据的能力）。
-显然，这与“非短操作”策略相冲突，实际上，在CPython中，非阻塞缓冲（以及此非短操作）流的情况令人费解 - 在某些地方，这种组合是禁止的，在某些情况下它是未定义的或只是没有记录，在某些情况下它会引发冗长的异常。这个问题在MicroPython中要简单得多：非阻塞流对于高效的异步操作很重要，因此这个属性在“no-short-ops”上占优势。所以，
+In the case of non blocking flow, non short operation behavior becomes tricky. Blocking and non blocking behavior is another CPython dichotomy, which is fully supported by MicroPython.
+Nonblocking streams never wait for data to arrive or be written - they may read / write, or indicate a lack of data (or the ability to write to data).
+Obviously, this conflicts with the "non short operation" policy. In fact, in CPython, the situation of non blocking buffer (and this non short operation) flow is puzzling - in some places, this combination is forbidden, in some cases, it is undefined or just not recorded, in some cases, it will cause lengthy exceptions. This problem is much simpler in micropython: non blocking flows are important for efficient asynchronous operations, so this attribute has an advantage over "no short ops.".
 
-最后的二分法是二元对文本流。MicroPython当然支持这些，但在CPython中，文本流本身就是缓冲的，它们不在MicroPython中。
-（实际上，这是我们可能会引入缓冲支持的案例之一。）
+So the final dichotomy is binary to text flow. MicroPython certainly supports these, but in CPython, text streams themselves are buffered, they are not in micropython.
 
-请注意，为了提高效率，MicroPython不提供与上面的层次结构相对应的抽象基类，并且不可能在纯Python中实现或子类化流类。
+(in fact, this is one of the cases where we might introduce buffer support.)
 
-函数
+Note that for efficiency, MicroPython does not provide an abstract base class corresponding to the above hierarchy, and it is not possible to implement or subclass stream classes in pure python.
+
+Function
 ---------
 
 .. function:: open(name, mode='r', **kwargs)
 
-   打开一个文件。内置 ``open()`` 函数是此函数的别名。
-
-类
+   Open a file. The built-in ``open()`` function is an alias for this function.
+Class
 -------
 
 .. class:: FileIO(...)
 
-    这是以二进制模式打开的文件类型，例如使用 ``open(name, "rb")`` 
-    您不应该直接实例化这个类。
+    This is the type of file opened in binary mode, such as using ``open(name, "rb")`` 
+    You should not instantiate this class directly.
 
 .. class:: TextIOWrapper(...)
 
-    这是在文本模式下打开的文件类型，例如使用 ``open(name, "rt")`` 。
-    您不应该直接实例化这个类。
+    This is the type of file opened in text mode, such as using ``open(name, "rt")`` 。
+    Not to instantiate this class directly.
 
 .. class:: StringIO([string])
 
 .. class:: BytesIO([string])
 
 
-    用于输入/输出的内存文件类对象。 ``StringIO`` 用于文本模式I / O（类似于使用“t”修饰符打开的普通文件）。``BytesIO`` 用于二进制模式I ​​/ O（类似于使用“b”修饰符打开的普通文件）。可以使用字符串参数指定类文件对象的初始内容（应为普通字符串StringIO或字节对象BytesIO）。
-    所有常见的文件的方法，如 ``read()`` ， ``write()`` ， ``seek()`` ， ``flush()`` ， ``close()``  在这些对象上可用以下的方法:
+    Memory file class object for I/O. ``StringIO`` For text mode I/O（Similar to a normal file opened with the “t” modifier）。``BytesIO`` for binary modeI ​​/ O（Similar to a normal file opened with the “b” modifier）. To use the string parameter to specify the initial contents of the class file object (expected to be a normal string stringIO or a byte object BytesIO).
+    All common methods of documentation, such as ``read()`` ， ``write()`` ， ``seek()`` ， ``flush()`` ， ``close()``  The following methods are available on these objects:
 
 
     .. method:: getvalue()
 
-       获取保存数据的底层缓冲区的当前内容。
+       Gets the current contents of the underlying buffer that holds the data. 
 
 
 .. class:: StringIO(alloc_size)
 .. class:: BytesIO(alloc_size)
 
-    创建一个空 `StringIO`/ `BytesIO` 对象，预分配以容纳 *alloc_size* 字节数。这意味着写入该字节数不会导致缓冲区的重新分配，因此不会出现内存不足或导致内存碎片的情况。
-    这些构造函数是MicroPython扩展，建议仅用于特殊情况和系统级库，而不是最终用户应用程序。
+    Create an empty `StringIO`/ `BytesIO` object, Pre-allocated to accommodate *alloc_size* bytes. This means that writing the number of bytes does not cause the buffer to be reallocated, so there will be no out of memory or memory fragmentation.
+    These constructors are MicroPython extensions and are recommended only for special cases and system level libraries, not end-user applications.
 
     .. admonition:: Difference to CPython
         :class: attention
 
-        这些构造函数是MicroPython扩展。
+        These constructors are MicroPython extensions.
