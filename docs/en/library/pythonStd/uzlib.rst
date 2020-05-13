@@ -1,28 +1,29 @@
-:mod:`uzlib` -- zlib解压缩
+:mod:`uzlib` -- zlib unzip
 ==================================
 
 .. module:: uzlib
    :synopsis: zlib decompression
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `zlib <https://docs.python.org/3.5/library/zlib.html#module-zlib>`_
+This module implements the corresponding :term:`CPython` A subset of modules, as described below. Refers to CPython document for details: `zlib <https://docs.python.org/3.5/library/zlib.html#module-zlib>`_
 
-该模块允许解压用DEFLATE算法（常用于zlib库和gzip压缩程式）压缩的二进制数据。压缩尚未实现。
+his module allows the extraction of binary data compressed with the deflate algorithm (commonly used in zlib libraries and gzip compressors). Compression is not yet implemented.
 
-函数
+Function
 ---------
 
 .. function:: decompress(data, wbits=0, bufsize=0)
 
-   将解压缩数据返回为字节。 *wbits* 是压缩时使用的DEFLATE字典窗口大小（8-15，字典的大小为该数值的2次幂）。
-   另外，若该值为正， *data* 则被假定为zlib流（带有zlib首标）。否则，若该值为负，
-   则假定为原始DEFLATE流。 *bufsize* 参数是为与CPython兼容，此处忽略。
+   Returns the extracted data as bytes. *wbits* is the size of the deflate dictionary window used for compression (8-15, the size of the dictionary is the power of 2 of this value).
+   In addition, if the value is positive, *data* is assumed to be a zlib stream with zlib headers. Otherwise, if the value is negative,
+   The original deflate flow is assumed. *bufsize* parameter is compatible with Cpython, ignored here.
+ 
 
 .. class:: DecompIO(stream, wbits=0)
 
-   创建一个流装饰器，该装饰器允许在另一个流中进行压缩数据的透明解压。
-   这允许使用大于可用堆大小的数据处理压缩流。除 `decompress()` 中所述的值外， *wbits* 可能取值24..31 (16 + 8..15)，这也就意味着输入流带有gzip首标。
+   Create a flow decorator that allows transparent decompression of compressed data in another flow.
+   This allows compressed streams to be processed with data larger than the available heap size. In addition to the values described in `decompress()` , *wbits* possible values 24..31 (16 + 8..15), This means that the input stream has a gzip header.
 
-   .. admonition:: 与CPython区别
+   .. admonition:: differences with CPython
       :class: attention
 
-      该类为MicroPython的扩展，暂时使用该类，在后续版本中可能会进行较大的修改或删除。
+      This class is an extension of MicroPython. Temporarily use this class, it may be modified or deleted in a later version.
