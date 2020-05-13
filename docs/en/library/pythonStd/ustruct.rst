@@ -1,22 +1,22 @@
-:mod:`ustruct` -- 打包和解压缩原始数据类型
+:mod:`ustruct` -- Pack and decompressing raw data types
 ======================================================
 
 .. module:: ustruct
-   :synopsis: 打包和解压缩原始数据类型
+   :synopsis: Pack and decompressing raw data types
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `struct <https://docs.python.org/3.5/library/struct.html#module-struct>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows. Refers to CPython document for details: `struct <https://docs.python.org/3.5/library/struct.html#module-struct>`_
 
 
-格式化字符串
+Format string
 --------------
 
-格式字符串是用于在打包和解包数据时指定预期布局的机制。它们是从格式字符构建的，它指定打包/解包的数据类型。此外，还有用于控制字节顺序，大小和对齐的特殊字符。
+Format strings are a mechanism to specify the expected layout when pack and unpack data. In addition, there are special characters for controlling byte order, size, and alignment.
 
-字节顺序，大小和对齐
+Byte order, size, and alignment
 ^^^^^^^^^^^^^^^^^^^
 
-默认情况下，C类型以机器的本机格式和字节顺序表示，并在必要时通过跳过填充字节进行正确对齐（根据C编译器使用的规则）。
-或者，根据下表，格式字符串的第一个字符可用于指示打包数据的字节顺序，大小和对齐方式：
+By default, type C is represented in the native format and byte order of the machine，And if necessary, correct alignment by skipping padding bytes (according to the rules used by the C compiler).
+Or, depending on the table below, the first character of the format string can be used to indicate the byte order, size, and alignment of the packed data：
 
 +-----------+------------------------+----------+-----------+
 | Character | Byte order             | Size     | Alignment |
@@ -32,11 +32,11 @@
 | ``!``     | network (= big-endian) | standard | none      |
 +-----------+------------------------+----------+-----------+
 
-格式字符
+Format character
 ^^^^^^^^
 
-格式字符具有以下含义; 根据类型，C和Python值之间的转换应该是显而易见的。“标准大小”列是指使用标准大小时打包值的大小（以字节为单位）; 
-也就是说，当格式字符串中的一个开始'<'，'>'，'!'或 '='。使用本机大小时，打包值的大小取决于平台。
+Format characters have the following implication; Depending on the type, the conversion between C and Python values should be obvious. "Standard size" column refers to the size (in bytes) of the packed value when the standard size is used;
+That is, when one of the format strings starts'<'，'>'，'!' or  '='. When using native size, the size of the packaging value depends on the platform.
 
 +--------+--------------------------+--------------------+----------------+
 | Format | C Type                   | Python type        | Standard size  |
@@ -85,14 +85,14 @@
 | ``P``  | :c:type:`void \*`        | integer            |                |
 +--------+--------------------------+--------------------+----------------+
 
-函数
+Function
 ---------
 
 .. function:: calcsize(fmt)
 
-   返回需存入给定 *fmt* 的字节数量。
+   Return to the given *fmt* number of bytes.
 
-   - ``fmt`` - 格式字符类型,见上文格式字符表
+   - ``fmt`` - Format character type, see format character table above
 
 
     >>> struct.calcsize("i")
@@ -103,18 +103,19 @@
 
 .. function:: pack(fmt, v1, v2, ...)
 
-   根据格式字符串fmt，打包 *v1, v2, ...* 值。返回值为一个解码该值的字节对象。
+   According to the format string FMT, pack *v1, v2, ...* value. The return value is a byte object that decodes the value.
 
     >>> struct.pack("ii", 3, 2)
     b'\x03\x00\x00\x00\x02\x00\x00\x00'
 
 .. function:: pack_into(fmt, buffer, offset, v1, v2, ...)
+   
+   According to the format string FMT. Take *v1, v2, ...* Values are packed into a buffer starting with *offset*. Count from the end of the buffer, *offset* may be negative.
 
-   根据格式字符串fmt，将 *v1, v2, ...* 值打包进从 *offset* 开始的缓冲区。从缓冲区的末端计数， *offset* 可能为负值。
 
 .. function:: unpack(fmt, data)
 
-   根据格式字符串 *fmt* 对数据进行解压。返回值为一个解压值元组。
+   Decompress the data according to the format string *fmt*. The return value is a tuple of decompressed values.
 
     >>> buf = struct.pack("bb", 1, 2)
     >>> print(buf)
@@ -124,7 +125,7 @@
 
 .. function:: unpack_from(fmt, data, offset=0)
 
-   根据格式字符串 ``fmt`` 从 ``offset`` 处开始的数据解包。从缓冲区的末尾开始计数的偏移量可能为负。返回值是解压缩值的元组。
+   Unpack data starting at ``offset`` according to format string ``fmt`` . The offset to count from the end of the buffer may be negative. The return value is a tuple of the decompressed value.
 
     >>> buf = struct.pack("bb", 1, 2)
     >>> print(struct.unpack("bb", buf))
