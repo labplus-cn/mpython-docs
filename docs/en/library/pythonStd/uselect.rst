@@ -1,88 +1,88 @@
-:mod:`select` -- 高效地等待I/O
+:mod:`select` -- Waiting for I/O efficiently
 ========================================================================
 
 .. module:: select
    :synopsis: wait for events on a set of streams
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `select <https://docs.python.org/3.5/library/select.html#module-select>`_
+This module implements the corresponding :term:`CPython` a subset of modules, as follows, refers to CPython document for details: `select <https://docs.python.org/3.5/library/select.html#module-select>`_
 
-该模块提供了有效等待多个事件 ``streams``（准备好操作的选择流）的功能。
+This module provides the function of waiting for multiple events ``streams``（Ready to operate selection flow）.
 
-函数
+Function
 ---------
 
 .. function:: poll()
 
-创建Poll类的实例。
+Create an instance of the Poll class.
 
 .. function:: select(rlist, wlist, xlist[, timeout])
 
-监控对象何时可读或可写，一旦监控的对象状态改变，返回结果（阻塞线程）。
-这个函数是为了兼容，效率不高，推荐用 poll 函数。
+When the monitoring object is readable or writable, once the status of the monitored object changes, the result (blocking thread) is returned.
+This function is for compatible but inefficient. It is recommended to use the poll function.
 
-- ``rlist``：等待读就绪的文件描述符数组
-- ``wlist``：等待写就绪的文件描述符数组
-- ``xlist``：等待异常的数组
-- ``timeout``：等待时间（单位：秒）
+- ``rlist``：Array of file descriptors waiting to be read ready
+- ``wlist``：Array of file descriptors waiting to be written
+- ``xlist``：Array waiting for exception
+- ``timeout``：Waiting time in seconds
 
 
 .. _class: Poll
 
-类 Poll
+ Poll class
 --------------
 
-方法
+method
 ~~~~~~~
 
 .. method:: poll.register(obj[, eventmask])
 
-   注册一个用以监控的对象, `eventmask` 是逻辑OR：stream
+  Register an object for monitoring, `eventmask` is logic OR：stream
 
-   - ``obj`` :被监控的对象
-
-
-      - ``select.POLLIN``  - 读取可用数据
-      - ``select.POLLOUT`` - 写入更多数据
-      - ``select.POLLERR`` - 发生错误
-      - ``select.POLLHUP`` - 流结束/连接终止检测
-
-      需要注意的是像标志 ``uselect.POLLHUP`` 和 ``uselect.POLLERR`` 是不是为输入 `eventmask` 有效（这些是从返回不请自来的事件poll()，无论他们是否被要求）。
-      这个语义是按POSIX。
-
-   ``eventmask`` 默认为 ``select.POLLIN | select.POLLOUT``.
+   - ``obj`` :Monitored objects
 
 
-   可以多次为同一个 `obj` 调用此函数。连续调用将更新OBJ的 `eventmask` 到的值 `eventmask`（即会表现为 ``modify()`` ）。
+      - ``select.POLLIN``  - Read available data
+      - ``select.POLLOUT`` - Write more data
+      - ``select.POLLERR`` - Error occurred
+      - ``select.POLLHUP`` - Flow end / connection end detection
+
+      Attention to signs like ``uselect.POLLHUP`` and ``uselect. Is POLLERR`` valid for input `eventmask` (These are the unsolicited events from return poll(), whether they are requested or not）. 
+      This semantics is based on POSIX.
+
+   ``eventmask`` defaults to ``select.POLLIN | select.POLLOUT``.
+
+
+   This function can be called multiple times for the same `obj` . Continuous call will update the value of `eventmask` to `eventmask` of OBJ（It will be shown as ``modify()`` ）. 
 
 .. method:: poll.unregister(obj)
 
-   从轮询中取消注册obj。
+   Unregister OBJ from polling.
 
 .. method:: poll.modify(obj, eventmask)
 
-   修改已注册的对象 ``obj`` ,如果未注册obj，OSError 则会出现ENOENT错误。
+   Modify registered object ``obj`` , If OBJ is not registered, an ENOENT error occurs for OSErrorr.
 
 .. method:: poll.poll([timeout])
 
-   等待至少一个已注册的对象准备就绪或具有异常条件，可选的超时（以毫秒为单位）（如果 未指定超时 arg或-1，则没有超时）。
+   Optional timeout waiting for at least one registered object to be ready or with exception conditions（in milliseconds）（If timeout Arg or - 1 is not specified, there is no timeout）. 
 
-   返回列表( ``obj``, ``event``, ...)的元组。元组中可能还有其他元素，具体取决于平台和版本，因此不要假设其大小为2. 
+   Returns a tuple ( ``obj``, ``event``, ...)of the list.  There may be other elements in the tuple, depending on the platform and version, so don't assume its size is 2.  
 
-   event元素指定流发生的事件，并且是 ``uselect.POLL*`` 上述常量的组合。需要注意的是标志 ``uselect.POLLHUP`` ，并 ``uselect.POLLERR`` 可以在任何时候（即使不要求）返回的，必须采取相应的行动（从调查未注册并有可能关闭相应的流），否则所有的进一步调用 ``poll()`` 可以用这些标志设置立即返回再次为这个流。
+   The event element specifies the event that occurs in the flow, And it's ``uselect.POLL*`` a combination of the above constants. What needs to be noted is the logo ``uselect.POLLHUP`` , and ``uselect.POLLERR`` can be returned at any time (even if not required), Appropriate action must be taken (from investigating unregistered and potentially closed flows), Otherwise, all further calls to ``poll()`` can use these flag settings to immediately return to this stream again.
    
-   如果超时，则返回空列表。
+   If it times out, an empty list is returned.
 
    .. admonition:: Difference to CPython
       :class: attention
 
-      返回的元组可能包含超过2个元素，如上所述。
+      The returned tuple may contain more than 2 elements, as described above.
 
 .. method:: poll.ipoll([timeout])
 
-   与 :meth:`poll.poll` 类似，但是返回一个产生被调用函数所有元组的迭代器。该函数提供高效的、无位置的在流中进行轮询的方法。
+   and :meth:`poll.poll` similar, but returns an iterator that produces all tuples of the called function. This function provides an efficient, non location polling method in the stream.
 
 
-   .. admonition:: 与CPython区别
+   .. admonition:: differences with CPython
       :class: attention
 
-      该函数是MicroPython的扩展。
+      This function is an extension of MicroPython.
