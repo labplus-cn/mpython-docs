@@ -1,69 +1,69 @@
-:mod:`ure` -- 正则表达式
+:mod:`ure` -- Regular Expression
 ========================================
 
 .. module:: ure
-   :synopsis: 正则表达式
+   :synopsis: regular exprression
+   
+This module implements the corresponding :term:`CPython` a subset of modules, as described below. Refers to CPython document for details: `re <https://docs.python.org/3.5/library/re.html#module-re>`_
 
-这个模块实现了相应 :term:`CPython` 模块的一个子集，如下所述。有关更多信息，请参阅原始CPython文档: `re <https://docs.python.org/3.5/library/re.html#module-re>`_
+This module implements regular expression operation. The supported regular expression syntax is a subset of CPython ``re`` module (actually a subset of POSIX extended regular expressions).
 
-该模块实现了正则表达式操作。支持的正则表达式语法是CPython ``re`` 模块的子集（实际上是POSIX扩展正则表达式的子集）。
-
-支持的运算符和特殊序列是:
+The supported operators and special sequences are:
 
 ``'.'``
-   匹配任何角色。
+   Mtach any role.
 
 ``'[]'``
-   匹配字符集。支持单个字符和范围，包括否定集（例​​如 ``[^a-c]`` ）。
+   Match character set. Supports single characters and ranges, including negative sets (example ​​ ``[^a-c]`` ）.
 
 ``'^'``
-   匹配字符串的开头。
+   Matches the beginning of the string.
 
 ``'$'``
-   匹配字符串的结尾。
+   Matches the end of the string.
 
 ``'?'``
-   匹配零个或前一个子模式之一。
+   Matches one of the zero or previous sub patterns.
    
 ``'*'``
-   匹配前一个子模式的零个或多个。
+   Matches zero or more of the previous subpattern.
 
 ``'+'``
-   匹配前一个子模式中的一个或多个。
+   Matches one or more of the previous subpatterns.
 
 ``'??'``
-   非贪婪版本?，匹配零或一，偏好为零。
+   Non-avaricious version?, Matches 0 or 1 and 0 preference. 
 
 ``'*?'``
-   非贪婪版本*，匹配零或更多，与最短匹配的偏好。
+   Non-avaricious version?, Match 0 or more, with the shortest match preference.
 
 ``'+?'``
-   非贪婪版本+，匹配一个或多个，与最短匹配的偏好。
-
+   Non-avaricious version?, Match 1 or more, preferences to match the shortest.
+   
 
 ``|``
-   匹配此运算符的左侧或右侧子模式。
+   Matches the left or right sub pattern of this operator.
 
 ``(...)``
-   分组。每个组都在捕获（它捕获的子字符串可以通过 `match.group()` 方法访问）。
+   Sub-grouping. Each group is capturing (the substrings it captures can be accessed through the `match.group()` method）. 
 
 ``\d``
-   匹配数字。相当于 ``[0-9]`` 。
+   Match numbers. Amount to ``[0-9]`` 。
 
 ``\D``
-   匹配非数字。相当于 ``[^0-9]`` 。
+   Match non numeric. Amount to ``[^0-9]`` 。
 
 ``\s``
-   匹配空白。相当于。``[ \t-\r]``
+   Match blanks. Amount to ``[ \t-\r]``
 
 ``\S``
-   匹配非空白。相当于。``[^ \t-\r]``
+   Match is not blank. Amount to ``[^ \t-\r]``
 
 ``\w``
-   匹配“单词字符”（仅限ASCII）。相当于 ``[A-Za-z0-9_]`` 。
+   Match “word character”（ASCII only）. Amount to  ``[A-Za-z0-9_]`` 。
 
 ``\W``
-   匹配非“单词字符”（仅限ASCII）。相当于 ``[^A-Za-z0-9_]`` 。
+   Unmatch “word character”（ASCII only）. Amount to ``[^A-Za-z0-9_]`` 。
 
 ``\``
    Escape character. Any other character following the backslash, except
@@ -76,20 +76,20 @@
    expression is equivalent to ``"rn"``. To match CR character followed
    by LF, use ``"\r\n"``.
 
-   逃避角色。除了上面列出的那些之外，反斜杠后面的任何其他字符都是字面意思。例如，``\*`` 等同于文字 ``*``（不作为 ``*`` 运算符）。
-   需要注意的是 ``\r`` ，``\n`` 等没有特殊处理，并且将相当于文字字母 ``r`` ，``n`` 等。由于这一点，不推荐使用（原始Python字符串 ``r""`` ）为正则表达式。
-   例如，``r"\r\n"`` 当用作正则表达式时相当于 ``"rn"`` 。要匹配CR后跟LF的字符，请使用 ``"\r\n"`` 。
+   Escape role. n addition to those listed above, any other characters after the backslash are literal. Such as ，``\*`` equivalent to words ``*``（omission ``*`` operator）。
+   It should be noted that there is no special treatment for ``\r`` ，``\n`` , And will be equivalent to the letters' ``r`` ，``n`` . Because of this, it is not recommended to use（the original Python string ``r""`` ）as a regular expression.
+   For example, ``r"\r\n"`` when used as a regular expression is equivalent to ``"rn"`` . To match the character CR followed by LF, use ``"\r\n"`` . 
 
-**不支持**:
+**Unsupported**:
 
-* 计算重复次数 (``{m,n}``)
-* 命名组 (``(?P<name>...)``)
-* 非捕获组 (``(?:...)``)
-* 更高级的断言 (``\b``, ``\B``)
-* 特殊字符逃脱 ，例如 ``\r`` ，``\n`` 使用Python自己的转义
-* 等等
+* Count repetitions (``{m,n}``)
+* Named group (``(?P<name>...)``)
+* Non-capture group (``(?:...)``)
+* More advanced assertions (``\b``, ``\B``)
+* Escape of special characters ，such as ``\r`` ，``\n`` Using Python's own escape
+* And so on
 
-示例::
+Example::
 
     import ure
 
@@ -102,16 +102,16 @@
     # Result:
     # ['line1', 'line2', 'line3', '', '']
 
-函数
+Function
 ---------
 
 .. function:: compile(regex_str)
 
-   编译正则表达式，返回 `regex <regex>` 对象。
+   Compile the regular expression and return the `regex <regex>` object.
 
 .. function:: match(regex_str, string)
 
-   编译 *regex_str* 并匹配 *string* 。匹配始终从字符串中的起始位置开始。
+   Compile *regex_str* and match *string* . Matching always starts at the beginning of the string.
  
 .. function:: search(regex_str, string)
 
@@ -119,10 +119,10 @@
    string for first position which matches regex (which still may be
    0 if regex is anchored).
 
-   编译 `regex_str` 并在字符串中搜索它。与 ``match`` 此不同，这将搜索匹配正则表达式的第一个位置的字符串（如果正则表达式已锚定，则仍可能为0）。
+   Compile `regex_str` And search for it in a string. different from  ``match`` , The string that matches the first position of the regular expression is searched (it can still be 0 if the regular expression is anchored).
 
 .. data:: DEBUG
 
-   标记值，显示有关已编译表达式的调试信息。
+   Tag values that display debugging information about compiled expressions.
 
 
