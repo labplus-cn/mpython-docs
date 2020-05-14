@@ -16,10 +16,10 @@ Conceptual level
 
    As described in this section, the conceptual hierarchy of stream base classes is simplified in MicroPython.
 
-（摘要）基本流类作为所有具体类行为的基础，在CPython中遵循少量二分法（成对分类）。
-在MicroPython中，它们稍微简化并隐含以实现更高的效率并节省资源。
+(Summary) as the basis of all concrete class behaviors, basic flow classes follow a small amount of dichotomy (pair classification) in CPython.
+In MicroPython, they are slightly simplified and implicit for greater efficiency and resource savings.
 
-n important dichotomy in CPython is unbuffered flow and buffered flow. In MicroPython, all streams are currently unbuffered.
+In important dichotomy in CPython is unbuffered flow and buffered flow. In MicroPython, all streams are currently unbuffered.
 This is because all modern operating systems, even many RTOS and file system drivers, are already performing buffering around them.
 Adding another layer of buffer is counterproductive（a problem called “bufferbloat”）and takes up valuable memory.
 Note that there are still situations where buffering can be useful, so we may introduce optional buffering support later.
