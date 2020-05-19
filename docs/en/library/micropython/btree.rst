@@ -4,7 +4,7 @@
 .. module:: btree
    :synopsis: Simple BTree Database
 
- ``btree`` 模块使用外部储存（磁盘文件，或在一般情况下为随机访问流）实现简单的键值数据库。
+ ``btree`` The module uses external storage (disk file or random access stream in general) to realize simple key value database.
  键排序储存在数据库中，除对单个键值的有效检索外，数据库还支持高效的有序范围扫描（使用给定范围内的键来检索值）。
  在应用程序接口方面，B树数据库尽可能以与标准 `dict` 类型工作方式相似的方式运行，一个明显区别是键和值都须
  为 `bytes` 对象（因此，若您想要储存其他类型的对象，需首先将之序列化为 `bytes` ）。
