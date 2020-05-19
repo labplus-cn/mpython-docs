@@ -1,4 +1,4 @@
-:mod:`btree` -- 简单的 BTree 数据库
+:mod:`btree` -- Simple BTree Database
 =====================================
 
 .. module:: btree
