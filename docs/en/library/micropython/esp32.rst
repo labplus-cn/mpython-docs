@@ -1,59 +1,59 @@
-:mod:`esp32` --- 特定于ESP32的功能
+:mod:`esp32` --- ESP32 specific features
 ====================================================
 
 .. module:: esp32
-    :synopsis: 特定于ESP32的功能
+    :synopsis: ESP32 specific features
 
-``esp32`` 模块包含专门用于控制ESP32模块的功能和类。
+``esp32`` The module contains functions and classes specifically for controlling the ESP32 module.
 
-函数
+Function
 ---------
 
 .. function:: wake_on_touch(wake)
 
-    配置触摸是否将设备从睡眠状态唤醒。 wake应该是一个布尔值
+    Configure whether the touch wakes the device from sleep. Wake should be a boolean
 
 .. function:: wake_on_ext0(pin, level)
 
-    配置 `EXT0` 如何将设备从睡眠状态唤醒。 
+    Configure `EXT0`  how to wake the device from sleep.  
 
-    - ``pin`` :None 或者 有效的Pin对象。 
-    - ``level`` : ``esp32.WAKEUP_ALL_LOW`` 或 ``esp32.WAKEUP_ANY_HIGH`` 。
+    - ``pin`` :None or a valid Pin object。 
+    - ``level`` : ``esp32.WAKEUP_ALL_LOW`` or ``esp32.WAKEUP_ANY_HIGH`` 。
 
 .. function:: wake_on_ext1(pins, level)
 
-    配置 `EXT1` 如何将设备从睡眠状态唤醒。 
+    Configure `EXT1` how to wake the device from sleep.  
 
-    - ``pin`` :None 或者 有效的Pin对象的元组/列表。 
-    - ``level`` : ``esp32.WAKEUP_ALL_LOW`` 或 ``esp32.WAKEUP_ANY_HIGH`` 。
+    - ``pin`` :None or a tuple / list of valid Pin objects.  
+    - ``level`` : ``esp32.WAKEUP_ALL_LOW`` or ``esp32.WAKEUP_ANY_HIGH`` 。
 
 .. function:: raw_temperature()
 
-    读取内部温度传感器的原始值，返回一个整数。
+    Read the original value of the internal temperature sensor and return an integer.
 
 .. function:: hall_sensor()
 
-    读取内部霍尔传感器的原始值，返回一个整数。
+    Read the original value of the internal Hall sensor and return an integer. 
 
 
-超低功耗协处理器
+Ultra low power coprocessor
 --------------------------------
 
 .. class:: ULP()
 
-    该类提供对超低功耗协处理器的访问。
+    This class provides access to ultra-low power coprocessors. 
 
 .. method:: ULP.set_wakeup_period(period_index, period_us)
 
-    设置唤醒时间。
+    Set wake up time. 
 
 .. method:: ULP.load_binary(load_addr, program_binary)
 
-    在给定的load_addr中将program_binary加载到ULP中。
+    Load program_binary into ULP in the given load_addr.
 
 .. method:: ULP.run(entry_point)
 
-    启动在给定entry_point运行的ULP 。
+    Start ULP running at the given entry_point .
 
 
 Constants
@@ -62,4 +62,4 @@ Constants
 .. data:: esp32.WAKEUP_ALL_LOW
           esp32.WAKEUP_ANY_HIGH
 
-   选择引脚的唤醒级别。
+   Select the wake-up level of the pin. 
