@@ -1,16 +1,16 @@
-:mod:`micropython` -- 访问和控制MicroPython内部
-==============================================================
+:mod:`micropython` -- Access and control of MicroPython internal
+=============================================================
 
 .. module:: micropython
-   :synopsis: 访问和控制MicroPython内部
+   :synopsis: Access and control of MicroPython from internal
 
 
-函数
+Function
 ---------
 
 .. function:: const(expr)
 
-  用于声明表达式是常量，以便编译可以优化它。该功能的使用应如下::
+  Used to declare that an expression is a constant so that compilation can optimize it. The use of this function shall be as follows::
 
     from micropython import const
 
@@ -19,53 +19,53 @@
     print(CONST_X)
     print(CONST_Y)
 
-  运行结果::
+  Operation result::
 
     >>>123
     >>>247
 
 
 
-  以这种方式声明的常量仍可作为全局变量从它们声明的模块外部访问。另一方面，如果常量以下划线开头，则它被隐藏，
-  它不可用作全局变量，并且不会占用执行期间的任何内存。
+  Constants declared in this way can still be accessed as global variables from outside the modules they declare. On the other hand, if a constant begins with an underscore, it is hidden.
+  It is not available as a global variable and does not take up any memory during execution. 
 
-  此 ``const`` 函数由MicroPython解析器直接识别，并作为  :mod:`micropython`  模块的一部分提供，主要是通过遵循上述模式可以编写在
-  CPython和MicroPython下运行的脚本。
+  This ``const`` function is directly recognized by the MicroPython parser and provided as part of the  :mod:`micropython`  module, It is mainly used to write scripts running under CPython and MicroPython by following the above patterns.
 
 
 
 .. function:: opt_level([level])
 
-  如果水平给出那么这个函数设置脚本，并返回的后续编译优化级别 ``None`` 。否则返回当前优化级别。
+  If the level is given, this function sets the script and returns the subsequent compilation optimization level ``None`` . Otherwise, return to the current optimization level.
 
-  优化级别控制以下编译功能:
+  The optimization level controls the following compilation functions:
 
-    * 断言:在0级断言语句被启用并编译成字节码; 在级别1和更高级别的断言未编译。
-    * 内置 ``__debug__`` 变量:在0级，此变量扩展为 ``True``; 在1级和更高级别，它扩展到 ``False``。
-    * 源代码行号:在0,1和2级源代码行号与字节码一起存储，以便异常可以报告它们出现的行号; 在级别3和更高的行号不存储。
+    * Assertion: Assertion statement is enabled and compiled into bytecode at level 0; Assertions at level 1 and higher are not compiled. 
+    * Built-in ``__debug__`` variables: At level 0, this variable expands to ``True``; At level 1 and higher, it extends to ``False``.
+    
+    * Source code line number: Source line numbers are stored with bytecode at levels 0, 1 and 2 so that exceptions can report their occurrence; line numbers at levels 3 and higher are not stored. 
 
-  默认优化级别通常为0级。
+  The default optimization level is usually 0. 
 
 .. function:: alloc_emergency_exception_buf(size)
 
-  设置紧急情况下的（栈溢出，普通RAM不足等）保险RAM分配，使在紧急情况下仍有RAM可用。
+  Set the safe RAM allocation in case of emergency (stack overflow, general RAM shortage, etc.) so that RAM is still available in case of emergency. 
 
-    - ``size``:保险剩余RAM的大小，一般为100
+    - ``size``: The safe size of the remaining ram is generally 100.
 
 
-  使用此函数的一种好方法是将它放在主脚本的开头（例如 ``boot.py`` 或 ``main.py`` ），
-  然后紧急异常缓冲区将对其后的所有代码生效。
+  A good way to use this function is at the beginning of the main script（such as ``boot.py`` or ``main.py`` ），
+  The emergency exception buffer will then take effect for all subsequent code. 
 
 
 .. function:: mem_info([verbose])
 
-  函数说明： 打印当前内存使用的情况（包括栈和堆的使用量）。
+  Function description： Print current memory usage (including stack and heap usage). 
 
-  .. 注意::
+  .. Note::
 
-      如果给出参数level（任何数据类型），则打印出更加详细的信息，它会打印整个堆，指示哪些内存块被使用，哪些内存是空闲的。 
+      If the parameter level (any data type) is given, more detailed information will be printed, which will print the entire heap, indicating which memory blocks are used and which are free. 
 
-  不给参数::
+  Parameter not given::
 
     >>>micropython.mem_info()
     stack: 736 out of 15360
@@ -73,7 +73,7 @@
     No. of 1-blocks: 72, 2-blocks: 31, max blk sz: 264, max free sz: 2492
     >>>
 
-  给定参数::
+  Given parameter::
 
       >>>micropython.mem_info("level")
     stack: 752 out of 15360
@@ -95,20 +95,20 @@
 
 .. function:: qstr_info([verbose])
 
-  打印当前所有已使用的字符串在内存中的个数，占用内存大小等信息。
+  Print the number of strings currently used in memory, occupied memory size and other information. 
 
-  .. 注意::
+  .. Note::
 
-    如果给出参数，则打印出具体的字符串信息。打印的信息是依赖于实际情况的，包括被录入的字符串数量和它们使用的RAM的数量。
-    在详细模式中，它打印出所有字符串的名称。 
+    If the parameter is given, the specific string information will be printed out. The printed information depends on the actual situation, including the number of strings entered and the amount of ram they use.
+    In verbose mode, it prints out the names of all strings. 
 
-  不给参数::
+  Parameter not given::
 
     >>>micropython.qstr_info()  
     qstr pool: n_pool=1, n_qstr=4, n_str_data_bytes=31, n_total_bytes=1135
     >>>
     
-  给定参数::
+  Given parameter::
 
     >>>micropython.qstr_info("level")  
     qstr pool: n_pool=1, n_qstr=4, n_str_data_bytes=31, n_total_bytes=1135
@@ -120,43 +120,43 @@
 
 .. function:: stack_use()
 
-  返回一个整数，表示当前正在使用的堆栈量。这个绝对值并不是特别有用，而应该用它来计算不同点的堆栈使用差异。
+  Returns an integer representing the number of stacks currently in use. This absolute value is not particularly useful, but should be used to calculate stack usage differences at different points.
 
-  示例::
+  Examples::
 
     >>>micropython.stack_use()
     720
 
 .. function:: heap_lock()
 
-  锁定堆，当堆被锁定时，任何操作都不会分配内存 。如果尝试内存分配操作，则会产生MemoryError错误。。
+  Lock the heap. When the heap is locked, no operation will allocate memory. If a memory allocation operation is attempted, a memoryerror error will be generated. 
 
   
 
 .. function:: heap_unlock()
 
-  解锁堆
+  Unlock heap
 
 .. function:: kbd_intr(chr)
 
-  设置将引发KeyboardInterrupt异常的字符。默认情况下，在脚本执行期间将其设置为3，对应于Ctrl-C。
-  将-1传递给此函数将禁用Ctrl-C的捕获，传递3将恢复它。
+  Set the character that will throw the keyboardinterrupt exception. By default, it is set to 3 during script execution, corresponding to Ctrl-C.
+  Passing - 1 to this function disables capture of Ctrl-C, and passing 3 restores it.
 
-  如果该流用于其他目的，此函数可用于防止在通常用于REPL的传入字符流上捕获Ctrl-C。
+  If the stream is used for other purposes, this function can be used to prevent capture of Ctrl-C on the incoming character stream that is commonly used for REPL.
 
 .. function:: schedule(func, arg)
 
-  安排函数func “很快”执行。该函数传递值arg作为其单个参数。“很快”意味着MicroPython运行时将尽最大努力在尽可能早的时间执行该功能，
-  因为它也试图提高效率，并且以下条件成立：
+  Schedule function func to execute “quickly”. The function passes the value arg as its single parameter. “Quickly” means that the MicroPython runtime will do its best to perform this function as early as possible.
+  Because it also tries to improve efficiency, and the following conditions are true：
 
-  - 预定的功能永远不会抢占另一个预定的功能。
-  - 计划函数总是在“操作码之间”执行，这意味着所有基本的Python操作（例如附加到列表）都保证是原子的。
-  - 给定端口可以定义“关键区域”，在该区域内永远不会执行调度函数。可以在关键区域内安排功能，但在退出该区域之前不会执行这些功能。关键区域的示例是抢占中断处理程序（IRQ）。
+  - The scheduled function will never preempt another scheduled function. 
+  - Planning functions are always executed “between opcodes”, which means that all basic Python operations, such as attaching to a list, are guaranteed to be origin.
+  - A given port can define a "critical area" within which the scheduling function will never be executed. Could schedule functions in a critical area, but they will not be performed until you exit the area. An example of a critical area is preemption interrupt handler (IRQ).
 
-  此功能的用途是从抢占IRQ安排回调。这样的IRQ限制了在IRQ中运行的代码（例如，堆可能被锁定），并且调度稍后调用的函数将解除这些限制。
+  The purpose of this function is to schedule callbacks from preemptive IRQ. Such IRQ limits the code that runs in IRQ (for example, heap may be locked), and schedules functions that are called later will relieve these restrictions.
 
-  注意：如果 ``schedule()`` 从抢占IRQ调用，则当不允许内存分配并且要传递的回调 ``schedule()`` 是绑定方法时，直接传递它将失败。这是因为创建对绑定方法的引用会导致内存分配。解决方案是在类构建对象中创建对方法的引用并将该引用传递给 ``schedule()`` 。
-  这里将在“创建Python对象”下的参考文档中详细讨论 。
+  Note：If ``schedule()`` is called from preemptive IRQ, if memory allocation is not allowed and the callback ``schedule()`` to transmit directly by binding method,  it will fail.
+  This is discussed in detail in the reference documentation under “creating Python objects”. 
 
-  有一个有限的堆栈来保存预定的函数，如果堆栈已满，``schedule()`` 则会引发一个 ``RuntimeError`` 。
+  There is a limited stack to hold the scheduled functions. If the stack is full, ``schedule()`` ,  ``RuntimeError`` will be raised.
 
