@@ -1,20 +1,20 @@
 .. _random:
-:mod:`random` --- 生成随机数
+:mod:`random` --- Generate random numbers
 =========================================
 
-该模块基于Python标准库中的 ``random`` 模块。它包含用于生成随机数的函数。
+This module is based on the ``random`` module in the Python standard library. It contains functions for generating random numbers.
 
-函数
+Function
 ---------
 
 .. method:: random.randint(start, end)
 
-随机生成一个start到end之间的整数。
+Randomly generate an integer between start and end.
 
-  - ``start``:指定范围内的开始值，包含在范围内。
-  - ``stop``：指定范围内的结束值，包含在范围内。
+  - ``start``: Start value in the specified range, included in the range.
+  - ``stop``：End value within the specified range, included in the range.
 
-示例::
+Example::
 
   >>> import random
   >>> print(random.randint(1, 4))
@@ -24,9 +24,9 @@
 
 .. method:: random.random()
 
-随机生成一个0到1之间的浮点数。 
+Randomly generate a floating point number between 0 and 1。 
 
-示例::
+Example::
 
   >>> print(random.random())
   0.7111824
@@ -36,12 +36,12 @@
 
 .. method:: random.unifrom(start, end)
 
-随机生成start到end之间的浮点数。
+Randomly generate floating point numbers from start to end.
 
-  - ``start``：指定范围内的开始值，包含在范围内。
-  - ``stop``：指定范围内的结束值，包含在范围内。
+  - ``start``：Start value in the specified range, included in the range.
+  - ``stop``：End value within the specified range, included in the range.
 
-示例::
+Example::
 
   >>> print(random.uniform(2, 4))
   2.021441
@@ -51,30 +51,30 @@
 
 .. method:: random.getrandbits(size)
 
-随机生成 0 到 size 个位二进制数范围内的正整数。 
+Randomly generate positive integers in the range of 0 to size binary digits. 
 
-  - ``size`` :位大小。例如，size = 4，那么便是从 0 到0b1111中随机一个正整数；size = 8，那么便是从 0 到 0b11111111中随机一个正整数。
+  - ``size`` : Bit size. Example，size = 4，then it is a random positive integer from 0 to 0b1111；size = 8，then it is a random positive integer from 0 to 0b11111111.
 
-示例::
+Example::
 
-  >>> print( random.getrandbits(1))  #1位二进制位，范围为0~1（十进制：0~1）
+  >>> print( random.getrandbits(1))  #1 binary bit, the range is0~1（十进制：0~1）
   1
   >>> print(random.getrandbits(1))
   0
-  >>> print(random.getrandbits(8))  #8位二进制位，范围为0000 0000~1111 11111（十进制：0~255）
+  >>> print(random.getrandbits(8))  #8位二进制位，范围为0000 0000~1111 11111（decimal：0~255）
   224
   >>> print(random.getrandbits(8))
   155
 
 .. method:: random.randrange(start, end, step)
 
-随机生成start到end并且递增为 step 的范围内的正整数。例如，randrange(0, 8, 2)中，随机生成的数为0、2、4、6中任一个。
+Randomly generate start to end and increment to a positive integer in the range of step. Example，in randrange(0, 8, 2), the randomly generated number is any of 0、2、4、6.
 
-  - ``start``：指定范围内的开始值，包含在范围内
-  - ``stop``：指定范围内的结束值，包含在范围内
-  - ``step``：递增基数
+  - ``start``：Start value in the specified range, included in the range
+  - ``stop``：End value within the specified range, included in the range
+  - ``step``：Increasing cardinality
 
-示例::
+Example::
 
   >>> print(random.randrange(2, 8, 2))
   4
@@ -85,24 +85,24 @@
 
 .. method:: random.seed(sed)
 
-指定随机数种子，通常和其他随机数生成函数搭配使用。
+Specify a random number seed, usually used in conjunction with other random number generation functions.
 
-.. 注意::
+.. Note::
 
-   MicroPython中的随机数其实是一个稳定算法得出的稳定结果序列，而不是一个随机序列。
-   seed就是这个算法开始计算的第一个值。所以就会出现只要seed是一样的，那么后续所有“随机”结果和顺序也都完全一致。
+   The random number in MicroPython is actually a stable result sequence obtained by a stable algorithm, not a random sequence.
+   SEED is the first value that this algorithm starts to calculate. So it will appear that as long as the seed is the same, then all subsequent "random" results and order are exactly the same.
 
-示例::
+Example::
 
   import random
 
   for j in range(0, 2):
-    random.seed(13)  #指定随机数种子
-    for i in range(0, 10):  #生成0到10范围内的随机序列
+    random.seed(13)  #Specify random number seed
+    for i in range(0, 10):  #Generate random sequences in the range 0 to 10
       print(random.randint(1, 10))
     print("end")
 
-运行结果::
+Operation result:
 
   5
   2
@@ -127,16 +127,16 @@
   2
   end
 
-从上面可以看到生成两个随机数列表是一样的，你也可以多生成几个随机数列表看看。
-另外当我们不用seed(sed)函数时，相当于没有指定随机种子，这样就是随机生成的。
+From the above, you can see that the two random number lists are the same. You can also generate a few more random number lists.
+In addition, when we do not use the seed (sed) function, it is equivalent to not specifying a random seed, which is randomly generated.
 
 .. method:: random.choice(obj)
 
-函数说明：随机生成对象obj中的元数。
+Function description：Randomly generate the arity in the object obj.
 
-  - ``obj``：元数列表
+  - ``obj``：List of arity
 
-示例::
+Example::
 
   >>> print(random.choice("mPython"))
   m
