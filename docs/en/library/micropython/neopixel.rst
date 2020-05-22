@@ -1,32 +1,32 @@
 .. _neopixel:
-:mod:`neopixel` --- WS2812 灯带
+:mod:`neopixel` --- WS2812 LED Striplight
 =========================================
 
 
-NeoPixels也被称为WS2812 LED彩带，是连接在一起的全彩色led灯串。你可以设置他它们的红色，绿色和蓝色值，
-在0到255之间。neopixel模块可通过精确的时间控制，生成WS2812控制信号。
+NeoPixels, also known as WS2812 LED Striplight, are full-color led striplight connected in series. You can set the value of RED, GREEN, BLUE colors individually. 
+Values between 0 and 255. The neopixel module can generate WS2812 control signals through precise time control.
 
-构建对象
+Create Object
 ------------
 
 .. class:: NeoPixel(pin, n,bpp=3,timing=0, brightness=1.0)
 
-  - ``pin`` :输出引脚,可使用引脚见下文
-  -  ``n`` :LED灯的个数
+  - ``pin`` :Output pins, refer to available pins below
+  -  ``n`` :Number of series connected LED
   - ``bpp``:
   
-    - ``3``:默认为3元组RGB
-    - ``4``:对于具有3种以上颜色的LED，例如RGBW像素或RGBY像素,采用4元组RGBY或RGBY像素
+    - ``3``:The default is 3 colors (RBG) LED
+    - ``4``:For LEDs with more than 3 colors, such as RGBW pixels or RGBY pixels, use 4-tuple RGBY or RGBY pixels
 
-  - ``timing``:默认等于0,为400KHz速率；等于1，为800KHz速率
-  - ``brightness``:亮度调节,范围0~1,默认为1.0
-
+  - ``timing``:The default is 0 for 400KHz rate; and 1 for is 800KHz rate
+  - ``brightness``:Brightness adjustment, range 0 ~ 1, default is 1.0
+  
 .. Attention:: 
 
-  NeoPixel可使用的pin引脚有掌控板的P5,P6,P7(板上RGB),P8,P9,P11,P13,P14,P15,P16,P19,P20。
+  The pin pins available for NeoPixel are P5, P6, P7 (RGB on board), P8, P9, P11, P13, P14, P15, P16, P19, P20 of the control board.
 
 
-示例::
+Example::
 
   from machine import Pin
   import neopixel
@@ -35,25 +35,25 @@ NeoPixels也被称为WS2812 LED彩带，是连接在一起的全彩色led灯串�
   np = neopixel.NeoPixel(pin, n=3,bpp=3,timing=1)   #800khz
 
 
-方法
+Method
 -------
 
 .. method:: NeoPixel.write()
 
-把数据写入LED中。 
+Write data to LED.  
 
-示例::
+Example::
 
-  np[0] = (255, 255, 255) # 设置第一个LED像素为白色
+  np[0] = (255, 255, 255) # Set the first LED pixel to white
   np.write()
 
 .. method:: NeoPixel.fill(rgb_buf)
 
-填充所有LED像素。
+Fill all LED pixels. 
 
-  - ``rgb_buf`` :rgb颜色
+  - ``rgb_buf`` :rgb color
 
-示例::
+Example::
 
   np.fill( (255, 255, 255) )
 
@@ -61,4 +61,4 @@ NeoPixels也被称为WS2812 LED彩带，是连接在一起的全彩色led灯串�
 
 .. method:: NeoPixel.brightness(brightness)
 
-亮度调节,范围0~1.0
+Brightnedd adjustment, range: 0~1.0
