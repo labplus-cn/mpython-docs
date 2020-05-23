@@ -1,11 +1,11 @@
-版权
+Copyright
 ===============================
 
 
-掌控板(mPython)
+mPython Board
 -------------
 
-掌控板是一个OSHWA认证的开源硬件项目,代码和设计都是开源。但软件须在[GPL-3]许可下使用,硬件在[CERN]许可下使用,文档在[CC0]许可下使用。
+The mPython Board is an OSHWA certified open source hardware project, the code and design are open source. But the software must be used under the [GPL-3] license, the hardware is used under the [CERN] license, and the documentation is used under the [CC0] license.
 
 .. image:: /../images/OSHW_mark_CN000006.png
     :width: 150
