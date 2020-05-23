@@ -1,45 +1,45 @@
 RGB LED
 =====================
 
-mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片的低功耗的RGB三色灯，可实现256级亮度显示，完成16777216种颜色的全真色彩显示。采用特殊的单线通讯方式控制RGB灯的颜色，使用简单。
+mPython Board built-in with three WS2812 LED, WS2812 is a low-power RGB tri-color LED integrated WS2811 driver, an integrated current control chip, it can achieve 256-level brightness display and complete true color display of 16777216 colors. A special single-line communication method is used to control the color of RGB lights, which is easy to use.  
 
-板载RGB LED
+On-Board RGB LED
 ----------
-例：点亮RGB LED
+Example：Light up RGB LED
 ::
     from mpython import *
 
-    rgb[0] = (255, 0, 0)  # 设置为红色，全亮度
-    rgb[1] = (0, 128, 0)  # 设定为绿色，半亮度
-    rgb[2] = (0, 0, 64)   # 设置为蓝色，四分之一亮度
+    rgb[0] = (255, 0, 0)  # set to RED at full brightness
+    rgb[1] = (0, 128, 0)  # set to GREEN at half brightness
+    rgb[2] = (0, 0, 64)   # set to BLUE at a quarter brightness
     rgb.write()
 
 
-首先导入mpython模块::
+First of all, import the mPython module::
 
     from mpython import *
     
-.. Note:: 导入mpython模块后，会为掌控创建一个NeoPixel对象rgb,控制板载的RGB只需对rgb对象操作。
+.. Note:: Imported the mPython module, a NeoPixel object been created to control the WS2812 LEDs by just operate the RGB object. 
 
-设置颜色::
+Set the color::
 
-    rgb[0] = (255, 0, 0)  # 设置为红色，全亮度
-    rgb[1] = (0, 128, 0)  # 设定为绿色，半亮度
-    rgb[2] = (0, 0, 64)   # 设置为蓝色，四分之一亮度
+    rgb[0] = (255, 0, 0)  # set to RED at full brightness
+    rgb[1] = (0, 128, 0)  # set to GREEN at half brightness
+    rgb[2] = (0, 0, 64)   # set to BLUE at a quarter brightness
 
 
 .. Note:: 
-    * rgb[n] = (r, g, b) 可以设置每个像素点颜色，``n`` 为板载RGB灯的个数，第一个灯为0。 ``r``、``g``、``b`` 为颜色亮度值，范围值为0~255。
-    * rgb.fill(rgb_buf) 可以填充所有像素点的颜色，如：rgb.fill((255,0,0))，所有RGB灯设置为红色，全亮度。
+    * rgb[n] = (r, g, b) to set the color of each pixel，``n`` is the number of onboard RGB LED，The first been 0.  ``r``、``g``、``b`` are color brightness values, range is 0 ~ 255.
+    * rgb.fill(rgb_buf) to fill the color of all pixels, such as：rgb.fill((255,0,0))，set all RGB LED to RED at full brightness.
 
-将颜色输出到RGB灯::
+Output colors to RGB LEDs::
 
     rgb.write()
 
 
 .. _neopixel_strip:
     
-外部彩带
+External Striplight
 ----------
 
 
@@ -48,7 +48,7 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
     :align: center
 
 
-例：点亮外部彩带
+Example：Light Up external striplight
 ::
 
     from mpython import *
@@ -57,7 +57,7 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
 
 
     def wheel(pos):
-        # 通过改变在0和255之间的每个颜色参数产生彩虹色光谱
+        # Generate a rainbow color spectrum by setting each color range parameter between 0 and 255
         # Input a value 0 to 255 to get a color value.
         # The colours are a transition r - g - b - back to r.
         if pos < 0 or pos > 255:
@@ -79,7 +79,7 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
         return (r, g, b) 
 
     def cycle(np,r,g,b,wait=20):
-        # 循环效果,有一个像素在所有灯带位置上运行，而其他像素关闭。
+        # Loop effect, with one pixel running at all light strip positions, while other pixels are off.
         for i in range(4 * np.n):
             for j in range(np.n):
                 np[j] = (0, 0, 0)
@@ -89,7 +89,7 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
 
 
     def bounce(np,r,g,b,wait=20):
-        # 弹跳效果,等待时间决定了弹跳效果的速度
+        # Bounce effect, the waiting time determines the speed of the bounce effect
         n=np.n
         for i in range(4 * n):
             for j in range(n):
@@ -103,7 +103,7 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
 
 
     def rainbow_cycle(np,wait_us):
-        # 彩虹效果
+        # rainbow effect
         n=np.n
         for j in range(255):
             for i in range(n):
@@ -121,23 +121,23 @@ mPython掌控板载3颗WS2812灯珠，WS2812是一种集成了电流控制芯片
 .. figure:: /../images/tutorials/neopixel_control_leds_cycle.png
     :align: center
 
-    cycle循环效果
+    cycle effect
 
 .. figure:: /../images/tutorials/neopixel_control_leds_bounce.png
     :align: center
 
-    bounce弹跳效果
+    bounce effect
 
 .. figure:: /../images/tutorials/neopixel_control_leds_rainbow.png
     :align: center
 
-    rainbow彩虹效果
+    rainbow effect
 
 
-如果需要使用外部彩带，要先创建一个neopixel对象,定义 ``pin`` 、``bpp`` 、 ``timeing`` 参数，然后才能通过该对象控制彩带上的LED。
-更详细的使用方法，请查阅 :ref:`neopixel<neopixel>` 模块 。
+If you need to use an external ribbon, you must first create a neopixel object and define the ``pin`` 、``bpp`` 、 ``timeing`` parameters before you can control the LEDs on the ribbon through this object.
+For details, refer to :ref:`neopixel<neopixel>` module.
 
 .. Hint:: 
 
-   | mPyhton提供 ``neopixel`` 增强版 ``ledstrip`` 模块，已封装有更丰富的neopixel显示效果，操作简单。详细说明，请到以下链接。
+   | mPyhton provide ``neopixel`` enhanced version ``led strip`` module, packaged with enhanced NEOPIXEL display effect, and the operation is simple. For detailed instructions, please go to the following link.
    | mPython-ledstrip：https://github.com/labplus-cn/awesome-mpython/tree/master/library
