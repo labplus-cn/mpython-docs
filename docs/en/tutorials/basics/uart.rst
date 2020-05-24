@@ -1,110 +1,109 @@
-串口
+Serial Port
 ======
 
-串口基本概念
+Basic concept of serial port
 -----------
 
-串口原理
+Serial port principle
 +++++++
 
-串口通信的英文缩写是UART(Universal Asynchronous Receiver Transmitter) 全称是通用异步收发器。
-听起来很高深的概念，其实就如下图，两个设备，一根线串起来，发送方在线的一头将数据转换为二进制序列，用高低电平按照顺序依次发送01信号，接收方在线的另一头读取这根信号线上的高低电平信号，对应转化为二进制的01序列。
-异步收发指的就是全双工传输，即发送数据的同时也能够接收数据，两者同步进行，就如同我们的电话一样，我们说话的同时也可以听到对方的声音。
+The English abbreviation for serial communication is UART, which stands for Universal Asynchronous Receiver Transmitter.
+It is an advance concept, as shown in the figure below, two devices are connected in a line, and the sender's online end converts the data into a binary sequence, using high and low levels to send 01 signals in sequence, and the receiver's online another Read the high and low level signals on this signal line at one end, corresponding to the 01 sequence of binary conversion.
+Asynchronous sending and receiving refers to full-duplex transmission, that is, sending data and receiving data at the same time. The two are synchronized. Just like our phones, we can hear each other's voices while talking.
 
 
-每当我们想要在PC和MCU之间或两个MCU之间进行通信时，最简单的方法就是使用UART。在两个UART之间传输数据只需要两根线。数据从发送UART的Tx引脚流向接收UART的Rx引脚。
+Whenever we want to communicate between a PC and an MCU or between two MCUs, the easiest way is to use UART. Only two wires are required to transfer data between two UARTs. Data flows from the Tx pin of the sending UART to the Rx pin of the receiving UART.
 
 .. figure:: /../images/tutorials/serial-two-wire.png
     :align: center
     :width: 500
 
-    串口通信原理示意
+    Principle of serial communication
 
 
-波特率
+Baud rate
 +++++
 
-波特率(bandrate)是指，每秒钟我们的串口通信所传输的bit个数，通俗的讲就是在一秒内能够发送多少个1和0的二进制数。比如，波特率是9600，就意味着1S中可以发送9600个0和1组成的二级制序列。
+Baud rate (baudrate) refers to the number of bits transmitted by our serial communication per second. In layman's terms, it is how many binary numbers of 1 and 0 can be sent in one second. For example, a baud rate of 9600 means that 9600 secondary sequences consisting of 0 and 1 can be sent in 1S. 
 
-发送端 TX 与 接收端 RX
+TX at the transmitter and RX at the receiver
 +++++++++++++++++++++
 
-UART通信基本上使用2个引脚进行数据传输。Tx-用于发送数据的发送数据的引脚，Rx-用于获取数据的接收数据的引脚。两个串口进行通信的话， 最少需要三根线相连。
+UART communication basically uses 2 pins for data transmission. Tx-pin for sending of data, Rx-pin for receiving of data. For two serial ports to communicate, at least three wires are required to connect.
 
 
 .. figure:: /../images/tutorials/uart_pin.png
     :align: center
     :width: 250
 
-    RX 代表信息接收端，TX 代表信息发送端
+    RX stands for information receiving end, TX stands for information sending end
 
-.. Attention:: 如果是连接些模块，模块并没有自主供电，还须连接VCC！
+.. Attention:: If some modules are connected, the module does not have its own power supply, and it needs to connected to VCC！
 
 
-串口操作
+Serial port operation
 --------
 
-下文通过掌控板与blue:bit蓝牙从机模块的串口通信，最终实现掌控板蓝牙的通讯功能。
+The following communicates with the serial port of the Blue:bit Bluetooth slave module through the mPython Board to finally realize the BT communication function of the mPython Board. 
 
 .. figure:: http://wiki.labplus.cn/images/a/a2/黑色传感器最终版12.20-11.png
     :align: center
     :width: 250
 
-    blue:bit 蓝牙模块
+    blue:bit BT module
 
-构建UART
+construct UART
 ++++++++
 
 ::
 
-    from mpython import *                            # 导入mpython所有对象
+    from mpython import *                            # import all mPython object
 
-    uart=UART(1,baudrate=9600,tx=Pin.P15,rx=Pin.P16) # 构建UART对象，设置波特率为9600，TX、RX 引脚分别为P15、P16
+    uart=UART(1,baudrate=9600,tx=Pin.P15,rx=Pin.P16) # construct UART object，set Baud Rate at 9600，the TX、RX pins are P15、P16 respectively.
 
-HC06(blue:bit 蓝牙从机模块)默认出厂的波特率为9600。所以我们在此处构建UART时，波特设为9600，后面才能通讯成功。请根据自己需要的连接串口的波特率自行设置。
+HC06(blue:bit BT slave module) The default factory baud rate is 9600. Need to use the factory default setting baud rate of 9600. Then based on your needs of the connecting serial port to set the baud rate.
 
 
-``UART(id, baudrate, bits, parity, stop, tx, rx, rts, cts, timeout)`` , ``id`` 为串口号，可设值为1~2.掌控板支持3组串口。0用于REPL。``baudrate`` 参数
-为波特率，``tx`` 参数为映射发送引脚，``rx`` 参数为映射接收引脚。所有引脚均可以作为串口的输入RX，除 ``P2``、``P3`` 、``P4`` 、``P10`` 只能作为输入，其余所有的引脚理论上都可以作为输出TX。 一般只需设置上述参数即可，其他参数会保持默认参数。如需了解更多UART的参数，请查阅 :ref:`machine.UART<machine.UART>` 章节。
+``UART(id, baudrate, bits, parity, stop, tx, rx, rts, cts, timeout)`` , ``id`` is the serial port number, which can be set as 1 ~ 2. The mPython Board had 3 groups of serial ports, which 0 had been allocated for REPL. 
+``baudrate`` is parameter for Baud Rate, ``tx`` is the mapping pin on mPython Board for sending, ``rx`` is the mapping pin for receiving. All pins can be used as serial port input RX, except `` P2``, `` P3``, `` P4``, `` P10`` can only be used as input, theoretically all other pins can be used as output TX. Generally, only the above parameters need to be set, and other parameters will remain the default parameters. For more UART parameters, refers to  :ref:`machine.UART<machine.UART>` chapter.
 
-串口发送
+Serial port transmission
 +++++++
 
-你可以使用带蓝牙功能的电脑或手机下载蓝牙调试助手，配对蓝牙模块。这样就可以实现掌控板和电脑、手机的通讯。
+Use a Bluetooth-enabled computer or mobile phone to download the Bluetooth debugging assistant for BT module pairing. As such to realize the transmission of the mPython Board to the computer/mobile phone.
 
-蓝牙连接配对成功后，往串口发送字节数据::
+After successful pairing, send byte data to the serial port::
 
     >>> uart.write('hello,world!')
 
-这时，用串口助手看下，是否接受到掌控板发过来的数据。``uart.write(buf)`` 函数为向串口写入（发送）字节数据，返回数据的长度。
+Then, use the serial port assistant to check if received the data from the mPython Board. The ``uart.write(buf)`` function writes (sends) byte data to the serial port and returns the length of the data.
 
-串口读取
+Serial port reading
 +++++++
 
-掌控板接收串口数据，并将数据显示至OLED屏幕上::
+The mPython Board receives serial data and displays the data on the OLED screen::
 
 
-    from mpython import *                               # 导入mpython所有对象
+    from mpython import *                               # Import all mpython object
 
-    uart=UART(1,baudrate=9600,tx=Pin.P15,rx=Pin.P16,timeout=200)    # 实例UART，设置波特率9600，TX、RX映射引脚为P15、P16，超时设为200ms
+    uart=UART(1,baudrate=9600,tx=Pin.P15,rx=Pin.P16,timeout=200)    # Example UART, set baud rate 9600, TX, RX mapping pins are P15, P16, timeout is set to 200ms
 
     while True:
-        if(uart.any()):                     # 当串口有可读数据时
-            data = uart.readline()          # 从串口读取一行数据
-            print("received:",data)         # 打印接收到的数据
-            oled.DispChar("接收:%s" %data.decode('utf-8'),0,30)     # 将数据显示的OLED上，注意需要将字节码解码为字符串
-            oled.show()                     # 生效    
-            oled.fill(0)                    # 清屏
+        if(uart.any()):                     # When the serial port has readable data
+            data = uart.readline()          # Read a line of data from the serial port
+            print("received:",data)         # Print received data
+            oled.DispChar("接收:%s" %data.decode('utf-8'),0,30)     # Display data on the OLED, pay attention to the need to decode the bytecode into a string
+            oled.show()                     # take effect    
+            oled.fill(0)                    # clear screen
 
 
 
-这时你可以通过串口助手向串口发送数据，当掌控板接收到串口数据后，打印并显示至OLED屏。在while循环中,轮询使用 ``uart.any()`` 判断串口中是否有可读数据，当有数据时，用
-``uart.readline()`` 读取一行数据。需要注意的是，串口接收到的是字节类型，如果是传至OLED显示，需要用 ``decode()`` 将字节转为字符串。
+Now, you can send data to the serial port through the serial assistant, when the control panel receives the serial data, print and display it to the OLED screen. In the while loop, polling uses ``uart.any()`` to determine whether there is readable data in the serial port. When there is data, use ``uart.readline()`` read a line of data. It should be noted that the serial port receives the byte type. If it is transmitted to the OLED display, you need to use  ``decode()``  to convert the byte to a string.
 
-除了 ``UART.readline()`` 读取数据，还可以使用 ``UART.read(length)`` 从串口读取指定长度的数据。
+In addition to ``UART.readline()`` to read data, you can also use ``UART.read(length)`` to read data of specified length from the serial. 
 
 
-拓展
+Expansion
 ------
 
-学会了如何使用串口后，你就可以实现掌控板与其他MCU(Arduino)、电脑/手机、电子模块间的通讯。应用更为广泛，您可发挥你想象，如何用好串口，做出更有趣的东西！
+After learning how to use the serial port, you can realize the communication between the control board and other MCU (Arduino), computer / mobile phone, electronic module. With more extensive application, imagine and use the serial port and with your imagination to build and create more interesting things！
