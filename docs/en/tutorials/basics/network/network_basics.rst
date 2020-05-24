@@ -1,73 +1,73 @@
-网络基础
+Network Basic
 ==============
 
 .. _network_base:
 
-MicroPython :mod:`network` 模块用于配置WiFi连接。有两个WiFi接口，STA模式即工作站模式（ESP32连接到路由器），
-AP模式提供接入服务（其他设备连接到ESP32）。如需了解MicroPython的网络连接方法，请查阅 :mod:`network` 模块。
+MicroPython :mod: The `network`  module is used to configure WiFi connection。 There are two WiFi interfaces, STA mode is workstation mode (ESP32 is connected to the router)，
+AP mode provides access services (other devices connected to ESP32). For more information about MicroPython's network connection method, please refer to :mod:`network` module.
 
-STA模式
+STA mode
 -------
 
-掌控板以基于network模块封装 :ref:`mpython.wifi()<mpython.wifi>` 类简化wifi连接设置::
+The mPython Board is packaged based on the network module :ref:`mpython.wifi()<mpython.wifi>` 类简化wifi连接设置::
 
-    from mpython import *       #导入mpython模块
+    from mpython import *       #import the mpython module
 
-    mywifi=wifi()     #实例化wifi类
-    mywifi.connectWiFi("ssid","password")  # WiFi连接，设置ssid 和password
+    mywifi=wifi()     #Instantiate wifi class
+    mywifi.connectWiFi("ssid","password")  # WiFi connection，set the SSID and Password
 
 .. Note:: 
 
-    实例化wifi()后，会构建 ``sta`` 和 ``ap`` 两个对象。 ``sta`` 对象为工作站模式，通过路由器连接至网络。``ap`` 为AP模式，提供wifi接入。
+    After instantiate the wifi(), Will create the ``sta`` and ``ap`` objects. ``sta`` object is in workstation mode, connected to the network via a router. ``ap`` is AP mode, provides wifi access.
 
-连接成功后Repl串口如下打印::
+After successful connection, the REPL serial port is printed as follows::
 
     Connecting to network...
     Connecting to network...
     WiFi Connection Successful,Network Config:('192.168.0.2', '255.255.255.0', '192.168.0.1', '192.168.0.1')
 
 
-断开WiFi连接::
+Disconnect the WiFi::
 
     mywifi.disconnectWiFi()
 
-查询wifi连接是否已建立::
+Check if the wifi connection has been established::
 
     mywifi.sta.isconnected()
 
-.. Note:: 如已建立连接，返回 ``True`` ,否则 ``False`` 。
+.. Note:: If the connection is established, return  ``True`` , otherwise ``False`` .
 
-您可以通过以下方式查看网络设置::
+You can check the network settings in the following ways::
 
     mywifi.sta.ifconfig()
 
-.. Note:: 返回值4元组: (IP address, netmask, gateway, DNS)
+.. Note:: Return value 4-tuple: (IP address, netmask, gateway, DNS)
     
-``ifconfig()`` 带参数时，配置静态IP。例如::
+``ifconfig()`` with parameters, configure static IP. E.G.::
 
     mywifi.sta.ifconfig(('192.168.0.4', '255.255.255.0', '192.168.0.1', '192.168.0.1'))
 
-AP模式
+AP mode
 -------
 
-除STA模式连接路由器wifi,掌控板还可以使用AP模式,提供wifi接入服务。
+In addition to the STA mode to connect to the router wifi, the control panel can also use the AP mode to provide wifi access services.
 
 ::
 
-    from mpython import wifi                    # 导入mpython模块的wifi类
+    from mpython import wifi                    # import the WiFi class mpython module
 
-    mywifi=wifi()                               # 实例wifi
-    mywifi.enable_APWiFi(essid = "mpython-wifi", password = "mpython123456")    # 配置并打开AP模式
+    mywifi=wifi()                               # instantiate wifi
+    mywifi.enable_APWiFi(essid = "mpython-wifi", password = "mpython123456")    # Configure and open AP mode
 
-``wifi.enable_APWiFi(essid,password)`` 用于配置并开启AP模式函数, ``essid`` 参数为wifi名称, ``password`` 参数为wifi密码设置。AP模式开启后,其他掌控板或网络设备就能连接该网络,进行网络通信。
+``wifi.enable_APWiFi(essid,password)`` used to configure and open the AP mode function, ``essid`` parameter is WiFi name, ``password`` parameter is wifi password setting. After the AP mode is turned on, other control boards or network devices can connect to the network for network communication.
 
-.. Attention:: AP模式并不是类似手机的热点功能,设备可以通过热点连接至互联网。这点需要注意。
+.. Attention:: AP mode is not a hotspot function similar to mobile phones, the device can connect to the Internet through the hotspot.This point needs attention.
 
 ----------------------------
 
-一旦设置了WiFi，访问网络的方式就是使用套接字。
-套接字表示网络设备上的端点，当两个套接字连接在一起时，可以继续进行通信。
-Internet协议构建在套接字之上，例如电子邮件（SMTP），Web（HTTP），telnet，ssh等等。
-为这些协议中的每一个分配一个特定的端口，它只是一个整数。给定IP地址和端口号，您可以连接到远程设备并开始与之通信。
+Once WiFi is set up, then use network sockets to access the network.
+A network socket represents an endpoint on a network device, and when two network sockets are connected together, communication can continue.
+The Internet protocol is built on network sockets, such as email (SMTP), Web (HTTP), telnet, ssh, etc.
+Assign a specific port to each of these protocols, it is just an integer. Given an IP address and port number, you can connect to a remote device and start communicating with it.
 
-本教程的下一部分将讨论如何使用套接字来执行一些常见且有用的网络任务。
+The next part of this tutorial will discuss how to use network sockets to perform some common and useful network tasks.
