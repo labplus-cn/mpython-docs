@@ -1,19 +1,19 @@
-加速度
+Accelerometer
 ======================================
 
-加速度传感器能够测量由于重力引起的加速度，传感器在加速过程中，通过对质量块所受惯性力的测量，利用牛顿第二定律获得加速度值。掌控板上的加速度计可测量加速度，测量范围为 -2g 到 +2g 之间。
+The acceleration sensor can measure the acceleration due to gravity. During the acceleration process, the sensor uses the Newton's second law to obtain the acceleration value by measuring the inertial force received by the mass. The accelerometer on the mPython Board can measure acceleration, with a measurement range of -2g to + 2g.。
 
-掌控板的测量沿3个轴，每个轴的测量值是正数或负数，正轴越趋近重力加速度方向，其数值往正数方向增加，反之往负数方向减小，当读数为 0 时，表示沿着该特定轴“水平”放置。
+It is 3-axis measurement of the mPython Board with positive or negative values on each axis. As the positive axis approaches the direction of gravitational acceleration, its value increases toward the positive direction, and conversely decreases toward the negative direction. 
 
-* X - 向前和向后倾斜。
-* Y - 向左和向右倾斜。
-* Z - 上下翻转。
+* X - Tilt forward and backward.
+* Y - Tilt left and right。
+* Z - Flip up and down。
 
 .. image:: /../images/tutorials/xyz.png
     :align: center
 
 
-例：通过OLED显示屏来观察3个轴加速度值的变化
+Example：Observe the changes of the acceleration values of the three axes through the OLED display
 ::
     from mpython import *
     
@@ -22,20 +22,20 @@
         x1 = accelerometer.get_x()
         y1 = accelerometer.get_y()
         z1 = accelerometer.get_z()
-        oled.DispChar("加速度x:", 0, 0)
+        oled.DispChar("Acceleration x:", 0, 0)
         oled.DispChar(str(x1), 48, 0)
-        oled.DispChar("加速度y:", 0, 16)
+        oled.DispChar("Acceleration y:", 0, 16)
         oled.DispChar(str(y1), 48, 16)
-        oled.DispChar("加速度z:", 0, 32)
+        oled.DispChar("Acceleration z:", 0, 32)
         oled.DispChar(str(z1), 48, 32)
         oled.show()
 
 
-使用前，导入mpython模块::
+First, import the mPython module::
 
     from mpython import *
 
-获取X、Y、Z三轴的加速度::
+Obtain X、Y、Z 3-axis acceleration::
 
     x1 = accelerometer.get_x()
     y1 = accelerometer.get_y()
@@ -43,28 +43,28 @@
 
 .. Note::
 
-    通过 accelerometer.get_x() 获取3轴加速度。获取3轴加速度获取方法分别为 ``get_x()`` 、``get_y()`` 、``get_z()`` 。
-    每个轴的测量值根据方向是正数或负数，表示以克为单位的值。
+    Obtain the 3 axis acceleration by  accelerometer.get_x() . The methods to get the 3-axis acceleration are ``get_x()`` 、``get_y()`` 、``get_z()`` 。
+    The measured value of each axis is positive or negative according to the direction, indicating the value in grams。
 
-您可以尝试掌控板按以下放置，观察3轴数据:
+You can try to place the mPython Board panel as follows and observe the 3-axis data:
 
-* 平放桌面       --(0,0,-1)
-* 翻转平放桌面   --(0,0,1)
-* 掌控板下板边直立与桌面 --(1,0,0) 
-* 掌控板左板边直立与桌面 --(0,1,0) 
+* Flat on the surface top       --(0,0,-1)
+* Flip the flat surface top   --(0,0,1)
+* The bottom edge of the control board is upright --(1,0,0) 
+* The left side of the control panel is upright --(0,1,0) 
 
 .. Note::
 
-    发现什么规律没有？当重力加速度与加速度轴方向一致时，即等于1g的地球重力加速度。正方向为+1g，反方向为-1g。
-    假如您猛烈地摇动掌控板，您会看到加速度达到±2g，那是因为这个加速度计的最大测量值为±2g。
+    Did you find any patterns? When the acceleration of gravity is consistent with the direction of the acceleration axis, it is equal to the acceleration of gravity of 1g. Positive direction is + 1g, negative direction is -1g. 
+    If you shake the control panel violently, you will see the acceleration reach ± 2g, which is because the maximum measurement value of this accelerometer is ± 2g.
 
 
-水平球
+Horizontal ball
 ++++++++++++++
 
 
 .. literalinclude:: /../../examples/accelerometer/gradienter.py
-    :caption: 我们用加速度计制作一个上下左右各滚动的水平球
+    :caption: We use the accelerometer to make a horizontal ball that rolls up, down, left, and right
     :linenos:
 
 .. image:: /../images/tutorials/gravity.gif
@@ -72,7 +72,7 @@
     :scale: 100 %
    
 
-当检测到掌控板在X轴和Y轴方向倾斜时（范围-1g 至+1g），将X轴、Y轴的偏移值也就是加速度值（范围-1至1）分别映射在以设定的中心点为原点的X坐标上的Y坐标（范围32至-32）、X坐标（范围-64至64）上::
+When it is detected that the control panel is tilted in the X-axis and Y-axis directions (range -1g to + 1g), the X-axis and Y-axis offset values, that is, acceleration values (range -1 to 1), are mapped to set The center point is the Y coordinate (range 32 to -32) and the X coordinate (range -64 to 64) on the X coordinate of the origin::
 
     if y<=1 and y>=-1:
         offsetX=int(numberMap(y,1,-1,-64,64))
@@ -81,65 +81,65 @@
 
 .. Note::
 
-    numberMap(inputNum, bMin, bMax, cMin, cMax) 是映射函数，``inputNum`` 为需要映射的变量，``bMin`` 为需要映射的最小值，``bMax`` 为需要映射的最大值，``cMin`` 为映射的最小值，``cMax`` 为映射的最大值。
+    numberMap(inputNum, bMin, bMax, cMin, cMax) is the mapping function, ``inputNum`` is the variable to be mapped, ``bMin`` is the minimum value that needs to be mapped, ``bMax`` is the maximum value that needs to be mapped, ``cMin`` as the minimum value of the mapped, ``cMax`` as the maximum value of the mapped.
 
-水平球在X、Y坐标上的移动：水平球在坐标上的移动 = 中心点位置 + 加速度的偏移值::
+The movement of the horizontal ball on the X and Y coordinates: the movement of the horizontal ball on the coordinates = the position of the center point + the offset value of the acceleration::
 
     move_x=Center_x+offsetX
     move_y=Center_y+offsetY 
 
-如果水平球移动到中心位置，则亮绿灯，否则不亮灯::
+If the horizontal ball moves to the center position, green light on, otherwise not lighted::
 
     if offsetX==0 and offsetY==0:
-        rgb.fill((0,10,0))          #水平球在中心位置亮绿灯，亮度为10
+        rgb.fill((0,10,0))          #The horizontal ball lights green at the center, with a brightness of 10
         rgb.write()
     else:
-        rgb.fill((0,0,0))           #水平球不在中心位置灭灯
+        rgb.fill((0,0,0))           #The horizontal ball is not in the center position, and the green light not lighted
         rgb.write()
 
 
 
-计算掌控板倾斜的角度
+Calculate the tilt angle of the mPython Board
 ++++++++++++++++++++++++++++
 
 .. literalinclude:: /../../examples/accelerometer/degrees.py
-    :caption: 通过测量由于重力引起的加速度，可以计算出设备相对于水平面的倾斜角
+    :caption: By measuring the acceleration due to gravity, the tilt angle of the device relative to the horizontal plane can be calculated
     :linenos:
 
 
-使用前，导入mpython模块和math模块中acos函数、degrees函数::
+First, import the mPython module and ACOS function and Degrees function in the math module::
 
     from mpython import *
     from math import acos,degrees
   
-获取X轴的加速度::
+Obtain the X axis acceleration::
 
     x = accelerometer.get_x()
 
-假设掌控板参考水平面为桌面，掌控板倾斜过程中，Y轴与桌面是平行，其夹角不变（一直是0度），发生变化的是X轴与桌面的夹角以及Z轴与桌面的夹角，而且桌面与X轴Z轴夹角变化度数是一样的。为了方便分析，我们从Y轴的方向俯看下去，那么这个问题就会简化成只有X轴和Z轴的二维关系。假设某一时刻掌控板处于如下状态：
+Assuming that the reference plane of the mPython Board is the table top, during the tilting, the Y axis is parallel to the table top , and its angle is unchanged (always 0 degrees). What changes are the angle between the X axis and the desktop and the Z axis and the desktop. Angle, and the degree of change of the angle between the desktop and the X axis and Z axis is the same. In order to facilitate the analysis, we look down from the direction of the Y axis, then this problem will be simplified to only the two-dimensional relationship between the X axis and the Z axis. Suppose the control board is in the following state at a certain moment：
 
 .. image:: /../images/tutorials/xgraph.png
     :align: center
 
 
-在这个图中，Y轴已经简化和坐标系的原点O重合在了一起。我们来看看如何计算出掌控板的倾斜角，也就是与桌面的夹角a。g是重力加速度，gx、gz分别是g在X轴和Z轴的分量。
+In this figure, the Y axis has been simplified to coincide with the origin O of the coordinate system. Let's take a look at how to calculate the tilt angle of the control panel, which is the angle a with the desktop. g is the acceleration of gravity, gx and gz are the components of g in the X axis and Z axis respectively. 
 
-|   由于重力加速度是垂直于水平面的，得到：
-|   角a+角b=90度
-|   X轴与Y轴是垂直关系，得到：
-|   角c+角b=90度
-|   因此：
-|   角a=角c
+|   Since the acceleration of gravity is perpendicular to the horizontal plane, we get：
+|   Angle a + angle b = 90 degrees
+|   The X-axis and Y-axis are perpendicular to each other.：
+|   Angle c + angle b = 90 degrees
+|   Therefore：
+|   angle a = angle c
 
-根据反余弦定理，计算角b的弧度值::
+According to the arc cosine theorem, calculate the radian value of angle b::
 
     rad_x=acos(x)
 
-计算夹角的角度，即角a=角c=90度-角b::
+Calculate the angle of the included angle, ie angle a = angle c = 90 degrees-angle b::
 
     deg_x=90-degrees(rad_x)
 
 .. Note::
 
-    * acos() 函数为返回反余弦弧度值。
-    * degrees() 函数为将弧度转换为角度。
+    * acos() the function returns the arc cosine radian value. 
+    * degrees() the function is to convert radians to degrees.
