@@ -1,34 +1,34 @@
 
 .. _digital_io:
 
-数字IO
+Digital I/O
 ===============
 
-本章节介绍了掌控板的I/O引脚的数字输入输出使用方法。引脚是掌控板与连接到它的外部设备进行通信的方式。掌控板可以通过拓展板将IO引脚拓展并连接控制或读取其他元器件或模块。
+This chapter introduces the use of mPython Board I/O pins for digital input and output. These I/O Pins are to be connected to external devices in order to communicate. The mPython Board can expand through the mPython Expansion Board I/O pins to control or read external components or modules. 
 
 .. Attention:: 
 
-    除P2(只限数字输入)P3,P4,P10以外,其他引脚均可是使用数字输入、输出模式。有关更详细说明,请查看 :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
+    Except P2, P3, P4, P10 (only digital input), other pins can use digital input and output mode. For details, refers to :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
 
 
-数字输入
+Digital Input 
 ------------------   
 
-首先,从如何读取引脚的数字输入开始。以下使用掌控板内置的按键a,作为按键输入::
+First, start with how to read the digital input of the pin. Pressed the built-in Button A of the mPython Board as input::
 
-    from mpython import *           # 导入mpython模块
+    from mpython import *           # import mpython module
 
-    p5=MPythonPin(5,PinMode.IN)     # 实例化MPythonPin,将按键a引脚(P5)设置为"PinMode.IN"模式
+    p5=MPythonPin(5,PinMode.IN)     # Instantiate MPythonPin and set the Button A pin (P5) to "PinMode.IN" mode
 
     while True:
-        value=p5.read_digital()      # 读取P5引脚的数字输入
-        oled.DispChar("Button_a:%d" %value,30,20)   # 将读取到值显示至oled上
-        oled.show()                                  # 刷新
-        oled.fill(0)                                 # 清屏
+        value=p5.read_digital()      # Read digital input of P5 pin
+        oled.DispChar("Button_a:%d" %value,30,20)   # Display the read value on the OLED
+        oled.show()                                  # Refresh 
+        oled.fill(0)                                 # Clear screen
 
 .. Note::
 
-    这时,你可以按下button a按键看下“按下”和“未按下”的读值。由于按键a电路做了上拉,所以“未按下”时输出为高电平, “按下”时输出为低电平。
+    At this time, you can press button a to see the readings of “pressed” and “not pressed”. Because the button a circuit is pulled up, the output is high when “not pressed”, and low when “pressed”.
     
 ::
 
@@ -36,37 +36,37 @@
     p5=MPythonPin(5,PinMode.IN) 
     
 
-使用前，请务必先将 mpython 模块导入，方可使用。
+Import the mPython module prior to use.
 
-实例化引脚对象并设置模式。这里使用到 ``MPythonPin(pin, mode=PinMode.IN,pull=None)`` 类。
-``pin`` 是您要访问的引脚。如果未指定mode，则默认为 ``PinMode.IN`` 。如果未指定pull，则默认为 ``None`` 。
+Instantiate the pin object and set the mode. Here, to use ``MPythonPin(pin, mode=PinMode.IN,pull=None)`` class.
+``pin`` is needed in order to access. If mode is not specified, then default is ``PinMode.IN`` . If pull is not specified, then the  default is ``None`` .
 
 ::
 
     p5.read_digital()
 
-.. Note:: 使用read_digital(),返回引脚的电平值。高电平(1),低电平(0)。
+.. Note:: Use read_digital(), returns the level value of the pin. high level (1), low level (0).
 
 
-数字输出
+Digital output
 ------------------ 
 
-以下是简单的驱动外部LED灯闪烁::
+The following is a simple drive to flash external LED lights::
 
-    from mpython import *           # 导入mpython模块
+    from mpython import *           # import mpython module
 
-    p0=MPythonPin(0,PinMode.OUT)     # 实例化MPythonPin,将P0设置为"PinMode.OUT"模式
+    p0=MPythonPin(0,PinMode.OUT)     # Instantiate MPythonPin and set P0 to "PinMode.OUT" mode
 
     while True:
-        p0.write_digital(1)          # P0写高电平
-        sleep(1)                     #  延时
-        p0.write_digital(0)          # P0写高电平
-        sleep(1)                     #  延时
+        p0.write_digital(1)          # P0 write high level
+        sleep(1)                     #  delay
+        p0.write_digital(0)          # P0 write high level
+        sleep(1)                     #  delay
 
 
-.. admonition:: 材料、连接方式
+.. admonition:: materials, connection mode
 
-    上面需要使用到一块面包板、1个LED灯、mPython拓展板、杜邦线。LED灯的正极连接至掌控板的P0引脚,LED负极连接至掌控板的GND。
+    Above you need to use a breadboard, 1 LED light, mPython expansion board, DuPont cable. The positive pole of the LED light is connected to the P0 pin of the control board, and the negative pole of the LED light is connected to the GND of the mPython Board.
 
 .. image:: /../images/tutorials/blink.gif
 
@@ -77,65 +77,65 @@
 
 .. Note:: 
 
-    ``MPythonPin`` 实例化。``mode`` 设置为 ``PinMode.OUT`` 数字输出模式。
+    ``MPythonPin`` Instantiation. ``mode`` set as ``PinMode.OUT`` digital output mode.
 
-对P0引脚写高低电平::
+Write high and low level to P0 pin::
 
     p0.write_digital(1)
     p0.write_digital(0)
 
 .. Note:: 
 
-    使用 ``write_digital(value)`` 方法对引脚写高低电平。其中 ``value`` 是电平值,“1”代表高电平,“0”代表低电平。
+    Use ``write_digital(value)`` method to write high and low level to the pin. Where ``value`` is level value, “1” as high level, “0” as low level. 
 
 
-外部中断
+External Interruption
 ---------
 
-.. admonition:: 什么是中断呢？
+.. admonition:: What is interruption?
 
-    在程序运行过程中，系统出现了一个必须由CPU立即处理的情况，此时，CPU暂时中止程序的执行转而处理这个新的情况的过程就叫做中断。
-    在出现需要时，CPU必须暂停现在的事情，处理别的事情，处理完了再回去执行暂停的事情。
+    In the process of running the program, the system has a situation that must be dealt with by the CPU immediately. At this time, the CPU temporarily suspends the execution of the program and turns to deal with this new situation.
+    When there is a need, the CPU must suspend its operation and process other matters, and then go back to execute the suspended thing after processing.
 
-当输入引脚发生电平变化时触发硬件中断，触发器会执行中断处理函数。你可以定义回调函数来做中些断响应的工作。引脚中断使用和掌控板的a,b按键中断本质是一样的。
+When the input pin changes in level, a hardware interrupt is triggered, and the trigger executes the interrupt processing function. You can define a callback function to do some interrupt response work. The use of pin interrupts is essentially the same as the a and b key interrupts of the control board.
 
-以下使用掌控板内置的按键a((P5引脚),作为输入中断,按下按键 A 时蜂鸣器发出声音::
+The following uses the built-in Button A ((P5 pin) of the control panel as an input interrupt. When the Button A is pressed to activate the buzzer::
 
-    from mpython import *           # 导入mpython模块
-    import music                    # 导入music模块
-    p5=MPythonPin(5,PinMode.IN)     # 实例化MPythonPin,将P5设置为"PinMode.IN"模式
+    from mpython import *           # import mpython module
+    import music                    # import music module
+    p5=MPythonPin(5,PinMode.IN)     # Instantiate MPythonPin, set P5 as "PinMode.IN" mode
 
-    def BuzzOn(_):                    # 定义中断的回调函数  
+    def BuzzOn(_):                    # Define interrupt callback function 
         music.play(music.BA_DING,wait=False)
 
-    p5.irq(trigger=Pin.IRQ_FALLING,handler=BuzzOn)            # 设置P5引脚中断的回调函数
+    p5.irq(trigger=Pin.IRQ_FALLING,handler=BuzzOn)            # Set P5 pin for callback interruption function.
 
 .. Hint:: 
 
-    效果和时用 ``button_a.irq()`` 按键中断时一样的,button_a的中断也是使用到 ``Pin.irq`` 的方法。
+    Effect and Time ``button_a.irq()`` is the same when the button is interrupted, The interruption of button_a is also the method of using ``Pin.irq`` . 
 
 
-我们首先实例化MPythonPin,将P5引脚配置为 ``PinMode.IN`` ::
+We first instantiate MPythonPin and configure the P5 pin as ``PinMode.IN`` ::
 
     p5=MPythonPin(5,PinMode.IN) 
 
-定义回调函数::
+Define callback function::
 
     def BuzzOn(_):                  
         music.play(music.BA_DING,wait=False)
 
 .. Note:: 
 
-   回调函数，**必须包含一个参数**,否则无法使用, 上面 ``BuzzOn()`` 定义回调函数,参数为 ``_``,你可以任意定义该参数。  
+   Callback function, **to contain a parameter**, Otherwise it cannot be used, the above  ``BuzzOn()`` defines the callback function, the parameter is ``_``, you can define this parameter arbitrarily.  
 
 
-最后我们需要告诉引脚何时触发，以及在检测到事件时调用的函数::
+Finally we need to tell when the pin is triggered and the function to call when an event is detected::
 
     p5.irq(trigger=Pin.IRQ_FALLING,handler=BuzzOn)
 
 .. Note::
 
-    我们将P5设置为仅在下降沿触发  ``Pin.IRQ_FALLING`` （当它从高电平变为低电平时）。设置回调函数
-    handler="你定义中断处理的回调函数"。更详细的触发方式，请查阅 :ref:`MPythonPin.irq <MPythonPin.irq>` 。
+    We set P5 to only trigger  ``Pin.IRQ_FALLING`` on the falling edge (when it changes from high level to low level). Set callabck function
+    handler="define the callback function for interruption handling". For details, refers to :ref:`MPythonPin.irq <MPythonPin.irq>` 。
 
 
