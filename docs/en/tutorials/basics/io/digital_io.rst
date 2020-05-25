@@ -8,7 +8,7 @@ This chapter introduces the use of mPython Board I/O pins for digital input and 
 
 .. Attention:: 
 
-    Except P2, P3, P4, P10 (only digital input), other pins can use digital input and output mode. For details, refers to :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
+    Except P2, P3, P4, P10 (only digital input), other pins can use digital input and output mode. For details, refers to :ref:`mPython Board Pins Description <mPythonPindesc>` .
 
 
 Digital Input 
