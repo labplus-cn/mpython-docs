@@ -1,166 +1,166 @@
-储存
+Storage
 -------
 
-有时你需要存储有用的信息。这些信息存储为数据：信息的表示（当存储在计算机上时以数字形式）。
-如果您将数据存储在计算机上，即使您关闭再打开设备，它也应该保留。
+Sometimes you need to store useful information. This information is stored as data: a representation of the information (in digital form when stored on a computer).
+If you store data on your computer, even if you turn the device off and on again, it should. 
 
-microPython位允许您使用非常简单的文件系统来完成此操作。
+The MicroPython bit allows you to do this using a very simple file system. 
 
-什么是文件系统？
+What is a file system?
 
-它是一种以持久方式存储和组织数据的方法 - 存储在文件系统中的任何数据都应该在设备重启后继续存在。
-顾名思义，存储在文件系统中的数据被组织成文件。
+It's a way to store and organize data in a persistent way - any data stored in the file system should continue to exist after the device restarts. 
+As the name implies, data stored in the file system is organized into files.
 
 .. image:: /../images/tutorials/files.jpg
 
-计算机文件是存储在文件系统上的命名数字资源。这些资源包含有用的信息作为数据。
-这正是纸质文件的工作原理。它是一种包含有用信息的命名容器。通常，纸质和数字文件都会被命名以指示它们包含的内容。
-在计算机上，通常使用 ``.xxx`` 后缀结束文件。通常，表示使用什么类型的数据来表示信息。
-例如， ``.txt`` 表示文本文件， `` .jpg`` JPEG图像和 ``.mp3`` 编码为MP3的声音数据。
+Computer files are named digital resources stored on the file system. These resources contain useful information as data.
+This is how paper documents work. It is a named container that contains useful information. Usually, both paper and digital files are named to indicate what they contain。
+On a computer, the file ends with the suffix  ``.xxx`` . Generally, it indicates what type of data is used to represent information.
+For example, ``.txt`` means a text file, `` .jpg`` JPEG image and  ``.mp3`` sound data encoded as MP3.
 
-某些文件系统（例如笔记本电脑或PC上的文件系统）允许您将文件组织到目录中：命名容器将相关文件和子目录组合在一起。
-但是，MicroPython提供的文件系统是一个平面文件系统。平面文件系统没有目录 - 所有文件都只存储在同一个地方。
+Some file systems (such as those on laptops or PCs) allow you to organize files into directories：Named containers combine related files and subdirectories.
+However, the file system provided by MicroPython is a flat file system. Flat file systems have no directories - all files are only stored in the same place.
 
-Python编程语言包含易于使用且功能强大的方式来使用计算机的文件系统。mPython上的MicroPython实现了这些功能的有用子集
-，使其易于在设备上读取和写入文件，同时还提供与其他Python版本的一致性。
+The Python programming language contains an easy-to-use and powerful way to use the computer's file system. MicroPython on mPython implements a useful subset of these functions, Make it easy to read and write files on the device, while also providing consistency with other Python versions.
 
 
-打开文件
+Open a file
 +++++++++++
 
-以下为Python File操作的相关操作说明。
+The following are the relevant instructions for Python File operation.
 
-open()方法::
+open() method::
 
-    #open(路径+文件名,读写模式) ，如 f=open('/tmp/hello','w')
-    #读写模式:r只读，r+读写，w新建(会覆盖原有文件)，a追加，b二进制文件。如:'rb','wb','r+b'等等
-    读写模式的类型有：
-    rU 或 Ua 以读方式打开, 同时提供通用换行符支持 (PEP 278)
-    w     以写方式打开，
-    a     以追加模式打开 (从 EOF 开始, 必要时创建新文件)
-    r+     以读写模式打开
-    w+     以读写模式打开 (参见 w )
-    a+     以读写模式打开 (参见 a )
-    rb     以二进制读模式打开
-    wb     以二进制写模式打开 (参见 w )
-    ab     以二进制追加模式打开 (参见 a )
-    rb+    以二进制读写模式打开 (参见 r+ )
-    wb+    以二进制读写模式打开 (参见 w+ )
-    ab+    以二进制读写模式打开 (参见 a+ )
+    #open(Path + file name, read-write mode) ，like f=open('/tmp/hello','w')
+    #Read-write mode:r read only，r+ read-write，w new (will overwrite the original file), a append, b binary file. Such as:'rb','wb','r+b', etc
+    The types of read and write modes are：
+    rU or Ua opens in read mode, and provides universal newline support (PEP 278)
+    w     Open in write mode，
+    a     Open in append mode (starting with EOF, creating new files if necessary)
+    r+     Open in read-write mode
+    w+     Open in read-write mode (see w )
+    a+     Open in read-write mode (see a )
+    rb     Open in binary read mode
+    wb     Open in binary write mode (see w )
+    ab     Open in binary append mode (see a )
+    rb+    Open in binary read-write mode (see r+ )
+    wb+    Open in binary read-write mode (see w+ )
+    ab+    Open in binary read-write mode (see a+ )
 
-file 对象使用 open 函数来创建，下表列出了 file 对象常用的函数::
+The file object is created using the open function. The following table lists commonly used functions of the file object::
 
-    file.read([size]) #size未指定则返回整个文件,如果文件大小>2倍内存则有问题.f.read()读到文件尾时返回""(空字串)
-    file.readline() #返回一行
-    file.readline([size]) #返回包含size行的列表,size 未指定则返回全部行
-    for line in f: print line #通过迭代器访问
-    file.write("hello\n") #如果要写入字符串以外的数据,先将他转换为字符串.
-    file.tell() #返回一个整数,表示当前文件指针的位置（就是到文件头的字节数）。
-    file.seek(偏移量,[起始位置])  #用来移动文件指针，偏移量:单位:字节,可正可负，起始位置:0-文件头,默认值;1-当前位置;2-文件尾。
-    file.close() #关闭文件
+    file.read([size]) # size if not specified, the entire file is returned, There is a problem if the file size is> 2 times the memory. f.read() return "" (empty string) when reading to the end of the file.
+    file.readline() # return a row
+    file.readline([size]) #size Return all rows if not specified
+    for line in f: print line #access via iterator
+    file.write("hello\n") #If you want to write data other than a string, first convert it to a string.
+    file.tell() #Returns an integer representing the position of the current file pointer (that is, the number of bytes to the file header).
+    file.seek(offset, [start point])  #用To move the file pointer, offset: unit: byte, can be positive or negative, starting position: 0 - file header, default value; 1 - current position; 2 - end of file.
+    file.close() #close file
 
 
 
-有关更多的open()使用，可查阅 :term:`CPython` 文档:`open() <https://docs.python.org/3.5/library/functions.html#open>`_。
+Details for use of open(), refers to :term:`CPython` document:`open() <https://docs.python.org/3.5/library/functions.html#open>`_。
 
 ----------------------------------------------------------
 
-通过该 ``open`` 功能实现在文件系统上读取和写入文件。打开文件后，您可以使用它直到关闭它（类似于我们使用纸质文件的方式）。
+Open the ``open``  function to read and write files on the file system. After opening the file, you can use it until you close it (similar to how we use paper files). 
 
-确保这一点的最好方法是使用如下with语句::
+The best way to ensure this is to use the following with statement::
 
     with open('story.txt') as my_file:
         content = my_file.read()
     print(content)
 
-该 ``with`` 语句使用该 ``open`` 函数打开文件并将其分配给对象。在上面的示例中，该 ``open`` 函数打开调用的文件 ``story.txt`` （显然是包含某种故事的文本文件）。
-调用用于表示Python代码中的文件的对象 ``my_file`` 。
-随后，在 ``with`` 语句下面缩进的代码块中，该 ``my_file`` 对象用于 ``read()`` 文件的内容并将其分配给 ``content`` 对象。
+The ``with`` statement uses the ``open``  function to open the file and assign it to the object. In the above example, the ``open`` function opens the called file ``story.txt`` (apparently a text file containing a story.
+Call the object ``my_file`` used to represent the file in the Python code。
+Then, in the indented code block below the  ``with`` statement, the ``my_file`` object is used for the content of the ``read()`` file and assigns it to the ``content`` object.
 
-这是重要的一点，包含该 ``print`` 语句的下一行不是缩进的。与 ``with`` 语句关联的代码块只是读取文件的单行。
-一旦与该 ``with`` 语句关联的代码块关闭，Python（和MicroPython）将自动为您关闭该文件。
-这称为上下文处理，该 ``open`` 函数创建的对象是文件的上下文处理程序。
+This is an important point, the next line containing the ``print`` statement is not indented. The code block associated with the ``with`` statement is just a single line of reading the file.
+Once the code block associated with the ``with`` statement is closed, Python (and MicroPython) will automatically close the file for you.
+This is called context processing, and the object created by the ``open`` function is the file's context handler.
 
-简而言之，与文件交互的范围由与with打开文件的语句关联的代码块定义。
+In short, the scope of interaction with the file is defined by the code block associated with he statement with the file opened.
 
-困惑？
+Confused？
 
-不要。我只是说你的代码应该是这样的::
+Don't. I just said your code should look like this::
 
     with open('some_file') as some_object:
-        # 在这段代码块中完成文件的读写
+        # Read and write files in this code block
 
-    # 当块完成时，然后使用MicroPython
-    # 自动为您关闭文件。
+    # When the block is complete, then use MicroPython
+    # File closed automatically.
 
-就像纸质文件一样，打开文件有两个原因：读取其内容（如上所示）或向文件写入内容。
-默认模式是读取文件。如果要写入文件，则需要 ``open`` 按以下方式告诉函数::
+Just like paper files, there are two reasons to open files：Read its content (as shown above) or write content to a file。
+The default mode is to read files. If you want to write to a file, you need to ``open`` to tell the function as follows
+::
 
     with open('hello.txt', 'w') as my_file:
         my_file.write("Hello, World!")
 
-请注意，该 ``'w'`` 参数用于将 ``my_file`` 对象设置为写入模式。
-您还可以传递一个 ``'r'`` 参数来将文件对象设置为读取模式，但由于这是默认设置，因此通常会将其保留。
+Note, the ``'w'`` parameter is used to set the ``my_file`` object to write mode.
+You can also transmit a  ``'r'`` parameter to set the file object to read mode, but since this is the default setting, it is usually kept.
 
-将数据写入文件是通过（您猜对了） ``write`` 方法完成的，该方法将您要写入文件的字符串作为参数。
-在上面的示例中，我将文本“Hello，World！”写入名为“hello.txt”的文件中。
+Writing data to a file is done through (you guessed it) the ``write`` method, which takes the string you want to write to the file as a parameter.
+In the above example, I wrote the text “Hello，World！” Into a file named “hello.txt” .
 
 
 .. note::
 
-    * 当您打开文件并写入时（可能在文件处于打开状态时多次），如果文件已经存在，您将编写文件内容。
-    * 如果要将数据附加到文件，则应首先将其读取，将内容存储在某处，关闭它，将数据附加到内容中，然后打开它以使用修改后的内容再次写入。
+    * When you open a file and write (maybe multiple times while the file is open), if the file already exists, you will write the file content.
+    * If you want to append data to a file, you should first read it, store the content somewhere, close it, append the data to the content, and then open it to write again with the modified content。
    
 
 
 OS 
 ++++++
 
-除了读写文件外，Python还可以操作它们。您当然需要知道文件系统中的文件，有时您也需要删除它们。
+In addition to reading and writing files, Python can also manipulate them. Of course you need to know the files in the file system, sometimes you may also need to delete them.
 
-在常规计算机上，操作系统（如Windows，OSX或Linux）的角色是代表Python管理它。
-Python中通过一个名为的模块提供了这样的功能os。
-由于MicroPython 是操作系统，我们决定在os 模块中保持适当的功能以保持一致性，这样当您在笔记本电脑或Raspberry Pi等设备上使用“常规”Python时，您就会知道在哪里可以找到它们。
+On regular computers, the role of the operating system (such as Windows, OSX or Linux) is to manage it on behalf of Python.
+Python provides such a function through a module called OS.
+Since MicroPython is the operating system, we decided to maintain proper functionality in the OS module to maintain consistency, so that when you use “regular” Python on devices such as laptops or Raspberry Pi, you will know where to find them.
 
-基本上，您可以执行与文件系统相关的三个操作：列出文件，删除文件并询问文件的大小。
+Basically, you can perform three operations related to the file system：List files, delete files and enquiry for file size。
 
-要列出文件系统上的文件，请使用该listdir功能。它返回一个字符串列表，指示文件系统上文件的文件名::
+To list files on the file system, use the listdir function. It returns a list of strings indicating the file name of the file on the file system::
 
     import os
     my_files = os.listdir()
 
-要删除文件，请使用该remove功能。它需要一个字符串来表示要删除的文件的文件名作为参数，如下所示::
+To delete files, use the remove function. It needs a string to represent the file name of the file to be deleted as a parameter, as shown below::
 
     import os
     os.remove('filename.txt')
 
-os常用的方法::
+os commonly used method::
 
-    os.chdir(path)          #修改路径
-    os.getcwd()             #获取当前路径
-    os.listdir(dir)         #目录列表
-    os.mkdir(dir)           #创建目录
-    os.remove(path)         #删除文件
-    os.rmdir(dir)           #删除目录
-    os.rename(old_path, new_path)   #文件改名
-    os.stat(path)           #文件/目录状态，具体解释如下：
-
-
-有关更多的os模块使用，可查阅 :mod:`os` 模块章节。
+    os.chdir(path)          #Modify the path
+    os.getcwd()             #Get current path
+    os.listdir(dir)         #Directory listing
+    os.mkdir(dir)           #Create a directory
+    os.remove(path)         #Delete Files
+    os.rmdir(dir)           #Delete directory
+    os.rename(old_path, new_path)   #File rename
+    os.stat(path)           #File / directory status, explained below：
 
 
-主程序 main.py
+For more OS module application，see :mod:`os` module chapter.
+
+
+Main program main.py
 ++++++++++++++
 
-boot.py和main.py，这两个文件在启动时由MicroPython专门处理。 首先执行boot.py脚本（如果存在），然后在完成后执行main.py脚本。
+boot.py and main.py, these two files are specially processed by MicroPython at startup. First execute the boot.py script (if it exists), and then execute the main.py script.
 
-此外，如果您将其他Python文件复制到文件系统上，那么 import就像其他任何Python模块一样。
-例如，如果您有一个 ``hello.py`` 包含以下简单代码的文件::
+In addition, if you copy other Python files to the file system, then import is like any other Python module.
+For example, if you have a  ``hello.py``  file containing the following simple code::
 
     def say_hello(name="World"):
         return "Hello, {}!".format(name)
 
-你可以导入并使用这样的 ``say_hello`` 函数::
+You can import and use such ``say_hello`` function::
 
     from mpython import *
     from hello import say_hello
@@ -170,8 +170,8 @@ boot.py和main.py，这两个文件在启动时由MicroPython专门处理。 首
 
 .. note::
 
-    如果除了MicroPython运行时之外还在设备上刷过了一个脚本，那么MicroPython将忽略main.py并运行您的嵌入式脚本。
+    If a script has been swiped on the device in addition to the MicroPython runtime, then MicroPython will ignore main.py and run your embedded script.
 
-    要仅刷新MicroPython运行时，只需确保您在编辑器中编写的脚本中包含零个字符。一旦闪存，您就可以复制main.py文件。
+    To refresh only the MicroPython runtime, just make sure that the script you write in the editor contains zero characters. Once flashed, you can copy the main.py file.
 
 .. footer:: The image of paper files is used under a Creative Commons License and is available here: https://www.flickr.com/photos/jenkim/2270085025
