@@ -1,9 +1,9 @@
-随机数
+Random Number
 ======================================
 
-有时我们需要做些随机行为或生产随机数。这时你可以使用 :ref:`random<random>` 模块。
+Sometimes we need to do random act or generate produce random numbers. Then you can use :ref:`random<random>` module.
 
-例如，以下是如何在oled显示屏上随机显示名称::
+For example, here is how to display random name on the OLED::
 
   from mpython import *
   import random
@@ -15,16 +15,17 @@
   oled.show()
   oled.fill(0)
 
-列表（names）包含七个定义为字符串的名称。random.choice方法将names列表作为参数并返回随机选择的项目。
+The list (names) contains seven definitions to define as names string.
 
-你能修改列表以包含你自己的名字吗？
+Could you modify the list to include your own name?
 
-随机显示数字
+Random display of numbers
 ---------
 
-随机数非常有用。它们在游戏中很常见。为什么我们还有骰子？
 
-MicroPython附带了几个有用的随机数方法。这是如何制作一个简单的骰子::
+Random numbers are very useful. They are very common in games. Why do we still have dice？
+
+MicroPython comes with several useful random number generating methods. Here is how to make a simple dice::
 
   from mpython import *
   import random
@@ -35,11 +36,11 @@ MicroPython附带了几个有用的随机数方法。这是如何制作一个简
 
 .. Note::
 
-  每次重启掌控板时，它都会显示一个介于1和6之间的数字。``randint()`` 返回的是整形，我们需要使用 ``str()`` 将整形转为字符串(例如，6 -> "6")。
-  ``oled.DispChar()`` 将随机数写入oled。
+  Every time you restart the mPython Board, it will display a number between 1 and 6。``randint()`` returns an integer, we need to use ``str()`` to convert the integer to a string (such as, 6 -> "6")。
+  ``oled.DispChar()`` write random number in OLED.
 
-假如你想设置随机范围或递增基数，你可以使用random.randrange()::
-
+If you want to set a random range or increase the base, to use random.randrange()::
+ 
   from mpython import *
   import random
 
@@ -49,11 +50,10 @@ MicroPython附带了几个有用的随机数方法。这是如何制作一个简
 
 .. Note::
 
-  random.randrange(start, end, step)。``start`` 为随机数开始值，``end`` 为随机数结束值，step为递增基数。
-  以上例子是随机显示(0,10)范围的偶数。
+  random.randrange(start, end, step). ``start`` is the start value of the random number, ``end`` is the end value of the random number, and step is the increasing base.
+  The above example is to randomly display even numbers in the range (0,10).
 
-有时您需要带小数点的数字。你可以使用 ``random.random`` 方法生成0.0到1.0的随机浮点数。如果你需要较大的随机浮点数加的结果 ``random.uniform`` ::
-
+Sometimes you need a number with a decimal point. You can use the ``random.random`` method to generate random floating point numbers from 0.0 to 1.0. If you need the result of adding a larger random floating point number  ``random.uniform`` ::
   from mpython import *
   import random
 
@@ -62,17 +62,17 @@ MicroPython附带了几个有用的随机数方法。这是如何制作一个简
   oled.show()
   oled.fill(0)
 
-随机种子
+Random seed
 -------
 
-MicroPython中的随机数其实是一个稳定算法得出的稳定结果序列，而不是一个随机序列。 seed就是这个算法开始计算的第一个值。
-所以就会出现只要seed是一样的，那么后续所有“随机”结果和顺序也都完全一致。
+The random number in MicroPython is actually a stable result sequence obtained by a stable algorithm, not a random sequence. SEED is the first value calculated by this algorithm.
+So it will appear that as long as the SEED is the same, then all subsequent "random" results and order are exactly the same.
 
-指定随机数种子，通常和其他随机数生成函数搭配使用
+Specify a random number SEED, usually used in conjunction with other random number generation functions.
 
-有时您希望具有可重复的随机行为：可重现的随机源。这就像说每次掷骰子时你需要相同的五个随机值。
+Sometimes you want repeatable random behavior: a reproducible source of randomness. It's like saying you need the same five random values every time you roll the dice.
 
-示例::
+Example::
 
   import random
   from mpython import *
@@ -88,11 +88,10 @@ MicroPython中的随机数其实是一个稳定算法得出的稳定结果序列
 
   oled.fill(0)
 
-
-飘雪效果
+Snowing effect
 -------
 
-结合上面学到的生成随机数，我们可以用掌控板oled屏制作出雪花飘落效果。
+Combined with the random number generation learned above, we can use the mPython Board OLED screen to create a snowing effect.
 
 .. literalinclude:: /../../examples/display/snowing.py
     :linenos:
@@ -100,4 +99,4 @@ MicroPython中的随机数其实是一个稳定算法得出的稳定结果序列
 .. figure:: /../images/tutorials/snowing.gif
     :align: center
 
-    飘雪
+    Snowing
