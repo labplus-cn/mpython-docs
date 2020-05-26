@@ -1,44 +1,44 @@
-定时器
+Timer
 =======
 
-人类最早使用的定时工具是沙漏或水漏，但在钟表诞生发展成熟之后，人们开始尝试使用这种全新的计时工具来改进定时器，达到准确控制时间的目的。定时器让很多需要人控制时间的工作变得简单了许多，不少家用电器用定时器来控制开关或工作时间。
+The earliest timing tools used by humans were sand or water hourglasses, but later with watches and clocks, people began to try to use these new timing tool to improve the time accuracy and control. Timers makes time control much easier for many tasks that peoples' require. Such as timers used in many home appliances use timers to control switches or operating duration.
 
 --------------------------------------
 
 .. literalinclude:: /../../examples/timer/timer_alarm.py
-    :caption: 定时警报器
+    :caption: Alarm timer
     :linenos:
 
 
 
-使用前，导入mpython、Timer、music模块::
+First, import the mpython、Timer、music modules::
 
     from mpython import *
     from machine import Timer
     import music
 
-定义定时器回调函数，播放警报声::
+Define timer callback function, play alarm sound::
 
     def playMusic(_):             
         music.play(music.BA_DING,wait=False)
 
-配置定时器，模式为循环执行，循环周期为5秒::
+Configure the timer, the mode is cyclic execution, the cyclic period is 5 seconds::
 
     tim1.init(period=5000, mode=Timer.PERIODIC,callback=playMusic)
 
 .. Note::
 
-    ``Timer.init(period=5000, mode=Timer.PERIODIC,callback=None)`` 用来初始化计时器，`mode` 可以是以下之一：`Timer.ONE_SHOT` 指计时器运行一次，直到配置完毕通道的期限到期；`Timer.PERIODIC` 指定时器以通道的配置频率定期运行。
+    ``Timer.init(period=5000, mode=Timer.PERIODIC,callback=None)`` to initialize the timer, `mode` can be one of the following：`Timer.ONE_SHOT` means that the timer runs once, until the time limit of the configured channel expires；`Timer.PERIODIC` means that the timer runs regularly at the channel ’s configured frequency.
 
-获取并返回计时器当前计数值，然后显示在OLED显示屏上::
+Get and return the current count value of the timer, and then display it on the OLED display::
 
     timerNum=tim1.value()
-    oled.DispChar("定时器：%d ms" %timerNum,20,25)
+    oled.DispChar("Timer：%d ms" %timerNum,20,25)
     oled.show()
 
 .. Note::
 
-    timer.value() 函数为获取并返回当前计数值。
+    timer.value() function is to get and return the current count value.
 
 .. Attention:: 
 
