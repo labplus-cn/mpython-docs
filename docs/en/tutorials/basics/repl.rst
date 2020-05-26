@@ -1,33 +1,33 @@
 REPL
 =====
 
-使用MicroPython的一个主要的优点是交互式的REPL，REPL（read-evaluate-print loop）代表读取﹣求值﹣输出循环。
-REPL对于学习一门新的编程语言具有很大的帮助，因为它能对初学者写的程序立刻做出回应，这意味着你执行代码，并能马上查看结果，而无需经过先编译再上传的繁琐步骤。
-如果mPython掌控板要让REPL在Windows上工作，您需要先安装cp2104的串口驱动程序。
+One of the main advantages of using MicroPython is the interactive REPL. REPL (read-eval-print loop) stands for read-evaluation-output loop.
+REPL is very helpful for learning a new programming language, because it can immediately respond to programs written by beginners, which means that you execute the code and can view the results immediately, avoiding the cumbersome steps to compile and upload. 
+Install the cp2104 serial driver in order for REPL to operate on windows on this this mPython Board.
 
 
-串口连接
+Serial connection
 ----------
 
-要通过USB-serial访问，您需要使用串口终端软件。在Windows上如kitty、xshell都是不错的选择。串口波特率设置为115200，就可以开始玩MicroPython了。
+To access via USB-serial, you need to use serial terminal software. On Windows such as kitty, xshell are good choices. Set the serial port baud rate to 115200, you can start playing MicroPython串口波特率设置为115200，就可以开始玩MicroPython了。To access via USB-serial, you need to use serial terminal software. 
 
-通过串行端口建立连接后，您可以通过按几次Enter键来测试它是否正常工作，如果正常工作，您能看到Python REPL提示符，表示为 ``>>>`` 。
+After establishing the connection through the serial port, you can test whether it is working by pressing the Enter key a few times to test whether it is working properly. If it works, you can see the Python REPL prompt, which is expressed as ``>>>`` 。
 
-使用 REPL
+Use REPL
 ----------
 
-一旦有提示，您就可以开始尝试了！按Enter键后，可在提示符处键入任何内容。
-MicroPython将运行您输入的代码并打印结果（如果有的话）；如果输入的文本出错，则会打印出错误消息。
+Once prompted, you can start trying! After pressing Enter, you can type anything at the prompt. 
+MicroPython will run the code you entered and print the results (if any)；If the text entered is wrong, an error message will be printed.
 
-尝试在提示符下输入以下内容::
+Try typing the following at the prompt::
 
     >>> print('hello mPython')
     hello mPython
 
 
-请注意，您无需键入 ``>>>`` 箭头，它们表示您应在此提示符后键入文本，其下一行是响应的内容。
+Please note that you do not need to type ``>>>`` arrows, they indicate that you should type text after this prompt, and the next line is the content of the response.
 
-如果您已经了解了一些python，现在可以尝试一些基本命令。例如::
+If you already know some python, you can try some basic commands now. E.g. ::
 
     >>> 1+2
     3
@@ -37,7 +37,7 @@ MicroPython将运行您输入的代码并打印结果（如果有的话）；如
     408
 
 
-可以尝试下载mPython的OLED显示屏上显示字符::
+You can try to download mPython to display characters on the OLED display::
 
     >>> from mpython import *
     >>> oled.DispChar('hello,world!',0,0)
@@ -46,27 +46,27 @@ MicroPython将运行您输入的代码并打印结果（如果有的话）；如
 
 .. Note::
 
-    ``oled.DispChar(str,x,y)``   ``str`` 为要显示的字符串， ``x`` 、``y`` 为显示起点的x、y坐标。
-    然后用 ``oled.show()`` 刷新屏幕后，字符串即可显示在OLED显示屏上。您可以尝试在其他位置显示任意字符串。
+    ``oled.DispChar(str,x,y)``   ``str`` is the character string to be displayed， ``x`` 、``y`` are the x and y coordinates of the display starting point。
+    Then use ``oled.show()`` to refresh the screen, the string can be displayed on the OLED display. You can try to display arbitrary strings in other locations.
 
 
 
-行编辑
+Line Editor
 ~~~~~~~~~~~~
 
-您可以使用向左和向右箭头键移动光标来编辑当前输入的行；按Home键或ctrl-A将光标移动到行的开头，按End或ctrl-E移动到行的末尾；Delete键或退格键用来删除。
+You can use the left and right arrow keys to move the cursor to edit the currently entered line；Press the Home key or ctrl-A to move the cursor to the beginning of the line, press End or ctrl-E to move to the end of the line; the Delete key or backspace key is used to delete.
 
-输入历史记录
+Enter History
 ~~~~~~~~~~~~~
 
-REPL会记住您输入的一定数量的前几行文本（ESP32上最多8行）。
-要调用上一行，请使用向上和向下箭头键。
+REPL will remember a certain amount of the first few lines of text you entered (up to 8 lines on ESP32). 
+To call the previous line, use the up and down arrow keys.
 
-Tab键
+Tab Key
 ~~~~~~~~~~~~~~
 
-Tab键可以查看模块中所有成员列表。这对于找出模块或对象具有的函数和方法非常有用。
-假设您在上面的例子中导入了machine然后键入 ``.`` 再按Tab键以查看machine模块所有成员列表::
+Tab key to view the list of all members in the module. This is very useful for finding out the functions and methods that a module or object has.
+Suppose you imported the machine in the above example and then typed  ``.`` and then press the Tab key to view the list of all members of the machine module::
 
     >>> machine.
     __class__       __name__        ADC             DAC
@@ -83,12 +83,12 @@ Tab键可以查看模块中所有成员列表。这对于找出模块或对象�
     >>> machine.
 
 
-行继续和自动缩进
+Line continue and auto indent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-您键入的某些内容将需要“继续”，也就是说，需要更多行文本才能生成正确的Python语句。在这种情况下，
-提示符将更改为``...``并且光标将自动缩进正确的数量，以便您可以立即开始键入下一行。
-通过定义以下函数来尝试此操作::
+Something you type will need to “continue”, that is, more lines of text are needed to generate the correct Python statement. under these circumstances,
+The prompt will change to ``...`` and the cursor will automatically be indented by the correct amount so that you can immediately start typing the next line.
+Try this by defining the following function::
 
 
     >>> def toggle(p):
@@ -98,14 +98,14 @@ Tab键可以查看模块中所有成员列表。这对于找出模块或对象�
     ...    
     >>>
 
-在上面，您需要连续按三次Enter键才能完成复合语句（即三条线上只有点）。完成复合语句的另一种方法是按退格键到达行的开头，然后按Enter键。 （如果您输错了并且想要退出，那么按ctrl-C，所有行都将被忽略。）
+In the above, you need to press the Enter key three times in a row to complete the compound statement (that is, there are only dots on the three lines). Another way to complete the compound statement is to press the backspace key to reach the beginning of the line, and then press Enter. (If you make a mistake and want to quit, then press ctrl-C, all lines will be ignored.)
 
-您刚刚定义函数功能为翻转引脚电平。您之前创建的pin对象应该仍然存在
-（如果没有，则需重新创建它），您可以使用以下命令翻转LED::
+You just defined the function function to flip the pin level. The pin object you created earlier should still exist.
+(If not, you need to recreate it), you can use the following command to flip the LED::
 
     >>> toggle(pin)
 
-现在让我们在一个循环中翻转LED（如果您没有LED，那么您可以打印一些文本而不是调用切换，看看效果）：
+Now let's flip the LEDs in a loop (if you don't have LEDs, then you can print some text instead of calling toggle to see the effect)：
 
     >>> import time
     >>> while True:
@@ -116,31 +116,31 @@ Tab键可以查看模块中所有成员列表。这对于找出模块或对象�
     ...    
     >>>
 
-这将以1Hz（半秒开，半秒关）翻转LED。要停止切换按 ``ctrl-C`` ，这将引发键盘中断异常并退出循环。
+This will flip the LED at 1 Hz (on half a second, off half a second). To stop switching press ``ctrl-C`` , this will cause keyboard interrupt exception and exit the loop.
 
 
-粘贴模式
+Paste mode
 ~~~~~~~~~~
 
-按 ``ctrl-E`` 将进入特殊粘贴模式，您可将一大块文本复制并粘贴到REPL中。如果按ctrl-E，您将看到粘贴模式提示::
+Press ``ctrl-E`` to enter the special paste mode, you can copy and paste a large block of text into the REPL. If you press ctrl-E, you will see the paste mode prompt::
 
     paste mode; Ctrl-C to cancel, Ctrl-D to finish
     === 
 
-然后，您可以粘贴（或键入）您的文本。请注意，没有任何特殊键或命令在粘贴模式下工作（例如Tab或退格）
-，它们只是按原样接受。按 ``ctrl-D`` 完成输入文本并执行。
+You can then paste (or type) your text. Please note that there are no special keys or commands that work in paste mode (eg Tab or Backspace),
+they are just accepted as they are. Press``ctrl-D`` to finish entering text and execute.
 
-其他控制命令
+Other control commands
 ~~~~~~~~~~~~~~~~~~~~~~
 
-还有其他四个控制命令：
+There are four other control commands：
 
-* 空白行上的Ctrl-A将进入原始REPL模式。这类似于永久粘贴模式，除了不回显字符。
+* Ctrl-A on the blank line will enter the original REPL mode. This is similar to permanent paste mode, except that characters are not echoed.
 
-* 空白处的Ctrl-B转到正常的REPL模式。
+* Ctrl-B in the blank space goes to normal REPL mode.
 
-* ``Ctrl-C`` 取消任何输入，或中断当前运行的代码。
+* ``Ctrl-C`` cancels any input or interrupts the currently running code.
 
-* 空白行上的 ``Ctrl-D`` 将执行软重启。
+*  ``Ctrl-D`` on the blank line will perform a soft restart.
 
 

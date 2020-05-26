@@ -1,9 +1,9 @@
-麦克风
+Microphone
 =============
 
-掌控板板载麦克风，可以用其感知周边环境的声音变化。
+The microphone built-in the mPython Board, use it to perceive the sound changes in the surrounding environment. 
 
-例：显示声音值
+Example：Display sound value
 ::
     from mpython import *
     
@@ -14,12 +14,12 @@
         oled.show()
 
 
-使用前，导入mpython模块
+First, import the mPython module.
 ::
 
   from mpython import *
 
-我们使用 ``sound.read()`` 获取麦克风的数据。
+To use  ``sound.read()`` to obtain the microphone data.
 ::
 
     sound.read()
@@ -28,8 +28,8 @@
 
 .. Note::
 
-    麦克风使用 ``read()`` 函数来读取数据。返回的值为12bit的ADC采样数据，即最大值为十进制4095。
+    Microphone used ``read()`` function to read data. The returned value is 12bit ADC sampling data, that is, the maximum value is 4095 decimal.
 
 
-学会了如何收集周边环境的声音数据，我们可以结合其他功能做更多有趣的场景。
+Learned how to collect sound data of the surrounding environment, combine with other functions to make it more interesting.
 

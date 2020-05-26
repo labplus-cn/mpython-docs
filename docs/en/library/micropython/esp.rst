@@ -1,30 +1,30 @@
-:mod:`esp` --- ESP32相关的功能
+:mod:`esp` --- ESP32 related functions
 =========================================================
 
 .. module:: esp
-    :synopsis: ESP32相关的功能
+    :synopsis: ESP32 related functions
 
 
-该 ``esp`` 模块包含ESP32模块相关的特定功能。
+This  ``esp``  module contains specific functions related to the ESP32 module.
 
 
-函数
+Function
 ---------
 
 .. function:: flash_size()
 
-    返回flash的大小。
+    Returns the size of flash.
 
 .. function:: flash_user_start()
 
-    读取用户flash空间开始的内存偏移量。
+    Read the memory offset at the beginning of user flash space.
 
 .. function:: flash_read(byte_offset, length_or_buffer)
 
-    从地址为 byte_offset 的 flash 起始点读取 buf.len()个长度的数据并放入 buf 中。
+    Read buf.len() length data from the starting point of flash with address byte_offset and put into buf.
 
-    - ``byte_offset`` ：flash偏移地址
-    - ``buf`` ：接收数据缓冲区，缓冲区的长度为len
+    - ``byte_offset`` ：flash offset address.
+    - ``buf`` ：Receive data buffer, the length of the buffer is len
 
     ::
 
@@ -35,10 +35,10 @@
 
 .. function:: flash_write(byte_offset, bytes)
 
-    将 buf 中所有的数据写入地址为 byte_offset 的 flash 区域。
+    Write all the data in buf to the flash area with  byte_offset .
 
-    - ``byte_offset`` ：flash偏移地址
-    - ``buf`` ：数据缓冲区，缓冲区长度为len
+    - ``byte_offset`` ：flash offset address
+    - ``buf`` ：Data buffer, the buffer length is len
 
     ::
 
@@ -47,9 +47,9 @@
 
 .. function:: flash_erase(sector_no)
 
-    擦除flash扇区
+    Erase flash sector
 
-    - ``ector_no`` :要擦除的扇区
+    - ``ector_no`` :Sector to be erased
 
     ::
 

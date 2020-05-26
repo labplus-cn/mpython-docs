@@ -1,22 +1,22 @@
-:mod:`uctypes` --  以结构化方式访问二进制数据
+:mod:`uctypes` --  Access binary data in a structured way
 ========================================================
 
 .. module:: uctypes
-   :synopsis:  以结构化方式访问二进制数据
+   :synopsis:  Access binary data in a structured way
 
-该模块为MicroPython实现“外部数据接口”。它背后的想法类似于CPython的 ``ctypes`` 模块，但实际的API是不同的，流线型和小尺寸优化。
-该模块的基本思想是定义具有与C语言允许的大致相同功率的数据结构布局，然后使用熟悉的点语法访问它以引用子字段。
+This module implements the “external data interface” for MicroPython. The idea behind it is similar to CPython's ``ctypes`` module, but the actual API is different, streamlined and small-scale optimization.
+The basic idea of this module is to define a data structure layout with approximately the same power as that allowed by C language, and then access it to reference subfields using familiar point syntax.
 
 .. warning::
 
-  ``uctypes`` 模块允许访问机器的任意内存地址（包括I / O和控制寄存器）。不小心使用它可能会导致崩溃，数据丢失，甚至硬件故障。
+  ``uctypes`` The module allows access to any memory address of the machine (including I/O and control registers). Using it carelessly may cause crashes, data loss, and even hardware failure.
 
 .. seealso::
 
-    :mod:`ustruct` 模块: 用于访问二进制数据结构的标准Python方法（不能很好地扩展到大型和复杂的结构）。
+    :mod:`ustruct` module: Standard Python methods for accessing binary data structures (not well extended to large and complex structures).
 
 
-用法示例::
+For examples::
 
     import uctypes
 
@@ -74,10 +74,10 @@
     WWDG.WWDG_CR.WDGA = 1
     print("Current counter:", WWDG.WWDG_CR.T)
 
-定义结构布局
+Define structure layout
 -------------------------
 
-结构布局由“描述符”定义 - 一个Python字典，它将字段名称编码为键，以及将它们作为关联值访问它们所需的其他属性::
+The structure layout is defined by “descriptors” - a python dictionary that encodes field names as keys and uses them as associated values to access other properties they need::
 
     {
         "field1": <properties>,
@@ -85,98 +85,98 @@
         ...
     }
 
-目前，``uctypes`` 需要明确规定每个字段的偏移量。从结构开始以字节为单位给出偏移量。
+Currently，``uctypes`` need to specify the offset of each field. The offset unit in bytes at the beginning of the structure.
 
-以下是各种字段类型的编码示例:
+The following are examples of coding for various field types:
 
-* 标量类型::
+* Scalar type::
 
     "field_name": offset | uctypes.UINT32
 
-  换句话说，该值是标量类型标识符，与结构起始处的字段偏移量（以字节为单位）进行或运算。
+  In other words, the value is a scalar type identifier that performs or operates on the field offset (in bytes) at the beginning of the structure. 
 
-* 递归结构::
+* Recursive structure::
 
     "sub": (offset, {
         "b0": 0 | uctypes.UINT8,
         "b1": 1 | uctypes.UINT8,
     })
 
-  即，值是2元组，其第一个元素是偏移量，第二个是结构描述符字典（注意：递归描述符中的偏移量与其定义的结构相关）。
-  当然，递归结构不仅可以通过文字字典指定，还可以通过按名称引用结构描述符字典（前面定义）来指定。
+  That is, the value is a 2-tuple, the first element is the offset, and the second is the structure descriptor Dictionary (Note: the offset in the recursive descriptor is related to the structure it defines). 
+  Of course, recursive structures can be specified not only through a text dictionary, but also by referencing the structure descriptor dictionary by name (defined earlier). 
 
-* 原始类型的数组::
+* Array of original type::
 
       "arr": (offset | uctypes.ARRAY, size | uctypes.UINT8),
 
-  即，value是一个2元组，其第一个元素是ARRAY标志ORed与offset，第二个是标量元素类型ORed数组中的元素。
+  That is, value is a 2-tuple, the first element of which is the ARRAY flag ORed and offset, and the second is the element in the ORed array of scalar element type.
 
-* 聚合类型的数组::
+* Array of aggregate type::
 
     "arr2": (offset | uctypes.ARRAY, size, {"b": 0 | uctypes.UINT8}),
 
-  即，value是一个3元组，其第一个元素是ARRAY标志ORed与offset，第二个是数组中的元素数，第三个是元素类型的描述符。
+  That is, value is a 3-tuple, the first element of which is the ARRAY flag ORed and offset, the second is the number of elements in the array, and the third is the descriptor of the element type. 
 
-* 指向原始类型的指针::
+* Pointer to primitive type::
 
     "ptr": (offset | uctypes.PTR, uctypes.UINT8),
 
-  即，value是一个2元组，其第一个元素是PTR标志，与偏移量进行OR运算，第二个元素是标量元素类型。
+  That is, value is a 2-tuple, the first element of which is the PTR flag, ORed with the offset, and the second element is the scalar element type.
 
-* 指向聚合类型的指针::
+* Pointer to aggregate type::
 
     "ptr2": (offset | uctypes.PTR, {"b": 0 | uctypes.UINT8}),
 
-  ie值是一个2元组，其第一个元素是PTR标志ORed with offset，second是指向的类型的描述符。
+  The ie value is a 2-tuple, the first element of which is the PTR flag ORed with offset, and second is the descriptor of the type pointed to.
 
-* 位地址::
+* Bit address::
 
     "bitf0": offset | uctypes.BFUINT16 | lsbit << uctypes.BF_POS | bitsize << uctypes.BF_LEN,
 
-ie value是一种包含给定位域的标量值（类型名称类似于标量类型，但带有前缀BF），ORed带有包含位域的标量值的偏移量，并进一步与位内的位值和位域内的位长度进行或运算。
-标量值，分别通过BF_POS和BF_LEN位移位。位域位置从标量的最低有效位（具有0的位置）计数，并且是字段的最右位的数量（换句话说，它是标量需要向右移位的位数）提取位域）。
+ie value is a scalar value that contains the positioning field (type name is similar to the scalar type, but with the prefix BF), ORed has an offset that contains the scalar value of the bit field, and is further related to the bit OR the value and the bit length in the bit field.
+Scalar values are shifted by BF_POS and BF_LEN respectively. The bit field position is counted from the least significant bit of the scalar (position with 0), and is the number of the rightmost bit of the field (in other words, it is the number of bits that the scalar needs to be shifted to the right) to extract the bit field). 
 
-在上面的例子中，首先在偏移0处提取UINT16值（当访问硬件寄存器时，这个细节可能很重要，需要特定的访问大小和对齐），
-然后是最右边的位是此UINT16的lsbit位的位域，以及length是bitsize bits，将被提取。
-例如，如果lsbit为0且 bitsize为8，那么它将有效地访问UINT16的最低有效字节。
+In the above example, the UINT16 value is first extracted at offset 0 (when accessing hardware registers, this detail may be important and requires specific access size and alignment). 
+Then the rightmost bit is the bit field of the lsbit bit of this UINT16, and the length is bitsize bits, which will be extracted. 
+For example, if lsbit is 0 and bitsize is 8, then it will effectively access the least significant byte of UINT16. 
 
-注意，位域操作独立于目标字节字节序，特别是上面的例子将在小端和大端结构中访问UINT16的最低有效字节。
-但它取决于最低有效位被编号为0.某些目标可能在其原生ABI中使用不同的编号，但uctypes始终使用上述标准化编号。
+Note that bit field operations are independent of the target byte order, especially the above example will access the least significant byte of UINT16 in little-endian and big-endian structures.
+But it depends on the least significant bit being numbered 0. Some targets may use different numbers in their native ABI, but uctypes always use the above standardized numbers. 
 
-模块内容
+Module content
 ---------------
 
 .. class:: struct(addr, descriptor, layout_type=NATIVE)
 
-    基于内存中的结构地址，描述符（编码为字典）和布局类型（参见下文）来实例化“外部数据结构”对象。
+    Instantiate the “external data structure” object based on the address of the structure in memory, the descriptor (encoded as a dictionary) and the layout type (see below). 
 
 .. data:: LITTLE_ENDIAN
 
-    little-endian压缩结构的布局类型。（打包意味着每个字段占用描述符中定义的字节数，即对齐为1）。
+    Layout type of little-endian compressed structure. (Packing means that each field occupies the number of bytes defined in the descriptor, that is the alignment is 1). 
 
 .. data:: BIG_ENDIAN
 
-    big-endian压缩结构的布局类型。
+    Layout type of big-endian compressed structure。
 
 .. data:: NATIVE
 
-    本机结构的布局类型 - 数据字节顺序和对齐符合运行MicroPython的系统的ABI。
+    Layout type of native structure-data byte order and alignment conforms to ABI of systems running MicroPython. 
 
 .. function:: sizeof(struct, layout_type=NATIVE)
 
-    以字节为单位返回数据结构的大小。的结构参数可以是一个类结构或特定实例化结构对象（或其聚集体字段）。
+    Returns the size of the data structure in bytes. The structure parameter can be a class structure or a specific instantiated structure object (or its aggregate field). 
 
 .. function:: addressof(obj)
 
-    返回对象的地址。参数应该是字节，字节数组或其他支持缓冲区协议的对象（该缓冲区的地址实际上是返回的）。
+    Returns the address of the object. The parameter should be a byte, byte array or other object that supports the buffer protocol (the address of the buffer is actually returned). 
 
 .. function:: bytes_at(addr, size)
 
-    以给定的地址和大小捕获内存作为bytes对象。由于bytes对象是不可变的，因此内存实际上是复制并复制到bytes对象中，因此如果内存内容稍后更改，则创建的对象将保留原始值。
+    Capture memory as bytes object with given address and size. Because the bytes object is immutable, the memory is actually copied and copied into the bytes object, so if the memory content changes later, the created object will retain the original value.
 
 .. function:: bytearray_at(addr, size)
 
-    将给定地址和大小的内存捕获为bytearray对象。与上面的bytes_at（）函数不同，内存是通过引用捕获的，因此它也可以写入，并且您将在给定的内存地址访问当前值。
+    Capture memory of given address and size as bytearray object. Unlike the bytes_at（）function above, memory is captured by reference, so it can also be written to, and you will access the current value at the given memory address.
 
 .. data:: UINT8
           INT8
@@ -187,56 +187,57 @@ ie value是一种包含给定位域的标量值（类型名称类似于标量类
           UINT64
           INT64
 
-    结构描述符的整数类型。提供了8,16,32和64位类型的常量，包括有符号和无符号。
+    Integer type of structure descriptor. Provides 8, 16, 32, and 64-bit constants, including signed and unsigned. 
 
 .. data:: FLOAT32
           FLOAT64
 
-    结构描述符的浮点类型。
+    Floating point type of structure descriptor. 
+    
 
 .. data:: VOID
 
-    ``VOID`` 是一个别名 ``UINT8`` ，用于方便地定义C的void指针：。( ``uctypes.PTR`` , ``uctypes.VOID`` )
+    ``VOID`` is an alias ``UINT8`` , Used to conveniently define the void pointer of C：( ``uctypes.PTR`` , ``uctypes.VOID`` )
 
 .. data:: PTR
           ARRAY
 
-    输入指针和数组的常量。请注意，结构没有显式常量，它是隐式的：没有 ``PTR`` 或者 ``ARRAY`` 标志的聚合类型是结构。
+    Input pointer and array constants. Note that the structure has no explicit constants, it is implicit: the aggregate type without the ``PTR`` or ``ARRAY`` flag is a structure. 
 
-结构描述符和实例化结构对象
+Structure descriptors and instantiated structure objects
 ---------------------------------------------------------
 
-给定结构描述符字典及其布局类型，您可以使用 :class:`uctypes.struct()`  构造函数在给定的内存地址处实例化特定的结构实例。
-内存地址通常来自以下来源:
+Given the structure descriptor dictionary and its layout type, you can use :class:`uctypes.struct()`  constructor instantiates a specific structure instance at a given memory address.
+Memory addresses usually come from the following sources:
 
 
-* 访问裸机系统上的硬件寄存器时的预定义地址。在特定MCU / SoC的数据表中查找这些地址。
-* 作为从调用某些FFI（外部函数接口）函数的返回值。
+* Predefined addresses when accessing hardware registers on bare metal systems. Look up these addresses in the data sheet of a specific MCU / SoC.
+* As a return value from calling some FFI (external function interface) functions.
 
-* 从 `uctypes.addressof()`,当您想要将参数传递给FFI函数时，或者，为了访问I / O的某些数据（例如，从文件或网络套接字读取的数据）。
+* From `uctypes.addressof()`, when you want to pass parameters to the FFI function, or, in order to access some data of the I / O (for example, data read from a file or network socket).
 
-结构对象
+Structural object
 -----------------
 
-结构对象允许使用标准点表示法访问各个字段：``my_struct.substruct1.field1`` 。
-如果字段是标量类型，获取它将产生与字段中包含的值对应的原始值（Python整数或浮点数）。
-标量字段也可以分配给。
+Structural objects allow access to individual fields using standard dot notation：``my_struct.substruct1.field1`` 。
+If the field is of scalar type, getting it will produce the original value (Python integer or float) corresponding to the value contained in the field.
+Scalar fields can also be assigned to.
 
-如果字段是数组，则可以使用标准下标运算符访问其各个元素 ``[]`` - 包括读取和分配。
+If the field is an array, you can use standard subscript operators to access its individual elements  ``[]`` - including reading and allocation.
 
-如果一个字段是一个指针，它可以使用 ``[0]`` 语法解除引用（对应于C  ``*`` 运算符，但也 ``[0]`` 适用于C）。还支持使用其他整数值（但是为0）订阅指针，其语义与C中相同。
+If a field is a pointer, it can be used ``[0]`` Syntax dereference (corresponding to C  ``*`` operator, but also ``[0]``  applies to C). Also supports the use of other integer values (but 0) to subscribe to pointers, the semantics are the same as in C.
 
-总而言之，访问结构字段通常遵循C语法，除了指针取消引用，当您需要使用 ``[0]`` 运算符而不是 ``*`` 。
+In summary, accessing structure fields usually follows the C syntax, except for pointer dereferencing, when you need to use the ``[0]`` operator instead of  ``*`` .
 
-限制
+Limitation
 -----------
 
-1. 访问非标量字段会导致分配中间对象以表示它们。这意味着应特别注意布局在禁用内存分配时需要访问的结构（例如，来自中断）。建议如下:
+1. Accessing non-scalar fields causes allocation of intermediate objects to represent them. This means that special attention should be paid to structures that the layout needs to access when memory allocation is disabled (for example, from interrupts). Suggestions as follows:
 
-  * 避免访问嵌套结构。例如，代替 ``mcu_registers.peripheral_a.register1`` 为每个外围设备定义单独的布局描述符，以便进行访问 ``peripheral_a.register1`` 。或者只缓存特定的外围设备: 如果寄存器由多个位域组成，则需要缓存对特定寄存器的引用: ``peripheral_a = mcu_registers.peripheral_areg_a = mcu_registers.peripheral_a.reg_a``
+  * Avoid access to nested structures. For example, instead of  ``mcu_registers.peripheral_a.register1`` define a separate layout descriptor for each peripheral device to access ``peripheral_a.register1`` . Or only cache specific peripherals: If the register consists of multiple bit fields, you need to cache references to specific registers: ``peripheral_a = mcu_registers.peripheral_areg_a = mcu_registers.peripheral_a.reg_a``
 
-  * 避免使用其他非标量数据，例如数组。例如，而不是 peripheral_a.register[0]使用peripheral_a.register0。同样，另一种方法是缓存中间值，例如 ``register0 = peripheral_a.register[0]`` 
+  * Avoid using other non-scalar data, such as arrays. For example, instead of peripheral_a.register[0] use peripheral_a.register0. Similarly, another method is to cache intermediate values, for example ``register0 = peripheral_a.register[0]`` 
 
-2. ``uctypes`` 模块支持的偏移范围有限。支持的确切范围被认为是实现细节，一般建议是将结构定义拆分为从几千字节到几十千字节的最大值。
-在大多数情况下，无论如何这都是一种自然情况，例如，在一个结构中定义MCU的所有寄存器（扩展到32位地址空间）没有意义，而是通过外围模块定义外设模块。
-在某些极端情况下，您可能需要人工分割几个部分的结构（例如，如果在中间访问具有多兆字节数组的本机数据结构，尽管这将是非常合成的情况）。
+2. ``uctypes`` module supports a limited range of offsets. The exact range supported is considered to be an implementation detail, and the general recommendation is to split the structure definition into a maximum value from a few kilobytes to tens of kilobytes.
+In most cases, this is a natural situation anyway. For example, it does not make sense to define all the registers of the MCU (expanded to the 32-bit address space) in a structure, but define peripheral modules through peripheral modules.
+In some extreme cases, you may need to manually split the structure of several parts (for example, if you access a native data structure with a multi-megabyte array in the middle, although this will be a very synthetic situation). 

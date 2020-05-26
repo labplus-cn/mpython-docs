@@ -1,37 +1,37 @@
-:mod:`btree` -- 简单的 BTree 数据库
+:mod:`btree` -- Simple BTree Database
 =====================================
 
 .. module:: btree
-   :synopsis: 简单的 BTree 数据库
+   :synopsis: Simple BTree Database
 
- ``btree`` 模块使用外部储存（磁盘文件，或在一般情况下为随机访问流）实现简单的键值数据库。
- 键排序储存在数据库中，除对单个键值的有效检索外，数据库还支持高效的有序范围扫描（使用给定范围内的键来检索值）。
- 在应用程序接口方面，B树数据库尽可能以与标准 `dict` 类型工作方式相似的方式运行，一个明显区别是键和值都须
- 为 `bytes` 对象（因此，若您想要储存其他类型的对象，需首先将之序列化为 `bytes` ）。
+ ``btree`` The module uses external storage (disk file or random access stream in general) to realize simple key value database.
+ Key sorting is stored in the database. In addition to the effective retrieval of a single key value, the database also supports efficient ordered range scanning (using keys within a given range to retrieve values). 
+ In terms of application program interface, the B-tree database should be operated in a way similar to the standard 'dict' type as much as possible. One obvious difference is that both the key and the value must be.
+ As a `bytes` object（Therefore, if you want to store other types of objects, you need to first serialize them to `bytes` ）。
 
-该模块基于著名的BerkelyDB 库的1.xx版本。
+This module is based on the BerkelyDB library 1.xx edition.
 
-示例::
+Examples::
 
     import btree
 
-    # First, we need to open a stream which holds a database 首先，我们需要打开一个包含数据库的流
-    # This is usually a file, but can be in-memory database 这通常是一个文件，也可能是一个内存数据库
-    # using uio.BytesIO, a raw flash partition, etc. 使用uio.BytesIO，一个原始闪分区
+    # First, we need to open a stream which holds a database 
+    # This is usually a file, but can be in-memory database 
+    # using uio.BytesIO, a raw flash partition, etc. used of uio.BytesIO，
     # Oftentimes, you want to create a database file if it doesn't
     # exist and open if it exists. Idiom below takes care of this.
-    # 通常，若不存在数据库文件，则您需要创建一个；若已存在，则只需打开。以下的习语考虑到了这一点。
-    # DO NOT open database with "a+b" access mode. 请勿打开带有"a+b"访问编码的数据库。
+    # In general, if there is no database file, you need to create one; if there is already one, just open it. The following idioms take this into account. 
+    # DO NOT open database with "a+b" access mode. 
 
     try:
         f = open("mydb", "r+b")
     except OSError:
         f = open("mydb", "w+b")
 
-    # Now open a database itself 现在打开一个数据库
+    # Now open a database
     db = btree.open(f)
 
-    # The keys you add will be sorted internally in the database 您添加的键将在数据库进行内部排序
+    # The keys you add will be sorted internally in the database 您
     db[b"3"] = b"three"
     db[b"1"] = b"one"
     db[b"2"] = b"two"
@@ -39,7 +39,7 @@
     # Assume that any changes are cached in memory unless
     # explicitly flushed (or database closed). Flush database
     # at the end of each "transaction". 
-    # 除非显式刷新（或数据库关闭），否则假设任何更改都缓存在内存中。在每次“处理”结束时都刷新数据库。
+    # Any changes are assumed to be cached in memory unless explicitly refreshed (or the database is shut down). Refresh the database at the end of each process. 
     db.flush()
 
     # Prints b'two'
@@ -47,8 +47,8 @@
 
     # Iterate over sorted keys in the database, starting from b"2"
     # until the end of the database, returning only values. 
-    # 在数据库中对已排序的键进行迭代，从b“2”开始到数据库结束，只返回值。
-    # Mind that arguments passed to values() method are *key* values. 注意传递给values()方法的参数为*key*值
+    # Iterate over the sorted keys in the database, starting from B "2" to the end of the database, and only return values. 
+    # Mind that arguments passed to values() method are *key* values. 
     # Prints:
     #   b'two'
     #   b'three'
@@ -68,34 +68,34 @@
 
     db.close()
 
-    # Don't forget to close the underlying stream! 请一定记得关闭基础流！
+    # Don't forget to close the underlying stream! 
     f.close()
 
 
-函数
+Function
 ---------
 
 .. function:: open(stream, \*, flags=0, cachesize=0, pagesize=0, minkeypage=0)
 
-   从随机存取的 ``stream``（类似一个打开的文件）中打开一个数据库。所有其他的参数都是可选的，且都只为关键字，并允许对数据库操作的高级参数进行调整（大多数用户并不会需要这个）:
+   Open a database from a random access ``stream``(similar to an open file). All other parameters are optional, are only keywords, and allow adjustment of advanced parameters of database operation (most users do not need this):
 
-   * *flags* - 当前未使用的
-   * *cachesize* - 以字节计的建议最大内存缓存大小。对于一个由充足内存的板而言，使用更大值或许可以提高性能。该值只是推荐值，若该值设置过低，则模块可能会占用更多内存。
-   * *pagesize* - B树中用于节点的页面大小。可接受范围为512-65536。若为0，则会使用基础I/O块的大小（内存使用和性能之间的最佳协调）。
-   * *minkeypage* - 每个页面存储的键的最小数量。默认值为0等于2。
+   * *flags* - currently unused
+   * *cachesize* - Recommended maximum memory cache size in bytes. For a board with sufficient memory, using a larger value may improve performance. This value is only the recommended value. If the value is set too low, the module may occupy more memory.
+   * *pagesize* - The page size used for the node in the BTree. The acceptable range is 512-65536. If 0, the size of the underlying I/O block is used (best coordination between memory usage and performance). 
+   * *minkeypage* - The minimum number of keys stored per page. The default is 0 equals to 2. 
 
-   返回一个B树对象，该对象实现一个字典协议（方法集）和下述的一些附加方法。
+   Returns a BTree object that implements a dictionary protocol (method set) and the following additional methods. 
 
-方法
+Method
 -------
 
 .. method:: btree.close()
 
-   关闭数据库。处理结束时关闭数据库是强制性的，因为某些未写入的数据可能仍留在缓存中。注意：这并不会关闭随数据库打开的基础流，基础流应单独关闭（这也是强制性的，以确保从缓冲区中刷新的数据进入底层储存）。
+   Close the database. Closing the database at the end of processing is mandatory because some unwritten data may remain in the cache. Note: This does not close the underlying flow that is opened with the database, which should be closed separately (this is also mandatory to ensure that data flushed from the buffer goes into the underlying storage). 
 
 .. method:: btree.flush()
 
-   将缓存中的任何数据刷新到底层流。
+   Refresh any data in the cache to the underlying stream. 
 
 .. method:: btree.__getitem__(key)
             btree.get(key, default=None)
@@ -103,29 +103,29 @@
             btree.__detitem__(key)
             btree.__contains__(key)
 
-   标准字典方法。
+   Standard dictionary method. 
 
 .. method:: btree.__iter__()
 
-   B树对象可被直接迭代（与字典相似）以按顺序访问所有键。
+   B-tree objects can be iterated directly (similar to dictionaries) to access all keys orderly.
 
 .. method:: btree.keys([start_key, [end_key, [flags]]])
             btree.values([start_key, [end_key, [flags]]])
             btree.items([start_key, [end_key, [flags]]])
 
-   这些方法类似于标准字典方法，但也可使用可选参数来迭代一个键子范围，而不是整个数据库。
-   注意：这三种方法中， *start_key* 和 *end_key* 参数都代表键值。例如， ``values()`` 方法将迭代与给定键范围对应的值。
-   无 *start_key* 值即意为“从首个键”，无 *end_key* 值或其值为None则意为“直到数据库结束”。
-   默认情况下，范围包括 *start_key* ，而不包括 *end_key* ，您可以通过传递 `btree.INCL` 的标记来将 *end_key* 包括在迭代中。
-   您可以通过传递 `btree.DESC` 的标记来按照下行键方向进行迭代。标记值可同为ORed。
+   These methods are similar to the standard dictionary methods, but you can also use optional parameters to iterate over the key subscope instead of the entire database. 
+   Note：This is the third method这, *start_key* and *end_key* parameters all represent key values. For example, the ``values()`` method iterates over the values corresponding to a given key range.
+   No *start_key* value means “from the first key”, No “*end_key* value or none means “until the end of the database”. 
+   By default, the range includes *start_key* ，excluding *end_key* , you can pass `btree.INCL` to set *end_key* to include in the iteration.
+   Can pass `btree.DESC` tag to iterate in the direction of the down key. Tag value can be the same as ORed. 
 
-常量
+Constant
 ---------
 
 .. data:: INCL
 
-    `keys()`, `values()`, `items()` 方法的标记, 指定扫描应该包含结束键。
+    `keys()`, `values()`, `items()` methods, specifies that the scan should include the end key.
 
 .. data:: DESC
 
-    `keys()`, `values()`, `items()` 方法的标记, 指定扫描应按照键的下行方向进行。
+    `keys()`, `values()`, `items()` The tags method specifies that the scan should be performed in the downward direction of the key.

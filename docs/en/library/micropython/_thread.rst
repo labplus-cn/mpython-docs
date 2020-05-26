@@ -1,13 +1,13 @@
 
-:mod:`_thread` --- 线程
+:mod:`_thread` --- Threads
 ==========================
 
-该模块提供了用于处理多个线程（也称为轻量级进程或任务）的低级原语 - 多个控制线程共享其全局数据空间。为
-了同步，提供了简单的锁（也称为互斥锁或二进制信号量）。
+This module provides low-level primitives for handling multiple threads (also known as lightweight processes or tasks)-multiple control threads share their global data space. 
+For synchronization, a simple lock (also called a mutex or binary semaphore) is provided.
 
-发生线程特定错误时，会RuntimeError引发异常。
+When a thread-specific error occurs, an exception will be raised by RuntimeError.
 
-快速使用示例::
+Quick use example::
 
     import _thread
     import time
@@ -20,73 +20,73 @@
     for i in range(2):
         _thread.start_new_thread(th_func, (i + 1, i))
 
-方法
+Method
 ~~~~~~~
 
 .. method:: _thread.start_new_thread（function，args [，kwargs]）
 
-启动一个新线程并返回其标识符。线程使用参数列表args（必须是元组）执行函数。可选kwargs参数指定关键字参数的字典。
-当函数返回时，线程将以静默方式退出。当函数以未处理的异常终止时，将打印堆栈跟踪，然后线程退出（但其他线程继续运行）。
+Start a new thread and return its identifier. The thread uses the parameter list args (must be a tuple) to execute the function. Optional kwargs parameter specifies a dictionary of keyword parameters. 
+When the function returns, the thread will exit silently. When the function terminates with an unhandled exception, the stack trace is printed, and then the thread exits (but other threads continue to run). 
 
 .. method:: _thread.exit()
 
-引发 SystemExit 异常。如果未捕获时，这将导致线程以静默方式退出。
+SystemExit exception is triggered. If not captured, this will cause the thread to exit silently。
 
 .. method:: _thread.allocate_lock()
 
-返回一个新的锁定对象。锁的方法如下所述。锁最初为解锁状态。
+Return a new locked object. The method of locking is as follows. The lock is initially unlocked.
 
 .. method:: _thread.get_ident()
 
-返回thread identifier当前线程。这是一个非零整数。它的价值没有直接意义; 
-它旨在用作例如索引线程特定数据的字典的魔术cookie。当线程退出并创建另一个线程时，可以回收线程标识符。
+Returns the thread identifier of the current thread. This is a non-zero integer. Its value has no direct meaning; 
+It is intended to be used as a magic cookie for indexing a dictionary of thread-specific data. When the thread exits and creates another thread, the thread identifier can be retrieve。
 
 .. method:: _thread.stack_size([size])
 
-返回创建新线程时使用的线程堆栈大小（以字节为单位）。可选的size参数指定用于后续创建的线程的堆栈大小，并且必须是0（使用平台或配置的默认值）或至少为4096（4KiB）的正整数值。
-4KiB是目前支持的最小堆栈大小值，以保证解释器本身有足够的堆栈空间。
+Returns the thread stack size (in bytes) used when creating a new thread. The optional size parameter specifies the stack size of the thread used for subsequent creation and must be 0 (use the platform or configured default value) or a positive integer value of at least 4096 (4KiB).
+4KiB is the minimum stack size value currently supported to ensure that the interpreter has enough stack space. 
 
-对象
+Object
 ~~~~~~~
 
 .. object:: _thread.LockType
 
-这是锁定对象的类型。
+Type of locked object. 
 
 
 
-Lock 类 
+Lock class 
 ~~~~~~~
 
 .. class:: Lock
 
-Python提供的线程模块包含一个易于实现的锁定机制，可以实现线程之间的同步。通过调用Lock()方法创建一个新锁。
-新锁对象的获取（阻塞）方法用于强制线程同步运行。可选的阻塞参数使您可以控制线程是否等待获取锁定。
+The threading module provided by Python contains an easy-to-implement locking mechanism that enables synchronization between threads. Create a new lock by calling the Lock() method.
+New lock object acquisition (blocking) method is used to force threads to run synchronously. Optional blocking parameter allows you to control whether the thread is waiting to acquire the lock.
 
-方法
+Method
 -----
 
-锁定对象具有以下方法：
+The lock object has the following methods：
 
 .. method::  lock.acquire(waitflag = 1，timeout = -1)
 
-在没有任何可选参数的情况下，此方法无条件地获取锁定，如果有必要，等待它被另一个线程释放（一次只有一个线程可以获取锁定 - 这就是它们存在的原因）。
+Without any optional parameters, this method acquires the lock unconditionally, and if necessary, waits for it to be released by another thread (only one thread can acquire the lock at a time-that's why they exist). 
 
-如果存在整数 ``waitflag`` 参数，则操作取决于其值：如果它为零，则仅在不等待的情况下立即获取锁定时获取锁定，而如果它非零，则如上所述无条件地获取锁定。
+If there is an integer  ``waitflag`` parameter, the operation depends on its value: if it is zero, the lock is only acquired when the lock is acquired immediately without waiting, and if it is non-zero, it is acquired unconditionally as described above locking. 
 
-如果浮点超时参数存在且为正，则它指定返回之前的最长等待时间（以秒为单位）。负超时参数指定无限制等待。如果 ``waitflag`` 为零，则无法指定超时。
+If the floating-point timeout parameter is present and positive, it specifies the maximum wait time (in seconds) before returning.     -ve timeout parameter specifies unlimited waiting. If ``waitflag`` is zero, you cannot specify a timeout.
 
-``True`` 如果成功获取锁定则返回值，否则返回值 ``False`` 。
+``True`` returns the value if the lock is successfully acquired, otherwise the return value is ``False`` .
 
 .. method::  lock.release()
 
-释放锁定。必须先获取锁，但不一定是同一个线程。
+Release the lock. The lock must be acquired first, but not necessarily the same thread. 
 
 .. method::  lock.locked()
 
-返回锁的状态：True表示被某个线程获取，False则表示没有。
+Returns the state of the lock：True means acquired by a thread, False means no.
 
-除了这些方法之外，还可以通过with语句使用锁定对象，例如::
+In addition to these methods, you can also use locked objects through the with statement, for example::
 
     import _thread
 

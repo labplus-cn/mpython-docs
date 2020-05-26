@@ -1,17 +1,17 @@
-:mod:`machine` --- 与硬件相关的功能
+:mod:`machine` --- Hardware related functions
 ====================================================
 
 .. module:: machine
-   :synopsis: 与硬件相关的功能
+   :synopsis: hardware related functions
 
-该 ``machine`` 模块包含与特定电路板上的硬件相关的特定功能。该模块中的大多数功能允许直接和不受限制地访问和控制系统上的硬件块（如CPU，定时器，总线等）。
-使用不当，可能导致故障，锁定，电路板崩溃，以及在极端情况下硬件损坏。
+The ``machine`` module contains specific functions related to the hardware on a specific circuit board. Most of the functions in this module allow direct and unrestricted access to and control the hardware blocks on the system (such as CPU, timer, bus, etc.).
+Improper use can cause failures, locks, board breakdown, and, in extreme cases, hardware damage.
 
 .. _machine_callbacks:
 
-关于 :mod:`machine` 模块的函数和类方法使用的回调的注释：所有这些回调应被视为在中断上下文中执行。
-这对于ID> = 0的物理设备和具有负ID（例如-1）的“虚拟”设备都是如此（这些“虚拟”设备在真实硬件和实际硬件中断之上仍然是薄的垫片）。
-请参见 :ref:`中断处理程序 <isr_rules>`
+About :mod:`machine` module functions and callback used by class methods：All these callbacks should be considered to be executed in the context of the interrupt。
+This is true for both physical devices with ID> = 0 and “virtual” (for example, - 1) (these “virtual” devices are still thin pads above real and real hardware interrupts).
+See :ref:` interrupt handler <isr_rules>`
 
 
 
@@ -34,116 +34,116 @@
 
 
 
-复位相关函数
+Reset interrelated function
 -----------------------
 
 .. function:: reset()
 
-    与按下外部 RESET复位按键效果一样.
+    Has the same effect as pressing the external reset button. 
 
 .. function:: reset_cause()
 
-    获得重启原因。
+    Reset cause.
 
     ==================== ======  ====================================  
-     重启原因              数值    定义
-     PWRON_RESET          1      上电重启 
-     HARD_RESET           2      硬重启
-     WDT_RESET            3      看门狗计时器重启 
-     DEEPSLEEP_RESET      4      从休眠重启 
-     SOFT_RESET           5      软重启 
+     Reset Cause         Value   Definition
+     PWRON_RESET          1      Power On Reset 
+     HARD_RESET           2      Hard Reset
+     WDT_RESET            3      Watchdog timer restart 
+     DEEPSLEEP_RESET      4      Reset from deep sleep 
+     SOFT_RESET           5      Soft Reset 
     ==================== ======  ====================================  
 
 
 
-中断相关函数
+Interrupt interrelated function
 ---------------------------
 
 .. function:: disable_irq()
 
-    禁用中断请求。返回先前的IRQ状态，该状态应被视为不透明值。 :func:`enable_irq()` 在 :func:`disable_irq()` 调用之前，
-    应将此返回值传递给函数以将中断恢复到其原始状态。
+    Disable interrupt request. Returns the previous IRQ status, which should be treated as opaque :func:`enable_irq()` before calling  :func:`disable_irq()` ,
+    This return value should be passed to the function to restore the interrupt to its original state.
 
 
 .. function:: enable_irq(state)
 
-    重新启用中断请求。 :func:`state` 参数应该是最近一次调用  :func:`disable_irq()` 函数时返回的值。
+    Re-enable interrupt request。 :func:`state` parameter should be the latest call  :func:`disable_irq()` value when function return.
 
-电源相关函数
+Power interrelated function
 -----------------------
 
 .. function:: freq()
 
-    返回 CPU 频率,单位Hz
+    Returns CPU frequency in Hz
 
 .. function:: idle()
 
-   为CPU提供时钟，有助于在短期或长期内随时降低功耗。一旦触发任何中断，外设继续工作并继续执行
-   （在许多端口上，这包括以毫秒级的规则间隔发生的系统定时器中断）。
+   Provides a clock for the CPU to help reduce power consumption in the short or long term. Once any interrupt is triggered, the peripheral continues operation and execution.
+   (on many ports, this includes system timer interrupts that occur at regular intervals in milliseconds).
 
 .. function:: sleep()
 
-   .. note:: 不推荐使用此函数，可用lightsleep()不带参数。
+   .. note:: This function is not recommended. You can use lightsleep() which don't require any parameter。
 
 .. function:: deepsleep()
 
-    停止执行以尝试进入低功率状态。
+    Stop execution to try to enter low power state. 
+    
+    If time is specified time_ms, then this will be the maximum amount of time (in milliseconds) sleep will last. Or sleep can last indefinitely. 
 
-    如果指定了time_ms，那么这将是睡眠将持续的最长时间（以毫秒为单位）。否则睡眠可以无限期地持续。
+    Whether there is time or not, if there is an event to be handled, the execution can be recovered at any time. This type of event or wake-up source should be configured before hibernation, such as `Pin` change or `RTC` timeout. 
 
-    无论有没有时间，如果有需要处理的事件，执行可以随时恢复。应该在休眠之前配置此类事件或唤醒源，如 `Pin` 更改或 `RTC` 超时。
+    The exact behavior and power saving function of ``lightsleep`` and  ``deepsleep`` depend on the underlying hardware to a large extent, but the general attributes are:
 
-    ``lightsleep`` 和 ``deepsleep`` 的精确行为和省电功能在很大程度上取决于底层硬件，但一般属性是：
-
-        - lightsleep具有完整的RAM和状态保留。唤醒后，从请求睡眠的点恢复执行，所有子系统都可以运行。
-        - 深度睡眠可能不会保留RAM或系统的任何其他状态（例如外围设备或网络接口）。唤醒后，从主脚本恢复执行，类似于硬复位或上电复位。该 `reset_cause()` 函数将返回 `machine.DEEPSLEEP` ，这可用于区分深度睡眠唤醒与其他重置。
+        - lightsleep has full ram and state retention. After wake-up, resume execution from the point where sleep is requested, and all subsystems can run. 
+        - Deepsleep may not retain ram or any other state of the system (such as peripheral devices or network interfaces). After wake-up, resume execution from the main script, similar to hard reset or power on reset. This `reset_cause()` function will return  `machine.DEEPSLEEP` , which can be used to distinguish deep sleep wake-up from other resets. 
     
 
 
 .. function:: wake_reason()
 
-    返回唤醒原因。
+    Return to Wake reason。
         
     ==================== ======  ====================================  
-    唤醒原因              数值    定义
-    PIN_WAKE/EXT0_WAKE     2      单个RTC_GPIO唤醒
-    EXT1_WAKE              3      多RTC_GPIO唤醒
-    TIMER_WAKE             4      定时器唤醒
-    TOUCHPAD_WAKE          5      触摸唤醒
-    ULP_WAKE               6      协处理器唤醒
+    Wake reason           Value   Definition
+    PIN_WAKE/EXT0_WAKE     2      Single RTC_GPIO wake up
+    EXT1_WAKE              3      Multi RTC_GPIO wake up
+    TIMER_WAKE             4      Timer wake up
+    TOUCHPAD_WAKE          5      Touchpad wake up
+    ULP_WAKE               6      Coprocessor wake up
     ==================== ======  ====================================  
 
 
 
-其他函数
+Other functions
 -----------------------
 
 
 
 .. function:: unique_id()
 
-    返回 board/ SoC的唯一标识符的字节字符串。如果底层硬件允许，它将从board/ SoC实例变化到另一个实例。
-    长度因硬件而异（如果您需要短ID，请使用完整值的子字符串）。在某些MicroPython端口中，ID对应于网络MAC地址。
+    Returns the byte string of the unique identifier of board/ SoC.  If the underlying hardware allows it, it will change fromboard/ SoC instance to another instance. 
+    Length varies by hardware (if you need a short ID, use a substring of the full value). In some MicroPython ports, the ID corresponds to the network MAC address.
 
     >>> machine.unique_id()
     b'\xccP\xe3\x90\xeb\xd4'
 
 .. function:: time_pulse_us(pin, pulse_level, timeout_us=1000000)
 
-    在给定的引脚上测试外部脉冲电平持续时间，并以微秒为单位返回外部脉冲电平的持续时间。 ``pulse_level`` =1测试高电平持续时间，pulse_level=0测试低电平持续时间。
-    当设置电平和现在脉冲的电平不一致时，则会等到输入电平和设置的电平一致时开始计时，如果设置的电平和现在脉冲的电平一致时，那么就会立即开始计时。
-    当引脚电平和设置电平一直相反时，则会等待超时，超时返回-2。当引脚电平和设置电平一直相同时，也会等待超时，超时返回-1， ``timeout_us`` 即为超时时间。
+    Test the duration of the external pulse level at the given pin and return the duration of the external pulse level in microseconds.  ``pulse_level`` == 1 test high level duration, pulse_ Level = 0 test low level duration.
+    When the set level is inconsistent with the current pulse level, the timing will start when the input level is consistent with the set level. If the set level is consistent with the current pulse level, the timing will start immediately.
+    When pin level and set level are always opposite, it will wait for timeout, and timeout returns to - 2. When the pin level and the setting level are the same all the time, it will also wait for the timeout, and the timeout will return to - 1, ``timeout_us`` is the timeout.
 
 .. function:: rng()
 
-    返回一个24 bit软件生成的随机数.
+    Returns a random number generated by 24 bit software.
 
 .. _machine_constants:
 
-常量
+Constant
 ---------
 
-IRQ唤醒值
+IRQ Wake Value
 ^^^^^^^^
 
 .. data:: machine.SLEEP
@@ -154,7 +154,7 @@ IRQ唤醒值
 
     4
 
-重启原因
+Reset Reason
 ^^^^^^^
 
 .. data:: machine.PWRON_RESET
@@ -164,7 +164,7 @@ IRQ唤醒值
           machine.SOFT_RESET
 
 
-唤醒原因
+Wake Reason
 ^^^^^^^^
 
 .. data:: machine.PIN_WAKE

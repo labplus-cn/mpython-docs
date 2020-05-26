@@ -1,28 +1,28 @@
-光线传感器
+Light Sensor
 =============
 
-掌控板板载光线传感器，可以用其感知周边环境的光线变化。
+The built-in light sensor on the mPython Board, 掌控板板载光线传感器，use it to sense light changes in the surrounding environment.
 
-例：光控灯::
+Example：Light control lamp::
 
     from mpython import *
 
     while True:
-        oled.fill(0)                                   #清屏
-        oled.DispChar("亮度:",30,16)                    #显示亮度
-        oled.DispChar("%d" % (light.read()), 60, 16)    #显示板载光线传感器
-        oled.show()                                     #刷新
-        sleep_ms(100)                                   #延时100ms
+        oled.fill(0)                                   #Clear Screen
+        oled.DispChar("亮度:",30,16)                    #Display brightness
+        oled.DispChar("%d" % (light.read()), 60, 16)    #Display the built-in Light Sensor
+        oled.show()                                     #Refresh
+        sleep_ms(100)                                   #Delay 100ms
 
-        if light.read() < 200 :                    # 当光线小于200，灯亮
-            rgb.fill((50,50,50))
+        if light.read() < 200 :                    # When the light brightness is less than 200, turn ON the light
+        rgb.fill((50,50,50))
             rgb.write()
-        else:                                      # 否则，灯灭
+        else:                                      # else, OFF the light
             rgb.fill((0,0,0))
             rgb.write()
 
 
-使用 ``light`` 对象来获取光线传感器数据::
+Use ``light`` object to obtain the light sensor data::
 
     light.read()
 

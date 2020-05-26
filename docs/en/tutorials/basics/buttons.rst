@@ -1,57 +1,58 @@
-按键
+Key Button
 ====
 
-在掌控板上部边沿有按压式A、B两个按键。当按下按键时为低电平，否则高电平。
+There are two push buttons A and B on the upper edge of the control panel. Low level when the button is pressed, otherwise high level. 
 
 
-在掌控板A,B按键按下的过程如下述，当按下时,电平从高变低,在高电平（1）变为低电平（0）的那一瞬间叫作下降沿。当按键松开时,电平从低变高,在低电平（0）变为高电平（1）的那一瞬间叫作上升沿。
-我们可以通过获取电平变化来获取,当前按键状态。
+The process of pressing the keys on the control panel A and B is as follows. When pressed, the level changes from high to low, and the moment when the high level (1) changes to the low level (0) is called the falling edge. When the button is released, the level changes from low to high, and the moment when the low level (0) changes to the high level (1) is called the rising edge.
+We can get the current key state by getting the level change.
 
 .. image:: /../images/tutorials/falling.png
     :align: center
 
 ----------------------------------------------
 
-获取按键状态
+Obtain the key status
 ++++++++++
 
 .. literalinclude:: /../../examples/button/button_ctl_led.py
-    :caption: 示例-按A键开灯，按B键关灯
+    :caption: Example - Press A key to turn on the light, press B key to turn off the light.
     :linenos:
 
-使用前，导入mpython模块::
+First, import the mpython module::
 
   from mpython import *
 
-按键 A 和按键 B 按下::
+Pressed Button A and Button B::
 
-  button_a.value() == 0      #按键 A 按下
-  button_b.value() == 0      #按键 B 按下
+  button_a.value() == 0      #Pressed button A
+  button_b.value() == 0      #Pressed button B
 
 .. Note::
 
-  ``button_a`` 为按键 A 对象名，按键 B 对象名为 ``button_b`` ，是 ``machine.Pin`` 衍生类，继承Pin的方法，所以可使用 ``value`` 函数读取引脚值，返回 ``1`` 代表高电平信号，返回 ``0`` 代表低电平信号，因此当按键未按下状态时value==1，按下状态时value==0。
+  `` button_a`` is the object name of button A, and the object name of button B is `` button_b``, which is a derived class of `` machine.Pin`` and inherits the method of Pin, so you can use the `` value`` function to read the reference Pin value, return `` 1 '' for high level signal, return `` 0 '' for low level signal, so value == 1 when the button is not pressed, value == 0 when pressed. ``button_a`` is the object name of button A, and the object name of button B is ``button_b`` , which is a derived class of  ``machine.Pin`` and inherits the method of Pin, so you can use the  ``value`` function to read the reference Pin value, return ``1``  for high level signal, return ``0`` for low level signal, so value==1，when the button is not pressed, value==0 when pressed.
 
 
-按键中断
+Key interrupt
 ++++++++
 
-.. admonition:: 什么是中断呢？
+.. admonition:: What is an interrupt？
 
-    在程序运行过程中，系统出现了一个必须由CPU立即处理的情况，此时，CPU暂时中止程序的执行转而处理这个新的情况的过程就叫做中断。
-    在出现需要时，CPU必须暂停现在的事情，处理别的事情，处理完了再回去执行暂停的事情。
+    In the process of running the program, the system has a situation that must be dealt with by the CPU immediately. At this time, the CPU temporarily suspends the execution of the program and turns to deal with this new situation.
+    When there is a need, the CPU must suspend the current thing, handle other things, and then go back to execute the suspended thing after processing. 
 
 
 .. literalinclude:: /../../examples/button/button_irq_ctl_led.py
-    :caption: 示例-按下按键 A 打开板载灯和蜂鸣器，按下按键 B 关闭板载灯和蜂鸣器
+    :caption: Example - Press button A to turn on the onboard lights and buzzer, press button B to turn off the onboard lights and buzzer.
+    
     :linenos:
    
-.. Note:: 以上程序默认情况下，程序在循环内空等不执行任何指令。当检测到a,b按键中断按时，回调对应的函数。
+.. Note:: By default, the above program does not execute any instructions when the program is empty, etc. When the a and b keys are interrupted, the corresponding function is called back.
 
 
-``button_a.irq(trigger=Pin.IRQ_FALLING, handler=ledon)`` 是调用的中断处理程序对应的函数。`trigger` 配置可以触发中断的事件，可能的值是：`Pin.IRQ_FALLING` 下降沿中断；`Pin.IRQ_RISING` 上升沿中断；`Pin.IRQ_LOW_LEVEL` 低电平中断；`Pin.IRQ_HIGH_LEVEL` 高电平中断。`handler` 是一个可选的函数，在中断触发时调用，返回一个回调对象。
-详细使用可查阅  :ref:`button_[a,b].irq<button.irq>`。
+``button_a.irq(trigger=Pin.IRQ_FALLING, handler=ledon)`` It is the function corresponding to the interrupt handler called. `trigger` configuration can trigger interrupt events, possible values are：`Pin.IRQ_FALLING` Falling edge interrupt；`Pin.IRQ_RISING` Rising edge interrupt；`Pin.IRQ_LOW_LEVEL` low level interrupt；`Pin.IRQ_HIGH_LEVEL` high level interrupt. `handler`  is an optional function that is called when an interrupt is triggered and returns a callback object.
+For detail, refers to :ref:`button_[a,b].irq<button.irq>`。
 
-.. Attention:: 定义中断处理函数时，函数须包含任意 **一个** 参数，否则无法使用。ledon()、ledoff()函数中的参数为 ``_`` 。
+.. Attention:: When defining an interrupt handler function, the function must contain any  **ONE** parameter, otherwise it cannot be used. The parameters in theledon()、ledoff() functions are ``_`` .
 
 

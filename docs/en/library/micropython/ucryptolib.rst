@@ -1,34 +1,34 @@
-:mod:`ucryptolib` -- 加密密码
+:mod:`ucryptolib` -- Encrypted password
 ==========================================
 
 .. module:: ucryptolib
-   :synopsis: 加密密码
+   :synopsis: Encrypted password
 
-类
+Class
 -------
 
 .. class:: aes
 
     .. classmethod:: __init__(key, mode, [IV])
 
-        初始化密码对象，适用于加密/解密。注意：初始化后，密码对象只能用于加密或解密。不支持在encrypt()之后运行decrypt()操作，反之亦然。
+        Initialize password object, suitable for encryption / decryption. Note: After initialization, the password object can only be used for encryption or decryption. Does not support running decrypt() after encrypt().
 
-        参数:
+        Parameter:
 
-            * ``key`` 加密/解密密钥（类似字节）
+            * ``key`` Encryption / decryption key (similar to bytes)
             * ``mode`` :
 
-                * ``1`` (或 ``ucryptolib.MODE_ECB`` 如果存在）电子代码簿(ECB)
-                * ``2`` (ucryptolib.MODE_CBC如果存在）密码块链接(CBC)
-                * ``6`` (或ucryptolib.MODE_CTR如果存在)用于计数器模式(CTR)
+                * ``1`` (Or ``ucryptolib.MODE_ECB`` if present）Electronic Code Book(ECB)
+                * ``2`` (ucryptolib.MODE_CBC if present）
+                * ``6`` (Or ucryptolib.MODE_CTR if present) (CTR)
 
-            * ``IV`` CBC模式的初始化矢量
-            * 对于计数器模式，IV是计数器的初始值
+            * ``IV`` CBC mode initialization vector
+            * For counter mode, IV is the initial value of the counter
 
     .. method:: encrypt(in_buf, [out_buf])
 
-        加密in_buf。如果没有给出out_buf，则返回结果作为新分配的bytes对象。
-        否则，结果被写入可变缓冲区out_buf。in_buf和out_buf也可以引用相同的可变缓冲区，在这种情况下，数据就地加密。
+        encrypt in_buf. If out_buf is not given, return the result as a newly allocated bytes object.
+       Otherwise, the result is written to the variable buffer out_buf. in_buf and out_buf can also refer to the same variable buffer, in this case, the data is encrypted in place.
 
     .. method:: decrypt(in_buf, [out_buf])
 
