@@ -79,7 +79,7 @@ mPython Board interface pin configuration
  P7              I/O     Digital Input, Analogue/Digital Output,connects the RGB LED on the Board
  P8              I/O     Digital Input, Analogue/Digital Output, neopixel
  P9              I/O     Digital Input, Analogue/Digital Output, neopixel
- P10              I      Digital Input, Analogue/Digital Output, connects the Sound Sensor on the Board
+ P10              I      Analogue/Digital Input, Analogue/Digital Output, connects the Sound Sensor on the Board
  P11             I/O     Digital Input, Analogue/Digital Output, connects the USER Button B on the Board, neopixel
  P12             I/O     NC
  P13             I/O     Digital Input, Analogue/Digital Output, neopixel
