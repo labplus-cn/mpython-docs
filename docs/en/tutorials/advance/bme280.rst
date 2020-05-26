@@ -1,32 +1,32 @@
-bme280
+BME280
 ===============
 
-BME280是一款集成温度、湿度、气压，三位一体的环境传感器。具有高精度，多功能，小尺寸等特点。该传感器非常适合各种天气/环境传感。
-精度为±3％，气压为±1 hPa绝对精度，温度精度为±1.0°C。由于压力随高度变化，压力测量结果非常好，您也可以将其用作±1米或更高精度的高度计！
+BME280 is an environmental sensor with temperature, humidity, and air pressure integrated. High precision, multi-functional, small size and other characteristics. This sensor is ideal for all kinds of weather / environmental sensing.
+Accuracy for HUmidity is ± 3%, absolute air pressure is ± 1 hPa, temperature is ± 1.0 ° C. Since the pressure changes with altitude, the pressure measurement result is very good, you can also use it as an altimeter with ± 1 meter or higher accuracy！
 
 .. Important:: 
 
-    掌控板预留BME280芯片位置未贴片,默认配置的掌控板是不带BME280环境传感器。如果你的掌控板没有BME280芯片,你可以使用BME280模块,通过拓展板连接到
-    I2C引脚并入总线,即P19(SCL)、P20(SDA)。
-
-获取温湿度、压强
+    The BME280 chip is built-in in the mPython Board but the default configuration is without this BME280 environmental sensor. Then, you can the BME280 module to connect to it via the mPython Expansion Board.
+    The I2C pin is merged into the bus, that is P19(SCL)、P20(SDA).
+    
+Get temperature, humidity, pressure
 ----------------------------
 
-获取bme280温湿度、气压并显示至OLED屏的示例::
+An example of obtaining BME280 temperature, humidity, air pressure and displaying it on the OLED screen::
 
-    from mpython import *              # 导入mpython模块
+    from mpython import *              # import the mpython module
 
     while True:   
-        oled.fill(0)                   # 清屏
+        oled.fill(0)                   # clear screen
         oled.DispChar("BME280",10,0)  
-        oled.DispChar("温度：%0.1f C" % bme280.temperature(),10,20)   # 获取bme280温度,单位摄氏度
-        oled.DispChar("湿度：%0.1f %%" % bme280.humidity(),10,34)     # 获取bme280湿度,单位%
-        oled.DispChar("压强：%0.1f KPa" % (bme280.pressure()/1000),10,48)  # 获取bme280压强,单位Pa,此处我们显示除1000转至KPa
-        oled.show()   # 刷新屏幕
-        sleep(2)      # 延时2秒
+        oled.DispChar("温度：%0.1f C" % bme280.temperature(),10,20)   # obtain BME280 temperature in Celsius
+        oled.DispChar("湿度：%0.1f %%" % bme280.humidity(),10,34)     # obtain BME280 humidity in % 
+        oled.DispChar("压强：%0.1f KPa" % (bme280.pressure()/1000),10,48)  # Get BME280 pressure in Pa, here we show that except 1000 go to KPa
+        oled.show()   # refresh screen
+        sleep(2)      # delay 2 seconds
 
-mpython内已实例化 ``BME280`` 类,直接使用 ``bme280`` 对象即可。获取温度值,使用 ``temperature()`` 函数,单位摄氏度。获取湿度值,使用
-``humidity()`` ,单位%。获取大气压强,使用 ``pressure()`` ,单位Pa(帕)。
+The ``BME280`` class has been instantiated by the mPython Board, just use the  ``BME280`` object. To obtain the temperature value, use the ``temperature()`` function in Celsius
+To obtain the humidity value, use``humidity()`` , in %. To obtain the atmospheric pressure, use ``pressure()`` , in Pa(Pa).
 
 
 
@@ -35,7 +35,7 @@ mpython内已实例化 ``BME280`` 类,直接使用 ``bme280`` 对象即可。获
     :scale: 80 %
 
 
-拓展应用
+mPython Expansion Board applications
 ---------------------
 
-现在你已学会了如何获取BME280的气象数据了。进一步思考,如何利用气象数据和如何将它送至远端呢？你可结合之前学习的http Server供远程访问或者使用mqtt协议将数据推送送至服务器。
+Here you have learned how to get the weather data of BME280. Further thinking, how to use meteorological data and how to send it? You can use the http Server you learned earlier for remote access or use the mqtt protocol to push data to the server.
