@@ -1,21 +1,21 @@
 .. _tutorials_radio:
 
-无线广播
+Radio Broadcast
 ===============
 
-掌控板提供2.4G的无线射频通讯,共 13 Channel。可实现一定区域内的简易组网通讯。在相同通道下,成员可接收广播消息。就类似,对讲机一样。在相同频道下,实现通话。
+The mPython Board provides 13 channeks of 2.4G wireless RF communication. Can realize simple networking communication in a certain area. Under the same channel, members can receive broadcast messages. It's similar, like walkie talkie. Under the same channel, realize the call.
 
 .. figure:: /../images/tutorials/radio/radio.png
     :align: center
     :width: 200
 
-    对讲机
+    Walkie Talkie
 
 radio
 --------
 
 .. literalinclude:: /../../examples/radio/radio.py
-    :caption: 你可以用两块掌控板上传该程序,在REPL下,发送和接收广播消息
+    :caption: You can use two mPython Board to upload the program, under REPL, send and receive broadcast messages
     :linenos:
 
 |
@@ -26,25 +26,25 @@ radio
 
 |
 
-首先我们需要 ``import radio`` ,导入无线模块。然后 ``radio.on()`` ,开启无线功能。配置无线通道 ``radio.config(channel)`` ,channel参数可设置1~13个通道。
-使用 ``radio.send()`` 发送广播消息,消息类型为字符串。接收端,在相同channel,使用 ``radio.receive()`` 来接收广播数据。 ``receive(True)`` 返回数据类型为(msg,mac)。
-mac为网络设备的MAC地址,地址均唯一。如,想做单播应用,可过滤其他MAC设备发送的消息。默认下 ``receive()`` ,返回的数据类型为msg,是不带MAC地址的。
+First of all we need  ``import radio`` to import the wireless module. Then ``radio.on()`` , turn on the wireless function. Configure wireless channel ``radio.config(channel)`` , channel parameter can set 1 ~ 13 channels.
+Use ``radio.send()`` to send a broadcast message, the message type is a string. On the receiving end, on the same channel, use ``radio.receive()`` to receive broadcast data. ``receive(True)`` The return data type is (msg, mac).
+mac is the MAC address of the network device, and the addresses are unique. For example, if you want to be a unicast application, you can filter messages sent by other MAC devices. By default, ``receive()`` , the returned data type is msg, without MAC address.
 
 
-电报机
+Telegraph
 -------
 
-基于上面的radio学习,我们可以用掌控板制作个有趣的电报机！两个掌控板之间通过无线电和摩斯密码传播,是不是有谍战片的既视感咧！赶紧尝试下吧！
+Based on the above radio learning, we can use the mPython Board to make an unique telegraph! The two mPython Board are spread by radio and Morse code, is there a sense of spy war film? Try it now！
 
 .. figure:: /../images/tutorials/radio/telegraph.jpg
     :align: center
     :width: 400
 
-    电报机
+    Telegraph
 
 
 .. literalinclude:: /../../examples/radio/telegraph.py
-    :caption: 电报机示例
+    :caption: Telegraph example
     :linenos:
 
 |
@@ -54,4 +54,4 @@ mac为网络设备的MAC地址,地址均唯一。如,想做单播应用,可过�
 
 |
 
-上述电报机示例,ab按键选择无线通道,触摸T,发送电报。当接收到电报,掌控板的RGB会有指示。
+The above telegraph example, A B button to select the wireless channel, touch T, send telegram. When receiving the telegram, the RGB of the mPython Board will have an indication.
