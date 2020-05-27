@@ -3,63 +3,63 @@
 
 .. module:: ADC
 
-类 ADC -- 模数转换
+Class ADC -- Analog-to-digital conversion
 =========================================
 
 
-构建对象
+Create object
 ------------
 
 .. class:: ADC(Pin)
 
-创建与设定引脚关联的ADC对象。这样您就可以读取该引脚上的模拟值。
+Create an ADC object associated with a set pin. So you can read the analog value on that pin。
 
- - ``Pin`` - ADC在专用引脚上可用，ESP32可用引脚有：IO39、IO36、IO35、IO33、IO34、IO32。掌控板的ADC引脚有P0、P1、P2、P3、P4、P10。
+ - ``Pin`` - ADC is available on dedicated pins, ESP32 available pins are：IO39、IO36、IO35、IO33、IO34、IO32. The ADC pins of the control board are P0、P1、P2、P3、P4、P10。
 
-详细引脚定义可查阅 `ESP32引脚功能表. <../../../_images/pinout_wroom_pinout.png>`_ 和  :ref:`掌控板引脚定义<mpython_pinout>` 章节。
+Detailed pin definitions  `ESP32引脚功能表. <../../../_images/pinout_wroom_pinout.png>`_ and  :ref:`掌控板引脚定义<mpython_pinout>` chapter。
 
 
-示例::
+Example::
 
       from machine import ADC, Pin
 
       adc = ADC(Pin(33))      # create an ADC object
 
 
-方法
+Method
 -------
 
 .. method:: ADC.read( )
 
-   读取ADC并返回读取结果。
+   Read ADC and return read result.
 
 
 
 
 .. method:: ADC.atten(db)
 
-    该方法允许设置ADC输入的衰减量。这允许更宽的可能输入电压范围，但是以精度为代价（相同的位数现在表示更宽的范围）。在未设置atten(),默认为0DB衰减。可能的衰减选项包括：
+    This method allows setting the amount of attenuation of the ADC input. This allows a wider range of possible input voltages, but at the expense of accuracy (the same number of bits now means a wider range). When atten() is not set, the default is 0DB attenuation. Possible attenuation options include：
     
     - ``db``
  
 
-        =================== ========== ======= ====================================  
-        宏定义                衰减量     数值     满量程电压
-        =================== ========== ======= ==================================== 
-        ``ADC.ATTN_0DB``     0dB衰减     0      1V
-        ``ADC.ATTN_2_5DB``   2.5dB衰减   1      1.5V
-        ``ADC.ATTN_6DB``     6dB衰减     2      2V
-        ``ADC.ATTN_11DB``    11dB衰减    3      3.3V
+        =================== =================== ======= ====================================  
+        Macro definition    Attenuation          Value   Full-scale voltage
+        =================== =================== ======= ==================================== 
+        ``ADC.ATTN_0DB``     0dB attenuation       0      1V
+        ``ADC.ATTN_2_5DB``   2.5dB attenuation     1      1.5V
+        ``ADC.ATTN_6DB``     6dB attenuation       2      2V
+        ``ADC.ATTN_11DB``    11dB attenuation      3      3.3V
         =================== ========== ======= ==================================== 
 
 .. method:: ADC.width(bit)
 
-    设置数据宽度(分辨率)。ADC的分辨率是指能够将采集的模拟信号转化为数字信号的精度，通常我们用“位”来表述，比如8位就是指ADC可以将制定量程内的电压信号，分别对应到0 - 2^8-1,即 0-255这256个数字上。分辨率位数越高，能够表示的也就越精确，信息丢失的也就越少。
+    Set the data width (resolution). The resolution of the ADC refers to the precision that can convert the collected analog signal into a digital signal. Usually, we use the “bit”  to express, for example, 8 bit means that the ADC can correspond to the voltage signal within the specified range, respectively corresponding to - 2^8-1, that is, 256 digits of 0-255. The higher the resolution digits, the more accurate it can be expressed, and the less information is lost.
     
-    - ``bit`` -  宽度选项有:
+    - ``bit`` -  Width options are:
 
         =================== ========== =============
-        宏定义                数值        满量程   
+        Macro Definition     Value      Full Range  
         =================== ========== =============
         ``ADC.WIDTH_9BIT``    0         0x1ff(511)
         ``ADC.WIDTH_10BIT``   1         0x3ff(1023)
@@ -67,7 +67,7 @@
         ``ADC.WIDTH_12BIT``   3         00xfff(4095)
         =================== ========== =============
 
-示例::
+Example::
 
       from machine import ADC, Pin
 
@@ -76,11 +76,11 @@
       x = adc.read()
       print(x)
 
-常量
+Constant
 ---------
 
 
-衰减比
+Attenuation ratio
 ````````
 .. data:: ADC.ATTN_0DB
 
@@ -95,7 +95,7 @@
 .. data:: ADC.ATTN_11DB
 
 
-数据宽度
+Data width
 ````````
 .. data:: ADC.WIDTH_9BIT
 
