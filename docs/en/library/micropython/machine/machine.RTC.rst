@@ -1,12 +1,12 @@
 .. currentmodule:: machine
 .. _machine.RTC:
 
-类 RTC -- 实时时钟
+Class RTC -- Real Time Clock
 ============================
 
-RTC是独立的时钟，可以跟踪日期和时间。
+RTC is an independent clock that track date and time.
 
-示例::
+Example::
 
       import machine
       from machine import RTC 
@@ -15,32 +15,32 @@ RTC是独立的时钟，可以跟踪日期和时间。
       print(rtc.datetime())
 
 
-构建对象
+Construct object
 ------------
 
 .. class:: RTC()
 
-创建RTC对象。
+Construct RTC object.
 
-方法
+Method
 -------
 
 .. method:: RTC.init([datetimetuple])
 
-初始化RTC。日期时间为下列形式的8元组：
+Initialize RTC. The date and time are 8 tuples of the form：
 
 ( year,month,day,weekday,hour,minute,second,microsecond )
 
 
 .. Attention:: 
 
-    *  ``weekday``: 星期一到星期天分别对应的是 [0-6] 而不是 [1-7]
-    * 毫秒部分的数值其实是秒数的小数点位后的数值
+    *  ``weekday``: Monday to Sunday correspond to  [0-6] instead of [1-7]
+    * The value in the millisecond is actually the value after the decimal point in seconds
 
 
 .. method:: RTC.datetime([datetimetuple])
 
-当给定时间元组时为设置RTC日期和时间,未给定参数为返回当前时间元组。8元组格式同上文。
+When the time tuple is given, the RTC date and time are set, and if the parameter is not given, the current time tuple is returned. The 8-tuple format is the same as above. 
 
 
 ::
@@ -52,7 +52,7 @@ RTC是独立的时钟，可以跟踪日期和时间。
     (2018, 11, 18, 6, 12, 15, 8, 142409)
 
 
-虽然RTC能够为我们进行时间和日期的跟踪，但是RTC的精度存在一定的缺陷，每过7:45h便会有秒级别的误差溢出，所以建议每隔7小时进行一次时间的校准。
+Although RTC can track the time and date for us, the accuracy of RTC has certain defects. Every 7: 45h there will be an error overflow of the second level, so it is recommended to perform time calibration every 7 hours. 
 
-由于计时器无法在掉电后进行计时工作，这就会导致你的设备在下次开机前进入初始的时间2000年1月1号。所以如果要对时间进行精准的掌控，我们需要在开机时进行时间的校准。
-你可以使用 :mod:`ntptime` 模块进行网络授时校准时间。
+Since the timer cannot perform timing work after a power failure, this will cause your device to enter the initial time before the next start-up January 1, 2000. So if we want to control the time accurately, we need to calibrate the time when we turn on. 
+Use :mod:`ntptime` module performs network timing calibration time.
