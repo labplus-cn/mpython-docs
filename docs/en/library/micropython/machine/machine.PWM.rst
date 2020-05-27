@@ -1,63 +1,63 @@
 .. currentmodule:: machine
 .. _machine.PWM:
 
-类 PWM -- 脉冲宽度调制
+Class PWM -- Pulse width modulation
 =============================
 
-脉冲宽度调制（PWM）是一种通过数字方式获取模拟结果的技术。
+Pulse Width Modulation (PWM) is a technique for obtaining analog results digitally.
 
 
-构建对象
+Create object
 ------------
 
 .. class:: PWM(pin, freq, duty)
 
-创建与设定引脚关联的PWM对象。这样您就可以写该引脚上的模拟值。
+Create a PWM object associated with a set pin. So you can write the analog value on that pin.
 
- - ``pin`` 支持PWM的引脚  ``GPIO0``、``GPIO2``、``GPIO4``、``GPIO5``、``GPIO10``、``GPIO12~19``、``GPIO21``、``GPIO22``、``GPIO23``、``GPIO25~27``。详见 `ESP32引脚功能表. <../../../_images/pinout_wroom_pinout.png>`_ 
- - ``freq`` 频率,0 < freq <= 78125 Hz
- - ``duty``  占空比, 0 ≤ duty ≤ 0x03FF (十进制：0 ≤ duty ≤ 1023)
+ - ``pin`` pins that support PWM  ``GPIO0``、``GPIO2``、``GPIO4``、``GPIO5``、``GPIO10``、``GPIO12~19``、``GPIO21``、``GPIO22``、``GPIO23``、``GPIO25~27``. see more `ESP32引脚功能表. <../../../_images/pinout_wroom_pinout.png>`_ 
+ - ``freq`` frequency, 0 < freq <= 78125 Hz
+ - ``duty``  duty ratio, 0 ≤ duty ≤ 0x03FF (Decimal：0 ≤ duty ≤ 1023)
 
-.. Important:: PWM可在所有输出引脚上启用。但其存在局限：须全部为同一频率，且仅有8个通道。
+.. Important:: PWM can be enabled on all output pins. But it has limitations：All must be the same frequency and only have 8 channels.
 
-示例::
+Example::
 
   from machine import PWM, Pin
 
   pwm = PWM (Pin(2), freq=1000,  duty=1023)    # create an PWM object
 
 
-方法
+Method
 ------------
 
 .. method:: PWM.init(freq, duty)
 
-初始化PWM，freq、duty如上所述。    
+Initialize PWM，freq、duty as described above.    
 
 
-示例::
+Example::
 
  pwm.init(1000, 500)
 
 
 .. method:: PWM.freq([freq_val])
 
-当没有参数时，函数获得并返回PWM频率。当设置参数时，函数用来设置PWM频率，无返回值。
+When there are no parameters, the function obtains and returns the PWM frequency. When setting parameters, the function is used to set the PWM frequency, no return value.
 
- - ``freq_val`` PWM频率,0 < freq ≤ 0x0001312D（十进制：0 < freq ≤ 78125 Hz）
+ - ``freq_val`` PWM frequency, 0 < freq ≤ 0x0001312D（Decimal：0 < freq ≤ 78125 Hz）
 
-示例::
+Example::
 
  print(pwm.freq())
  print(pwm.freq(2000)
 
 .. method:: PWM.duty([duty_val])
 
-没有参数时，函数获得并返回PWM占空比。有参数时，函数用来设置PWM占空比。
+Without parameters, the function obtains and returns the PWM duty cycle. When there are parameters, the function is used to set the PWM duty cycle.
 
-- ``duty_val`` 占空比, 0 ≤ duty ≤ 0x03FF（十进制：0 ≤ duty_val ≤ 1023）
+- ``duty_val`` duty ratio, 0 ≤ duty ≤ 0x03FF（Decimal：0 ≤ duty_val ≤ 1023）
 
-示例::
+Example::
 
  >>> print(pwm.duty())
  50
@@ -67,5 +67,5 @@
 
 .. method:: PWM.deinit( )
 
-关闭PWM。PWM使用完了之后，需要注销 ``deinit()`` 。
+Turn off PWM. After using the PWM, you need to log out ``deinit()`` 。
 
