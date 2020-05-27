@@ -1,45 +1,45 @@
 .. currentmodule:: machine
 .. _machine.Timer:
 
-类 Timer -- 控制硬件定时器
+Class Timer -- Hardware Control Timer
 ======================================
 
-硬件定时器处理周期和事件的时间。定时器可能是MCU和SoC中最灵活和异构的硬件类型，从一个模型到另一个模型的差别很大。
-MicroPython的Timer类定义了在给定时间段内（或在一段延迟后执行一次回调）执行回调的基线操作，并允许特定的板定义更多的非标准行为（因此不能移植到其他板）。
+Timer for hardware processing cycle and event time. Timers are probably the most flexible and heterogeneous hardware types in MCUs and SoCs, and vary greatly from one model to another. 
+MicroPython's Timer class defines a baseline operation that performs callbacks within a given time period (or executes a callback after a delay), and allows a specific board to define more non-standard behaviors (so it cannot be ported to other boards). 
 
-请参阅有关Timer回调的 :ref:`重要约束 <machine_callbacks>` 。
+Reference for the timer callback :ref:`重要约束 <machine_callbacks>` 。
 
 .. note::
 
-    内存不能在irq处理程序（中断）中分配，因此处理程序中引发的异常不会提供太多信息。
-    了解 :func:`micropython.alloc_emergency_exception_buf` 如何解决此限制。
+    Memory cannot be allocated in the IRQ handler (interrupt), so exceptions raised in the handler will not provide much information.
+    To understand how to resolve this limitation:func:`micropython.alloc_emergency_exception_buf` .
 
-构建对象
+Construct object
 ------------
 
 .. class:: Timer(id, ...)
 
-构造给定id的新计时器对象。
+Construct a new timer object with the given ID.
 
-    - ``id`` - 任意正整数
+    - ``id`` - Any positive integer
 
 
 
-方法
+Method
 -------
 
 .. method:: Timer.init(\*, mode=Timer.PERIODIC, period=-1, callback=None)
 
 
-    - ``mode`` - 定时器模式,可以是以下之一:
+    - ``mode`` - Timer mode, can be one of the following:
 
-        - ``Timer.ONE_SHOT`` - 计时器运行一次，直到配置完毕通道的期限到期。
-        - ``Timer.PERIODIC`` - 定时器以通道的配置频率定期运行。
-    - ``period`` -  定时器执行的周期，单位是ms， 隔period ms 执行一次。 period取值范围： 0 < period <= 3435973836
-    - ``callback`` -  定时器的回调函数
+        - ``Timer.ONE_SHOT`` - The timer runs once until the time limit of the configured channel expires. 
+        - ``Timer.PERIODIC`` - The timer runs regularly at the channel's configured frequency。
+    - ``period`` -  The period of the timer execution (in ms), executed once every period ms. Period range： 0 < period <= 3435973836
+    - ``callback`` -  Timer callback function
 
 
-初始化计时器，示例::
+Initialize timer, example::
 
     tim.init(period=100)                         # periodic with 100ms period
     tim.init(mode=Timer.ONE_SHOT, period=1000)   # one shot firing after 1000ms
@@ -47,7 +47,7 @@ MicroPython的Timer类定义了在给定时间段内（或在一段延迟后执�
 
 .. method:: Timer.value()
 
-获取并返回计时器当前计数值。 
+Obtain and return the current count value of the timer.  
 
 ::
 
@@ -57,10 +57,10 @@ MicroPython的Timer类定义了在给定时间段内（或在一段延迟后执�
 .. method:: Timer.deinit()
 
 
-取消定时器的初始化。停止计时器，并禁用计时器外围设备。
+Cancel the initialization of the timer. Stop the timer and disable timer peripherals. 
 
 
-常数
+Constant
 ---------
 
 .. data:: Timer.ONE_SHOT
@@ -68,5 +68,5 @@ MicroPython的Timer类定义了在给定时间段内（或在一段延迟后执�
 
 
 .. literalinclude:: /../../examples/timer/timer_led_blink.py
-    :caption: 定时器控制LED闪烁
+    :caption: Timer control LED blink
     :linenos:
