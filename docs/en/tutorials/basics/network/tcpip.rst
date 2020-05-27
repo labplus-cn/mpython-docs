@@ -33,4 +33,4 @@ What does the port do? When two computers communicate, it is not enough to send 
 
 
 
-了解了TCP/IP协议的基本概念，IP地址和端口的概念，我们就可以开始进行网络编程了。
+Understand the basic concepts of TCP / IP protocol, the concept of IP address and port, we can start network programming.
