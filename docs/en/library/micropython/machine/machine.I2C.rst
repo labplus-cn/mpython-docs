@@ -1,14 +1,14 @@
 .. currentmodule:: machine
 .. _machine.I2C:
 
-类 I2C --  双线串行协议
+Class I2C --  Two-wire serial protocol
 =======================================
 
-I2C是用于设备之间通信的双线协议。在物理层面，它由2条线组成：SCL和SDA，分别是时钟和数据线。
+I2C is a two-wire protocol for communication between devices. At the physical level, it consists of 2 lines: SCL and SDA, which are the clock and data lines, respectively.
 
-创建连接到特定总线的I2C对象。它们可以在创建时初始化，也可以在以后初始化。
+Create an I2C object connected to a specific bus. They can be initialized at creation time or later.
 
-示例::
+Example::
 
         from machine import I2C,Pin
 
@@ -25,110 +25,111 @@ I2C是用于设备之间通信的双线协议。在物理层面，它由2条线�
                                                                                                                                         #   starting at memory-address 8 in the slave
         i2c.writeto_mem(42, 2, b'\x10') # write 1 byte to memory of slave 42
                                                                                                                                         #   starting at address 2 in the slave
-构建对象
+                                                                                                                                        
+Construct object
 ------------
 
 .. class:: I2C(id=-1, \*, scl, sda, freq=400000)
 
-   使用以下参数构造并返回新的I2C对象：
+   Construct and return a new I2C object with the following parameters：
         
 
 
-        - ``id`` 标识特定的I2C外设。默认值-1选择I2C的软件实现
-        - ``scl`` 应该是一个pin对象，指定用于SCL的引脚
-        - ``sda`` 应该是一个pin对象，指定用于SDA的引脚
-        - ``freq`` 应该是一个整数，它设置SCL的最大频率。0 < freq ≤ 500000(Hz)。
+        - ``id`` Identify specific I2C peripherals. The default value -1 selects the software implementation of I2C
+        - ``scl`` Should be a pin object, specify the pin used for SCL
+        - ``sda`` Should be a pin object, specify the pin used for SDA
+        - ``freq`` Should be an integer that sets the maximum frequency of SCL. 0 < freq ≤ 500000(Hz)。
 
 .. Attention:: 
 
-        I2C可使用引脚有GPIO 0/2/4/5/9/16/17/18/19/21/22/23/25/26/27
+        I2C can use GPIO 0/2/4/5/9/16/17/18/19/21/22/23/25/26/27
 
-通用方法
+Universal way
 ---------------
 
 .. method:: I2C.init(scl, sda, \*, freq=400000)
 
         Initialise the I2C bus with the given arguments:
 
-     - ``scl`` 是SCL线的pin对象
-     - ``sda`` 是SDA线的pin对象
-     - ``freq`` 是SCL时钟速率
+     - ``scl`` Pin object of the SCL clock line
+     - ``sda`` Pin object of the SDA data line
+     - ``freq`` SCL clock rate
 
 .. method:: I2C.deinit()
 
-   关闭I2C总线。
+   Turn off the I2C bus.
 
 .. method:: I2C.scan()
 
- 扫描0x08和0x77之间的所有I2C地址，并返回响应的列表。如果在总线上发送其地址（包括写入位）后将器件拉低，则器件会响应。
+ Scan all I2C addresses between 0x08 and 0x77 and return a list of responses. If the device is pull-down after sending its address (including the write bit) on the bus, the device will respond.
 
-原始的I2C操作
+Primitive I2C operation
 ------------------------
 
-以下方法实现Primitive I2C operations主总线操作，并且可以组合以进行任何I2C事务。如果您需要更多控制总线，则提供它们，
-否则可以使用标准方法（见下文）。
+The following methods implement Primitive I2C operations main bus operations, and can be combined to perform any I2C transaction. If you need more control bus, provide them,
+Otherwise, standard methods can be used (see below).
 
 .. method:: I2C.start()
 
-   在总线上生成START条件（SDA在SCL为高电平时转换为低电平）。
+   Generate a START condition on the bus (SDA transitions to a low level when SCL is high).
 
 .. method:: I2C.stop()
 
-        在总线上生成STOP条件（SDA在SCL为高电平时转换为高电平）。
+        Generate a STOP condition on the bus (SDA transitions to high when SCL is high).
 
 .. method:: I2C.readinto(buf, nack=True)
 
-从总线读取字节并将它们存储到 ``buf`` 中。读取的字节数是 ``buf`` 的长度。在接收到除最后一个字节之外的所有字节之后，
-将在总线上发送 ``ACK`` 。在接收到最后一个字节之后，如果 ``nack``  为真，则将发送 ``NACK``，否则将发送  ``ACK`` （并且在这种情况下，从属设备假定在稍后的调用中将读取更多字节）。
+Read bytes from the bus and store them in  ``buf`` . The number of bytes read is the length of  ``buf`` . After receiving all but the last byte，
+``ACK`` will be sent on the bus. After receiving the last byte, if ``NACK``   is true, then ``NACK``will be sent, otherwise  ``ACK`` will be sent (and in this case, the slave device assumes that More bytes will be read in the call).
 
 
 .. method:: I2C.write(buf)
 
-将 ``buf`` 中的字节写入总线。检查每个字节后是否收到 ``ACK`` ，如果收到 ``NACK`` ，则停止发送剩余的字节。该函数返回已接收的 ``ACK`` 数。
+Write the bytes in ``buf`` to the bus. Check if ``ACK`` is received after each byte, if ``NACK`` is received, stop sending the remaining bytes. This function returns the number of  ``ACK`` received.
 
 
-标准总线操作
+Standard bus operation
 -----------------------
 
-下面的方法实现了针对给定从设备的标准I2C主读写操作。
+The following method implements standard I2C master read and write operations for a given slave device. 
 
 .. method:: I2C.readfrom(addr, nbytes, stop=True)
 
-从 ``addr`` 指定的从程序中读取 ``nbytes`` 。如果  ``stop`` 为真，则在传输结束时生成一个停止条件。返回一个读取数据的 ``bytes`` 对象。
+Read ``addr`` from the specified program in ``nbytes`` . If  ``stop`` is true, a stop condition is generated at the end of the transmission. Return a ``bytes`` object that reads the data.
 
 .. method:: I2C.readfrom_into(addr, buf, stop=True)
 
-从 ``addr`` 指定的奴隶读入 ``buf`` 。读取的字节数将是 ``buf`` 的长度。如果 ``stop`` 为真，则在传输结束时生成一个停止条件。
+Read ``addr`` from the slave specified by ``buf`` . The number of bytes read will be the length of ``buf`` . If  ``stop`` is true, a stop condition is generated at the end of the transmission. 
 
-该方法返回 ``None`` 。
+This method returns ``None`` 。
   
 
 .. method:: I2C.writeto(addr, buf, stop=True)
 
-将 ``buf`` 中的字节写入 ``addr`` 指定的从机。如果在从 ``buf`` 写入一个字节后收到 NACK  ，则不发送剩余的字节。
-如果 ``stop`` 为true，则即使收到NACK，也会在传输结束时生成STOP条件。该函数返回已接收的ACK数。
+Write the bytes in  ``buf`` to the slave specified by ``addr`` . If NACK is received after writing a byte from  ``buf`` , the remaining bytes are not sent.
+If ``stop`` is true, then even if a NACK is received, a STOP condition will be generated at the end of the transmission. This function returns the number of ACKs received. 
 
 
-寄存器操作
+Register operation
 -----------------
 
-某些I2C器件充当可以读写的存储器器件（或寄存器集）。在这种情况下，有两个与I2C事务相关的地址：从地址和存储器地址。
-以下方法是与这些设备通信的便利功能。
+Some I2C devices act as memory devices (or register sets) that can be read and written. In this case, there are two addresses related to the I2C transaction: slave address and memory address.
+The following methods are convenient functions for communicating with these devices.
 
 .. method:: I2C.readfrom_mem(addr, memaddr, nbytes, \*, addrsize=8)
 
-从 ``memaddr`` 指定的内存地址开始，从 ``addr`` 指定的slave中读取 ``nbytes`` 。参数 ``addrsize`` 以位为单位指定地址大小。
-返回读取数据的 ``bytes`` 对象。
+Starting from the memory address specified by ``memaddr`` read ``nbytes`` from the slave specified by ``addr`` . The parameter  ``addrsize`` specifies the address size in bits. 
+Returns the ``bytes`` object that read the data. 
 
 .. method:: I2C.readfrom_mem_into(addr, memaddr, buf, \*, addrsize=8)
     
-从 ``memaddr`` 指定的内存地址开始，从 ``addr`` 指定的slave中读入 ``buf`` 。读取的字节数是 ``buf`` 的长度。
-参数 ``addrsize`` 以位为单位指定地址大小。
+Starting from the memory address specified by ``memaddr`` read ``buf``  from the slave specified by ``addr`` . The number of bytes read is the length of ``buf``.
+The parameter ``addrsize`` specifies the address size in bits.
 
-该方法返回 ``None`` 。
+This method returns ``None`` .
 
 .. method:: I2C.writeto_mem(addr, memaddr, buf, \*, addrsize=8)
 
-从 ``memaddr`` 指定的内存地址开始，将 ``buf`` 写入 ``addr`` 指定的从机。参数 ``addrsize`` 以位的形式指定地址大小。
+Starting from the memory address specified by  ``memaddr`` write ``buf`` to the slave specified by ``addr`` . The parameter ``addrsize`` specifies the address size in bits.。
 
-该方法返回 ``None`` 。
+This method returns ``None`` 。
