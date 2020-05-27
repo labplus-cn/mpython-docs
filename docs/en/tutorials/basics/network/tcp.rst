@@ -1,104 +1,104 @@
-套接字-TCP
+Socket - TCP
 ================
 
 
-什么是socket?
+What is socket?
 -----
 
-``Socket`` 是网络编程的一个抽象概念。通常我们用一个Socket表示“打开了一个网络链接”，而打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型即可。
+``Socket`` is an abstract concept of network programming. Usually we use a Socket to mean “opened a network line”, and open a Socket need to know the IP address and port number of the target computer, and then specify the protocol type.
 
-TCP协议简介
+Introduction to TCP protocol
 -----
 
-TCP协议，传输控制协议（Transmission Control Protocol，缩写为 TCP）是一种面向连接的、可靠的、基于字节流的传输层通讯协议，由IETF的RFC 793定义。
+TCP protocol, Transmission Control Protocol (Transmission Control Protocol, abbreviated as TCP) is a connection-oriented, reliable, byte stream-based transport layer communication protocol, defined by IETF RFC 793.
 
-TCP通信需要经过创建连接、数据传送、终止连接三个步骤。TCP通信模型中，在通信开始之前，一定要先创建相关连接，才能发送数据，类似于生活中，"打电话""。
+TCP communication needs to go through three steps: creating a connection, data transmission, and terminating the connection. In the TCP communication model, before communication starts, you must first create a relevant connection before sending data, similar to "calling"" in daily routine。
 
-套接字在工作时将连接的双方分为服务器端和客户端,即C/S模式,TCP通讯原理如下图:
+When the socket is working, the two sides of the connection are divided into server and client, that is, C / S mode, and the TCP communication principle is as follows:
 
 .. figure:: /../images/tutorials/tcp原理.png
     :scale: 90 %
     :align: center
 
-    Socket TCP通讯过程
+    Socket TCP communication process
 
 
 ---------------------------------
 
-TCP编程
+TCP programming
 -----
 
 
-本教程的这一部分将介绍如何作为客户端或服务端使用TCP套接字。有关更全面的socket模块的使用，请查阅 :mod:`usocket` 模块。
-以下教程需要使用到TCP网络调试工具。下文使用的是IOS的 **Network Test Utility** ，可在APP Store搜索安装，android系统请点击下载。 :download:`Network Test Utility.apk </../tools/com.jca.udpsendreceive.2.apk>` 
+This part of the tutorial will show how to use TCP sockets as a client or server. For more comprehensive use of the socket module, please refer to :mod:`usocket` module.
+The following tutorials need to use TCP network debugging tools. The following is the  **Network Test Utility** of IOS，You can search and install in the APP Store, please click to download the android system 。 :download:`Network Test Utility.apk </../tools/com.jca.udpsendreceive.2.apk>` 
 
-声明：这里的TCP客户端（tcpClient）是你的电脑或者手机，而TCP服务端（tcpServer）是mpython掌控板。
+Announcement: The TCP client （tcpClient）here is your computer or mobile phone, and the TCP server （tcpServer）is the mPython Board.
 
-TCP客户端
+TCP client
 ~~~~~~~~
 
 
-TCP编程的客户端一般步骤是：
+The general steps of TCP programming client are：
 
-1. 创建一个socket，用函数socket()
-2. 设置socket属性，用函数setsockopt() , *可选* 
-3. 绑定IP地址、端口等信息到socket上，用函数bind() , *可选* 
-4. 设置要连接的对方的IP地址和端口等属性 
-5. 连接服务器,用函数connect()
-6. 收发数据,用函数send()和recv(),或者read()和write()
-7. 关闭网络连接
+1. Create a socket, use function socket()
+2. To set the socket property, use the functions setsockopt() , *optional* 
+3. Bind the IP address, port and other information to the socket, use the function bind() , *optional* 
+4. Set the IP address and port of the other party to be connected
+5. To connect to the server, use the function connect()
+6. To send and receive data, use the functions send() and recv(), or read() and write()
+7. Close network connection
 
 
 
 .. literalinclude:: /../../examples/network/tcpClient.py
-    :caption: TCP Client示例:
+    :caption: TCP Client example:
     :linenos:
 
 
 .. Attention:: 
 
-    由于在网络中都是以bytes形式传输的，所以需要注意数据编码与解码。
+    Since they are transmitted in bytes on the network, you need to pay attention to data encoding and decoding.
 
-.. Attention:: 上例,使用 ``connectWiFi()`` 连接同个路由器wifi。你也可以用 ``enable_APWiFi()`` 开启AP模式,自建wifi网络让其他设备接入进来。
+.. Attention:: In the above example, use ``connectWiFi()`` to connect to the same router wifi. You can also use ``enable_APWiFi()`` to turn on the AP mode and build a wifi network to allow other devices to access it.
 
-首先掌控板和手机须连接至同个局域网内。打开Network Test Utility，进入“TCP Server”界面，
-TCP Server IP选择手机在该网内的IP地址 ，端口号可设范围0~65535。然后，点击Listen，开始监听端口。
-在程序中设置上文选择的TCP服务端IP地址 ``host`` 和端口号 ``port`` ，重启运行程序。
+First, the mPython Board and mobile phone must be connected to the same local area network. OPen Network Test Utility，Enter the “TCP Server” interface.
+TCP Server IP selects the IP address of the mobile phone in the network, and the port number can be set from 0 to 65535. Then, click Listen to start listening on the port.
+Set the TCP server IP address  ``host`` and port number ``port`` selected above in the program, restart the program。
 
-当连接Server成功后，TCP Server会接收到Client发送的文本 ``hello mPython,I am TCP Client`` 。此时您在TCP Server发送文本给Client，掌控板会
-接收到文本并将文本显示至oled屏上。
+When the connection to the Server is successful, the TCP Server will receive the text ``hello mPython,I am TCP Client`` sent by the Client. At this point, you send text to the Client in the TCP Server, the control panel will
+receive text and display the text on the OLED screen.
 
 
 .. image:: /../images/tutorials/socket_1.gif
    
 
-TCP服务端
+TCP server
 ~~~~~~~~
 
 
-TCP编程的服务端一般步骤是：
+The general steps of the TCP programming server are：
 
-1. 创建一个socket，用函数socket()
-2. 设置socket属性，用函数setsockopt() , *可选* 
-3. 绑定IP地址、端口等信息到socket上，用函数bind() 
-4. 开启监听和设置最大监听数,用函数listen()
-5. 等待客户端請求一个连接，用函数accept()
-6. 收发数据，用函数send()和recv()，或者read()和write() 
-7. 关闭网络连接
+1. Create a socket, use function socket()
+2. To set the socket attribute, use the functions setsockopt() , *optional* 
+3. Bind the IP address, port and other information to the socket, use the function bind() 
+4. Turn on monitoring and set the maximum monitoring number, use the function listen()
+5. Wait for the client to request a connection, use the function accept()
+6. To send and receive data, use the functions send() and recv()，or read() and write() 
+7. Close network connection
 
 
 
-tcpServer示例:
+tcpServer example:
 
 .. literalinclude:: /../../examples/network/tcpServer.py
     :caption: TCP Server示例:
     :linenos:
 
 
-.. Attention:: 上例,使用``connectWiFi()`` 连接同个路由器wifi。你也可以用 ``enable_APWiFi()`` 开启AP模式,自建wifi网络让其他设备接入进来。
+.. Attention:: In the above example, use ``connectWiFi()`` to connect to the same router WiFi. You can also use ` ``enable_APWiFi()`` to turn on the AP mode and build a wifi network to allow other devices to access it.
 
-首先掌控板和手机须连接至同个局域网内。掌控板重启运行程序，TCP Server端等待Client端连接请求。打开Network Test Utility，进入“TCP Client”界面，填写Remote host和port,即 ``socket.blind(ip,port)``
-的IP地址和端口。Connect连接成功后，发送文本，掌控板接收到文本显示至oled屏并将返回至TCP Client端。您可在手机接收界面看到文本从Client->Server，Server->Client的过程。
+First, the mPython Board and mobile phone must be connected to the same local area network. The control panel restarts the running program, and the TCP Server end waits for the Client connection request. Open the Network Test Utility, enter the “TCP Client”  interface, fill in the Remote host and port, namely ``socket.blind(ip,port)``
+IP address and port. After the Connect is successfully connected, send text, and the control panel receives the text and displays it on the oled screen and returns it to the TCP Client. You can see the text from Client->Server，Server->Client in the receiving interface of the mobile phone.
 
 
 .. image:: /../images/tutorials/socket_2.gif
