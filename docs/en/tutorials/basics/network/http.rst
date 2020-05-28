@@ -1,14 +1,14 @@
 HTTP
 =======
 
-HTTP是基于客户端/服务端（C/S）的架构模型，通过一个可靠的链接来交换信息，是一个无状态的请求/响应协议。
+HTTP is based on the client / server (C / S) architectural model, exchanges information through a reliable link, and is a stateless request / response protocol.
 
-一个HTTP"客户端"是一个应用程序（Web浏览器或其他任何客户端），通过连接到服务器达到向服务器发送一个或多个HTTP的请求的目的。
+A HTTP "Client" is an application (web browser or any other client) that connects to the server to send one or more HTTP requests to the server.
 
 HTTP GET request
 ----------------
 
-以下示例显示了如何下载网页。HTTP使用端口80，您首先需要发送“GET”请求才能下载任何内容。作为请求的一部分，您需要指定要检索的页面。
+The following example shows how to download a webpage. HTTP uses port 80, you first need to send a “GET” request to download any content. As part of the request, you need to specify the page to retrieve.
 
 .. literalinclude:: /../../examples/network/http_get.py
     :caption: socket实现HTTP get方法:
@@ -16,42 +16,42 @@ HTTP GET request
 
 .. Hint::
 
-    在使用socket模块时，请先连接wifi，并且确保可以访问互联网。有关如何wifi连接，请查看上章节 :ref:`配置wifi<network_base>` 。
+    When using the socket module, please connect to wifi first and make sure you can access the Internet. For details of WiFi connection, see :ref:`配置wifi<network_base>` 。
 
 
 
-``http_get('http://micropython.org/ks/test.html')`` ,掌控板客户端向 `micropython.org` 服务端发送范围test路径资源的get请求。服务端收到请求后将返回数据给客户端。
+``http_get('http://micropython.org/ks/test.html')`` , the mPython Board client sends a GET request of the range TEST path resource to the `micropython.org` server. After receiving the request, the server will return the data to the client.
 
  
 
-urequest 模块
+urequest module
 ~~~~~~~~~~~~~
 
-上面是使用socket来实现http的get请求。我们可以使用 :mod:`urequests` 模块,里面已封装HTTP协议一些常用的请求方式,使用更为简便。
+The above is to use the SOCKET to implement the HTTP GET request. Use :mod:`urequests` module, which encapsulates some common request methods of the HTTP protocol, is easier to use.
 
 
 .. literalinclude:: /../../examples/network/http_get_request.py
-    :caption: 使用urequest模块,访问网页
+    :caption: Use the urequest module to access the webpage
     :linenos:
 
-有关更多的 :mod:`urequests` 模块使用,请查阅该模块说明。
+More details :mod:`urequests` module usage, please refer to the module description.
 
 HTTP Server
 ----------------
 
 .. literalinclude:: /../../examples/network/http_server_simplistic.py
-    :caption: 以下示例，掌控板作为HTTP服务端，使用浏览器可以访问板载光线传感器:
+    :caption: In the following example, the mPython Board is used as the HTTP server, and the on-board light sensor can be accessed using a browser:
     :linenos:
 
 
-在REPL中运行main::
+Run MAIN in REPL::
 
     >>> main()
 
 .. image:: /../images/tutorials/http_1.png
 
 
-手机或笔记本电脑连接相同wifi，使其在同个局域网内。按打印提示或oled屏幕显示ip，使用浏览器访问掌控板主机IP地址。
+Connect the same WiFi to the mobile phone or laptop to make it in the same LAN. Press the print prompt or oled screen to display ip, use the browser to access the IP address of the control panel host.
 
 .. image:: /../images/tutorials/http_2.png
 
