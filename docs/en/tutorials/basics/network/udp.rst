@@ -1,49 +1,49 @@
-套接字-UDP
+Socket - UDP
 ================
 
-UDP协议简介
+Introduction to UDP protocol
 ---------
 
-UDP（User Datagram Protocol，用户数据报协议）是一种无连接、不可靠、基于数据报的传输层通信协议。
+UDP (User Datagram Protocol) is a connectionless, unreliable, transport protocol communication protocol based on datagram. 
 
-UDP的通信过程与TCP相比较更为简单，不需要复制的三次握手与四次挥手，体现了无连接。
-所以UDP传输速度比TCP快，但容易丟包、数据到达顺序无保证、缺乏拥塞控制、秉承尽最大努力交付的原则,体现了不可靠。
+The communication process of UDP is more simple than that of TCP. The three-way handshake and four-way handshake that do not need to be copied reflect the connectionless.
+Therefore, UDP transmission speed is faster than TCP, but it is easy to lose packets, the data arrival order is not guaranteed, the lack of congestion control, adhering to the principle of best effort delivery, reflects the unreliability.
 
-下图讲解服务器与客户端UDP通信連接的交互过程：
+The following figure explains the interactive process of the UDP communication connection between the server and the client：
 
 .. figure:: /../images/tutorials/udp原理.png
     :scale: 100 %
     :align: center
 
-    Socket UDP通讯过程
+   Socket UDP communication process
 
 -----------------
 
-UDP编程
+UDP Programming
 --------
 
-通常我们在说到的网络编程时默认是指TCP編程，即我们上章节说的TCP方式来通信。
-socket函数创建socket对象时,不给定参数,默认为SOCK_STREAM 即socket(socket.AF_INET, socket.SOCK_STREAM)，表示为创建创建一个socket用于流式网络通信。
+Usually when we talk about network programming, it refers to TCP programming by default, which is the TCP method we talked about in the previous chapter.
+When the socket function creates a socket object, no parameters are given, and the default is SOCK_STREAM , which is socket (socket.AF_INET, socket.SOCK_STREAM), which means that a socket is created for streaming network communication.
 
-``SOCK_STREAM`` 是面向连接的，即每次收发数据之前必须通过 ``connect`` 创建连接，也是双向的，即任何一方都可以收发数据，协议本身提供了一些保障机制保证它是可靠的、有序的，即每个包按照发送的顺序到达接收方。 
+``SOCK_STREAM``  is connection-oriented, that is, each time you send and receive data, you must create a connection through ``connect`` , which is also bidirectional, that is, any party can send and receive data. The protocol itself provides some guarantee mechanisms to ensure that it is reliable , Ordered, that is, each packet arrives at the receiver in the order in which it was sent. 
 
-``SOCK_DGRAM`` 是User Datagram Protocol协议的网络通信，它是无连接的，不可靠的，因为通讯双方发送数据后不知道对方是否已经收到数据，是否正常收到数据。
-任何一方socket以后就可以用 ``sendto`` 发送数据，也可以用 ``recvfrom`` 接收数据。根本不关心对方是否存在，是否发送了数据。它的特点是通讯速度比较快。大家都知道TCP是要经过三次握手的，而UDP沒有。
+``SOCK_DGRAM`` is the network communication of the User Datagram Protocol. It is connectionless and unreliable, because the two parties of the communication do not know whether the other party has received the data or whether it has received the data normally.
+After any socket, you can use  ``sendto`` to send data, and you can also use ``recvfrom`` to receive data. I don't care if the other party exists or if data is sent. It is characterized by relatively fast communication speed. Everyone knows that TCP is going to shake hands three times, but UDP does not.
 
 
-UDP客户端
+UDP Client
 ~~~~~~~~
 
-UDP编程的客户端一般步骤是： 
+The usual steps of UDP programming client are： 
 
-1. 创建一个UDP的socket，用函数socket(socket.AF_INET, socket.SOCK_DGRAM) 
-2. 设置socket属性，用函数 ``setsockopt()``  *可选* 
-3. 绑定IP地址、端口等信息到socket上，用函数 ``bind()``  *可选* 
-4. 设置对方的IP地址和端口等属性
-5. 发送数据，用函数 ``sendto()``
-6. 关闭网络连接
+1. Create a UDP socket, use the function socket(socket.AF_INET, socket.SOCK_DGRAM) 
+2. To set the socket attribute, use the function ``setsockopt()``  *optional* 
+3. Bind the IP address, port and other information to the socket, use the function ``bind()``  *optional* 
+4. Set the other party's IP address and port attributes
+5. To send data, use the function ``sendto()``
+6. Close network connection
 
-UDP客户端的示例:
+Example of UDP client:
 
 
 .. literalinclude:: /../../examples/network/udp_client.py
@@ -53,16 +53,16 @@ UDP客户端的示例:
 .. image:: /../images/tutorials/udpclient.gif
     :align: center
 
-UDP服务端
+UDP Server
 ~~~~~~~~
 
-UDP編程的服务器端一般步骤是： 
+The usual steps of the server side of UDP programming are： 
 
-1. 创建一个UDP的socket，用函数socket(socket.AF_INET, socket.SOCK_DGRAM)   
-2. 设置socket属性，用函数 ``setsockopt()``  *可选* 
-3. 绑定IP地址、端口等信息到socket上，用函数 ``bind()`` 
-4. 循环接收数据，用函数 ``recvfrom()``
-5. 关闭连接
+1. Create a UDP socket, use the function socket(socket.AF_INET, socket.SOCK_DGRAM)   
+2. To set the socket attribute, use the function  ``setsockopt()``  *可选* 
+3. Bind the IP address, port and other information to the socket, use the function ``bind()`` 
+4. BReceive data in a loop, using the function ``recvfrom()``
+5. Close network connection
 
 
 .. literalinclude:: /../../examples/network/udp_server.py
@@ -72,7 +72,7 @@ UDP編程的服务器端一般步骤是：
 
 .. Note:: 
 
-    ``recvfrom()`` 函数的返回值是二元組 (bytes, address)，其中 bytes 是接收到的字节数据，address 是发送方的IP地址于端口号，
-    用二元組 (host, port) 表示。注意，recv() 函數的返回值只有bytes数据。UDP,在每次发送 ``sendto()`` 和接收数据 ``recvfrom`` 时均需要指定地址信息于TCP编程不同,不需要调用 ``listen()`` 和 ``accept()`` 。
+    The return value of the``recvfrom()`` function is a binary (bytes, address), where bytes is the received byte data and address is the sender ’s IP address and port number,
+    It is represented by a two-tuple (host, port). Note that the return value of the recv() function only has bytes data. UDP, each time you send ``sendto()`` and receive dat ``recvfrom`` , you need to specify the address information. Unlike TCP programming, you do not need to cal ``listen()`` and ``accept()`` .
 
-.. Attention:: 上例,使用``connectWiFi()`` 连接同个路由器wifi。你也可以用 ``enable_APWiFi()`` 开启AP模式,自建wifi网络让其他设备接入进来。这样就无需依赖其他路由器wifi网络。
+.. Attention:: In the above example, use ``connectWiFi()`` to connect to the same router wifi. You can also use  ``enable_APWiFi()`` to turn on the AP mode and build a wifi network for other devices to access. So you don't need to rely on other router wifi network.
