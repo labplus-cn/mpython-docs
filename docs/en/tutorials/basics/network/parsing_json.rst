@@ -1,30 +1,30 @@
-解析JSON
+Parsing JSON
 ==============
 
-JSON(JavaScript Object Notation, JS 对象简谱) 是一种轻量级的数据交换格式。采用完全独立于编程语言的文本格式来存储和表示数据，易于人阅读和编写，同时也易于机器解析和生成，所以在互联网应用非常广泛。
+JSON (JavaScript Object Notation, JS Object Notation) is a lightweight data exchange format. It uses a text format that is completely independent of the programming language to store and represent data, which is easy for humans to read and write, and also easy for machine analysis and generation, so it is widely used in the Internet.
 
-在python中，json和dict非常类似，都是key-value的形式，而且json、dict也可以非常方便的通过 :mod:`json` 模块互转。
+In python, json and dict are very similar, both are in the form of key-value, and json and dict can also be easily converted between each other through the: :mod:`json` module.
 
-* json：是一种数据格式，是纯字符串，本质是一种文件组织方式，比如您熟悉的txt、csv、doc、docx、xls、xlsx文件等。
+* json：Is a data format, is a pure string, is essentially a file organization, such as your familiarntxt、csv、doc、docx、xls、xlsx files, etc.
 
-* dict：是一种数据结构，比如列表list、集合set、字符串str、数组array。
+* dict：is a data structure, such as list, set, string str, array。
 
-网络获取解析JSON
+Network access to parse JSON
 ------------------------------
 
-http协议采用的是请求/响应模型，浏览器或客户端发出请求，服务器给与响应。
+The http protocol uses a request / response model, the browser or client sends a request, and the server responds。
 
-例如，想从 http://ip-api.com/json/ 这个开放的接口中获取IP地址等信息，我们将地址直接在浏览器输入，可以看到：
+For example, if you want to obtain the IP address and other information from the open interface http://ip-api.com/json/ , we enter the address directly in the browser, you can see：
 
 .. image:: /../images/tutorials/httpjson.png
     :align: center
     :scale: 100 %
 
-这是一个json数组，包含有IP地址等信息。我们通过访问这个url，获取到这些信息然后返回字符串text，通过ujson.loads(str)把字符串给生成dict字典类型，就可以直接读关键字（key）获取对应的值（value）。
+This is a JSON array containing information such as IP address. By accessing this URL, we can get the information and return the string TEXT, and use ujson.loads(str) to give the string to the generated DICT dictionary type, we can directly read the key （key）to obtain the corresponding value（value）.
 
 
 .. literalinclude:: /../../examples/network/ip_parsing_json.py
-    :caption: 将网站中的部分信息显示在OLED显示屏上
+    :caption: Display part of the information on the website on the OLED display
     :linenos:
 
 
@@ -33,15 +33,15 @@ http协议采用的是请求/响应模型，浏览器或客户端发出请求，
     :scale: 70 %
 
 
-我们在REPL交互式的编程环境下逐步解析，能更加直观地查看结果。
+We analyze it step by step in the interactive programming environment of REPL and can view the results more intuitively.
 
-使用前，导入mpython、json、urequests模块::
+First, import mpython、json、urequests modules::
 
     >>> from mpython import*
     >>> import json
     >>> import urequests
 
-连接您的 WiFi 网络，需要设置您的WiFi名称和密码::
+Connect to WiFi network, then set up your WiFi ID and Password::
 
     >>> mywifi=wifi()
     >>> mywifi.connectWiFi('yourESSID', 'yourpassword')
@@ -50,12 +50,12 @@ http协议采用的是请求/响应模型，浏览器或客户端发出请求，
     Connecting to network...
     WiFi Connection Successful,Network Config:('','','','')
 
-添加请求地址，发送get请求，获取网页第三方接口返回的数据::
+Add request address, send GET request, get data returned by third-party interface of webpage::
 
     >>> url_ip ="http://ip-api.com/json/"
     >>> rsp=urequests.get(url_ip)
 
-获取的数据返回为json数据文本格式，打印输出，我们可以看到返回的数据::
+The obtained data is returned in JSON data text format, print out, we can see the returned data::
 
     >>> ipJson=rsp.text
     >>> print(jpJson)
@@ -63,9 +63,9 @@ http协议采用的是请求/响应模型，浏览器或客户端发出请求，
 
 .. Note::
 
-    rsp.text 返回为json数据文本格式。
+    rsp.text is returned as JSON data text format.
 
-将获取的数据转换为dict字典类型，打印输出，我们可以看到返回的数据::
+Convert the obtained data to DICT dictionary type, print out, we can see the returned data::
 
     >>> ipDict=json.loads(ipJson)
     >>> print(ipDict)
@@ -73,9 +73,9 @@ http协议采用的是请求/响应模型，浏览器或客户端发出请求，
 
 .. Note::
 
-    json.loads(str) 解析 JSON 字符串并返回对象。
+    json.loads(str) parse JSON string and return object。
 
-我们可以在dict字典中键入关键字（key），获取对应的信息值（value），比如城市、IP地址::
+To type the key（key）in the DICT dictionary to get the corresponding information value（value），such as city, IP address::
 
     >>> ipDict['city']
     'Guangzhou'
