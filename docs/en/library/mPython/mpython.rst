@@ -170,48 +170,48 @@ Calibration method, follow the instructions on the display of the mPython Board:
     :linenos:
 
 
-bme280
+BME280
 -------
 
-BME280是一款集成温度、湿度、气压，三位一体的环境传感器。具有高精度，多功能，小尺寸等特点。
+BME280 is an environmental sensor with integrated temperature, humidity, and air pressure. With high precision, multi-function, compact and other unique characteristics。
 
-* 温度检测范围：-40℃~+85℃，分辨率0.1℃，误差±0.5℃
-* 湿度检测范围：0~100%RH，分辨率0.1%RH，误差±2%RH
-* 压力检测范围：300~1100hPa
-* 湿度测量响应时间：1s
+* Temperature detection range：-40℃~+85℃，resolution 0.1℃，tolerance ±0.5℃
+* Humidity detection range：0~100%RH，resolution 0.1%RH，tolerance ±2%RH
+* Pressure detection range：300~1100hPa
+* Humidity measurement response time：1s
 
 .. Attention:: 
 
-    掌控板没有集成BME280传感器,掌控板会扫描I2C总线是否存在0x77(119)I2C设备,确定是否构建bme280对象!
+    The mPython Board scans the I2C bus for 0x77 (119) I2C devices to determine whether to construct the bme280 object!
 
 .. method:: bme280.temperature()
 
-返回温度值,单位摄氏度。
+Returns the temperature value in degrees Celsius。
 
 .. method:: bme280.pressure()
 
-返回大气压值,单位Pa。
+Returns the atmospheric pressure value in Pa.
 
 .. method:: bme280.humidity()
 
-返回环境湿度,单位%。
+Return to ambient humidity, unit in %。
 
 
-蜂鸣器
+Buzzer
 -------
 
-由 ``music`` 模块驱动掌控板蜂鸣器,具体操作详见 :mod:`music` 模块。
+mPython Board buzzer driven by ``music`` module. For details, see :mod:`music` 模块。
 
 
-button_[a,b]对象
+button_[A,B] object
 ------
-掌控板上的a,b按键。button_a/button_b 是 ``machine.Pin`` 衍生类，继承Pin的方法。更详细的使用方法请查阅 :ref:`machine.Pin<machine.Pin>`  。
+The Button A and B on the mPython Board. button_a/button_b is a derived class of  ``machine.Pin`` and inherits Pin method. For application method, see :ref:`machine.Pin<machine.Pin>`  。
 
 
 
 .. method:: button_[a,b].value()
 
-获取button_[a,b]按键引脚状态。引脚IO以上，当按键为未按下状态时value==1,按下状态时value==0。
+Get button_[a,b] pin status. PIN I/O, value==1 when the button is not pressed, value==0 when pressed.
 
 ::
 
@@ -224,27 +224,27 @@ button_[a,b]对象
 
 .. method:: button_[a,b].irq(handler=None, trigger=(Pin.IRQ_FALLING | Pin.IRQ_RISING), priority=1, wake=None)
 
-配置在引脚的触发源处于活动状态时调用的中断处理程序。
+Configure the interrupt handler to be called when the trigger source of the pin is active。
 
-参数:
+Parameter:
 
-     - ``handler`` 是一个可选的函数，在中断触发时调用。
+     - ``handler`` is an optional function that is called when the interrupt is triggered.
 
-     - ``trigger`` 配置可以触发中断的事件。可能的值是：
+     - ``trigger`` configures events that can trigger an interrupt. Possible values are：
 
-       - ``Pin.IRQ_FALLING`` 下降沿中断
-       - ``Pin.IRQ_RISING`` 上升沿中断
-       - ``Pin.IRQ_LOW_LEVEL`` 低电平中断
-       - ``Pin.IRQ_HIGH_LEVEL`` 高电平中断
+       - ``Pin.IRQ_FALLING`` Falling edge interrupt
+       - ``Pin.IRQ_RISING`` Rising edge interrupt
+       - ``Pin.IRQ_LOW_LEVEL`` Low level interrupt
+       - ``Pin.IRQ_HIGH_LEVEL`` High level interrupt
 
-       这些值可以一起进行 ``OR`` 运算以触发多个事件。
+       These values can be used to perform ``OR`` operate together to trigger multiple events.
 
-     - ``priority`` 设置中断的优先级。它可以采用的值是特定于端口的，但是更高的值总是代表更高的优先级。
+     - ``priority`` sets the priority of the interrupt. The values it can take are port specific, but higher values always represent higher priority. 
 
-     - ``wake`` 选择此中断可唤醒系统的电源模式。它可以是 ``machine.IDLE`` ， ``machine.SLEEP`` 或 ``machine.DEEPSLEEP`` 。
-     这些值也可以进行 ``OR`` 运算，使引脚在多种功耗模式下产生中断。
+     - ``wake`` Select this interrupt to wake up the power mode of the system. It can be  ``machine.IDLE`` ， ``machine.SLEEP`` or ``machine.DEEPSLEEP`` 。
+     These values can also be used for ``OR`` operations, which can interrupt the pin in various power consumption modes.
 
-此方法返回一个回调对象。
+This method returns a callback object.
 
 ::
 
@@ -252,119 +252,119 @@ button_[a,b]对象
     >>> button_a.irq(trigger=Pin.IRQ_FALLING, handler=lambda p:print("button-a press！")) 
 
 
-touchPad_[ ]对象
+touchPad_[ ] object
 ------
-掌控板上共有6个触摸引脚分别touchPad_P/Y/T/H/O/N。
+There are 6 touchpad on the mPython Board touchPad_P/Y/T/H/O/N。
 
 .. method:: touchPad_[P,Y,T,H,O,N].read()
 
-返回触摸值
+Return touch value
 
 ::
 
     >>> touchPad_P.read()
     >>> 523
 
-rgb对象
+rgb object
 -------
-用于控制掌控板的3颗RGB ws2812灯珠。rgb对象为neopixel的衍生类，继承neopixel的方法。更多的使用方法请查阅 :ref:`neopixel<neopixel>` 。 
+mPython Board built-in with three WS2812 LED. The RGB object is a derivative of neopixel, methods of inheriting neopixel. For more application, see :ref:`neopixel<neopixel>` 。 
 
 .. method:: rgb.write()
 
-把数据写入RGB灯珠中。 
+Write data to RGB LEDs。 
 
 .. Hint::
 
-    通过给rgb[n]列表赋值来写入RGB颜色值。如，rgb[0]=(50,0,0)
+    Write RGB color values by assigning values to rgb[n] list. Such as, rgb[0]=(50,0,0)
 
 ::
 
     from mpython import *
 
-    rgb[0] = (255, 0, 0)  # 设置为红色，全亮度
-    rgb[1] = (0, 128, 0)  # 设定为绿色，半亮度
-    rgb[2] = (0, 0, 64)   # 设置为蓝色，四分之一亮度
+    rgb[0] = (255, 0, 0)  # set to RED for full brightness
+    rgb[1] = (0, 128, 0)  # set to GREEN for half brightness
+    rgb[2] = (0, 0, 64)   # set to BLUE for a quarter of brightness
 
     rgb.write()
 
 .. method:: rgb.fill(rgb_buf)
 
-填充所有LED像素。
+Fill all LED pixels.
 
 .. method:: rgb.brightness(brightness)
 
-亮度调节,范围0~1.0
+Brightness adjustment, range 0~1.0
 
 
 .. _oled:
 
-oled对象
+OLED object
 -------
-oled对象为framebuf的衍生类，继承framebuf的方法。更多的使用方法请查阅 :mod:`framebuf<framebuf>` 。 
+The OLED object is a derivative of framebuf, inheriting the method of framebuf. For more application, see :mod:`framebuf<framebuf>` 。 
 
 .. method:: oled.poweron()
 
-开启显示屏电源。
+Power ON the OLED panel.
 
 .. method:: oled.poweroff()
 
-关闭显示器电源。
+Power OFF the OLED panel.
 
 .. method:: oled.contrast(brightness)
 
-设置显示屏亮度。
+Set the display brightness。
 
-    - ``brightness`` 亮度,范围0~255
+    - ``brightness`` brightness, range 0~255
 
 
 .. method:: oled.invert(n)
 
-翻转像素点。当n=1时,未填充像素点点亮,填充像素点灭。当n=0时,则反。默认启动是填充像素点点亮。
+Flip the pixels. When n=1, the unfilled pixels are lit-up, and the filled pixels are off. Otherwise When n=0. The default start is to fill the pixels and light up。
 
 .. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
 
-oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体。字体高度16像素点,支持英文,简体中文繁体中文，日文和韩文语言。
-当显示字符串超出显示屏宽度可自动换行。
+OLED panel text display. Apply  `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ open-source sans serif font. Font height 16 pixels, supports English, Simplified Chinese, Traditional Chinese, Japanese and Korean languages。
+When the display string exceeds the width of the display, it will wrap automatically.
 
-返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
+Returns the binary (the total pixel width of the character, the x, y coordinates of the subsequent display).
 
-    - ``s`` -需要显示的文本。
-    - ``x`` 、``y`` -文本的左上角作为起点坐标。
-    - ``mode`` - 设置文本模式,默认为TextMode.normal
+    - ``s`` -Text to display.
+    - ``x`` 、``y`` - The upper left corner is the text start point coordinate.
+    - ``mode`` - Set the text mode, the default is TextMode.normal
 
-        - ``TextMode.normal`` - 等于1 。普通模式,文本显示白色,背景为黑色。
-        - ``TextMode.rev`` - 等于2 。反转模式,文本显示黑色,背景为白色。
-        - ``TextMode.trans`` - 等于3 。透明模式,透明文本意味着文本被写在显示中已经可见的内容之上。不同之处在于，以前屏幕上的内容仍然可以看到，而对于normal，背景将被当前选择的背景颜色所替代。
-        - ``TextMode.xor`` - 等于4 。XOR模式,如果背景是黑色的，效果与默认模式(normal模式)相同。如果背景为白色，则反转文本。
+        - ``TextMode.normal`` - equals to 1 . In normal mode, the text is displayed in white and the background is black.
+        - ``TextMode.rev`` - equals to 2 . Reverse mode, the text is displayed in black, and the background is white.
+        - ``TextMode.trans`` - equals to 3 . Transparent mode, transparent text means that the text is written on top of what is already visible in the display. The difference is that the content on the previous screen can still be seen, while for normal, the background will be replaced by the currently selected background color.
+        - ``TextMode.xor`` - equals to 4 . XOR mode, if the background is black, the effect is the same as the default mode (normal mode). If the background is white, the text is reversed.
 
 .. method:: oled.show()
 
-将frame缓存发送至oled显示。
+Send frame buffer to OLED display.
 
 .. literalinclude:: /../../examples/display/helloworld.py
     :caption: hello world
     :linenos:
 
 .. literalinclude:: /../../examples/display/oled_effect of typing.py
-    :caption: 打字效果
+    :caption: Typing effect
     :linenos:
 
 
 .. method:: oled.DispChar_font(font, s, x, y, invert=False)
 
-自定义字体显示。用户可根据自己需求,在PC端将 `otf` 、 `ttf` 标准字体文件通过Python脚本 `font_to_py.py <https://github.com/peterhinch/micropython-font-to-py/blob/master/font_to_py.py>`_ 转为输出含字体Bitmap的python源码,调用使用。
-返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
+Custom font display. Users can use Python script for  `otf` 、 `ttf` standard font files on the PC according to their own need `font_to_py.py <https://github.com/peterhinch/micropython-font-to-py/blob/master/font_to_py.py>`_ turn to output Python source code with font bitmap, and call to use.
+Returns the binary (the total pixel width of the character, followed by the displayed x, y coordinates).
 
-    - ``font`` - 字体对象。`font_to_py.py` 脚本转换得到的Python源码, 放到文件系统中,注意,在使用函数前须导入font文件。   
-    - ``s`` - 显示的字符串
-    - ``x`` 、 ``y`` - 文本的左上角作为起点坐标。
-    - ``invert`` - 显示像素点翻转。
+    - ``font`` - Font object. `font_to_py.py` put the python source code obtained from script conversion into the file system. Note that font file must be imported before using the function.   
+    - ``s`` - Displayed string
+    - ``x`` 、 ``y`` - The upper left corner is the text start point coordinate.
+    - ``invert`` - Display pixel flip。
 
 
 
 
 .. literalinclude:: /../../examples/display/custom_font/main.py
-    :caption: 自定义字体显示
+    :caption: Custom font display
     :linenos:
 
 * :download:`以上自定义字体示例中simfang16、freescpt18、stxingkai20<https://github.com/labplus-cn/mpython-docs/tree/master/examples/display/custom_font>`
@@ -373,67 +373,67 @@ oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/not
     :width: 400px
     :align: center
 
-.. admonition:: `font_to_py.py` 脚本使用说明
+.. admonition:: `font_to_py.py` script instructions
 
-    - 该脚本要Python 3.2或更高版本运行环境。依赖 `freetype` python包。安装方法, `pip3 install freetype-py`  
-    - 默认情况下，只转换ASCII字符集（ `chr(32)` 到 `chr(126)` 字符）。通过命令行参数 `-c`,根据需要修改此范围，以指定任意的Unicode字符集,可以定义非英语和非连续字符集。
-    - `oled.DispChar_font()` 函数只支持hmap水平映射的字体,所以在转换时,需要使用命令行参数 `-x` 固定转换为水平映射。
-    - 固件参数。字体文件路径、转换后的字体高度、输出文件路径。例如: font_to_py.py FreeSans.ttf 20 myfont.py
+    - This script requires Python 3.2 or higher. Depends on  `freetype` python package. Installation method, `pip3 install freetype-py`  
+    - By default, only the ASCII character set（ `chr(32)` to `chr(126)` characters) is converted. Through the command line parameter `-c`, modify this range as needed to specify any Unicode character set, you can define non-English and non-contiguous character sets.
+    - `oled.DispChar_font()` function only supports hmap horizontally mapped fonts, so when converting, you need to use the command line parameter `-x` to permanently convert to horizontal mapping.
+    - Firmware parameters. Font file path, converted font height, output file path. Such as: font_to_py.py FreeSans.ttf 20 myfont.py
 
-在PC端使用font_to_py.py脚本转换字体::
+Use font_to_py.py script to convert fonts on PC::
 
-    # 转换高度为16像素只包含ASCII字符集
+    # Convert height to 16 pixels contains only ASCII character set
     font_to_py.py -x FreeSans.ttf 16 myfont.py
 
-    # 转换高度为16像素指定Unicode字符集,-c参数后面为你指定的字符集
+    # The conversion height is 16 pixels to specify the Unicode character set, and the character set specified for you after the -c parameter
     font_to_py.py -x simfang.ttf 16 simfang.py -c  ¬!"#£$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~°Ωαβγδθλμπωϕ£
 
 
-该函数功能实现,参考来源于 `peterhinch/micropython-font-to <https://github.com/peterhinch/micropython-font-to-py>`_ 开源项目,更详细有关 `font_to_py.py` 详细使用说明,可到此项目获取更多资料。
+The function of this function is realized, the reference comes from  `peterhinch/micropython-font-to <https://github.com/peterhinch/micropython-font-to-py>`_ open source project, more details about `font_to_py.py` Instructions, you can go to this project for more information.
 
 
 .. method:: oled.fill(c)
 
-        用指定的颜色填充整个帧缓存。 ``c`` 为1时,像素点亮；``c`` 为0时,像素点灭。
+        Fill the entire frame buffer with the specified color. When ``c`` is 1, the pixel is on; when ``c`` is 0, the pixel is off.
 
 .. method:: oled.circle(x, y, radius , c)
 
-绘制圆
+Draw a circle
 
-    - ``x`` 、``y`` -左上角作为起点坐标。
-    - ``radius`` -圆半径大小
-    - ``c`` -为1时,像素点亮；``c`` 为0时,像素点灭。
+    - ``x`` 、``y`` - the upper left corner as the starting point coordinate.
+    - ``radius`` - Radius of circle
+    - ``c`` - when it is 1, the pixel is on; when ``c`` is 0, the pixel is off.
 
 .. method:: oled.fill_circle(x, y, radius , c)
 
-绘制实心圆
+Draw a solid circle
 
-    - ``x`` 、``y`` -左上角作为起点坐标。
-    - ``radius`` -圆半径大小
-    - ``c`` -为1时,像素点亮；``c`` 为0时,像素点灭。
+    - ``x`` 、``y`` - the upper left corner as the starting point coordinate.
+    - ``radius`` - Radius of circle
+    - ``c`` - when it is 1, the pixel is on; when ``c`` is 0, the pixel is off.
 
 .. method:: oled.triangle(x0, y0, x1, y1, x2, y2, c)
 
-绘制三角形
+Draw a triangle
 
-    - ``x0`` 、``y0`` -三角形上顶点坐标 。
-    - ``x1`` 、``y1`` -三角形左顶点坐标 。
-    - ``x2`` 、``y2`` -三角形左顶点坐标 。
-    - ``c`` -为1时,像素点亮；``c`` 为0时,像素点灭。
+    - ``x0`` 、``y0`` - Vertex coordinates on the triangle.
+    - ``x1`` 、``y1`` - Coordinates of left vertex of triangle.
+    - ``x2`` 、``y2`` - Coordinates of the left vertex of the triangle.
+    - ``c`` - when it is 1, the pixel is on; when ``c`` is 0, the pixel is off. 
 
 .. method:: oled.fill_triangle(x0, y0, x1, y1, x2, y2, c)
 
-绘制实心三角形
+Draw a solid triangle
 
-    - ``x0`` 、``y0`` -三角形上顶点坐标 。
-    - ``x1`` 、``y1`` -三角形左顶点坐标 。
-    - ``x2`` 、``y2`` -三角形左顶点坐标 。
-    - ``c`` -为1时,像素点亮；``c`` 为0时,像素点灭。
+    - ``x0`` 、``y0`` - Vertex coordinates on the triangle.
+    - ``x1`` 、``y1`` - Coordinates of left vertex of triangle.
+    - ``x2`` 、``y2`` - Coordinates of left vertex of triangle.
+    - ``c`` -when it is 1, the pixel is on; when ``c`` is 0, the pixel is off.
 
 
 .. method:: oled.bitmap(x, y, bitmap, w, h,c)
 
-绘制bitmap图案
+Draw a bitmap pattern
 
     - ``x`` 、``y`` -左上角作为起点坐标
     - ``bitmap`` -图案bitmap 的btyearray字节数组
