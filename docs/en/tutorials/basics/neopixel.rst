@@ -9,9 +9,9 @@ Example：Light up RGB LED
 ::
     from mpython import *
 
-    rgb[0] = (255, 0, 0)  # set to RED at full brightness
-    rgb[1] = (0, 128, 0)  # set to GREEN at half brightness
-    rgb[2] = (0, 0, 64)   # set to BLUE at a quarter brightness
+    rgb[0] = (255, 0, 0)  # set to RED for full brightness
+    rgb[1] = (0, 128, 0)  # set to GREEN for half brightness
+    rgb[2] = (0, 0, 64)   # set to BLUE foe a quarter of brightness
     rgb.write()
 
 
