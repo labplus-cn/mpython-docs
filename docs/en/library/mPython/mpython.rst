@@ -2,171 +2,171 @@
 .. _mpython.py:
 
 .. module:: mpython
-   :synopsis: 掌控板板载相关功能函数
+   :synopsis: mPython Board related built-in functions
 
-:mod:`mpython` --- 掌控板板载相关功能函数
+:mod:`mpython` --- mPython Board related built-in functions
 ==========================
 
-``mpython`` 是基于掌控板封装的专有模块,内含掌控板板载资源相关功能函数。 详细代码实现可查阅 :ref:`mpython.py源码 <mpython_code>` 。
+``mpython`` a proprietary module packed with built-in resources and functions. For details, refers to :ref:`mpython.py源码 <mpython_code>` 。
 
-延时
+Delay
 -------
 
 .. method:: sleep(s)
 
-秒级延时
+Second time delay
 
-    - ``s`` -单位秒。
+    - ``s`` - unit in second.
 
 .. method:: sleep_ms(ms)
 
-毫秒级延时
+Millisecond time delay
 
-    - ``ms`` -单位毫秒。
+    - ``ms`` -unit in millisecond.
 
 .. method:: sleep_us(us)
 
-级延时
+Time delay
 
-    - ``us`` -单位微秒。
+    - ``us`` -unit in microsecond.
 
 
-映射
+Mapping
 -------
 
 .. method:: numberMap(inputNum,bMin,bMax,cMin,cMax)
 
-映射函数，参数：
+Mapping function，parameter：
 
-- ``inputNum`` 为需要映射的变量
+- ``inputNum`` For variables require mapping
 
-- ``bMin`` 为需要映射的最小值
+- ``bMin`` The minimum value require for mapping
 
-- ``bMax`` 为需要映射的最大值
+- ``bMax`` The maximum value require for mapping
 
-- ``cMin`` 为映射的最小值
+- ``cMin`` Minimum value
 
-- ``cMax`` 为映射的最大值
+- ``cMax`` Maximum value
 
 
 
-板载传感器
+Built-in sensors
 -------
 
-声音、光线
+Sound, Light 
 +++++++++
 
 .. method:: light.read()
 
-读取板载光线传感器值，范围0~4095。
+Read Light Sensor value, range 0~4095。
 
 
 .. method:: sound.read()
 
-读取板载麦克风，范围0~4095。
+Read Sound Sensor (microphone） value， range 0~4095。
 
 
-加速度计
+Accelerometer 
 +++++++++
 
-通过accelerometer对象，您可以获取3轴加速度计值，单位g。 加速度范围±2g/±4g/±8g/±16g,默认为±2g。
+Through the accelerometer object, you can get the 3-axis accelerometer value in g. range:±2g/±4g/±8g/±16g, default at ±2g。
 
 .. method:: accelerometer.get_x()
 
-获取x轴上的加速度测量值，正整数或负整数，具体取决于方向。
+Get the acceleration measurement value on the x-axis, positive or negative integer, depending on the direction.
 
 .. method:: accelerometer.get_y()
 
-获取y轴上的加速度测量值，正整数或负整数，具体取决于方向。
+Get acceleration measurement value on y-axis, positive integer or negative integer, depending on direction.
 
 .. method:: accelerometer.get_z()
 
-获取z轴上的加速度测量值，正整数或负整数，具体取决于方向。
+Get the acceleration measurement value on the z axis, positive integer or negative integer, depending on the direction.
 
 .. method:: accelerometer.set_range(range)
 
-设置加速度范围,在默认,不修改为,范围在±2g。
+Set the acceleration range if not modified, default range is ±2g.
 
-加速度范围值为以下常量:
+The acceleration range constant value is follows:
 
     ========================== ========= =================
-        常量                       值      定义
-        RANGE_2G                   0        范围±2g
-        RANGE_4G                   1        范围±4g
-        RANGE_8G                   2        范围±8g
-        RANGE_16G                  3        范围±16g
+        Constant                 Value      Definition
+        RANGE_2G                   0        range ±2g
+        RANGE_4G                   1        range ±4g
+        RANGE_8G                   2        range ±8g
+        RANGE_16G                  3        range ±16g
     ========================== ========= =================
 
 
 .. method:: accelerometer.set_resolustion(resolution)
 
-设置加速度分辨率,默认,不修改为10bit分辨率。
+Set acceleration resolution, default is 10bit resolution。
 
-分辨率值为以下常量:
+The resolution constant value is follows:
 
     ========================== ========= =================
-        常量                       值      定义
-        RES_14_BIT                  0      14 bit 分辨率 
-        RES_12_BIT                  1      12 bit 分辨率 
-        RES_10_BIT                  2      10 bit 分辨率 
+        Constant                  Value    Definition
+        RES_14_BIT                  0      14 bit resolution 
+        RES_12_BIT                  1      12 bit resolution 
+        RES_10_BIT                  2      10 bit resolution 
     ========================== ========= =================
 
 .. method:: accelerometer.set_offset(x=None, y=None, z=None)
 
-该函数用于校准加速度计的3个轴(x,y,z)的加速值偏差。一般情况下无需校准,只有当遇到加速度偏差较大时修正。
-注意,校准数据断电后不会保存。``x`` , ``y`` , ``z`` 为调整偏差值,可修正范围±1g。
+This function is used to calibrate the acceleration value deviation of the three axes (x, y, z) of the accelerometer. Under normal circumstances, no calibration is required, only amend when there is large acceleration deviation.
+Note that the calibration data will not be saved after power off. ``x``, ``y``, ``z`` is the adjustment deviation value, the correctable range is ±1g.
 
 
-magnetic
+Magnetometer
 -----------
-MMC5983MA磁力计函数接口,可获取3轴地磁感应强度、地磁场强度、获取电子罗盘角度。
+MMC5983MA magnetometer function interface, which can obtain 3-axis geomagnetic induction intensity, geomagnetic field intensity, and electronic compass angle.
 
-.. Attention:: 掌控板v2.0版本以上,才有MMC5983MA磁力计！
+.. Attention:: The MMC5983MA magnetometer is only available for mPython Board version v2.0 and above！
 
 .. method:: magnetic.get_x()
 
-获取x轴的磁感应值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+Obtain the x-axis magnetic induction value, positive or negative integer, range ±8191, unit mG (milliGauss).
 
 .. method:: magnetic.get_y()
 
-获取y轴的磁感应值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+Get the magnetic induction value of the y-axis, positive integer or negative integer, range ±8191, unit mG (milliGauss).
 
 .. method:: magnetic.get_z()
 
-获取z轴的磁感应值,正整数或负整数,范围±8191,单位mG(毫高斯)。
+Obtain the magnetic induction value of the z axis, positive integer or negative integer, range ±8191, unit mG (milli Gauss).
 
 .. method:: magnetic.get_field_strength()
 
-返回计算后的磁感应值,即3轴磁力的和。计算公式,x^2+y^2+z^2的平方根。
+Returns the calculated magnetic induction value, which is the sum of the three-axis magnetic force. Calculation formula, square root of x^2+y^2+z^2.
 
 .. method:: magnetic.peeling()
 
-磁力去皮。类似电子秤去皮功能, ``peeling()`` 后,下次 ``get_field_strength()`` 返回的值为减去当前磁力值后计算得出的结果。可用于去除地磁感应值的测量应用。 
+Magnetic peeling. Similar to the peeling function of electronic scales, after  ``peeling()`` , the next time ``get_field_strength()`` returns the value calculated after subtracting the current magnetic value. 
 
 .. method:: magnetic.clear_peeling()
 
-磁力去皮功能取消。使用 ``peeling()`` 后,可用该函数,恢复正常地磁测量。
+The magnetic peeling function is cancelled. After using ``peeling()`` , you can use this function to resume normal geomagnetic measurement.
 
 .. method:: magnetic.get_heading()
 
-获取电子罗盘角度,即改方向与地磁北极的夹角,掌控板的正上方,即USB位置视为正北方。单位角度,范围0~360。
+Obtain the angle of the electronic compass, that is, the angle between the re-orientation and the magnetic north pole, directly above the mPython Board, that is, the USB position is regarded as true north. Angle in degree, range 0~360。
 
-.. Attention:: 由于在角度计算并没有做z轴的倾斜补偿,在使用 ``get_heading()`` 读取罗盘角度时,掌控板应保持水平放置！
+.. Attention:: Because there is no z-axis tilt compensation in the angle calculation, when using ``get_heading()`` to read the compass angle, the control board should be kept horizontally placed！
 
-.. Attention:: 如需得到精准的罗盘角度,请确保周边无强磁场干扰或在使用前 ``calibrate()`` 校准。
+.. Attention:: For accurate compass angle, please make sure there is no strong magnetic field interference or  ``calibrate()`` calibration before use.
 
 .. method:: magnetic.calibrate()
 
-电子罗盘校准。当掌控板周边存在强磁干扰,可使用该函数清除强磁分量,才能计算准确的地磁北偏角。注意,断电后不保存校准偏移值。
+Electronic compass calibration. When there is strong magnetic interference around the control panel, you can use this function to clear the strong magnetic component to calculate the accurate north declination of the geomagnetic field. Note that the calibration offset value is not saved after power off。
 
-校准方法,按照掌控板显示屏指示步骤操作:
+Calibration method, follow the instructions on the display of the mPython Board:
 
-    1. 掌控板水平放置,在水平面旋转数圈,过程约15秒。
-    2. 掌控板垂直放置,沿着垂直于地面轴旋转数圈,过程约15秒。
+    1. The mPython Board is placed horizontally and rotates several times on the horizontal plane, the process is about 15 seconds.
+    2. The mPython Board is placed vertically and rotates several times along the axis perpendicular to the ground, the process is about 15 seconds.
 
 
 .. literalinclude:: /../../examples/magnetic/compass.py
-    :caption: 磁力计应用--指北针
+    :caption: Magnetometer application--compass
     :linenos:
 
 
