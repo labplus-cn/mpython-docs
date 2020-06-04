@@ -1,33 +1,33 @@
 .. _gui:
 
 .. module:: gui
-   :synopsis: 提供GUI类的绘制的相关功能函数
+   :synopsis: Provide related functions of GUI class drawing
 
-:mod:`gui` --- 提供GUI类的绘制的相关功能函数
+:mod:`gui` --- Provide related functions of GUI class drawing
 ==========
 
 
 .. class:: UI
 
-UI类
+UI class
 -------
 
-提供UI界面类控件
+Provide UI interface class controls
 
 .. class:: UI(oled)
 
-构建UI对象。
+Create UI object.
 
-    - ``oled``  - 传入framebuf类的对象,如是mPython OLED显示屏,则oled对象。
+    - ``oled``  - Objects coming into the framebuf class, such as mPython OLED display, then OLED object.
 
 .. method:: UI.ProgressBar(x, y, width, height, progress)
 
-绘制进度条。
+Draw progress bar.
 
-    - ``x`` 、 ``y`` -左上角作为起点坐标
-    - ``width`` -进度条宽度
-    - ``height`` -进度条高度
-    - ``progress`` -进度条百分比
+    - ``x`` 、 ``y`` - the upper left corner is used as the starting point coordinate
+    - ``width`` - Progress bar width
+    - ``height`` - Progress bar height
+    - ``progress`` - Progress bar percentage
 
 ::
 
@@ -39,22 +39,22 @@ UI类
 
 .. method:: UI.stripBar(x, y, width, height, progress,dir=1,frame=1)
 
-绘制垂直或水平的柱状条
+Draw vertical or horizontal columnar bars
 
-    - ``x`` 、 ``y`` -左上角作为起点坐标
-    - ``width`` -柱状条宽度
-    - ``height`` -柱状条高度
-    - ``progress`` -柱状条百分比
-    - ``dir`` -柱状条方向。dir=1时水平方向,dir=0时,垂直方向。
+    - ``x`` 、 ``y`` - the upper left corner is used as the starting point coordinate
+    - ``width`` - Column bar width
+    - ``height`` - Column bar height
+    - ``progress`` - Column bar percentage
+    - ``dir`` - Column bar direction. dir= 1 for horizontal direction, dir= 0 for vertical direction.
     - ``frame`` -当frame=1时,显示外框；当frame=0时,不显示外框。
 
 .. method:: UI.qr_code(str,x,y,scale=2)
 
-    绘制29*29二维码
+    Draw 29*29 QR code
 
-    - ``str`` - 二维码数据,类型字符串
-    - ``x`` 、 ``y`` -左上角作为起点坐标
-    - ``scale`` -放大倍数:可以为1,2。默认为2倍放大。
+    - ``str`` - QR code data, type string
+    - ``x`` 、 ``y`` - the upper left corner is used as the starting point coordinate
+    - ``scale`` - amplification scale: can be 1, 2. Default is 2X.
 
 ::
 
@@ -64,32 +64,32 @@ UI类
     ui.qr_code('https://mpython.readthedocs.io',0,0)
     oled.show()
 
-Clock类
+Clock class
 +++++++++
 
-提供模拟钟表显示功能
+Provide analog clock display function
 
 .. class:: Clock(oled,x,y,radius)
 
-构建Clock对象。
+Create Clock object.
 
-    - ``oled``  - 传入framebuf类的对象,如是mPython OLED显示屏,则oled对象。
-    - ``x`` 、``y`` -左上角作为起点坐标
-    - ``radius`` -钟表半径
+    - ``oled``  - Objects coming into the framebuf class, such as mPython OLED display, then OLED object。
+    - ``x`` 、``y`` - The upper left corner is used as the starting point coordinate
+    - ``radius`` - Clock radius
 
 
 .. method:: Clock.settime()
 
-获取本地时间并设置模拟钟表时间
+Get local time and set analog clock time
 
 
 .. method:: Clock.drawClock()
 
-绘制钟表
+Draw a clock
 
 .. method:: Clock.clear()
 
-清除钟表
+Clear the clock
 
 ::
 
@@ -115,22 +115,22 @@ Clock类
 Image
 +++++++++
 
-支持 `pbm` 和 `bmp` 1bit的图片格式。
+Support `pbm` and `bmp` 1bit image formats.
 
 .. Class:: Image()
 
-构建Image对象
+Create Image object
 
 .. method:: Image.load(path, invert=0)
 
 
-加载 `pbm` 或 `bmp` 图片格式文件,返回该图片的 :class:`framebuf.FrameBuffer` 对象。   
+Load the `pbm` or `bmp` picture format file and return the picture :class:`framebuf.FrameBuffer` object.   
 
-- ``path`` - 图片文件路径
-- ``invert`` - 像素点反转。0表示不反转,1则反转。
+- ``path`` - Picture file path
+- ``invert`` - The pixels are inverted. 0 means no reversal, 1 means reverse.
 
 
-示例::
+Example::
 
     from mpython import *
     from gui import Image
