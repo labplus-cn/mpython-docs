@@ -1,54 +1,54 @@
 .. _radio:
 
 .. module:: radio
-   :synopsis: 无线广播相关功能
+   :synopsis: Radio-related functions
 
-:mod:`radio` --- radio 无线广播相关功能
+:mod:`radio` --- Radio-related functions
 ==========
 
-radio 模块提供无线广播功能,支持13 Channel,在相同的Channel内能接收到成员发出的广播消息,适合10米范围内的多板组网的通讯。
+The radio module provides wireless broadcast function, supports 13 Channel, and can receive broadcast messages sent by members in the same Channel, suitable for multi-board network communication within 10 meters.
 
-函数
+Parameter
 ----------
 
 
 .. py:method:: radio.on()
 
-开启无线功能
+Turn ON wireless function
 
 .. py:method:: radio.off()
 
-关闭无线功能
+Turn OFF wireless function
 
 
 .. py:method:: radio.config(channel)
 
 
-配置无线参数
+Configure wireless parameters
 
-- ``channel`` (int): 无线通道,范围1~13
+- ``channel`` (int): Wireless channel, range 1~13
 
 
 
 .. py:method:: radio.receive()
 
-接收无线广播消息,消息以字符串形式返回。最大可接收250字节数据。如果没有接收到消息,则返回 ``None`` 。当 ``receive`` 内参数为 ``True`` ,即 ``receive(True)`` ,返回(msg,mac)的二元组。默认缺省 ``receive(False)`` ,即只返回msg。
+Receive a wireless broadcast message, the message is returned as a string. Can receive up to 250 bytes of data. If no message is received, it returns ``None`` . When the internal parameter of ``receive`` is  ``True`` , that is  ``receive(True)`` , the (msg,mac) binary is returned. The default is ``receive(False)`` , which only returns msg.
 
 
 .. py:method:: radio.receive_bytes()
 
-接收无线广播消息,消息以字节形式返回。其他同 ``radio.receive()`` 相同。
+Receive wireless broadcast message, the message is returned in bytes. Others are the same as ``radio.receive()`` .
 
 .. py:method:: radio.send()
 
-发送无线广播消息,发送数据类型为字符串。当发送成功后返回True,否则返回False。
+Send wireless broadcast message, data type as string. Return True after successful transmission, otherwise return False.
 
 .. py:method:: radio.send_bytes()
 
-发送无线广播消息,发送数据类型为字节。当发送成功后返回True,否则返回False。
+Send wireless broadcast message, byte data type. Return True after successful transmission, otherwise return False.
 
 
 
 .. literalinclude:: /../../examples/radio/radio.py
-    :caption: 无线广播示例
+    :caption: Radio broadcasting example
     :linenos:
