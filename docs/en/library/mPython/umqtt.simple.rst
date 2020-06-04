@@ -2,19 +2,19 @@
 .. _umqtt.simple:
 
 .. module:: umqtt.simple
-   :synopsis: 简单MQTT客户端功能函数
+   :synopsis: MQTT client function
 
-:mod:`umqtt.simple` --- 简单MQTT客户端功能函数
+:mod:`umqtt.simple` --- MQTT client function
 =========================================
 
-MQTT是一种基于发布 - 订阅的“轻量级”消息传递协议，用于在TCP / IP协议之上使用。
-提供订阅/发布模式，更为简约、轻量，易于使用，针对受限环境（带宽低、网络延迟高、网络通信不稳定），可以简单概括为物联网打造。
+MQTT is a release-based - Subscription “lightweight” messaging protocol for use on top of TCP/IP protocol.
+Provide a subscription/publish model, which is more simple, lightweight, and easy to use. For limited environments (low bandwidth, high network latency, unstable network communication), it can be simply summarized as the IoT.
 
 .. Hint:: 
 
-    该模块来源于 ``MicroPython-lib`` : https://github.com/micropython/micropython-lib/tree/master/umqtt.simple
+   Module originate from ``MicroPython-lib`` : https://github.com/micropython/micropython-lib/tree/master/umqtt.simple
 
-构建对象
+create object
 -------------
 
 .. class:: MQTTClient(client_id, server, port=0, user=None, password=None, keepalive=0,ssl=False, ssl_params={})
@@ -28,59 +28,58 @@ MQTT是一种基于发布 - 订阅的“轻量级”消息传递协议，用于�
     - ``ssl``
     - ``ssl_params``
 
-方法
+Method
 --------
 
 .. method:: MQTTClient.set_callback(f)
 
-    - ``f`` - f(topic, msg) 为回调函数,第1参数为 ``topic`` 接收到的主题,第2参数为 ``msg`` 为该主题消息
+    - ``f`` - f(topic, msg) is the callback function, the first parameter is ``topic``  the received topic, the second parameter is ``msg`` is the topic message
 
 
 
-为收到的订阅消息设置回调
+Set callback for received subscription message
 
 .. method:: MQTTClient.set_last_will(topic, msg, retain=False, qos=0)
 
-    ``topic`` 和 ``msg`` 为字节类型
+    ``topic`` 和 ``msg`` Byte type
 
-设置MQTT“last will”消息。应该在 connect()之前调用。
+Set MQTT “last will” message. Should be called before connect() .
 
 .. method:: MQTTClient.connect( clean_session=True )
 
-连接到服务器。如果此连接使用存储在服务器上的持久会话，则返回True（如果使用clean_session = True参数，则返回False（默认值））。
+Connect to server. If this connection uses a persistent session stored on the server, it returns True (if the clean_session = True parameter is used, it returns False（default））.
 
 .. method:: MQTTClient.disconnect()
 
-断开与服务器的连接，释放资源。
+Disconnect from the server, release resources.
 
 .. method:: MQTTClient.ping()
 
-Ping服务器（响应由wait_msg（）自动处理）
+Ping server (response is automatically handled by wait_msg（））
 
 .. method:: MQTTClient.publish(topic, msg, retain=False, qos=0)
 
-    ``topic`` 和 ``msg`` 为字节类型
+    ``topic`` 和 ``msg`` Byte type
 
-发布消息
-
+Make an announcement
 .. method:: MQTTClient.subscribe(topic, qos=0)
 
-    ``topic`` 为字节类型
+    ``topic`` Byte type
 
-订阅主题
+Subscribe to topics
 
 .. method:: MQTTClient.wait_msg()
 
-等待服务器消息。订阅消息将通过set_callback（）传递给回调集，任何其他消息都将在内部处理。
+Waiting for server message. Subscription messages will be passed to the callback set via set_callback（）, any other messages will be processed internally. 
 
 .. method:: MQTTClient.check_msg()
 
-检查服务器是否有待处理的消息。如果是，则以与wait_msg（）相同的方式处理，如果不是，则立即返回。
+Check if the server has any pending messages. If it is, it is processed in the same way as wait_msg（）, if not, it returns immediately.
 
 
 .. Attention:: 
 
-    * wait_msg()并且check_msg()是“主循环迭代”方法，阻塞和非阻塞版本。wait_msg()如果您没有任何其他前台任务要执行（即您的应用只响应订阅的MQTT消息），check_msg() 如果您也处理其他前台任务，则应定期在循环中调用它们 。
-    * 请注意，如果您只发布消息，则不需要调用wait_msg()/ check_msg()，也不要订阅消息。
-    * 发布和订阅都支持QoS 0和1。不支持QoS2以保持较小的代码大小。除ClientID外，目前只支持“clean session”参数进行连接。
-    * 与MQTT消息相关的所有数据均编码为字节。这包括消息内容和主题名称（即使MQTT规范指出主题名称是UTF-8编码的）。原因很简单：通过网络套接字接收的是二进制数据（字节）
+    * wait_msg() and check_msg() are “main loop iteration” methods, blocking and non-blocking versions. wait_msg() if you do not have any other foreground tasks to execute (ie your application only responds to subscribed MQTT messages), check_msg() if you also handle other foreground tasks, you should call them in a loop periodically.
+    * Please note that if you only post messages, you do not need to call wait_msg()/ check_msg(), and do not subscribe to messages.
+    * Both publish and subscribe support QoS 0 and 1. Does not support QoS2 to keep code size small. Except for ClientID, currently only supports “clean session” parameter to connect.
+    * All data related to MQTT messages are encoded as bytes. This includes the message content and topic name (even if the MQTT specification states that the topic name is UTF-8 encoded). The reason is：binary data (bytes) is received via a network socket.
