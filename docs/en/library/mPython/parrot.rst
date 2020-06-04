@@ -17,7 +17,7 @@ Motor control I2C communication protocol data format:
 
 ======== ======== =========== ===========
 Type     Command   motor_no   speed(int)
-MOtor    0x01      0x01/0x02  -100~100
+Motor    0x01      0x01/0x02  -100~100
 ======== ======== =========== ===========
 
 *When 'speed' is negative, reverse; when positive, forward.*
