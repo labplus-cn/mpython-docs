@@ -435,136 +435,136 @@ Draw a solid triangle
 
 Draw a bitmap pattern
 
-    - ``x`` 、``y`` -左上角作为起点坐标
-    - ``bitmap`` -图案bitmap 的btyearray字节数组
-    - ``w`` -图案宽度
-    - ``h`` -图案高度
-    - ``c`` -为1时,像素点亮;
+    - ``x`` 、``y`` - the upper left corner as the starting point coordinate
+    - ``bitmap`` - btyearray byte array of pattern bitmap
+    - ``w`` - Pattern width
+    - ``h`` - Pattern height
+    - ``c`` - When 爱他1, the pixel lights up;
 
 
 .. method:: oled.RoundRect( x, y, w, h, r, c)
 
-绘制弧角矩形
+Draw arc rectangle
 
-    - ``x`` 、``y`` -左上角作为起点坐标
-    - ``w`` -图案宽度
-    - ``h`` -图案高度
-    - ``r`` -圆弧角半径
-    - ``c`` -为1时,像素点亮；``c`` 为0时,像素点灭。
+    - ``x`` 、``y`` - The upper left corner is used as the starting point coordinate
+    - ``w`` - Pattern width
+    - ``h`` - Pattern height
+    - ``r`` - Arc radius
+    - ``c`` - When it is 1, the pixel is on; when ``c`` is 0, the pixel is off.
 
-i2c对象
+i2c object
 -------
 
-mPython掌控板已实例 ``I2C`` 类，P19、P20 为I2C的SCL、SDA引脚。I2C设备可连接掌控板I2C总线进行操作。
+The mPython Board has been instantiated in the  ``I2C`` class, P19 and P20 are the SCL and SDA pins of I2C. I2C devices can be connected to the I2C bus of the mPython Board for operation.
 
 
-详细有关I2C的读写操作，请查看 :ref:`machine.I2C<machine.I2C>` 模块或 :ref:`I2C基础教程<tutorials_i2c>` 章节。
+Deatils of read and write I2C operations, see :ref:`machine.I2C<machine.I2C>` 模块或 :ref:`I2C基础教程<tutorials_i2c>` 章节。
 
-MPythonPin类
+MPythonPin class
 -------
 
 .. class:: MPythonPin(pin, mode=PinMode.IN,pull=None)
 
-构建Pin对象
+CReate Pin object
 
-- ``pin`` 掌控板定义引脚号，具体定义看查看 :ref:`掌控板引脚定义<mpython_pinout>` 。
+- ``pin`` mPython Board pin number definition, see :ref:`掌控板引脚定义<mpython_pinout>` 。
 
-- ``mode`` 引脚模式。未设定时,默认 `mode` = `PinMode.IN`
+- ``mode`` pin mode. Before setting, defahlt is  `mode` = `PinMode.IN`
 
-        - ``PinMode.IN`` 等于1，数字输入模式
-        - ``PinMode.OUT`` 等于2，数字输出模式
-        - ``PinMode.PWM`` 等于3，模拟输出模式
-        - ``PinMode.ANALOG`` 等于4，模拟输入模式
-        - ``PinMode.OUT_DRAIN`` 等于5，开漏输出模式
+        - ``PinMode.IN`` equals to 1，digital input mode
+        - ``PinMode.OUT`` equals to 2，digital output mode
+        - ``PinMode.PWM`` equals to 3，analog output mode
+        - ``PinMode.ANALOG`` equals to 4，analog input mode
+        - ``PinMode.OUT_DRAIN`` equals to 5，Open-drain output mode
 
-- ``pull`` 指定引脚是否连接了电阻，可以是以下之一：
+- ``pull`` specifies whether the pin is connected to a resistor, which can be one of the following：
 
-       - ``None`` - 无上拉或下拉电阻
-       - ``Pin.PULL_UP`` - 上拉电阻使能
-       - ``Pin.PULL_DOWN`` - 下拉电阻使能
+       - ``None`` - No pull-up or pull-down resistors
+       - ``Pin.PULL_UP`` - Pull-up resistor enable
+       - ``Pin.PULL_DOWN`` - Pull-down resistor enable
 
 
-示例::
+Example::
 
-        >>> from mpython import MPythonPin       #导入MPython模块
-        >>> P0=MPythonPin(0,PinMode.IN)          #构建引脚0对象，设置数字输入模式
+        >>> from mpython import MPythonPin       # import MPython moduel
+        >>> P0=MPythonPin(0,PinMode.IN)          # create pin 0 object, set digital input mode
 
 
 
 .. method:: MPythonPin.read_digital()
 
-返回该IO引脚电平值。1代表高电平，0代表低电平
+Returns the level value of this IO pin. 1 represents high level, 0 represents low level
 
 .. method:: MPythonPin.write_digital(value)
 
-IO引脚输出电平控制。``value`` =1时输出高电平， ``value`` =0时输出低电平。
+IO pin output level control. ``value`` =1 output high level, ``value`` =0 output low level.
 
 .. method:: MPythonPin.read_analog()
 
-读取ADC并返回读取结果，返回的值将在0到4095之间。
+Read ADC and return the read result, the returned value is between 0 and 4095.
 
 .. method:: MPythonPin.write_analog(duty, freq=1000):
 
-设置输出PWM信号的占空比。
+Set the duty ratio of the output PWM signal.
 
 - ``duty`` 0 ≤ duty ≤ 1023
-- ``freq`` PWM波频率,0 < freq ≤ 0x0001312D（十进制：0 < freq ≤ 78125）
+- ``freq`` PWM frequency, 0 < freq ≤ 0x0001312D（decimal base ：0 < freq ≤ 78125）
 
 
 .. _MPythonPin.irq:
 
 .. method:: MPythonPin.irq(handler=None, trigger=Pin.IRQ_RISING):
 
-如果引脚模式配置为 ``IN`` ,可配置该引脚的触发源处于活动状态时调用的中断处理程序。
+If the pin mode is configured as ``IN`` , you can configure the interrupt handler that is called when the trigger source of the pin is active.
 
-参数:
+Parameter:
 
-     - ``handler`` 是一个可选的函数，在中断触发时调用。
+     - ``handler`` is an optional function that is called when the interrupt is triggered.
 
-     - ``trigger`` 配置可以触发中断的事件。可能的值是：
+     - ``trigger`` configures events that can trigger an interrupt. Value could be：
 
-       - ``Pin.IRQ_FALLING`` 下降沿中断
-       - ``Pin.IRQ_RISING`` 上升沿中断
-       - ``Pin.IRQ_LOW_LEVEL`` 低电平中断
-       - ``Pin.IRQ_HIGH_LEVEL`` 高电平中断
+       - ``Pin.IRQ_FALLING`` falling edge interrupt
+       - ``Pin.IRQ_RISING`` rising edge interrupt
+       - ``Pin.IRQ_LOW_LEVEL`` low level interrupt
+       - ``Pin.IRQ_HIGH_LEVEL`` high level interrupt
 
-       这些值可以一起进行 ``OR`` 运算以触发多个事件。
+       These values can be used to perform  ``OR`` operations together to trigger multiple events.
 
 
 .. _mpython.wifi:
 
-wifi类
+WiFi class
 ------
 
-提供便捷的wifi连接网络方式或无线AP功能。注意,开启WiFi功能功耗会增大,如不使用情况下,可关闭WiFi可降低功耗。
+Provide convenient WiFi connection network or wireless AP function. Note that turning on the WiFi function will increase power consumption.If not in use, turning off WiFi can reduce power consumption.
 
 .. class:: wifi()
 
-构建wifi对象并会创建 ``sta`` 对象和 ``ap`` 对象。可参见 :mod:`network` 模块了解更多使用方法。
+Build WiFi object and create ``sta`` object and  ``ap`` object. See :mod:`network` 模块了解更多使用方法。
 
-    - sta用于客户端连接路由器来连接网络。
-    - ap用于掌控板作为无线AP接入方式。
-
+    - STA is used by clients to connect to routers to connect to the network。
+    - AP is used to mPython Board as a wireless AP access method
+    
 .. method:: wifi.connectWiFi(ssid,password,timeout=10)
 
-连接wifi网络
+Connect WiFi network
 
-    - ``ssid`` -WiFi网络名称
-    - ``password`` -WiFi密码
-    - ``tiemout`` -链接超时,默认10秒
+    - ``ssid`` -WiFi network ID
+    - ``password`` -WiFi Password
+    - ``tiemout`` - Link timeout, default 10 seconds
 
 .. method:: wifi.disconnectWiFi()
 
-断开wifi网络连接
+Disconnect WiFi network connection
 
 .. method:: wifi.enable_APWiFi(essid,password,channel=10)
 
-开启wifi的无线AP模式
+Open WiFi wireless AP mode
 
- - ``essid`` - 创建WiFi网络名称
- - ``password`` - 密码
- - ``channel`` -设置wifi使用信道,channel 1~13
+ - ``essid`` - create WiFi network ID
+ - ``password`` - Password
+ - ``channel`` - Set WiFi channel,channel 1~13
 
 .. method:: wifi.disable_APWiFi()
 
-关闭无线AP
+Turn off wireless AP
