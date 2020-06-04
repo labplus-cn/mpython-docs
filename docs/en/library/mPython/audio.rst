@@ -1,96 +1,96 @@
 .. _audio:
 
 .. module:: audio
-   :synopsis: 提供音频播放录音的相关功能
+   :synopsis: Provide audio playback related functions
 
-:mod:`audio` --- 提供音频播放录音的相关功能
+:mod:`audio` --- Provide audio playback related functions
 ==========
 
-该模块提供音频录音播放功能,使用P8和P9引脚作为音频解码输出。 由于掌控板无集成喇叭,并不能直接播放音源。你可以使用带集成喇叭的扩展板或自己将P8,P9外接至功放喇叭。
+This module provides audio recording and playback functions, using P8 and P9 pins as audio decoding output. As the mPython Board has no integrated speakers, it cannot directly play the audio source. You can use an expansion board with integrated speakers or connect P8 and P9 to the amplifier speakers yourself.
 
 
-函数
+Parameter
 ----------
 
-基础音频函数
+Basic audio functions
 ++++++++++++
 
-播放
+Play
 ~~~~~~~~~
 
 .. py:method:: audio.player_init()
 
-音频播放初始化,为音频解码开辟缓存
+Initialize audio playback, open up cache for audio decoding.
 
 .. py:method:: audio.play(url)
 
-本地或网络音频播放,目前只支持wav,mp3格式音频。
+Local or network audio playback, currently only supports wav, mp3 format audio.
 
-可以播放文件系统的MP3音频,或者网络的MP3音频资源。播放本地mp3音频由于受micropython文件系统限制和RAM大小限制,当文件大于1M基本很难下载下去。所以对音频文件的大小有所限制,应尽可能的小。
-当播放网络MP3音频,须先连接网络,URL必须是完整地址,如"http://wiki.labplus.cn/images/4/4e/Music_test.mp3" 。返回解码状态,当为0,说明可接受音频解码指令;当为1,说明当前正处解码状态,不能响应。
+Can play MP3 audio of the file system, or MP3 audio resources of the network. Play local mp3 audio due to micropython file system limitation and RAM size limitation, it is basically difficult to download when the file is larger than 1M. Therefore, there are restrictions on the size of audio files, which should be as small as possible.
+When playing network MP3 audio, you must first connect to the network, the URL must be a complete address, such as  "http://wiki.labplus.cn/images/4/4e/Music_test.mp3" . Returns the decoding status. When it is 0, it indicates that the audio decoding instruction is acceptable; when it is 1, it indicates that it is currently in the decoding state and cannot respond.
 
 
-    - ``url`` (str): 音频文件路径,类型为字符串。可以是本地路径地址,也可以是网络上的URL地址。 
+    - ``url`` (str): Audio file path, string type. It can be a local path address or a URL address on the network. 
 
 .. literalinclude:: /../../examples/audio/audio_play.py
-    :caption: 播放MP3音频
+    :caption: Play MP3 audio
     :linenos:
 
 
 .. py:method:: audio.set_volume(vol)
 
-设置音频音量
+Set audio volume
 
-    - ``vol`` : 音量设置,范围0~100
+    - ``vol`` : set volume, range 0~100
 
 .. py:method:: audio.stop()
 
-音频播放停止
+Stop audio play
 
 .. py:method:: audio.pause()
 
-音频播放暂停
+Pause audio play
 
 .. py:method:: audio.resume()
 
-音频播放恢复,用于暂停后的重新播放
+Audio playback resumes, used for replay after pause
 
 
 .. py:method:: audio.player_status()
 
-用于获取系统是否处于音频播放状态,返回1,说明正处于播放中,返回0,说明播放结束,处于空闲。
+Used to obtain whether the system is in the audio playback state, returns 1, indicating that it is currently playing, returns 0, indicating that the end of playback, is idle.
 
 
 .. py:method:: audio.player_deinit()
 
-音频播放结束后,释放缓存
+After the audio playback ends, release the cache
 
 
-录音
+Recording
 ~~~~~~~~~
 
 .. py:method:: audio.recorder_init()
 
-录音初始化
+Recording initialization
 
 .. py:method:: audio.record(file_name, record_time = 5)
 
-录制音频,并以 `wav` 格式存储。音频参数为8000Hz采样率,16位,单声道。
+Record audio and store in  `wav` formwt. Audio parameters are 8000Hz sampling rate, 16-bit, mono. 
 
-- ``file_name`` - wav文件存储路径
-- ``record_time`` - 录音时长,默认5秒。录音时长受文件系统空间限制,最大时长依实际情况而定。
+- ``file_name`` - wav file storage path.
+- ``record_time`` - Recording duration, default 5 seconds. The recording duration is limited by the space of the file system, and the maximum duration depends on the actual situation.
 
 .. py:method:: audio.recorder_deinit()
 
-录音结束后释放资源
+Free resources after recording
 
-示例-录音::
+Example - recording::
 
     import audio
     from mpython import *
 
     audio.recorder_init()
-    rgb[0] = (255, 0, 0)  # 用LED指示录音开始结束 
+    rgb[0] = (255, 0, 0)  # Use LED to indicate recording start and end 
     rgb.write()
     audio.record('test.wav',5)
     rgb[0] = (0, 0, 0)  
