@@ -1,12 +1,12 @@
 
 .. module:: bluebit
-   :synopsis: blue:bit驱动
+   :synopsis: blue:bit driver
 
-:mod:`bluebit` --- blue:bit驱动
+:mod:`bluebit` --- blue:bit driver
 ==================================================
 
 
-`blue:bit` 模块提供bluebit套件的掌控板库。
+`blue:bit` The module provides the mPython Board library of bluebit kit。
 
 
 .. contents::
@@ -14,7 +14,7 @@
 .. image:: http://wiki.labplus.cn/images/0/07/Bluebit套件1.png
 
 
-NTC模块
+NTC Temperature module
 -------------
 
 .. autoclass:: bluebit.NTC
@@ -25,7 +25,7 @@ NTC模块
     :member-order: bysource
 
 
-LM35模块
+LM35 Temperature module
 -------------
 
 .. autoclass:: bluebit.LM35
@@ -36,7 +36,7 @@ LM35模块
     :member-order: bysource
 
 
-四按键模块
+Joy Button module
 -------------
 
 .. autoclass:: bluebit.joyButton
@@ -46,7 +46,7 @@ LM35模块
     :special-members: '__init__' 
     :member-order: bysource
 
-温湿度模块
+Temperature-Humidity module
 -------------
 
 .. autoclass:: bluebit.SHT20
@@ -57,7 +57,7 @@ LM35模块
     :member-order: bysource
 
 
-颜色模块
+Color module
 -------------
 
 .. autoclass:: bluebit.Color
@@ -67,7 +67,7 @@ LM35模块
     :special-members: '__init__' 
     :member-order: bysource
 
-数字光线模块
+Light module
 -------------
 
 .. autoclass:: bluebit.AmbientLight
@@ -78,7 +78,7 @@ LM35模块
     :member-order: bysource
 
 
-超声波模块
+Ultrasonic module
 -------------
 
 .. autoclass:: bluebit.Ultrasonic
@@ -88,7 +88,7 @@ LM35模块
     :special-members: '__init__' 
     :member-order: bysource
 
-4段数码管模块
+4*7 SEG Display module
 -------------
 
 .. autoclass:: bluebit.SEGdisplay
@@ -98,50 +98,50 @@ LM35模块
     :special-members: '__init__' 
     :member-order: bysource
 
-8x8点阵模块
+8x8 Matrix module
 -------------
 
 .. py:class:: Matrix(i2c=i2c)
 
-8x8点阵模块控制类
+8x8 matrix module control class
 
-- ``i2c`` : I2C实例对象,默认i2c=i2c. 
+- ``i2c`` : I2C instance object, default i2c=i2c. 
 
 .. py:method:: Matrix.blink_rate(rate=None)
 
-设置像素点闪烁率
+Set pixel flicker rate
 
-- ``rate`` : 闪烁间隔时间,单位秒.默认None,常亮.
+- ``rate`` : Flashing interval time, in seconds. Default is None, always on.
 
 
 .. py:method:: Matrix.brightness(brightness)
 
-设置像素点亮度
+Set pixel brightness
 
-- ``brightness`` : 亮度级别,范围0~15.
+- ``brightness`` : Brightness level, range 0~15.
 
 
 .. py:method:: Matrix.fill(color)
 
-填充所有
+Fill all
 
--  ``color`` : 1亮;0灭
+-  ``color`` : 1 ON ; 0 OFF
 
 .. py:method:: Matrix.bitmap(bitmap)
 
-显示位图
+Display bitmap
 
--  ``bitmap`` : 8x8点阵数据
+-  ``bitmap`` : 8x8 matrix data
 
 
 .. py:method:: Matrix.show()
 
-显示生效
+Display show
 
 
-除上述函数方法外,还继承 ``FrameBuffer`` 类 ,有关其他方法,如显示字符,绘制函数。详情可查阅 micropython framebuf模块 `FrameBuffer <https://mpython.readthedocs.io/zh/master/library/micropython/framebuf.html>`_ 类.
+In addition to the above function methods, it also inherits the  ``FrameBuffer`` class, and other methods, such as displaying characters and drawing functions. For details, please refer to the  `FrameBuffer <https://mpython.readthedocs.io/zh/master/library/micropython/framebuf.html>`_ class of the micropython framebuf module.
 
-LCD1602模块
+LCD1602 module
 -------------
 
 .. autoclass:: bluebit.LCD1602
@@ -151,7 +151,7 @@ LCD1602模块
     :special-members: '__init__' 
     :member-order: bysource
 
-MIDI模块
+MIDI module
 -------------
 
 .. autoclass:: bluebit.MIDI
@@ -163,7 +163,7 @@ MIDI模块
 
 
 
-MP3模块
+MP3 module
 -------------
 
 .. autoclass:: bluebit.MP3
@@ -174,7 +174,7 @@ MP3模块
     :member-order: bysource
 
 
-OLED模块
+OLED module
 -------------
 
 .. autoclass:: bluebit.OLEDBit
@@ -185,7 +185,7 @@ OLED模块
     :member-order: bysource
 
 
-红外接收模块
+IR Receive module
 -------------
 
 .. autoclass:: bluebit.IRRecv
@@ -195,7 +195,7 @@ OLED模块
     :special-members: '__init__' 
     :member-order: bysource
 
-红外发射模块
+IR Emission module
 -------------
 
 .. autoclass:: bluebit.IRTrans
@@ -206,10 +206,10 @@ OLED模块
     :member-order: bysource
 
 
-实验探究类
+Science Exploration 
 -------------
 
-适用的模块有电压、电流、磁场、电导率、PH、光电门、气压、力传感器。
+Applicable modules are Voltage Meter, Current Meter, Magnetic Sensor, TDS Meter, PH Sensor, Photogate Timer, Pressure Sensor, Force Sensor.
 
 .. autoclass:: bluebit.DelveBit
     :members:
@@ -219,7 +219,7 @@ OLED模块
     :member-order: bysource
 
 
-编码电机模块
+Motor Encoder module
 -------------
 
 .. autoclass:: bluebit.EncoderMotor
@@ -232,7 +232,7 @@ OLED模块
 
 
 
-RFID模块
+RFID module
 -------------
 
 .. autoclass:: bluebit.Scan_Rfid
