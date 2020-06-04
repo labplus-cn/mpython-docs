@@ -1,40 +1,40 @@
 
 .. module:: sdcard
-   :synopsis: SD卡
+   :synopsis: SD Card
 
-:mod:`sdcard` --- SD卡
+:mod:`sdcard` --- SD Card
 ==================================================
 
-安全数字或SD卡和微型microSD卡价格低廉，可为设备增加大量存储空间。MicroPython，只有1M的闪存来存储代码和数据。
-如果你拥有更大的闪存空间,可以将micro SD卡通过SPI通讯方式连接到掌控板来扩展其存储空间。
+Secure digital or SD cards and micro microSD cards are inexpensive and can add a lot of storage space to the device. MicroPython, only 1M flash memory to store code and data. 
+If you have more flash memory space, you can connect the micro SD card to the control board through SPI communication to expand its storage space.
 
 
 .. figure:: https://www.digikey.com/maker-media/520920e2-79cd-4b23-8e89-1acc572496e8
     :width: 400
     :align: center
 
-    SD卡
+    SD Card
 
-SDCard类
+SDCard class
 -------------
 
 .. Class:: SDCard(spi, cs)
 
-创建SDCard对象,初始化SD卡。
+Create SDCard object, initialize SD card.
 
-首先,须确保SPI总线的引脚与micro SD卡物理连接正确。确保您的micro SD卡使用FAT或FAT32文件系统格式化。然后,用os.mount(),将SD卡虚拟新的FAT文件系统挂载到指定的目录中。
-挂载完成后,你就可以使用Python 的文件操作(如打开,关闭,读取和写入)来访问文件。
+First, make sure that the pins of the SPI bus are physically connected to the micro SD card correctly. Make sure your micro SD card is formatted with FAT or FAT32 file system. Then, use os.mount() to mount the virtual new FAT file system of the SD card into the specified directory.
+After the mount is complete, you can use Python's file operations (such as open, close, read, and write) to access the file.
 
-- ``spi`` - machine.SPI对象
-- ``cs``  - SPI的CS控制引脚
+- ``spi`` - machine.SPI object
+- ``cs``  - SPI CS control pin
 
 
 .. literalinclude:: /../../examples/file/sdcard.py
-    :caption: 示例-挂载SD卡
+    :caption: example - mount SD card
     :linenos:
 
 
 .. literalinclude:: /../../examples/file/print_directory.py
-    :caption: 示例-列出所有文件
+    :caption: example - lsit all files
     :linenos:
  
