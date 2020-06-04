@@ -1,86 +1,86 @@
 .. _music.py:
 
 .. module:: music
-   :synopsis: 音乐相关功能函数
+   :synopsis: Music related functions
 
-:mod:`music` --- 音乐相关功能函数
+:mod:`music` --- Music related functions
 =======================================
 
-``music`` 模块与micro:bit的music使用方法相同。
+``music`` module is used in the same way as the music of micro:bit.
 
-要使用music模块，你需要::
+To use the music module, you need::
 
     import music
 
-音符
+Note
 ++++
 
-以下是音符格式:
+Note format:
 
     NOTE[octave][:duration]
 
-    - ``NOTE`` - 表示音符c、d、e、f、g、a、b。注意,“#”表示将基本音级升高半音；“b”表示将基本音级降低半音。音符 ``R`` ，则将其视为休息（静音）。例如，c#为C-升半音,ab为A-降半音
-    - ``octave`` - 表示音高,默认为4，为中音
-    - ``duration`` - 表示音符持续时长的节拍,默认为4节拍
+    - ``NOTE`` - Express NOTE c、d、e、f、g、a、b. Note that “#” means to increase the basic level by a semitone; “b” means to decrease the basic level by a semitone. The Note ``R`` it is regarded as resting (silent). For example,c# is C- rising semitone, ab is A- falling semitone.
+    - ``octave`` - indicates pitch, the default is 4, which is midrange
+    - ``duration`` - Indicates the duration of the note duration, the default is 4 beats
 
 |
 
-例如，``A1:4`` 音高为1的"A"音符，持续4个节拍（节拍也可以由 ``set_tempo`` 函数设定 - 见下文）。
+Such as, ``A1:4`` "A" note with pitch 1 for 4 beats（The beat can also be set by the``set_tempo`` function-see below）.
 
 
-贝多芬第五交响曲的开头::
+The beginning of Beethoven's Fifth Symphony::
 
     ['r4:2', 'g', 'g', 'g', 'eb:8', 'r:2', 'f', 'f', 'f', 'd:8']
 
 |
 
-八度音阶的定义和范围符合本页列出的关于科学音高表示法的表格 `科学音调记号法`_.  例如，middle "C"是 ``c4`` 和concert “A”（440）是 ``a4`` 。八度音符从音符"C"开始。
+The definition and range of the octave scale are in accordance with the table on scientific pitch notation listed on this page `Scientific pitch notation`_.  Such as, middle "C" is ``c4`` and concert “A”（440） is ``a4`` . The octave note starts with the note "C" .
 
-.. _科学音调记号法: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
+.. _ Scientific tone notation: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
 
 
-函数
+Function
 ++++++++
 
 .. function:: set_tempo(ticks=4, bpm=120)
 
-    设置播放节奏。
+    Set the playback rhythm。
     
-    - ``ticks`` - 音符时值,整数。默认为4,即为四分音符为一拍。
+    - ``ticks`` - Note time, integer. The default is 4, which means the quarter note is a beat.
   
-    - ``bpm`` - 节拍速度,整数。单位,bmp(每分钟节拍数)。
+    - ``bpm`` - Beat speed, integer. Unit, bmp (beats per minute).
  
 |
 
-    可参考以下设置播放节奏:
+    Referrence for playback rhythm setting:
 
-    * ``music.set_tempo()`` - 将播放节奏设置恢复为 ticks = 4, bpm = 120
-    * ``music.set_tempo(ticks=8)`` - 只改变音符时值,八分音符为一拍
-    * ``music.set_tempo(bpm=180)`` - 只改变节拍速度
+    * ``music.set_tempo()`` - Restore the playback rhythm setting to ticks = 4, bpm = 120
+    * ``music.set_tempo(ticks=8)`` - Only change the note time, eighth note is one beat
+    * ``music.set_tempo(bpm=180)`` - Only change the tempo
 
 |
 
-    计算节拍时长（以毫秒为单位）的计算方式： `60000/bpm/ticks_per_beat` ::
+    To compute the beat duration (in milliseconds)： `60000/bpm/ticks_per_beat` ::
     
-        对于默认的值, 60000/120/4 = 125 milliseconds or 1 beat = 500 milliseconds
+        For the default value, 60000/120/4 = 125 milliseconds or 1 beat = 500 milliseconds
 
 .. function:: get_tempo()
 
-    获取当前速度作为整数元组: ``(ticks, bpm)``.
+    Get current velocity as an integer tuple: ``(ticks, bpm)``.
 
 .. function:: play(music, pin=6, wait=True, loop=False)
 
     - ``music`` 
 
-        - 播放 ``music`` 包含上面定义的音乐DSL。
+        - Play ``music`` with the music DSL defined above。
 
-        - 如果 ``music`` 是一个字符串，则应该是单个音符，例如 ``'c1:4'``。
+        - If ``music`` is a string, it should be a single note, for example ``'c1:4'``。
 
-        - 如果 ``music`` 被指定为音符列表（如上面音乐DSL部分中所定义），则它们一个接一个地播放以执行旋律。
+        - If ``music``  is specified as a list of notes (as defined in the Music DSL section above), they are played one after another to perform the melody.
 
-    - ``pin`` 默认是掌控板的P6引脚
+    - ``pin`` he default is the P6 pin of the mPython Board
 
-    - ``wait`` 阻塞：如果 ``wait`` 设置为 ``True``, 为阻塞,否则未不。
+    - ``wait`` blocking: If  ``wait`` is set as ``True``, it is blocking, otherwise it is not.
 
     - ``loop`` ：如果 ``loop`` 设置为 ``True`` ，则重复调整直到stop被调用（见下文）或阻塞调用被中断。
    
