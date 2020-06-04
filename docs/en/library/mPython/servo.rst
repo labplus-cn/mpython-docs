@@ -1,52 +1,52 @@
 .. _servo_api:
 
 .. module:: servo
-   :synopsis: 舵机驱动功能函数
+   :synopsis: Servo driver function
 
 
-:mod:`servo` --- 舵机驱动功能函数
+:mod:`servo` --- Servo driver function
 ==========
 
-Servo类
+Servo class
 -------
 
 .. class:: Servo(pin, min_us=750, max_us=2250, actuation_range=180)
 
-构建Servo对象,默认使用SG90舵机。不同舵机脉冲宽度参数和角度范围会有所不一样,根据舵机型号自行设置。
+Construct Servo object, use SG90 servo by default. Different servos have different pulse width parameters and angle ranges, which can be set according to the servo model.
 
 .. Hint:: 
 
-    作为Servo控制引脚须为支持PWM(模拟输出)的引脚。掌控板支持PWM的引脚,详情可查阅 :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
+    Servo control pin must be a pin that supports PWM (analog output). mPython Board supports PWM pins, for details, see :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
 
 .. Attention:: 
 
-    * 你可以设置 ``actuation_range`` 来对应用给定的 ``min_us`` 和 ``max_us`` 观察到的实际运动范围值。
-    * 您也可以将脉冲宽度扩展到这些限制之上和之下伺服机构可能会停止，嗡嗡声，并在停止时吸收额外的电流。仔细测试，找出安全的最小值和最大值。
-    * 由于舵机PWM周期为20ms,即响应时间为20ms。在编程时须注意两次写舵机角度间隔时间应至少大于20ms。
+    * Set  ``actuation_range`` to apply the actual motion range values observed for ``min_us`` and ``max_us`` .
+    * To extend the pulse width above and below these limits. The servo may stop, buzz, and absorb additional current when stopped. Test carefully to find the safe minimum and maximum.
+    * Because the servo PWM cycle is 20ms, the response time is 20ms. When programming, pay attention to the interval between writing the servo angle twice should be at least greater than 20ms。
 
-- ``pin`` -舵机PWM控制信号引脚
-- ``min_us`` -舵机PWM信号脉宽最小宽度,单位微秒。默认min_us=750
-- ``max_us`` -舵机PWM信号脉宽最大宽度,单位微秒。默认max_us=2250
-- ``actuation_range`` -舵机转动最大角度
+- ``pin`` - Servo PWM control signal pin
+- ``min_us`` - The minimum width of the pulse width of the servo PWM signal, in microseconds. Default min_us=750
+- ``max_us`` - The maximum pulse width of the servo PWM signal, in microseconds. Default max_us=2250
+- ``actuation_range`` - Maximum turning angle of servo
 
 
 .. method:: Servo.write_us(width)
 
-发送设置脉冲宽度的PWM信号。
+Send PWM signal with set pulse width。
 
-    - ``width`` -脉冲宽度,单位微秒。
+    - ``width`` -Pulse width in microseconds.
 
 .. method:: Servo.write_angle(angle)
 
-写舵机角度
+Write servo angle
 
-    - ``angle`` -舵机角度。
+    - ``angle`` - servo angle.
 
 
 ::
 
     from mpython import *
-    from servo import Servo                 #导入舵机模块
+    from servo import Servo                 #import servo module
 
     s=Servo(0)
 
