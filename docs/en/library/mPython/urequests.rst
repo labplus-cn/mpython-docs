@@ -2,106 +2,106 @@
 .. _urequests:
 
 .. module:: urequests
-   :synopsis: HTTP客户端的相关功能函数,提供各种HTTP请求方式
+   :synopsis: Relevant functional functions of the HTTP client, providing various HTTP request methods
 
-:mod:`urequests` --- HTTP客户端的相关功能函数
+:mod:`urequests` --- Related functions of HTTP client
 ================
 
-之前我们用了 socket 库，这个作为入门的工具还是不错的，对了解一些爬虫的基本理念，掌握爬虫爬取的流程有所帮助。
-入门之后，我们就需要学习一些更加高级的内容和工具来方便我们的爬取。
-那么这一节来简单介绍一下 urequests 库的基本用法。
+Before we used the socket library, this tool as a primer is still good, for understanding the basic concepts of some crawlers, its helpful to master it.
+After get started, we need to learn some more advanced content and tools to facilitate our crawling.
+Then this section briefly introduces the basic usage of urequests library.
 
-Response类
+Response class
 ---------
 
 .. class:: Response(s)
 
-该Response类的对象，包含服务器对HTTP请求的响应。
+The Response class object contains the server's response to the HTTP request.
 
-    - ``s``-ussl对象
+    - ``s``-ussl object
 
-方法
+Method
 ~~~~~~~
 
 .. method:: close()
 
-关闭socket。
+Shutdown socket。
 
 .. decorator:: content
 
-返回响应的内容，以字节为单位。
+Returns the content of the response, in bytes.
 
 .. decorator:: text
 
-以文本方式返回响应的内容，编码为unicode。
+Return the content of the response as text, encoded as unicode.
 
 .. method:: json()
 
-返回响应的json编码内容并转为dict类型。
+Return response json encoded content and convert to dict type.
 
-方法
+Method
 ---------
 
 .. method:: request(method, url, data=None, json=None, headers={},params=None,files=None)
 
-向服务器发送HTTP请求。
+Send an HTTP request to the server.
 
-    - ``method`` - 要使用的HTTP方法
-    - ``url`` - 要发送的URL
-    - ``data`` - 要附加到请求的正文。如果提供字典或元组列表，则将进行表单编码。
-    - ``json`` - json用于附加到请求的主体。
-    - ``headers`` - 要发送的标头字典。
-    - ``params`` - 附加到URL的URL参数。如果提供字典或元组列表，则将进行表单编码。
-    - ``files`` - 用于文件上传,类型为2元组,其中定义了文件名,文件路径和content类型。如下,{‘name’, (file directory,content-type)}
+    - ``method`` - HTTP method to use
+    - ``url`` - URL to send
+    - ``data`` - To append to the body of the request. If a dictionary or tuple list is provided, the form will be encoded.
+    - ``json`` - json is used to attach to the body of the request.
+    - ``headers`` - Dictionary of headers to send.
+    - ``params`` - URL parameters attached to the URL. If a dictionary or tuple list is provided, the form will be encoded.
+    - ``files`` - Used for file upload, the type is 2-tuple, which defines the file name, file path and content type. As follows,{‘name’, (file directory,content-type)}
 
 
 .. method:: head(url, **kw)
 
-发送HEAD请求,返回Response对象。
+Send HEAD request and return Response object.
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - Request object URL
+    - ``**kw`` - The parameters of the request method.
 
 .. method:: get(url, **kw)
 
-发送GET请求,返回Response对象。
+Send GET request and return Response object.
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - Request object URL
+    - ``**kw`` - Parameters of request method.
 
 .. method:: post(url, **kw)
 
-发送POST请求,返回Response对象。
+Send POST request and return Response object.
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - Request object URL
+    - ``**kw`` - Parameters of request method.
     
 
 .. method:: put(url, **kw)
 
-发送PUT请求,返回Response对象。
+Send PUT request and return Response object.
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - RRequest object URL
+    - ``**kw`` - Parameters of request method.
     
 .. method:: patch(url, **kw)
 
-送PATCH请求,返回Response对象。
+Send PATCH request, return Response object.
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - Request object URL
+    - ``**kw`` - Parameters of request method.
 
 
     
 .. method:: delete(url, **kw)
 
-发送DELETE请求。,返回Response对象。
+Send a DELETE request. Return Response object。
 
-    - ``url`` - Request对象的URL
-    - ``**kw`` - request方法的参数。
+    - ``url`` - Request object URL
+    - ``**kw`` - Parameters of request method.
 
 
 
 .. literalinclude:: /../../examples/network/example_requests.py
-    :caption: requests示例
+    :caption: requests example
     :linenos:
