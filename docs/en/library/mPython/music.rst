@@ -82,77 +82,77 @@ Function
 
     - ``wait`` blocking: If  ``wait`` is set as ``True``, it is blocking, otherwise it is not.
 
-    - ``loop`` ：如果 ``loop`` 设置为 ``True`` ，则重复调整直到stop被调用（见下文）或阻塞调用被中断。
+    - ``loop`` ：If ``loop`` set as ``True`` ，then repeat the adjustment until stop is called (see below) or blocking call is interrupted.
    
 
 .. function:: pitch(frequency, duration=-1, pin=Pin.P6, wait=True)
 
-    - ``frequency``, ``duration``:以给定指定毫秒数的整数频率播放频率。例如，如果频率设置为440并且长度设置为1000，那么我们会听到标准A调一秒钟。
+    - ``frequency``, ``duration``:Play frequency at an integer frequency given a specified number of milliseconds. For example, if the frequency is set to 440 and the length is set to 1000, then we will hear the standard A tune for one second.
 
-        如果 ``duration`` 为负，则连续播放频率，直到阻塞或者被中断，或者在后台呼叫的情况下，设置或调用新频率stop（见下文）。
+        If ``duration`` is negative, the frequency will be played continuously until it is blocked or interrupted, or in the case of a background call, set or call a new frequency stop (see below).
 
-    - ``pin`` pin=Pin.P6,默认是掌控板的P6引脚。可重定义其他引脚。
+    - ``pin`` pin=Pin.P6, the default is the P6 pin of the control board. Redefinable other pins.
 
-        请注意，您一次只能在一个引脚上播放频率。
+        Please note that you can only play frequencies on one pin at a time.
 
-    - ``wait`` 阻塞：如果 ``wait`` 设置为 ``True``, 为阻塞,否则未不。
+    - ``wait`` blocking：If ``wait`` is set to ``True``,  it is blocking, otherwise it is not.
 
 
 .. function:: stop()
     
-   停止给定引脚上的所有音乐播放。
+   Stop all music playback on a given pin.
 
 
 .. function:: reset()
 
-    以下列方式重置以下属性的状态
+    Reset the status of the following properties in the following way
 
         * ``ticks = 4``
         * ``bpm = 120``
         * ``duration = 4``
         * ``octave = 4``
 
-内置旋律
+Built-in melody
 ++++++++
 
-出于教育和娱乐的目的，该模块包含几个以Python列表表示的示例曲调。它们可以像这样使用：
+For educational and entertainment purposes, this module contains several example tunes expressed in Python lists. They can be used like this：
 
     >>> import music
     >>> music.play(music.NYAN)
 
-所有音乐都不受版权保护，由Nicholas H.Tollervey撰写并发布到公共领域或者有一位不知名的作曲家，并受到公平（教育）使用条款的保护。
+All music is not protected by copyright, written by Nicholas H. Tollervey and released to the public domain or has an unknown composer, and is protected by fair (educational) terms of use.
 
-它们是:
+They were:
 
-    * ``DADADADUM`` - 贝多芬第五交响曲C小调开幕式。
-    * ``ENTERTAINER`` - 斯科特乔普林的Ragtime经典作品“The Entertainer”的开场片段。
-    * ``PRELUDE`` - JSBach的48首前奏曲和赋格曲的第一首C大调前奏曲的开篇。
-    * ``ODE`` - 贝多芬第七交响曲D小调的“欢乐颂”主题。
-    * ``NYAN`` - Nyan Cat主题 (http://www.nyan.cat/). 作曲家不详。
-    * ``RINGTONE`` - 听起来像手机铃声的东西。用于指示传入消息。
-    * ``FUNK`` - 为秘密特工和犯罪主谋提供的时髦低音系列。
-    * ``BLUES`` - 一个boogie-woogie 12杆蓝调步行低音。
-    * ``BIRTHDAY`` - “生日快乐" 版权状态见: http://www.bbc.co.uk/news/world-us-canada-34332853
-    * ``WEDDING`` - 来自瓦格纳歌剧“Lohengrin”的新娘合唱。.
-    * ``FUNERAL`` -  “葬礼进行曲”，也被称为FrédéricChopin的钢琴奏鸣曲第2号B-minor,Op 35。
-    * ``PUNCHLINE`` -一个有趣的片段表明一个笑话已经被创造出来了。
-    * ``PYTHON`` - John Philip Sousa的游行“Liberty Bell”又名“Monty Python's Flying Circus”的主题（之后以Python编程语言命名）。
-    * ``BADDY`` - 沉默的电影时代入口的一个坏人。
-    * ``CHASE`` - 无声电影时代的追逐场景。
-    * ``BA_DING`` - 表示发生了某些事情的短信号
-    * ``WAWAWAWAA`` - 一个非常悲伤的长号。
-    * ``JUMP_UP`` - 用于游戏，表示向上移动。
-    * ``JUMP_DOWN`` - 用于游戏，表示向下移动。
-    * ``POWER_UP`` - 一种炫耀，表明一项成就被释放。
-    * ``POWER_DOWN`` - 一种悲伤，表示一项成就已经失去。
-    * ``GE_CHANG_ZU_GUO`` - 歌唱祖国
-    * ``DONG_FANG_HONG`` - 东方红
-    * ``CAI_YUN_ZHUI_YUE`` - 彩云追月
-    * ``ZOU_JIN_XIN_SHI_DAI`` - 走进新时代
-    * ``MO_LI_HUA`` - 茉莉花
-    * ``YI_MENG_SHAN_XIAO_DIAO`` - 沂蒙山小调
+    * ``DADADADUM`` - Opening Ceremony of Beethoven's Fifth Symphony in C minor.
+    * ``ENTERTAINER`` - The start portion of Scott Joplin's Ragtime classic "The Entertainer"。
+    * ``PRELUDE`` - The start portion of JSBach’s 48 preludes and the first prelude in C major.
+    * ``ODE`` - Theme of "Ode to Joy" in D minor by Beethoven's Seventh Symphony.
+    * ``NYAN`` - Nyan Cat theme (http://www.nyan.cat/). Composer unknown.
+    * ``RINGTONE`` - Ringtone for incoming messages.
+    * ``FUNK`` - Trendy bass series for secret agents and criminal masterminds.
+    * ``BLUES`` - A boogie-woogie 12-bar blues walking bass。
+    * ``BIRTHDAY`` - See the copyright status of “Happy Birthday" : http://www.bbc.co.uk/news/world-us-canada-34332853
+    * ``WEDDING`` - Chorus of the bride from Wagner's opera "Lohengrin".
+    * ``FUNERAL`` -  “Funeral March”, also known as Frédéric Chopin's Piano Sonata No. 2 B-minor, Op 35.
+    * ``PUNCHLINE`` - An interesting clip shows that a joke has been created。
+    * ``PYTHON`` - John Philip Sousa's parade “Liberty Bell” aka “Monty Python's Flying Circus” theme (later named after the Python programming language).
+    * ``BADDY`` - A bad guy at the entrance to the silent movie era.
+    * ``CHASE`` - Chase scenes in the silent movie era.
+    * ``BA_DING`` - A short signal that something happened.
+    * ``WAWAWAWAA`` - A very sad trombone.
+    * ``JUMP_UP`` - Used for games, which means moving up.
+    * ``JUMP_DOWN`` - Used for games, means moving down.
+    * ``POWER_UP`` - A flaunt, indicating that an achievement was released.
+    * ``POWER_DOWN`` - A flaunt, indicating that an achievement was released.
+    * ``GE_CHANG_ZU_GUO`` - "Ode to the Motherland", a Chinese local song
+    * ``DONG_FANG_HONG`` - "Oriental Red", a Chinese local song
+    * ``CAI_YUN_ZHUI_YUE`` - "Rainbow, cloud and Moon), a Chinese local song
+    * ``ZOU_JIN_XIN_SHI_DAI`` - "Into A New Era", a Chinese local song
+    * ``MO_LI_HUA`` - "Jasmine Flower", a Chinese local song
+    * ``YI_MENG_SHAN_XIAO_DIAO`` - "Yimeng Mountain", a Chinese local song
 
-示例::
+Example::
 
     """
         music.py
