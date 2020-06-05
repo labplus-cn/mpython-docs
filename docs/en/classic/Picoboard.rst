@@ -159,34 +159,34 @@ Slider           Touchpad
 
 .. admonition:: prompt
 
-    当掌控板模拟PicoBoard在Scratch中使用时，注意掌控板的传感器的数值有所变化，如在mPython中，光线传感器的检测数值范围在0~4095之间，而在Scratch中，其数值范围为0~100。在Scratch中查看掌控板传感器参数的方法如下：在脚本栏“更多积木”下，点击相应的积木模块。以按键A为例，在按下与未按下两种条件下，点击“阻力A传感器的值”积木，未按下数值为0，按下数值为100，其他传感器查看方法同理。
+    When the mPython Board simulates the use of PicoBoard Scratch, note that the value of the sensor of the control board has changed,  for example, in mPython, the detection value range of the light sensor is between 0~4095, while in Scratch, the value range is 0~100. The method to view the sensor parameters of the mPython Board in Scratch is as follows：Under “More blocks” in the script bar, click on the corresponding block module. Use button A as example, under the two conditions of pressing and not pressing, click on the "Resistance A Sensor Value" building block. The value of unpressed is 0, and the value of pressed is 100. The same is true for other sensors.
 
-掌控板与Scratch连接
+mPython Board and Scratch connect
 ++++++++++++++++++++++++++++
 
-* 1、将上面的程序刷入掌控板，设为默认运行；
-* 2、打开Scratch软件（这里使用2.0版本），单击脚本栏的“更多积木”中的“添加扩展”，添加“PicoBroad”硬件；
-* 3、添加“PicoBroad”后，Scratch界面上会出现“PicoBoard”指令模块。当“PicoBoard”右边的黄色圆点变成绿色，同时掌控板上的三个RGB灯闪烁，此时表示掌控板与Scratch连接成功；
-* 4、连接成功后，就可以在Scratch中做一些互动程序了。
+* 1、Flash the above program into the mPython Board and set it to run by default；
+* 2、Open the Scratch software (version 2.0 is used here), Click “Add Extension” in “More Blocks” in the script bar to add “PicoBroad” hardware；
+* 3、After adding “PicoBroad”, the “PicoBoard” instruction module will appear on the Scratch interface. When the yellow dot on the right side of“PicoBoard” turns green, and the three RGB lights on the control panel flash at the same time, it means the connection between the control panel and Scratch is successful；
+* 4、After the connection is successful, you can do some interactive programs in Scratch.
 
 .. image:: /../images/classic/scratch.jpg
     :scale: 50%
     :align: center
 
-Scratch软件编辑图形化程序
+Scratch software editing graphical program
 ++++++++++++++++++++++++++++
 
-示例下载 :download:`Scratch示例 </../tools/Scratch.zip>` 。
+Sample download :download:`Scratch示例 </../tools/Scratch.zip>` 。
 
 .. image:: /../images/classic/scratch.gif
     :scale: 50%
     :align: center
 
-退出Scratch，返回repl模式
+Exit Scratch，return to REPL mode
 +++++++++++++++++++++++++++++++++++
 
-掌握板在scratch模式时是无法读取文件和刷入程序的。如果想返回mPython2读取文件或刷入程序，必须使掌控板退出scratch模式，进入repl模式。方法如下：
-* 同时按下复位键和button b后，先松开复位按键2秒后，当OLED显示屏上显示“replMode”字样时再松开button b，此时成功返回到repl模式，如图所示：
+The mPython Board cannot read files and flash programs when in SCRATCH mode. To return to mPython2 to read files or flash into the program, first the mPython Board need to exit SCRATCH mode, then enter REPL mode. Method as follows：
+* After pressing the reset button and button b at the same time, first release the reset button for 2 seconds, then release the button b when the word “replMode” is displayed on the OLED display, then successfully return to repl mode, as shown：
 
 .. image:: /../images/classic/replmode.jpg
     :scale: 35%
