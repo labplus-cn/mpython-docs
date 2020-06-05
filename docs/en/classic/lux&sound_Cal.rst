@@ -1,7 +1,7 @@
-照度/噪声计
+Illuminance/Noise Meter
 ==========
 
-用掌控板板载的麦克风和光线传感器，可以制作个检测环境的噪声计或者照度计！
+With the microphone and light sensor on the mPython Board, coding to use it as noise meter or illuminance meter for detecting the environment！
 
 ::
 
