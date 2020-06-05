@@ -1,23 +1,23 @@
-钢琴
+Piano
 ==========
 
-使用music模块和掌控板上的触摸按键，制作一个简易的7音阶触摸钢琴。
+Use the music module and the mPython Board touchpad to make a simple 7-scale touch piano.
 
 ::
 
-    from mpython import *               # 导入mpython模块
-    import music                        # 导入music模块
+    from mpython import *               # import mpython module
+    import music                        # miport music module
 
-    note=["C4:2","D4:2","E4:2","F4:2","G4:2","A4:2","B4:2"]     # 定义7音阶的元组
+    note=["C4:2","D4:2","E4:2","F4:2","G4:2","A4:2","B4:2"]     # Tuple defining 7 scales
 
-    pStatus,yStatus,tStatus,hStatus,oStatus,nStatus,p0Status=[1]*7  # 按键状态标记变量
+    pStatus,yStatus,tStatus,hStatus,oStatus,nStatus,p0Status=[1]*7  # Key status flag variable
  
-    p0 = TouchPad(Pin(33))              # 由于掌控板上的触摸按键只有6个，还需拓展多一个引脚P0，对应ESP32的IO33
+    p0 = TouchPad(Pin(33))              # As only 6 touchpads on the mPython Board, one more is required, expand pin P0, corresponding to IO33 of ESP32
 
     while True:
-        if touchPad_P.read()<100 and pStatus==1:      # 检测按键按下和判断按键标记
-            music.play(note[0])                       # 播放音符
-            pStatus=0                                 # 按键标记置0
+        if touchPad_P.read()<100 and pStatus==1:      # Detect key press and judge key mark
+            music.play(note[0])                       # Play notes
+            pStatus=0                                 # Button mark set to 0
         elif touchPad_P.read()>=100:
             pStatus=1
         if touchPad_Y.read()<100 and yStatus==1:
