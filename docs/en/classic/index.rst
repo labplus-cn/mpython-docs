@@ -1,4 +1,4 @@
-Get Started - My Code
+Get Started - Coding Example
 =======
 
 .. toctree::
