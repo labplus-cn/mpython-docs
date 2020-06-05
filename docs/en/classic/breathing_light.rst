@@ -1,4 +1,4 @@
-呼吸灯
+The Breathing Lamp
 =============
 
 .. literalinclude:: /../../examples/pin/breathing_light.py
