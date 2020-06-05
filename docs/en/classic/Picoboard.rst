@@ -1,13 +1,13 @@
 Picoboard-Scratch
 ==============================
-掌控板可以模拟Scratch中的传感板PicoBoard来使用。要使用掌控板模拟PicoBoard在Scratch中编程，首先需要把建立掌控板与Scratch之间的联系的程序刷入掌控板中。
+The mPython Board can simulate SCRATCH to use on the PicoBoard. Use of mPython Board to simulate PicoBoard SCRATCH programming, first to establishes the connection between the mPython Board and Scratch, then program flashed into the mPython Board.
 
-刷入程序
+Flashed the program
 +++++++++++++++++++++
 
 :: 
 
-    # mPython掌控板模拟Scratch PicoBoard
+    # mPython Board simulation Scratch PicoBoard
 
     #------------------------------------------------------
     # Channel | PicoBoard       |  mPython                |
@@ -22,8 +22,8 @@ Picoboard-Scratch
     # 7       | Slider          | TouchPad                |
     # -----------------------------------------------------
 
-    # 操作说明：正常启动默认进入scratch模式；退回到repl模式，同时按下复位和button b后，
-    #          先松开复位按键2秒后再松开button b
+    # Instructions：Normal startup enters scratch mode by default；Back to REPL mode, after pressing Reset Button and Button B at the same time，
+    #               Release the Reset Button for 2 seconds and then release Button B
 
     from mpython import *
     from machine import UART
@@ -54,14 +54,14 @@ Picoboard-Scratch
     0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
     ])
 
-    if button_b.value()==0:               #启动检测 button b 按下进入repl
+    if button_b.value()==0:               #Start detection, press Button B to enter REPL
         scratchMode=False
         #print('replMode')
         oled.DispChar('replMode',30,20)
         oled.show()
 
-    # 触摸按键扫描
-    # 6个触摸按键按下，scratch依次分别反馈10、20、30、40、50、60
+    # Touchpad scan
+    # pressed the 6 touchpads, SCRATCH feedback 10, 20, 30, 40, 50, 60 respectively
 
     def ScanTouchpad():
         if touchPad_P.read() <200:
@@ -98,7 +98,7 @@ Picoboard-Scratch
 
         while True:
 
-            if uart.readinto(request) == 1 and request[0] == 0x01:       #当接收到scratch发来的0x01字节
+            if uart.readinto(request) == 1 and request[0] == 0x01:       #When receiving the 0x01 byte sent from SCRATCH
                 rgb.fill((0,20,0))
                 rgb.write()
                 convert(15, 0x04)
@@ -141,23 +141,23 @@ Picoboard-Scratch
                 rgb.fill((0,0,0))
                 rgb.write()
 
-此程序是将掌控板与Scratch建立联系，当刷入该程序后，掌控板就与Scratch PicoBoard建立了联系，这样掌控板就能够模拟PicoBoard上的传感器来使用。
-PicoBoard上的传感器与掌控板的一一对应，如下表：
+This program is to establish a connection between the mPython Board and SCRATCH. When the program is flashed, the mPython Board establishes contact with the Scratch PicoBoard, so that the control panel can simulate the sensors on the PicoBoard to use。
+The sensors on the PicoBoard correspond one-to-one with the control board, as shown in the table below：
 
-==========  ====================================  
- PicoBoard  掌控板
-==========  ====================================  
-阻力A        按键A
-阻力B        按键X
-阻力C        按键Y
-阻力D        ext(P3)
-按键         按键B
-光线         光线
-声音         声音
-滑杆         触摸按键
-==========  ====================================  
+==============  ================  
+ PicoBoard       mPython Board
+==============  ================  
+Resistance A     Button A
+Resistance B     Button X
+Resistance C     Button Y
+Resistance D     ext(P3)
+Button           Button B
+Light            Light
+Sound            Sound
+Slider           Touchpad
+=============  =================  
 
-.. admonition:: 提示
+.. admonition:: prompt
 
     当掌控板模拟PicoBoard在Scratch中使用时，注意掌控板的传感器的数值有所变化，如在mPython中，光线传感器的检测数值范围在0~4095之间，而在Scratch中，其数值范围为0~100。在Scratch中查看掌控板传感器参数的方法如下：在脚本栏“更多积木”下，点击相应的积木模块。以按键A为例，在按下与未按下两种条件下，点击“阻力A传感器的值”积木，未按下数值为0，按下数值为100，其他传感器查看方法同理。
 
