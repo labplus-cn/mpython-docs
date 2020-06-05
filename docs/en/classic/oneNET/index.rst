@@ -1,4 +1,4 @@
-oneNET物联网
+oneNET IoT
 ===========
 
 .. toctree::
