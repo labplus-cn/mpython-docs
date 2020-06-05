@@ -1,7 +1,7 @@
-音乐盒
+Musical Box
 ==========
 
-使用music模块内置歌曲结合掌控板的a,b按键，实现对歌曲的切换。这样就能完成个简单的音乐播放盒！
+Built-in Songs in the music module, use user button A & B (on the mPython Board) for selection (up, down)！
 
 ::
 
@@ -45,4 +45,4 @@
             bStatus=1
 
 
-除了播放music内置的歌曲以外，你还可以自编乐谱哦！
+Other than playing music built-in music, you also can compose your own！
