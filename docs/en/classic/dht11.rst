@@ -1,21 +1,21 @@
-DHT11读取温湿度
+DHT11 Sensor (Temperature and Humidity)
 ==========
 
 
-DHT11数字温湿度传感器是一款含有已校准数字信号输出的温湿度复合传感器，它应用专用的数字模块采集技术和温湿度传感技术，确保产品具有极高的可靠性和卓越的长期稳定性。传感器包括一个电阻式感湿元件和一个NTC测温元件，并与一个高性能8位单片机相连接。因此该产品具有品质卓越、超快响应、抗干扰能力强、性价比极高等优点。
+DHT11 digital temperature and humidity sensor is a temperature and humidity composite sensor with calibrated digital signal output. It uses a dedicated digital module acquisition technology for temperature and humidity sensing technology to ensure that the product has extremely high reliability and excellent long-term stability. The sensor includes a resistive humidity sensing element and an NTC temperature measuring element, and is connected with a high-performance 8-bit microcontroller. Therefore, the product has the advantages of excellent quality, ultra-fast response, strong anti-interference ability, and extremely high cost performance.
 
 .. image:: /../images/classic/dht11.png
     :scale: 50 %
     :align: center
 
-DHT11数字温湿度传感器和掌控板连接需要借助掌控扩展版，在掌控扩展版中DHT11可使用的引脚有P0/1/8/9/13/14/15/16，在这里使用引脚0。将掌控板插在掌控扩展板上，通过双母头杜邦线将DHT11和扩展板进行连接，DHT11上的“+”连接扩展板的电源口“V”，“-”连接扩展板的地线口“G”，“out”连接扩展板的引脚“0”。
+The connection between DHT11 digital temperature, humidity sensor with the mPython Board requires the Expansion Board, utilize its connection pins. The pins available for DHT11 are P0/1/8/9/13/14/15/16. Recommended to use Pin 0. Mount the mPython Board to the Expansion Board as shown, DHT11 to Expansion Board through the dual female Dupont cable, DHT11 "+" connect to Expansion Board "V",  "-" to "G", “out” to “0” respectively.
 
 .. image:: /../images/classic/dhtconnect.jpg
     :scale: 60 %
     :align: center
 
 
-例：显示DHT11读取的温湿度
+Example: Display DHT11 temperature and humidity reading
 ::
 
     from mpython import *
@@ -26,9 +26,9 @@ DHT11数字温湿度传感器和掌控板连接需要借助掌控扩展版，在
     while True:
         dht.measure()
         oled.fill(0)
-        oled.DispChar("温度:",0,10)
+        oled.DispChar("Temperature:",0,10)
         oled.text("%d" % (dht.temperature()), 48, 14)
-        oled.DispChar("湿度:",0,35)
+        oled.DispChar("Humidity:",0,35)
         oled.text("%d" % (dht.humidity()), 48, 40)
         oled.show()
         sleep_ms(100)
@@ -38,16 +38,16 @@ DHT11数字温湿度传感器和掌控板连接需要借助掌控扩展版，在
     :align: center
 
 
-使用前，导入mpython模块和DHT11类::
+First, import mPython module and DHT11 class::
 
   from mpython import *
   from dht import DHT11
 
-实例化DHT11类，并设置mPython引脚P0::
+Instantiate the DHT11 class and set the mPython pin P0::
 
   dht=DHT11(Pin(Pin.P0))
 
-DHT11测量并返回温湿度数据::
+DHT11 measures and returns temperature and humidity data::
 
   dht.measure()
   dht.temperature()
@@ -55,4 +55,5 @@ DHT11测量并返回温湿度数据::
 
 .. Note::
 
-  ``dht.measure()`` 为DHT11测量温湿度数据指令，测量后使用 ``dht.temperature()`` 、 ``dht.humidity()`` 获取测量的温湿度值。
+``dht.measure()`` is the instruction to measure temperature and humidity data for DHT11, use ``dht.temperature()`` 、 ``dht.humidity()`` to get the measured temperature and humidity value after measurement.
+  。
