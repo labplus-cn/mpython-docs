@@ -1,28 +1,28 @@
-数字模拟时钟
+Digital analog clock
 ==========
 
-我们可以将OLED显示屏结合WiFi功能制作数字模拟时钟，通过WiFi连接网络来获取国际标准时间，将时间显示在OLED显示屏上。
+Integrate the OLED display and the WiFi function to construct a digital analog clock, connect to the network via WiFi to obtain the international standard time, and display it on the OLED display.
 
-数字时钟
+Digital clock
 +++++++
 
 :: 
 
-    import ntptime,network     # 导入国际标准时间、网络模块
+    import ntptime,network     # Import international standard time, network module
     from mpython import*
-    from machine import Timer  # 导入计时模块
+    from machine import Timer  # Import timing module
 
     mywifi=wifi()
-    mywifi.connectWiFi("ssid","password")  # WiFi设置
+    mywifi.connectWiFi("ssid","password")  # WiFi setting
 
     try:
         ntptime.settime()
     except OSError :
-        oled.DispChar("ntp链接超时,请重启!",0,20)    
+        oled.DispChar("ntp link timeout, please restart!",0,20)    
         oled.show()
     else:
 
-        def get_time(_):   #定义时钟刷屏时间
+        def get_time(_):   #Define clock refresh time
             t = time.localtime()
             print("%d年%d月%d日 %d:%d:%d"%(t[0],t[1],t[2],t[3],t[4],t[5]))  
             oled.DispChar("{}年{}月{}日" .format(t[0],t[1],t[2]),20,8)
@@ -34,61 +34,61 @@
 
         tim1.init(period=1000, mode=Timer.PERIODIC, callback=get_time)  
 
-数字时钟是取代模拟表盘而以数字显示的钟表，它用数字显示此时的时间，案例中的数字时钟能同时显示时，分，秒。
+The digital clock is a timepiece that displays digitally instead of the analog dial. It displays the time at this time with numbers. The digital clock in the case can display hours, minutes, and seconds at the same time.
 
 ::
 
     mywifi=wifi()
     mywifi.connectWiFi("ssid","password")
 
-显示时间，需要先连接网络，因此需要设置WiFi名称及其密码。
+To display the time, first connect to the network, then set the WiFi name and its password。
 
-.. admonition:: 提示
+.. admonition:: prompt
 
- 关于WiFi连接，可参见 :ref:`wifi类<mpython.wifi>` 模块了解更多使用方法。
+ For WiFi connection，see :ref:`wifi class<mpython.wifi>` learn the use.
  
 ::
 
     try:
-        ntptime.settime()   #获取国际标准时间
+        ntptime.settime()   #Get International Standard Time
     except OSError :
-        oled.DispChar("ntp链接超时,请重启!",0,20)    
+        oled.DispChar("ntp link timeout, please restart!",0,20)    
         oled.show()
 
-为了更加清晰地了解网络连接的情况，您可以设置捕捉异常，并且显示一些提示语。首先获取国际标准时间，当获取异常时，显示提示语。
+For better understanding of the situation of network connection, set to catch exceptions and display some prompts. First obtain the international standard time, when an exception is obtained, a prompt is displayed.
 
 ::
 
-    tim1 = Timer(1)    #创建计时器
+    tim1 = Timer(1)    #Create a Timer
     tim1.init(period=1000, mode=Timer.PERIODIC, callback=get_time)  
 
-创建一个计时器并初始化，将时间初始化为以1000毫秒为周期的计时模式，获取时间并返回计时器当前计数值（时间参数可参见 :mod:`machine.Timer` 模块）。
+Create and initialize a timer, initialize the time to a timing mode with a cycle of 1000 milliseconds, get the time and return the current count value of the timer（for time parameter, see :mod:`machine.Timer` module）.
 
 ::
 
     time.localtime()
 
-获取本地时间，并将时间以8元组（包括年、月、日、时、分、秒）显示（可参见 :mod:`time` 模块了解更多）。
+Obtain the local time and display the time as 8 tuples (including year, month, day, hour, minute, and second) (more details, see :mod:`time` module).
 
 :: 
 
     oled.DispChar("{}年{}月{}日" .format(t[0],t[1],t[2]),20,8)
     oled.DispChar("{}:{}:{}" .format(t[3],t[4],t[5]),38,25)
     oled.show()
-    oled.fill(0)   #清屏
+    oled.fill(0)   #clear screen
 
-获取时间后，在OLED显示屏上显示出来。
+First obtain the time, then displayed it on the OLED display
 
-.. admonition:: 注解
+.. admonition:: annotation
 
-    在坐标（20,8）位置显示年、月、日：t[0]对应年、t[1]对应月，t[2]对应日；在坐标（38,25）位置显示时、分、秒：t[3]对应时，t[4]对应分，t[5]对应秒。
+    Display the year, month and day at the position of coordinates (20,8)：t[0] corresponds to the year, t[1] corresponds to the month, and t[2] corresponds to the day; hour, minute, and second are displayed at the coordinates (38, 25): when t[3] corresponds to hour, t[4] corresponds to the minute, t[5] corresponds to seconds. 
 
 
 .. image:: /../images/classic/digital.jpg
     :scale: 50 %
     :align: center
 
-模拟时钟
+Analog clock
 +++++++
 
 ::
@@ -103,14 +103,14 @@
     try:
         ntptime.settime()
     except OSError :
-        oled.DispChar("ntp链接超时,请重启!",0,20)
+        oled.DispChar("ntp link timeout, please restart!",0,20)
         oled.show()
     else:
         clock=Clock(oled,64,32,30)      
 
         def Refresh(_):
             clock.settime()
-            clock.drawClock()
+            clock.drawClock() 
             oled.show()
             clock.clear()
         
@@ -118,26 +118,26 @@
 
         tim1.init(period=1000, mode=Timer.PERIODIC, callback=Refresh) 
 
-构建Clock对象：
+Construct Clock object：
 ::
 
     clock=UI.Clock(64,32,30) 
     
-UI.Clock(x, y, radius)用于构建钟表对象，x、y为OLED显示屏上的起点坐标，radius为所画钟表的半径。
+UI.Clock(x, y, radius)is used to construct clock objects，x、y are the starting point coordinates on the OLED display, radius is the radius of the clock drawn.
 
-获取本地时间并设置模拟钟表时间：
+Get local time and set analog clock time：
 ::
     clock.settime()
 
-绘制钟表：
+Draw the clock：
 ::
     clock.drawClock()
 
-清除钟表：
+Clear the clock：
 ::
     clock.clear()   
 
-清除时钟，也就是将显示在OLED显示屏上的时间清除以显示所获取的新时间，否则会导致各个时间值重叠显示在OLED上。
+Clear the clock, that is, clear the time displayed on the OLED display to display the new time acquired, otherwise it will cause each time value to overlap and display on the OLED.
 
 .. image:: /../images/classic/analog.jpg
     :scale: 50 %
