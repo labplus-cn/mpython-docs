@@ -1,43 +1,43 @@
-MQTT协议:2上传数据点到OneNET平台
+MQTT protocol: 2 upload data points to OneNET platform
 ==========
 
-在之前的教程中，学习过如何使用MQTT协议接入OneNET平台，同时获取该平台下发的命令实现远程控制的功能。
-若之前没有接触过MQTT协议和OneNET平台的朋友，建议先学习上章的教程，
+In the previous tutorial, we learned about to use the MQTT protocol to access the OneNET platform, and at the same time obtain the commands issued by the platform to achieve the function of remote control.
+If you have not been come into contact MQTT protocol and OneNET platform, it is recommended to check the tutorial in the previous chapter first.
 
-本次教程，将要学习如何在OneNET平台上新建数据流，同时使用MQTT协议中publish报文格式上传数据点。
+This tutorial is to practise to create a new data stream on the OneNET platform and upload data points using the publish message format in the MQTT protocol. 
 
-OneNET平台新建数据流
+New data flow on OneNET platform
 +++++++++
 
-OneNET平台官网地址：https://open.iot.10086.cn/。 若没有使用过的该平台的，可以参考上章的教程，先进行产品和设备的添加。
+OneNET platform official website address：https://open.iot.10086.cn/. If you have not used the platform, you can refer to the tutorial in the previous chapter to add products and equipment first.
 
-在数据点上报之前，我们需要在OneNET云平台上添加一个数据流模板。步骤如下：
+Before reporting data points, we need to add a data flow template on the OneNET cloud platform. Proceed as follows：
 
-1、进入[开发者中心]的[设备管理]页面，在左侧菜单栏中选择[数据流模板]，点击[添加数据流]。
+1、Go to the [Device Management] page of [Developer Center], select [Data Flow Template] in the left menu bar, and click [Add Data Flow].
 
 .. image:: /../images/classic/oneNet_9.png
 
-2、会弹出一个添加数据流的对话框，必填项名称，其他可以选填，填完之后点击[添加]。
+2、A dialog box for adding a data stream will pop up, the name of the required item, other can be optional, after completing, click [ADD].
 
 .. image:: /../images/classic/oneNet_10.png
  
-3、添加成功后，对话框会自动关闭。数据流展示列表会自动增加刚才新添加的数据流信息。
+3、Upon added, the dialog box will close. The data flow display list will automatically add the newly added data flow information.
 
 .. image:: /../images/classic/oneNet_11.png
 
-此次示例，我们需要添加sound和light两个数据流，如上图。
+As of this example, need to add two data streams, sound and light, as shown above.
 
 
-向OneNET平台上传数据点
+Upload data points to OneNET platform
 +++++++
 
-OneNET数据点上报格式
+OneNET data point reporting format
 ````````
 
-传数据点时需要参考协议规则说明，大家可以去OnetNET平台文档中心上下载，OnetNET平台文档中心地址：https://open.iot.10086.cn/doc/art431.html#118。
-找到[1.1 说明文档]找到关于MQTT项目中的设备终端接入协议-MQTT进行下载。打开之后找到[5.2消息发布]-[5.2.1 数据点上报]。
+When transferring data points, download and refer to the protocol rules from OnetNET platform documentation center, OnetNET Platform Document Center Address：https://open.iot.10086.cn/doc/art431.html#118。
+Find [1.1 documentation] to find and download the device terminal access protocol-MQTT in the MQTT project. After opening, find [5.2 News Release]-[5.2.1 Data Point Report]。
 
-**数据点上报格式如下:**
+**The data point reporting format is as follows:**
 
 .. image:: /../images/classic/oneNet_12.png
 
@@ -45,9 +45,9 @@ OneNET数据点上报格式
 
 .. image:: /../images/classic/oneNet_14.png
 
-我们示例用的是数据类型1(type == 1)的JSON格式。
+The example uses the JSON format of data type 1 (type == 1).
 
-我们自定义一个pubdata方法，该方法的功能是组合成协议要求的报文格式::
+We customize a pubdata method, the function of this method is to combine into the message format required by the protocol::
 
     def pubdata(data):
         j_d = json.dumps(data)
@@ -59,24 +59,24 @@ OneNET数据点上报格式
         arr[3:] = j_d.encode('ascii') # json数据
         return arr
 
-设备使用publish报文来上传数据点。$dp为系统上传数据点的指令（2个字节的字符串）::
+The device uses publish messages to upload data points. $dp is the instruction for the system to upload data points (2 byte string)::
 
     c.publish('$dp',pubdata(message))
 
-完整程序示例::
+Complete program example::
 
     from umqtt.simple import MQTTClient
     from mpython import *
     from machine import Timer
     import json
 
-    # MQTT服务器地址域名为：183.230.40.39,不变
+    # MQTT server address domain name ：183.230.40.39
     SERVER = "183.230.40.39"
-    #设备ID
+    #Device ID
     CLIENT_ID = "deviceID"
-    #产品ID
+    #Product ID
     username='productID'
-    #产品APIKey:
+    #Product APIKey:
     password='APIKey'
 
     mywifi=wifi() 
@@ -92,22 +92,22 @@ OneNET数据点上报格式
     }
     ]}
 
-    tim1 = Timer(1)       # 创建定时器
+    tim1 = Timer(1)       # Create a Timer
 
     def pubdata(data):
         j_d = json.dumps(data)
         j_l = len(j_d)
         arr = bytearray(j_l + 3)
-        arr[0] = 1 #publish数据类型为json
-        arr[1] = int(j_l / 256) # json数据长度 高位字节
-        arr[2] = j_l % 256      # json数据长度 低位字节
-        arr[3:] = j_d.encode('ascii') # json数据
+        arr[0] = 1 #publish data type is json
+        arr[1] = int(j_l / 256) # json data length high byte
+        arr[2] = j_l % 256      # json data length low byte
+        arr[3:] = j_d.encode('ascii') # json data
         return arr
 
     def publishSenser():
         message['datastreams'][0]['datapoints'][0]['value']=sound.read()
         message['datastreams'][1]['datapoints'][0]['value']=light.read()
-        c.publish('$dp',pubdata(message))                   #publish报文上传数据点
+        c.publish('$dp',pubdata(message))                   #publish message upload data points
         print('publish message:',message)
 
 
@@ -116,21 +116,21 @@ OneNET数据点上报格式
     c = MQTTClient(CLIENT_ID, SERVER,6002,username,password)
     c.connect()
     print("Connected to %s" % SERVER)
-    tim1.init(period=1000, mode=Timer.PERIODIC, callback=lambda _:publishSenser())     #每隔一秒上传数据点
+    tim1.init(period=1000, mode=Timer.PERIODIC, callback=lambda _:publishSenser())     # Upload data points every second
 
 
-效果展示
+Display the effect
 +++++++
 
-掌控板重启运行程序，每1秒上传声音和光线的数据流至OneNet。
+The mPython Board restarts the running program, and uploads sound and light data streams to OneNet every 1 second.
 
 .. image:: /../images/classic/oneNet_16.png
 
-设备指示灯显示绿色说明已经连接成功，选择[数据展示]，查看数据流接收情况。
+The indicator light of the device shows green, indicating that the connection is successful. Select [Display Data] to view the data stream reception status.
 
 .. image:: /../images/classic/oneNet_17.png
 
-在[应用管理]中创建应用，在应用中添加仪表图或折线图等元素，在属性中选择显示的数据流，最终效果如下:
+Create an application in [Application Management], add elements such as instrument charts or line charts in the application, and select the data flow displayed in the properties. The final effect is as follows:
 
 .. image:: /../images/classic/oneNet_15.gif
 
