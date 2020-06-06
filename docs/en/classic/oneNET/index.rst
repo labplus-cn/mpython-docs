@@ -1,4 +1,4 @@
-oneNET IoT
+OneNET IoT
 ===========
 
 .. toctree::
