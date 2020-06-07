@@ -1,4 +1,4 @@
-俄罗斯方块
+Tetris
 ======
 
 |
@@ -9,5 +9,5 @@
 |
 
 .. literalinclude:: /../../examples/game/tetris.py
-    :caption: 完整代码
+    :caption: Complete Coding
     :linenos:
