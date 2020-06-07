@@ -1,4 +1,4 @@
-飞行小鸟
+Flying Bird
 ======
 
 |
@@ -9,5 +9,5 @@
 |
 
 .. literalinclude:: /../../examples/game/flappybird.py
-    :caption: 完整代码
+    :caption: Complete Coding
     :linenos:
