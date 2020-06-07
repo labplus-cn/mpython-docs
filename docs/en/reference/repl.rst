@@ -1,35 +1,35 @@
 .. _repl:
 
-MicroPython的交互式解释器模式 （又称REPL）
+MicroPython's interactive interpreter mode (also known as REPL)
 =======================================================
 
-此部分介绍了MicroPython的交互式解释器模式的特性，其常用术语为REPL（读取read-评估eval-打印print-循环loop），用于指代此交互式提示符。
+This section introduces the features of MicroPython's interactive interpreter mode. Its common term is REPL (read-eval-print-loop) to refer to this interactive prompt。
 
-自动-缩进
+Auto-indent
 -----------
 
-当键入以冒号（例如：if、for、while）结尾的python语句时，提示符将变为三个点（...），光标将缩进4个空格。
-当您点击返回键，下一行将继续在正常语句缩进的同一级别，或在适当的情况下继续添加缩进级别。若您点击退格键，则将撤销一个缩进级别。
+When typing a python statement ending in a colon（for example: if, for, while）, the prompt will change to three dots（...），and the cursor will be indented by 4 spaces.
+When you click the back button, the next line will continue to be at the same level of normal indentation, or continue to add indentation level if appropriate. If you click the backspace button, an indent level will be withdrawn.
 
-若您的光标一直停在开始时，点击返回键将执行您输入的代码。以下演示了您在输入for语句后将看到的（下划线显示光标的位置）:
+If your cursor stays at the beginning, click the back button to execute the code you entered. The following demonstrates what you will see after entering the for statement (the underline shows the position of the cursor):
 
     >>> for i in range(3):
     ...     _
 
-若您输入if语句，则将提供额外的缩进级别:
+If you enter an if statement, an additional level of indentation will be provided:
 
     >>> for i in range(30):
     ...     if i > 3:
     ...         _
 
-现在输入 ``break`` ，然后点击回车键，再点击退格键:
+Now type in ``break``, then hit enter, then hit backspace:
 
     >>> for i in range(30):
     ...     if i > 3:
     ...         break
     ...     _
 
-最后，键入 ``print(i)`` ，依次点击回车键、退格键和回车键:
+Lastly, type ``print(i)`` , click Enter, Backspace and Enter:
 
     >>> for i in range(30):
     ...     if i > 3:
@@ -42,13 +42,13 @@ MicroPython的交互式解释器模式 （又称REPL）
     3
     >>>
 
-若前两行都为空格，则不会应用自动缩进。这意味着您可以通过点击两次返回来完成复合语句输入，然后第三次按键结束并执行。
+If the first two lines are spaces, no automatic indentation will be applied. This means that you can complete the compound statement input by clicking back twice, and then press the third key to end and execute.
 
-自动-完成
+Auto - completion
 ---------------
 
-当在REPL中输入指令时，如果输入的行对应某物名称的开头，点击TAB键将显示您可能输入的内容。
-例如，键入 ``m`` 并点击TAB，则其将扩展为 ``machine`` 。键入一个点 ``.`` 并点击TAB，您将看到如下:
+When entering an instruction in the REPL, if the input line corresponds to the beginning of the name of something, clicking the TAB key will display what you may enter.
+For example, type  ``m`` and click TAB, it will expand to ``machine`` . Type a dot ``.`` and click TAB, you will see the following:
 
     >>> machine.
     __name__        info            unique_id       reset
@@ -56,19 +56,18 @@ MicroPython的交互式解释器模式 （又称REPL）
     sleep           deepsleep       disable_irq     enable_irq
     Pin
 
-该词将尽可能扩展，直至出现多种可能性。例如：键入 ``machine.Pin.AF3`` 并点击TAB键，
-则其将扩展为 ``machine.Pin.AF3_TIM`` 。长按TAB一秒，则显示可能的扩展:
+The word will be expanded as much as possible until there are multiple possibilities. For example: type ``machine.Pin.AF3`` and click the TAB key, then it will expand to ``machine.Pin.AF3_TIM`` . Long press TAB for one second, the possible expansions are displayed:
 
     >>> machine.Pin.AF3_TIM
     AF3_TIM10       AF3_TIM11       AF3_TIM8        AF3_TIM9
     >>> machine.Pin.AF3_TIM
 
-中断一个运行程序
+Interrupt a running program
 ------------------------------
 
-您可通过点击Ctrl-C来中断一个运行程序。这将引发键盘中断，使您返回REPL，前提是您的程序不会阻截键盘中断故障。
+You can interrupt a running program by clicking Ctrl-C. This will trigger a keyboard interrupt and return you to the REPL, provided that your program does not block the keyboard interrupt failure.
 
-例如:
+For example:
 
     >>> for i in range(1000000):
     ...     print(i)
@@ -86,17 +85,17 @@ MicroPython的交互式解释器模式 （又称REPL）
     KeyboardInterrupt:
     >>>
 
-粘贴模式
+Paste mode
 ----------
 
-若您想将某些代码粘贴到您的终端窗口中，自动缩进特性将会成为障碍。例如，若您有以下python代码: ::
+If you want to paste some code into your terminal window, the auto-indent feature will become an obstacle. For example, if you have the following python code: ::
 
    def foo():
        print('This is a test to show paste mode')
        print('Here is a second line')
    foo()
 
-您试图将此代码粘贴到常规REPL中，那么您将会看到以下内容:
+You tried to paste this code into a regular REPL, then you will see the following:
 
     >>> def foo():
     ...         print('This is a test to show paste mode')
@@ -107,7 +106,7 @@ MicroPython的交互式解释器模式 （又称REPL）
       File "<stdin>", line 3
     IndentationError: unexpected indent
 
-若您点击Ctrl-E，则将进入粘贴模式，即关闭自动缩进特性，并将提示符从 ``>>>`` 更改为 ``===`` 。例如:
+If you click Ctrl-E, you will enter the paste mode, that is, turn off the automatic indent feature, and change the prompt from ``>>>`` to  ``===`` . Example:
 
     >>>
     paste mode; Ctrl-C to cancel, Ctrl-D to finish
@@ -120,23 +119,23 @@ MicroPython的交互式解释器模式 （又称REPL）
     Here is a second line
     >>>
 
-粘贴模式允许粘贴空白行，将被粘贴文本作为文件编译。点击Ctrl-D退出粘贴模式，并启动编译。
+Paste mode allows pasting blank lines and compiling the pasted text as a file. Click Ctrl-D to exit paste mode and start compilation.
 
-软复位
+Soft reset
 ----------
 
-软复位将重置python的解释器，但不会重置您连接到MicroPython板的方法（USB-串口或WiFi）。
+A soft reset will reset the Python interpreter, but it will not reset the way you connect to the MicroPython board (USB-serial or WiFi). 
 
-您可点击Ctrl-D从REPL进行软复位，或从您的python代码中执行: ::
+You can click Ctrl-D to perform a soft reset from the REPL, or execute it from your python code: ::
 
     raise SystemExit
 
-例如：若您重置您的MicroPython板，并执行dir()指令，您将看到如下内容:
+Example：If you reset your MicroPython board and execute the dir() If you reset your MicroPython board and execute the:
 
     >>> dir()
     ['__name__', 'pyb']
 
-现在创建一些变量，并重复dir()指令:
+Now create some variables and repeat the dir() instruction:
 
     >>> i = 1
     >>> j = 23
@@ -145,7 +144,7 @@ MicroPython的交互式解释器模式 （又称REPL）
     ['j', 'x', '__name__', 'pyb', 'i']
     >>>
 
-现在，若您点击Ctrl-D，并重复dir()指令，您将发现变量不复存在:
+Now, if you click Ctrl-D and repeat the dir() command, you will find that the variable no longer exists:
 
 .. code-block:: python
 
@@ -157,10 +156,10 @@ MicroPython的交互式解释器模式 （又称REPL）
     ['__name__', 'pyb']
     >>>
 
-特殊变量 _ (下划线)
+Special variable _ (underscope)
 -----------------------------------
 
-使用REPL时，进行计算并得到结果。MicroPython将之前语句的结果储存到变量_（下划线）中。您可使用下划线将结果储存到变量中。例如:
+When using REPL, make calculations and get results. MicroPython stores the result of the previous statement in the variable _（underscore）. You can use underscores to store results in variables. Example:
 
     >>> 1 + 2 + 3 + 4 + 5
     15
@@ -169,12 +168,12 @@ MicroPython的交互式解释器模式 （又称REPL）
     15
     >>>
 
-原始模式
+Original mode
 --------
 
-原始模式并非用于日常使用，而是用于编程。其运行类似于关闭回应的粘贴模式。
+The original mode is not for routine, but for programming. 
 
-点击Ctrl-A进入原始模式。发送您的python代码，然后点击Ctrl-D。Ctrl-D键将识别为"确定"，然后编译并执行python 代码。
-所有输出（或故障）都会发送回去。点击Ctrl-B将会推出原始模式，并返回常规（又称友好型）REPL。
+Click Ctrl-A to enter the original mode. Send your python code and click Ctrl-D. The Ctrl-D key will be recognized as "OK" , then compile and execute the python code.
+All outputs (or faults) will be sent back. Clicking Ctrl-B will launch the original mode and return to the regular (also known as friendly) REPL.
 
 ``tools/pyboard.py`` 程序使用原始REPL来在MicroPython板上执行python文件。
