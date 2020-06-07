@@ -1,14 +1,14 @@
-MicroPython 语法
+MicroPython syntax
 ========================
 
-MicroPython旨在实现了Python 3.4标准（由更高版本选择的特征）相对于语言的语法，
-而且大部分MicroPython的特征是相同的那些由“语言参考”的文档在描述
+MicroPython aims to implement the syntax of the Python 3.4 standard (features selected by later versions) relative to the language.
+And most of the features of MicroPython are the same as those described in the "Language Reference" document
 `docs.python.org <https://docs.python.org/3/reference/index.html>`_.
 
-MicroPython标准库在 :ref:`相应章节中 <micropython_lib>`. 与CPython 章节的MicroPython差异描述了
-MicroPython和CPython之间的差异（主要涉及标准库和类型，还有一些语言级功能）。
+MicroPython standard library :ref:`Corresponding chapter <micropython_lib>`. and description of the differences of MicroPython and CPython in thsi chapter.
+Differences of MicroPython and CPython (Mainly involves standard libraries and types, as well as some language-level functions）.
 
-本章介绍MicroPython实现的特性和特性以及使用它们的最佳实践。
+This chapter introduces the features and characteristics of MicroPython implementation and best practices for using them.
 
 - :ref:`专业术语<glossary>`
 - :ref:`MicroPython交互式解释器模式(又称REPL)<repl>`
