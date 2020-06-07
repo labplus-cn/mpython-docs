@@ -1,4 +1,4 @@
-贪吃蛇
+Greedy Snake
 ========
 
 |
@@ -9,5 +9,5 @@
 |
 
 .. literalinclude:: /../../examples/game/snake.py
-    :caption: 完整代码
+    :caption: Complete Coding
     :linenos:
