@@ -1,4 +1,4 @@
-乒乓球
+Table Tennis Game
 =======
 
 |
@@ -9,5 +9,5 @@
 |
 
 .. literalinclude:: /../../examples/game/pong.py
-    :caption: 完整代码
+    :caption: Complete Coding
     :linenos:
