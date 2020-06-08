@@ -1,71 +1,71 @@
 .. _speed_python:
-最大化MicroPython速度
+Maximize MicroPython speed
 ============================
 
 .. contents::
 
-本教程介绍了改进MicroPython代码的方法。最优化及其他语言在另外章节中介绍（即使用C语言和MicroPython内联汇编编写的模块）。
+This tutorial introduces ways to improve MicroPython code. Optimization and other languages are introduced in other chapters (ie modules written in C and MicroPython inline assembly).
 
-开发高性能的代码包括以下两个阶段，我们将依次介绍。
+The development of high-performance code includes the following two stages, which we will introduce successively.
 
-* 速度设计
-* 代码和排错
+* Speed design
+* Code and troubleshooting
 
-优化步骤:
+Optimization steps:
 
-* 识别代码的最慢段
-* 改进Python代码的效率
-* 使用本地代码发射器
-* 使用Viper代码发射器
-* 使用特定于硬件的优化
+* Identify the slowest section of code
+* Improve the efficiency of Python code
+* Use local code launcher
+* Use Viper Code Launcher
+* Use hardware-specific optimizations
 
-速度设计
+Speed design
 -------------------
 
-应该从开始就考虑性能问题。这涉及到对性能至关重要的代码部分，应特别关注代码的设计。
-优化过程从检测代码开始：若设计从开始就没有差错，那优化就很轻松了，实际上可能没有优化的必要。
+Performance issues should be considered from the beginning. This involves parts of the code that are critical to performance, and special attention should be paid to the design of the code. 
+The optimization process starts with checking the code: if the design has no errors from the beginning, then optimization is very easy, in fact, there may be no need for optimization.
 
-算法
+Algorithm
 ~~~~~~~~~~
 
-设计性能程序的最重要的部分就是确保使用最佳算法。这应是教科书上的议题而非出现在MicroPython指南中。
-但是有时可通过使用已知效率的算法来实现可观的性能收益。
+The most important part of designing a performance program is to ensure that the best algorithm is used. This should be an issue in the textbook instead of appearing in the MicroPython guide.
+But sometimes considerable performance gains can be achieved by using algorithms of known efficiency.
 
-RAM分配
+RAM allocation
 ~~~~~~~~~~~~~~
 
-设计高效的MicroPython代码，则有必要理解解释器分配RAM的方式。当创建某一对象或该对象大小增长时（例如将一个项附加到列表），
-RAM即从名为堆的块中分配出来。这一过程需耗费很长时间，而且有时会触发垃圾收集的过程，此过程将耗时数毫秒。
+To design efficient MicroPython code, it is necessary to understand how the interpreter allocates RAM. When an object is created or the size of the object grows (for example, an item is appended to the list), 
+RAM is allocated from the block named heap. This process takes a long time and sometimes triggers the garbage collection process, which will take a few milliseconds.
 
-因此，若对象仅允许创建一次且其大小不可增长，则函数或方法的性能得以改进。这意味着对象在其使用期间持续存在：
-通常对象在类构造函数中实例化，并在各种方法中使用。
+Therefore, if the object is allowed to be created only once and its size cannot be increased, the performance of the function or method is improved. This means that the object persists during its use：
+Usually the object is instantiated in the class constructor and used in various methods。
 
-更多详细信息，请参见下面的 :ref:`Controlling garbage collection <controlling_gc>` below.
+For more details, please see the following :ref:`Controlling garbage collection <controlling_gc>` below.
 
-缓冲区
+Buffer zone
 ~~~~~~~
 
-上述示例是需要缓冲区的常见情况，例如用于与设备通信的缓冲区。典型的驱动器将在构造函数中创建缓冲区，
-并在其I/O方法中使用，该方法将重复调用。
+The above example is a common situation where a buffer is required, such as a buffer used to communicate with a device. A typical drive will create a buffer in the constructor, 
+And used in its I/O method, which will be called repeatedly.
 
-MicroPython库通常为预分配的缓冲区提供支持。例如，支持流接口（例如：文件或UART）的对象提供为
-读取数据分配新的缓冲区的 `read()` 方法，以及将数据读取入现存缓冲区的 `readinto()` 方法。
+MicroPython libraries usually provide support for pre-allocated buffers. For example, objects that support streaming interfaces (such as files or UART) are provided as
+Read data to allocate a new buffer `read()` method, and read data into an existing buffer `readinto()` method. 
 
-浮点数
+Floating point
 ~~~~~~~~~~~~~~
 
-某些MicroPython端口在堆上分配浮点数。其他端口可能缺少专用的浮点协处理器，且在"软件"上以低于在整数上的速度对它们执行算术运算。
-性能事关重要的情况下，使用整数运算；性能无关紧要的情况下，限制浮点数用于代码的部分。例如，将ADC读数作为整数值捕捉到数组中，
-然后将其转换为浮点数进行信号处理。
+Some MicroPython ports allocate floating point numbers on the heap. Other ports may lack dedicated floating-point coprocessors, and perform arithmetic operations on them in "software" at a slower speed than on integers.
+When performance matters, use integer arithmetic；In cases where performance is irrelevant, restrict floating-point numbers to the part of the code. For example, capture ADC readings as integer values into an array,
+Then convert it to floating point number for signal processing.
 
-数组
+Array
 ~~~~~~
 
-考虑使用各种类型的数组来替代列表。 `array` 模块支持不同的项类型，8位项由的内置 `bytes` 和 `bytearray` 类支持。
-这些数据结构将项储存在连续内存位置中。为避免在临界区代码中分配内存，内存应进行预分配并作为参数或限定性对象传递。
+Consider using various types of arrays instead of lists. The `array` module supports different item types, 8-bit items are supported by the built-in `bytes` and `bytearray` classes.
+These data structures store items in consecutive memory locations. To avoid allocating memory in the critical section code, the memory should be pre-allocated and passed as a parameter or restricted object.
 
-在传递诸如 `bytearray` 实例之类的对象片段时，Python会创建一个副本，该副本涉及与片段大小成比例的大小分配。
-这可以使用 `memoryview` 对象缓解。 `memoryview` 本身在堆上分配，但其为一个较小且固定大小的对象。
+When passing an object fragment such as a `bytearray` instance, Python creates a copy, which involves size allocation proportional to the fragment size.
+This can be mitigated using the `memoryview` object.  `memoryview` itself is allocated on the heap, but it is a small and fixed size object.
 
 .. code:: python
 
@@ -74,23 +74,23 @@ MicroPython库通常为预分配的缓冲区提供支持。例如，支持流接
     mv = memoryview(ba)    # small object is allocated 分配小对象
     func(mv[30:2000])      # a pointer to memory is passed 传递指向内存的指针
 
-`memoryview` 仅可应用于支持缓冲区协议的对象-这包括数组但不包括列表。小提示：memoryview对象是有用的，
-它保留了原始的缓冲区对象。因此，memoryview并非万能的灵丹妙药。例如，在上述示例中，若您用10K缓冲区完成，
-只需其中的30：2000字节，那么最好做一个片段，不使用10K缓冲区（垃圾收集准备就绪），而不是做一个长时间的内存视图，
-并保持10K阻塞的GC。
+`memoryview` can only be applied to objects that support the buffer protocol-this includes arrays but not lists. Tip: The memoryview object is useful，
+It retains the original buffer object. Therefore, memoryview is not a panacea. For example, in the above example, if you use 10K buffer to complete, 
+Only 30 of them: 2000 bytes, so it is better to make a fragment, not use 10K buffer (garbage collection is ready), instead of doing a long memory view，
+And keep a 10K blocked GC.
 
-尽管如此， `memoryview` 对于高级预分配缓冲区管理而言必不可少。上述 `readinto()` 方法将数据放在缓冲区的开始处，
-并填充整个缓冲区。 若您需要将数据放进现有缓冲区中，应如何操作？ 只需在缓冲区的所需部分创建一个内存视图，
-并将其传递给 `readinto()` 。
+Nevertheless, `memoryview` is essential for advanced pre-allocated buffer management. The above `readinto()` method puts the data at the beginning of the buffer, 
+And fill the entire buffer.  What should you do if you need to put the data into an existing buffer? Just create a memory view in the required part of the buffer,
+And pass it to `readinto()` 。
 
-识别代码的最慢段
+Identify the slowest section of code
 ---------------------------------------
 
-此过程也称为profiling，教科书中对其进行了介绍，此过程由不同的软件工具支持（对于标准Python而言）。
-对于可能在MicroPython平台上运行的较小型嵌入式应用程序，最慢的函数或方法通常可通过正确
-使用 `utime` 中记录的时序 ``ticks`` 函数来建立。代码执行时长可用毫秒、微秒和CPU周期来计算。
+This process is also called profiling, which is described in the textbook, and this process is supported by different software tools (for standard Python).
+For smaller embedded applications that may run on the MicroPython platform, the slowest function or method is usually passed correctly
+Use the time series ``ticks``  function recorded in  `utime` to build. Code execution time can be calculated in milliseconds, microseconds and CPU cycle.
 
-以下代码可以通过添加 ``@timed_function`` 装饰器使任何函数或方法计时:
+The following code can make any function or method time by adding ``@timed_function`` decorator:
 
 .. code:: python
 
@@ -104,22 +104,22 @@ MicroPython库通常为预分配的缓冲区提供支持。例如，支持流接
             return result
         return new_func
 
-MicroPython代码改进
+MicroPython code improvements
 -----------------------------
 
-const()声明
+const() declaration
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-MicroPython提供了一个 ``const()`` 声明。 其运行方式与C语言中的 ``#define`` 类似，因为当代码被编译为字节码时，
-编译器会将数字值替换为标识符。这可以避免在运行时查找字典。 ``const()`` 的参数可为任何可在编译时计算为整数的数值，
-例如 ``0x100`` 或 ``1 << 8`` 。
+MicroPython provides a ``const()`` statement. The operation mode is similar to ``#define`` in C language, because when the code is compiled into bytecode, 
+The compiler will replace numeric values with identifiers. This can avoid looking up the dictionary at runtime. The parameter of ``const()`` can be any value that can be calculated as an integer at compile time,
+Such as  ``0x100`` or ``1 << 8`` 。
 
 .. _Caching:
 
-缓存对象引用
+Cache object reference
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在函数或方法重复访问对象的情况下，通过将对象缓存在局部变量中可以提高性能:
+In the case where a function or method repeatedly accesses an object, performance can be improved by caching the object in a local variable:
 
 .. code:: python
 
@@ -129,13 +129,13 @@ MicroPython提供了一个 ``const()`` 声明。 其运行方式与C语言中的
         def bar(self, obj_display):
             ba_ref = self.ba
             fb = obj_display.framebuffer
-            # iterative code using these two objects 使用这两个对象的代码
+            # iterative code using these two objects 
 
-这就避免了在方法 ``bar()`` 中重复查找 ``self.ba`` 和 ``obj_display.framebuffer`` 。
+This avoids repeated searches for ``self.ba`` and ``obj_display.framebuffer`` in the method  ``bar()`` .
 
 .. _controlling_gc:
 
-控制垃圾回收
+Control garbage collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 当需要内存分配时，MicroPython会尝试在堆上寻找适当大小的块。寻找可能会失败，通常是因为堆中堆满了代码不再引用的对象。
