@@ -1,4 +1,4 @@
-将寄存器存入内存
+Store registers in memory
 ========================
 
 文件规范
