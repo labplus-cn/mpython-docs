@@ -138,41 +138,41 @@ This avoids repeated searches for ``self.ba`` and ``obj_display.framebuffer`` in
 Control garbage collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-当需要内存分配时，MicroPython会尝试在堆上寻找适当大小的块。寻找可能会失败，通常是因为堆中堆满了代码不再引用的对象。
-若发生故障，垃圾回收将回收冗余对象所占用的内存，然后再次尝试分配。此过程可能需要数毫秒。
+When memory allocation is required, MicroPython will try to find blocks of appropriate size on the heap. The search may fail, usually because the heap is full of objects that the code no longer refers to.
+If a failure occurs, garbage collection will reclaim the memory occupied by the redundant objects, and then try to allocate again. This process may take several milliseconds.
 
-周期性地发布 ``gc.collect()`` 可能对预防有帮助。首先，在真正需要回收之前进行回收速度会更快，
-若经常回收，则耗时约1毫秒。其次，您可在代码中确定此时间的使用点，而非在随机点上发生较长的延迟，
-可能在速度临界区。最后，经常进行回收可减少堆中的碎片化。严重的碎片化会导致无法修复的分配故障。
+Periodically issuing ``gc.collect()`` may be helpful for prevention. Firstly, it will be faster to recycle before recycle is needed, if recycle frequently, it takes about 1 millisecond. 
+Secondly, you can determine the use point of this time in the code, rather than a long delay at a random point may be in the speed critical section.
+May be in the speed critical area. Severe fragmentation can cause irreparable allocation failures.
 
-本地密码发射器
+Local password transmitter
 -----------------------
 
-这使得MicroPython编译器发送本地CPU操作码，而非字节码。它涵盖了MicroPython的大部分功能，
-所以大部分功能无需适应（见下文）。它是通过一个函数装饰器调用的:
+This causes the MicroPython compiler to send local CPU opcodes instead of bytecodes. It covers most features of MicroPython，
+So most functions do not need to be adapted (see below). It is called through a function decorator:
 
 .. code:: python
 
     @micropython.native
     def foo(self, arg):
-        buf = self.linebuf # Cached object 缓存对象
+        buf = self.linebuf # Cached object
         # code
 
-目前本地代码发送器仍然存在一些局限性。
+At present, local code transmitters still have some limitations。
 
-* 不支持上下文管理器（ ``with`` 语句）。
-* 不支持生成器。
-* 若使用 ``raise`` ，则必须应用一个参数。
+* No context manager support（ ``with`` statement）.
+* No generator support. 
+* If ``raise`` is used, a parameter must be applied，
 
-性能提高的代价（约为字节码的两倍）是编译代码大小的增加。
+The cost of improved performance (about twice the bytecode) is an increase in the size of the compiled code。
 
-Viper代码发送器
+Viper Code transmitter
 ----------------------
 
-上面讨论的优化包含符合标准的Python代码。 Viper代码发射器并不完全兼容。为实现高性能，它支持特殊的Viper本地数据类型。
-整数处理并不兼容，因其使用机器字：32位硬件上的算法是执行模块2**32。
+The optimization discussed above contains standard-compliant Python code. Viper code transmitter is not fully compatible. For high performance, it supports special Viper local data types.
+Integer processing is not compatible because it uses machine words: the algorithm on 32-bit hardware is the execution module 2**32. 
 
-与本地发送器相似，Viper生成机器指令，但进行了进一步优化，大大提高了性能，尤其是在整数算法和位操作方面。其使用装饰器调用:
+Similar to the local transmitter, Viper generates machine instructions, but has been further optimized to greatly improve performance, especially in integer algorithms and bit operations. It used a decorator call:
 
 .. code:: python
 
@@ -180,53 +180,53 @@ Viper代码发送器
     def foo(self, arg: int) -> int:
         # code
 
-如上所述，使用Python提示类型来辅助Viper优化器大有益处。类型提示提供参数的数据类型和返回值的信息；
-这些是在此正式定义的标准Python语言特性 `PEP0484 <https://www.python.org/dev/peps/pep-0484/>`_.
-Viper支持名为 ``int`` 、 ``uint`` （无符号整数）、 ``ptr`` 、 ``ptr8`` 、 ``ptr16`` 和 ``ptr32`` 的其自身的类型组。 ``ptrX``类型在下面进行介绍。
-目前类型仅作一种用途：作为函数返回值的类型提示。若函数返回 ``0xffffffff`` ，Python将结果解释为2**32 -1而非-1。
+As mentioned above, it is beneficial to use the Python hint type to assist the Viper optimizer. The type hint provides information about the data type and return value of the parameter；
+These are the standard Python language features formally defined here `PEP0484 <https://www.python.org/dev/peps/pep-0484/>`_.
+Viper supports its own type group named ``int`` 、 ``uint`` （unsigned integer）、 ``ptr`` 、 ``ptr8`` 、 ``ptr16`` and ``ptr32`` . The ``ptrX`` type is described below.
+The current type is only used for one purpose：Type hints as function return values. If the function returns ``0xffffffff`` , Python interprets the result as 2**32 -1 instead of -1.
 
-除了本地发送器施加的限制之外，以下限制也适用:
+In addition to the restrictions imposed by the local transmitter, the following restrictions also apply:
 
-* 函数可能有多达4个参数。
-* 不许可默认参数值。
-* 浮点数可能被使用但未优化。
+* Function may have up to 4 parameters. 
+* Disallow default parameter values.
+* Floating point numbers may be used but not optimized.
 
-Viper提供指针类型以协助优化器。这些包括
+Viper provides pointer types to assist the optimizer. These include
 
-* ``ptr`` 指向对象的指针。
-* ``ptr8`` 指向一个字节的指针。
-* ``ptr16`` 指向一个16位半字的指针。
-* ``ptr32`` 指向一个32位机器字的指针。
+* ``ptr`` Pointer to object.
+* ``ptr8`` Pointer to a byte.
+* ``ptr16`` Pointer to a 16-bit halfword.
+* ``ptr32`` Pointer to a 32-bit machine word.
 
-Python程序员可能不熟悉指针的概念。 它与Python `memoryview` 对象有相似之处，它可以直接访问存储在内存中的数据。
-使用下标符号访问项目，但不支持片段：指针只能返回单个项目。其目的是提供快速随机访问存储在连续存储位置的数据--
-例如存储在支持缓冲协议的对象中的数据，以及微控制器中存储器映射的外设寄存器。应该指出的是，使用指针编程很危险：
-边界检查不会执行，编译器不会阻止缓冲区的超限错误。
+Python programmers may not be familiar with the concept of pointers. It is similar to the Python `memoryview` object, it can directly access the data stored in memory. 
+Use subscript symbols to access items, but clips are not supported：Pointer can only return a single item. Its purpose is to provide fast random access to data stored in continuous storage locations--
+For example, data stored in objects that support the buffer protocol, and memory-mapped peripheral registers in the microcontroller. It should be noted that using pointer programming is dangerous：
+Boundary checking will not be performed, and the compiler will not prevent buffer overrun errors.
 
-典型的用法是缓存变量:
+Typical usage is to cache variables:
 
 .. code:: python
 
     @micropython.viper
     def foo(self, arg: int) -> int:
-        buf = ptr8(self.linebuf) # self.linebuf is a bytearray or bytes object 是一个字节数组或一个字节对象
+        buf = ptr8(self.linebuf) # self.linebuf is a bytearray or bytes object
         for x in range(20, 30):
-            bar = buf[x] # Access a data item through the pointer 通过指针访问数据项目
-            # code omitted 省略的代码
+            bar = buf[x] # Access a data item through the pointer
+            # code omitted 
 
-在此示例中，编译器"知道" ``buf`` 为字节组的地址；其可发送代码，以在运行时快速计算 ``buf[x]`` 的地址。
-在使用转换将对象转换为Viper本机类型时，应在函数启动时执行，而不是在关键计时回路中执行，因为转换操作可能需要数微秒。转换要求如下:
+In this example, the compiler "know" that ``buf`` is the address of the byte group；It can send code to quickly calculate the address of ``buf[x]`` at runtime.
+When using conversion to convert an object to the Viper native type, it should be executed at function startup, not in a critical timing loop, because the conversion operation may take several microseconds. The conversion requirements are as follows:
 
-* 转换操作符当前为: ``int``, ``bool``, ``uint``, ``ptr``, ``ptr8``, ``ptr16`` 和 ``ptr32``.
-* 转换结果为本地Viper变量。
-* 转换的参数可为Python对象或本地Viper变量。
-* 若参数为本地Viper变量，则转换为仅改变类型（例如：从 ``uint`` 到 ``ptr8`` ）的空操作，所以您可使用此指针来储存/加载。
-* 若参数为Python对象，且转换为 ``int`` 或 ``uint`` ，则Python对象须为整数类型，且返回该整数对象的值。
-* 布尔转换的参数须为整数类型（布尔值或整数）；当用作返回类型时，Viper函数将返回True或False对象。
-* 若参数为Python对象，转换为 ``ptr``、 ``ptr``、 ``ptr16`` 或 ``ptr32``，则Python对象须具有读写功能的缓冲区协议
- （在此情况下，返回指向缓冲区开始的指针）或为整数类型（在此情况下，返回整数对象的值）。
+* The current conversion operator are: ``int``, ``bool``, ``uint``, ``ptr``, ``ptr8``, ``ptr16`` and ``ptr32``.
+* Conversion result to local Viper variable.
+* Converted parameters can be Python objects or local Viper variables.
+* If the parameter is a local Viper variable, it is converted to a no-operation that only changes the type（example: from  ``uint`` to ``ptr8`` ）, so you can use this pointer to store/load.
+* If the parameter is a Python object and it is converted to ``int`` or ``uint`` , the Python object must be of integer type and return the value of the integer object.
+* Boolean conversion parameters must be of integer type (boolean or integer)；When used as a return type, the Viper function will return True or False objects.
+* If the parameter is a Python object, it is converted to  ``ptr``、 ``ptr``、 ``ptr16`` or ``ptr32`` , then the Python object must have a buffer protocol for reading and writing.
+ (In this case, return a pointer to the beginning of the buffer) or an integer type (in this case, return the value of the integer object).
 
-以下示例说明了使用 ``ptr16`` 转换来切换引脚X1 ``n`` 次:
+The following example illustrates the use of  ``ptr16`` conversion to switch pin X1 ``n`` times:
 
 .. code:: python
 
@@ -237,25 +237,25 @@ Python程序员可能不熟悉指针的概念。 它与Python `memoryview` 对�
         for _ in range(n):
             odr[0] ^= BIT0
 
-这三个代码发送器的详细技术说明，请参见Kickstarter的 `Note 1 <https://www.kickstarter.com/projects/214379695/micro-python-python-for-microcontrollers/posts/664832>`_
-和 `Note 2 <https://www.kickstarter.com/projects/214379695/micro-python-python-for-microcontrollers/posts/665145>`_
+For detailed technical descriptions of these three code senders, please refer to Kickstarter `Note 1 <https://www.kickstarter.com/projects/214379695/micro-python-python-for-microcontrollers/posts/664832>`_
+and `Note 2 <https://www.kickstarter.com/projects/214379695/micro-python-python-for-microcontrollers/posts/665145>`_
 
-直接访问硬件
+Direct hardware access
 ---------------------------
 
 .. note::
 
-    本节给出了Pyboard的代码示例。 不过，此处介绍的技术也可能适用于其他MicroPython端口。
+    This section gives a code example of Pyboard.  However, the techniques described here may also be applicable to other MicroPython ports.
 
-这属于更高级的编程范畴，涉及目标MCU的一些知识。考虑切换Pyboard上的输出引脚的例子。标准方法是写入
+This belongs to the more advanced programming category and involves some knowledge of the target MCU. Consider the example of switching output pins on Pyboard. The standard method is to write
 
 .. code:: python
 
-    mypin.value(mypin.value() ^ 1) # mypin was instantiated as an output pin实例化为输出引脚
+    mypin.value(mypin.value() ^ 1) # mypin was instantiated as an output pin
 
-这涉及两次调用 `Pin` 实例的 `value()` 方法的开销。通过对芯片的GPIO端口输出数据寄存器（odr）的相关位执行读/写操作，
-可消除此开销。为实现这一点， ``stm`` 模块提供了一组提供相关寄存器地址的常量。引脚 ``P4`` （CPU引脚 ``A14`` ）的快速切换
-（对应绿色LED）可按如下方式执行:
+This involves the expenses of calling the `value()` method of the `Pin` instance twice. Perform read/write operations on the relevant bits of the chip's GPIO port output data register (odr), 
+This expenses can be eliminated. To achieve this, the ``stm`` module provides a set of constants that provide relevant register addresses. Quick switching of pin ``P4`` （CPU pin ``A14`` ）
+(Corresponding to green LED) can be executed as follows:
 
 .. code:: python
 
