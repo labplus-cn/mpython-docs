@@ -1,5 +1,5 @@
 .. _packages:
-分发包，包管理和部署应用程序
+Distribute packages, package management and deploy applications
 =====================================================================
 
 Just as the "big" Python, MicroPython supports creation of "third party"
