@@ -1,4 +1,4 @@
-从内存中加载寄存器
+Load registers from memory
 =========================
 
 文件规范
