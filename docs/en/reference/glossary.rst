@@ -38,7 +38,7 @@ Terminology
         The string referenced by its (unique) identifier, not its address. Therefore, you can quickly compare internship strings by identifier, rather than by content.
         The disadvantage of the internship string is that the internship operation takes time (proportional to the number of existing internship strings, that is, it becomes slower and slower with time), and the space for the internship string is not recyclable.
         String training is done automatically by the MicroPython compiler and runtime, when the implementation needs it (for example, the function keyword parameter is represented by the training string id) or considered to be beneficial (for example, for short enough strings, there is a chance to repeat, So internship) They will save memory on the copy).
-        由于上述缺点，大多数字符串和I / O操作不产生实际字符串。
+        Due to the above shortcoming, most strings and I/O operations do not produce actual strings。
 
     MCU
 
@@ -64,18 +64,18 @@ Terminology
         This is described in the port-specific files.
 
     MicroPython Unix port
-        Unix端口是MicroPython（ :term:`MicroPython ports <MicroPython port>`）的主要端口之一。
-        其设计为在与POSIX兼容的操作系统上运行，如Linux、MacOS、FreeBSD、Solaris等。
-        该端口还可作为Windows端口的基础。端口的重要性在于在有许多不同板（ :term:`boards <board>`）时，
-        任意两个用户不可能使用相同的板，几乎所有的现代操作系统都具有一定程度的POSIX兼容性，
-        此时Unix端口可作为一种所有用户都可访问的"共同基础"。因此，Unix端口用于初始原型、不同种类
-        的测试、开发独立于机器的特性等。我们建议所有MicroPython用户（甚至包括仅在 :term:`MCU` 系统中
-        运行MicroPython的用户）都了解一下Unix（或Windows）端口，因为该端口可提高工作效率，且为MicroPython工作流的一部分。
+        Unix port is MicroPython（ :term:`MicroPython ports <MicroPython port>`）one of the main port.
+        It is designed to run on POSIX compatible operating systems such as Linux, MacOS, FreeBSD, Solaris, etc.
+        It is designed to run on POSIX compatible operating systems such as Linux, MacOS, FreeBSD, Solaris, etc，
+       It is impossible for any two users to use the same board. Almost all modern operating systems have a certain degree of POSIX compatibility.
+        At this time, the Unix port can be used as a "common basis" . Therefore, Unix ports are used for initial prototypes, different types,
+        testing and development independent of machine characteristics, etc. We recommend all MicroPython users (even included only in  :term:`MCU` system
+        Users running MicroPython) are familiar with the Unix (or Windows) port, because this port can improve work efficiency and is part of the MicroPython workflow. 
 
-    port
-        :term:`MicroPython port` 或 :term:`GPIO port`。若您尚未理解上文，建议您使用如上述示例的完整规格。
+    PORT
+        :term:`MicroPython port` or :term:`GPIO port` . If you have not understood the above, it is recommended that you use the full specifications as in the example above. 
 
-    stream
+    STREAM
 
         Also known as “file-like object"”. An object that provides sequential read and write access to the underlying data.
         A stream object implements the corresponding interface, which consists of similar methods  ``read()`` ， ``write()`` ，``readinto()`` ，``seek()`` ，``flush()`` ，``close()`` , etc. Streaming is an important concept in MicroPython,
