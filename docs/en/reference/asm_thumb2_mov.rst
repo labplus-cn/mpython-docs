@@ -1,4 +1,4 @@
-寄存器移位指令
+Register shift instruction
 ==========================
 
 文件规范
