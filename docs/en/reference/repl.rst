@@ -176,4 +176,4 @@ The original mode is not for routine, but for programming.
 Click Ctrl-A to enter the original mode. Send your python code and click Ctrl-D. The Ctrl-D key will be recognized as "OK" , then compile and execute the python code.
 All outputs (or faults) will be sent back. Clicking Ctrl-B will launch the original mode and return to the regular (also known as friendly) REPL.
 
-``tools/pyboard.py`` 程序使用原始REPL来在MicroPython板上执行python文件。
+``tools/pyboard.py`` program uses the original REPL to execute python files on the MicroPython board.
