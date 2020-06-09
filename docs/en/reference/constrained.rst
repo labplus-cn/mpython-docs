@@ -113,11 +113,11 @@ The runtime tuple will be located in RAM. This may be improved in the future.
 
 **No need to create objects**
 
-很多情况下，可能无意地创建和销毁了对象。这可能会因碎片化而降低RAM的可用性。以下部分讨论此类实例。
+In many cases, objects may be created and destroyed unintentionally. This may reduce RAM availability due to fragmentation. The following section discusses such examples.
 
-**字串连接**
+**String Connection**
 
-思考下面的代码段，其目的是产生常量字符串:
+Consider the following code snippet, whose purpose is to generate a constant string:
 
 .. code::
 
@@ -127,38 +127,38 @@ The runtime tuple will be located in RAM. This may be improved in the future.
     foo\
     bar"""
 
-每个代码段都产生相同结果，但是第一个代码在运行时却创建了两个不必要的字符串对象，并在生成第三个对象前为连接分配更多的RAM。
-其他编译器在编译时执行更高效的连接，从而降低碎片化。
+Each code segment produces the same result, but the first code creates two unnecessary string objects at runtime and allocates more RAM for the connection before generating the third object.
+Other compilers perform more efficient linking at compile time, thereby reducing fragmentation.
 
-在字符串输入流（如文件）之前须动态创建字符串的情况下，若以零碎方式完成，则会节省RAM。
-创建一个子字符串（而不是创建一个大型字符串对象），并在处理下一个字符串前将其输入到流中。
+In the case where a character string must be dynamically created before the string input stream (such as a file), if it is completed in a piecemeal manner, RAM will be saved.
+Create a substring (instead of creating a large string object) and enter it into the stream before processing the next string.
 
-创建动态字符串的最佳方式是通过字符串 `format` 方法:
+The best way to create dynamic strings is through the string `format` method:
 
 .. code::
 
     var = "Temperature {:5.2f} Pressure {:06d}\n".format(temp, press)
 
-**缓冲区**
+**Buffer Zone**
 
-当访问诸如UART、I2C和SPI接口的设备时，使用预分配的缓冲器避免不要的对象创建。思考这两个循环:
+When accessing devices such as UART, I2C, and SPI interfaces, use pre-allocated buffers to avoid unwanted object creation. Consider these two loops:
 
 .. code::
 
     while True:
         var = spi.read(100)
-        # process data 处理数据
+        # process data 
 
     buf = bytearray(100)
     while True:
         spi.readinto(buf)
-        # process data in buf 在缓冲区中处理对象
+        # process data in buf 
 
-第一个循环在每次传递时创建一个缓冲区，第二个循环则重新使用一个预分配的缓冲区；这在内存碎片化方面既快又有效。
+The first loop creates a buffer on each pass, and the second loop reuses a pre-allocated buffer；This is both fast and effective in terms of memory fragmentation.
 
-**字节小于整数**
+**Byte less than integer**
 
-在大多数平台中，一个整数消耗四个字节。思考这两个函数 ``foo()`` 的调用:
+On most platforms, an integer consumes four bytes. Consider the call of these two functions ``foo()`` :
 
 .. code::
 
@@ -168,57 +168,57 @@ The runtime tuple will be located in RAM. This may be improved in the future.
     foo((1, 2, 0xff))
     foo(b'\1\2\xff')
 
-首次调用中，在RAM中创建一个整数元组。第二次调用有效地创建消耗最小RAM的 ``bytes`` 对象。
-若模块被冻结为字节码，则 ``bytes`` 对象将保留在Flash中。
+In the first call, create an integer tuple in RAM. The second call effectively creates the  ``bytes`` object that consumes the least RAM.
+If the module is frozen as bytecode, the ``bytes`` object will remain in Flash.
 
-**字符串vs字节**
+**String vs Bytes**
 
-Python3引入了Unicode支持，也就引入了字符串和字节数组之间的区别。只要字符串中的所有字符都为ASCII（即值<126），
-MicroPython即可确保Unicode字符串不占用额外空间。若需完整8位范围内的值，则可使用 `bytes` 和 `bytearray` 对象来确保无需额外空间。
-请注意：大多数字符串方法（例如 :meth:`str.strip()`）也适用于 `bytes` 实例，所以消除Unicode并不困难。
+Python3 introduced Unicode support, which introduced the difference between strings and byte arrays. As long as all characters in the string are ASCII (ie value <126),
+MicroPython ensures that Unicode strings do not take up extra space. If you need a full 8-bit value, you can use `bytes` and  `bytearray` objects to ensure that no extra space is required.
+Please note: most string methods (e.g. :meth:`str.strip()`）also applies to `bytes` instances, so eliminating Unicode is not difficult. 
 
 .. code::
 
-    s = 'the quick brown fox'   # A string instance 一个字符串实例
-    b = b'the quick brown fox'  # A bytes instance 一个字节实例
+    s = 'the quick brown fox'   # A string instance 
+    b = b'the quick brown fox'  # A bytes instance 
 
-在需在字符串和字节之间进行转换之处，可使用 `str.encode()` 和 `bytes.decode()` 方法。请注意：字符串和字节都是不可变的。
-任何将这种对象作为输入并产生另一个对象的操作都表示，为产生结果，至少有一次RAM分配。在下面第二行中，分配了一个新的字节对象。
-若 ``foo`` 为字符串，也会出现这种情况。
+Where you need to convert between strings and bytes, you can use the `str.encode()` and `bytes.decode()` method. Please note: strings and bytes are immutable.
+Any operation that takes this object as input and produces another object means that to produce the result, there is at least one RAM allocation. In the second line below, a new byte object is allocated.
+This will also happen if ``foo`` is a string.
 
 .. code::
 
     foo = b'   empty whitespace'
     foo = foo.lstrip()
 
-**运行时的编译器执行**
+**Compiler Execution at Runtime**
 
-Python的函数 `eval` 和 `exec` 在运行时调用编译器，这需要大量的RAM。请注意：来自 `micropython-lib` 的
-`pickle` 库使用 `exec` 。使用 `ujson` 库进行对象序列化可能会更高效地利用RAM。
+Python functions `eval` and `exec` call the compiler at runtime, which requires a lot of RAM. Please note: from `micropython-lib`  
+`pickle` library uses `exec` . Object serialization using the `ujson` library may make more efficient use of RAM.
 
-**将字符串储存到Flash中**
+**Store the String in Flash**
 
-Python字符串是不可变的，因此可能存储在只读存储器中。编译器可将Python代码中定义的字符串置于Flash中。
-与冻结模块一样，必须在PC上有一个源代码树的副本，然后使用工具链来构建固件。即使模块尚未完全调试，只要可以导入并运行，该程序仍将正常工作。
+Python strings are immutable, so they may be stored in read-only memory. The compiler can put the string defined in the Python code in Flash. 
+As with freezing the module, you must have a copy of the source code tree on the PC and then use the toolchain to build the firmware. Even if the module has not been fully debugged, the program will still work as long as it can be imported and run.
 
-导入模块后，执行:
-
-.. code::
-
-    micropython.qstr_info(1)
-
-然后将所有Q(xxx)行复制并粘贴到文本编辑器中。检查并删除明显无效的行。 打开将在stmhal中（或使用中的架构的等效目录）
-的文件qstrdefsport.h。将更正的行复制并粘贴到文件末尾。保存文件，重建并刷新固件。可通过导入模块和再次发出来检查结果:
+After importing the module, execute:
 
 .. code::
 
     micropython.qstr_info(1)
 
-Q(xxx) 行应消失。
+Then copy and paste all Q(xxx) lines into a text editor. Check and delete obviously invalid lines. Open the equivalent directory of the architecture that will be in stmhal (or in use)
+file qstrdefsport.h。Copy and paste the corrected line to the end of the file. Save the file, rebuild and flash the firmware. You can check the result by importing the module and sending it again:
+
+.. code::
+
+    micropython.qstr_info(1)
+
+Q(xxx) Line should disappear.
 
 .. _heap:
 
-堆
+Heap
 --------
 
 当正在运行的程序实例化对象时，将从一个固定大小的池中分配必要的RAM，这个池被称为堆。当对象超出范围
