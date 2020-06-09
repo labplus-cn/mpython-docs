@@ -1,48 +1,48 @@
-逻辑&位运算指令
+Logic & Bit Operation Instructions
 ==============================
 
-文件规范
+File Specification
 --------------------
 
-符号：除使用R0-R15的特殊指令的情况外， ``Rd, Rn`` 表示ARM寄存器R0-R7。 ``Rn<a-b>`` 表示内容介于 ``a <= contents <= b`` 范围的ARM寄存器。
-对于有两个寄存器参数的指令，允许二者相同。例如，无论初始内容如何，以下指令都将把R0归零（Python  ``R0 ^= R0`` ）。
+Symbol：Except for the special instructions using R0-R15, ``Rd, Rn`` means ARM registers R0-R7.  ``Rn<a-b>`` means the ARM register whose content is in the range of ``a <= contents <= b`` .
+For instructions with two register parameters, both are allowed to be the same. 例如，无论初始内容如何，以下指令都将把R0归零（Python  ``R0 ^= R0`` ）.
 
 * eor(r0, r0)
 
-除特殊说明外，这些指令会影响条件标志。
+Unless otherwise specified, these instructions affect condition flags。
 
-逻辑指令
+Logic instruction
 --------------------
 
 * and\_(Rd, Rn) ``Rd &= Rn``
 * orr(Rd, Rn) ``Rd |= Rn``
 * eor(Rd, Rn) ``Rd ^= Rn``
-* mvn(Rd, Rn) ``Rd = Rn ^ 0xffffffff`` i.e.  Rd = Rn的1的补码
-* bic(Rd, Rn) ``Rd &= ~Rn``  bit 使用Rn中掩码清除Rd
+* mvn(Rd, Rn) ``Rd = Rn ^ 0xffffffff`` i.e.  Rd = 1's complement of Rn
+* bic(Rd, Rn) ``Rd &= ~Rn``  bit use the mask in Rn to clear Rd
 
-注意：使用"and\_"而非"and"，因为"and"在Python中是保留关键字。
+Note: Use "and\_" instead of "and" because "and" is a reserved keyword in Python. 
 
-转换和旋转指令
+Conversion and rotation instructions
 -------------------------------
 
 * lsl(Rd, Rn<0-31>) ``Rd <<= Rn``
-* lsr(Rd, Rn<1-32>) ``Rd = (Rd & 0xffffffff) >> Rn`` 逻辑右移
-* asr(Rd, Rn<1-32>) ``Rd >>= Rn`` 算术右移
-* ror(Rd, Rn<1-31>) ``Rd = rotate_right(Rd, Rn)`` Rd右转Rn位。
+* lsr(Rd, Rn<1-32>) ``Rd = (Rd & 0xffffffff) >> Rn`` Logical shift right
+* asr(Rd, Rn<1-32>) ``Rd >>= Rn`` Arithmetic shift right
+* ror(Rd, Rn<1-31>) ``Rd = rotate_right(Rd, Rn)`` Rd turn right Rn bit.
 
-三位旋转运行如下。若Rd初始就包含位 ``b31 b30..b0`` ，则旋转后将包含 ``b2 b1 b0 b31 b30..b3`` 。
+The three-position rotation operation is as follows. If Rd initially contains bits ``b31 b30..b0`` , then it will contain ``b2 b1 b0 b31 b30..b3`` after rotation.
 
-特殊指令
+Special instructions
 --------------------
 
-条件代码不受这些指令的影响。
+Condition codes are not affected by these instructions.
 
 * clz(Rd, Rn) ``Rd = count_leading_zeros(Rn)``
 
-count_leading_zeros(Rn) 返回Rn中第一个二进制位之前的二进制零位数。
+count_leading_zeros(Rn) Returns the number of binary zero digits before the first binary digit in Rn.
 
 * rbit(Rd, Rn) ``Rd = bit_reverse(Rn)``
 
-bit_reverse(Rn) 返回Rn的位反转内容。若Rn包含位 ``b31 b30..b0`` ，则Rd将设置为 ``b0 b1 b2..b31`` 。
+bit_reverse(Rn) Returns the bit-reversed content of Rn. If Rn contains bits ``b31 b30..b0`` , then Rd will be set to ``b0 b1 b2..b31`` 。
 
 在执行clz之前，可通过执行一次位反转来计算尾部零点。
