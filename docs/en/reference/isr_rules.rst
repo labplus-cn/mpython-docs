@@ -240,7 +240,7 @@ Like ISR, the duration of the critical section in the main code should be short 
 One way to deal with the critical section (to completely reduce the time to disable interrupts) is to use an object called "mutexes" (named after the concept of mutual exclusion). Lock the mutex before the main program runs the critical section, 
 and unlock at the end. ISR tests if the mutex is locked. If locked, it avoids the critical section and returns. The problem with this design is how to define the behavior that the ISR should do when access to critical variables is denied.
 此处提供互斥体的简单示例：
-`here <https://github.com/peterhinch/micropython-samples.git>`_。注意：互斥体代码禁用了中断，但其禁用仅限于8个机器指令期间。
+`here <https://github.com/peterhinch/micropython-samples.git>`_. Note: The mutex code disables interrupts, but its disabling is limited to 8 machine instructions.
 The advantage of this method is that it hardly affects other interrupts.
 
 Interrupt and REPL
