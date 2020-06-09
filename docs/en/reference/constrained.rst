@@ -221,33 +221,33 @@ Q(xxx) Line should disappear.
 Heap
 --------
 
-当正在运行的程序实例化对象时，将从一个固定大小的池中分配必要的RAM，这个池被称为堆。当对象超出范围
-（换言之：已不可用于代码）时，冗余对象即为"垃圾"。"垃圾回收"（GC）的进程回收该内存，并将其返回到空闲堆。
-这个过程自动进行，但可通过发出 `gc.collect()` 来直接调用。
+When a running program instantiates an object, the necessary RAM will be allocated from a fixed-size pool, which is called the heap. When the object is out of range
+(In other words: no longer available for code), redundant objects are "garbage". The "garbage collection" (GC) process reclaims this memory and returns it to the free heap. 
+This process is automatic, but can be called directly by issuing  `gc.collect()` .
 
-有关这方面的讨论有所涉及。为"快速修复"，定期发布以下内容:
+The discussion in this regard is involved. For "quick fix", the following content is regularly published:
 
 .. code::
 
     gc.collect()
     gc.threshold(gc.mem_free() // 4 + gc.mem_alloc())
 
-碎片化
-~~~~~~~~~~~~~
+Fragmentization
+~~~~~~~~~~~~
 
-程序创建对象 ``foo`` ，然后创建对象 ``bar`` 。随后 ``foo`` 超出范围，但 ``bar`` 仍保留。 ``foo`` 所占用的
-RAM将被GC回收。但是，若 ``bar`` 被分配到更高地址，从 ``foo`` 回收的RAM只能用于不大于 ``foo`` 的对象。
-在复杂或长时间运行的程序中，堆可进行碎片化处理：尽管存在大量可用的RAM，但并无足够的连续空间来分配特定对象，且程序因存储器错误而失效。
+The program creates the object ``foo`` and then creates the object ``bar`` . Then ``foo``  is out of range, but ``bar`` remains. The RAM occupied by  ``foo`` will be recycled by GC.
+However, if  ``bar`` is assigned to a higher address, the RAM recovered from ``foo`` can only be used for objects no larger than  ``foo`` .
+In complex or long-running programs, the heap can be fragmented：Despite the large amount of available RAM, there is not enough contiguous space to allocate specific objects, and the program fails due to memory errors.
 
-上述技术旨在最大限度地减少这种情况。 在需要大的永久性缓冲区或其他对象的情况下，最好在程序执行过程中、
-碎片化进行前尽早将这些缓冲区实例化。 可通过监视堆的状态和控制GC来进一步改进。概述如下。
+The above technique aims to minimize this situation. When large permanent buffers or other objects are needed, it is better to execute the program、
+Instantiate these buffers as early as possible before fragmentation. It can be further improved by monitoring the status of the reactor and controlling the GC. Summarized as follows.
 
-报告
+Report
 ~~~~~~~~~
 
-许多库函数可用于报告内存分配和控制GC。这些都可以在 `gc` 和 `micropython` 模块中找到。
-下面的例子可能被粘贴在REPL（ctrl e进入粘贴模式，ctrl d运行它）。许多库函数可用于报告内存分配并控制GC。
-这些同样存在 `gc` 和 `micropython` 模块中。以下示例可能粘贴到REPL中（ ``ctrl e`` 进入粘贴模式， ``ctrl d`` 运行它）。
+Many library functions can be used to report memory allocation and control GC. These can be found in the `gc` and `micropython` modules.
+The following example may be pasted in REPL (ctrl e enters paste mode, ctrl d runs it). Many library functions can be used to report memory allocation and control GC.
+These also exist in the `gc` and `micropython` modules. The following example may be pasted into the REPL（ ``ctrl e`` enters paste mode, ``ctrl d`` runs it）.
 
 .. code::
 
