@@ -1,18 +1,18 @@
-浮点数指令
+Floating-point instruction
 ==============================
 
-这些指令支持使用ARM浮点协同处理器（在诸如Python的平台上，此平台即配备了此处理器）。FPU有32个称为 ``s0-s31`` 的寄存器，
-每个寄存器可容纳一个精度浮点。数据可通过 ``vmov`` 指令在FPU寄存器和ARM内核寄存器间传输。
+These instructions support the use of ARM floating-point coprocessors (on platforms such as Python, this platform is equipped with this processor). The FPU has 32 registers called  ``s0-s31`` ,
+Each register can hold a precision floating point. Data can be transferred between FPU register and ARM core register by ``vmov`` instruction.
 
-注意：MicroPython不支持向汇编函数传输浮点，同样您与也不可将浮点置于 ``r0`` 中并期待合理值。解决方法有两种。
-一种是使用数组，另一种是传输且/或返回整数并在代码中转化为浮点数。
+Note: MicroPython does not support the transfer of floating point to assembly functions, nor can you put floating point in ``r0`` and expect reasonable values. There are two solutions.
+One is to use arrays, the other is to transfer and/or return integers and convert them to floating-point numbers in the code.
 
-文件规范
+File Specification
 --------------------
 
-符号： ``Sd, Sm, Sn`` 表示FPU寄存器， ``Rd, Rm, Rn`` 表示ARM核心寄存器。后者可为任何ARM核心寄存器，尽管寄存器 ``R13-R15`` 在此情况下并不适用。
+Symbols： ``Sd, Sm, Sn`` means FPU register,  ``Rd, Rm, Rn`` means ARM core register. The latter can be any ARM core register, although the registers  ``R13-R15`` are not applicable in this case.
 
-算法
+Algorithm
 ----------
 
 * vadd(Sd, Sn, Sm) ``Sd = Sn + Sm``
@@ -22,40 +22,40 @@
 * vdiv(Sd, Sn, Sm) ``Sd = Sn / Sm``
 * vsqrt(Sd, Sm) ``Sd = sqrt(Sm)``
 
-寄存器可能相同： ``vmul(S0, S0, S0)`` 将执行 ``S0 = S0*S0``
+Registers may be the same： ``vmul(S0, S0, S0)`` will execute ``S0 = S0*S0``
 
-在ARM和FPU寄存器间移动
+Move between ARM and FPU registers
 ---------------------------------------
 
 * vmov(Sd, Rm) ``Sd = Rm``
 * vmov(Rd, Sm) ``Rd = Sm``
 
-FPU有一个称为FPSCR的寄存器，与ARM的核心APSR相似，储存条件代码及其他数据。以下指令提供对其的访问。
+The FPU has a register called FPSCR, which is similar to ARM's core APSR and stores condition codes and other data. The following instructions provide access to it.
 
 * vmrs(APSR\_nzcv, FPSCR)
 
-将浮点N、Z、C、V标志移动到APSR N、Z、C、V标志中。
+Move floating point N、Z、C、V  flags to APSR N、Z、C、V flags.
 
-这是在诸如FPU比对之类的指令后完成的，从而使条件代码可由汇编代码进行测试。以下为该指令的一般形式。
+This is done after instructions such as FPU comparison, so that the condition code can be tested by assembly code. The following is the general form of the instruction.
 
 * vmrs(Rd, FPSCR) ``Rd = FPSCR``
 
-在FPU寄存器和内存间移动
+Move between FPU register and memory
 ------------------------------------
 
 * vldr(Sd, [Rn, offset]) ``Sd = [Rn + offset]``
 * vstr(Sd, [Rn, offset]) ``[Rn + offset] = Sd``
 
-其中 ``[Rn + offset]`` 表示通过将Rn添加到偏移量获得的存储器地址。其单位为字节。由于每个浮点值占用一个32位字，因此在访问浮点数组时，偏移量须始终为4字节的倍数。
+Where ``[Rn + offset]`` represents the memory address obtained by adding Rn to the offset. The unit is byte. Since each floating-point value occupies a 32-bit word, when accessing a floating-point array, the offset must always be a multiple of 4 bytes.
 
-数据比对
+Data comparison
 ---------------
 
 * vcmp(Sd, Sm)
 
-比对Sd和Sm中的值，并设定FPU N、C、Z、V标志。这之后通常有 ``vmrs(APSR_nzcv, FPSCR)`` 来启用待检测的结果。
+Compare the values in Sd and Sm, and set the FPU N、C、Z、V flags. After this, there is usually  ``vmrs(APSR_nzcv, FPSCR)`` to enable the results to be detected.
 
-整数和浮点间的转换
+Conversion between integer and floating point
 ---------------------------------
 
 * vcvt\_f32\_s32(Sd, Sm) ``Sd = float(Sm)``
