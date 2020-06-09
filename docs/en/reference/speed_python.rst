@@ -70,9 +70,9 @@ This can be mitigated using the `memoryview` object.  `memoryview` itself is all
 .. code:: python
 
     ba = bytearray(10000)  # big array
-    func(ba[30:2000])      # a copy is passed, ~2K new allocation 传递一个副本，~2K新分配
-    mv = memoryview(ba)    # small object is allocated 分配小对象
-    func(mv[30:2000])      # a pointer to memory is passed 传递指向内存的指针
+    func(ba[30:2000])      # a copy is passed, ~2K new allocation 
+    mv = memoryview(ba)    # small object is allocated 
+    func(mv[30:2000])      # a pointer to memory is passed 
 
 `memoryview` can only be applied to objects that support the buffer protocol-this includes arrays but not lists. Tip: The memoryview object is useful，
 It retains the original buffer object. Therefore, memoryview is not a panacea. For example, in the above example, if you use 10K buffer to complete, 
