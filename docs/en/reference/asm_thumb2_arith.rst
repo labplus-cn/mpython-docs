@@ -1,4 +1,4 @@
-Algorithm instructions
+Algorithm Instructions
 =======================
 
 File specification
