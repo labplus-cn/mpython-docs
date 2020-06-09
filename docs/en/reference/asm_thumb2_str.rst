@@ -1,18 +1,18 @@
 Store registers in memory
 ========================
 
-文件规范
+File Specification
 --------------------
 
-符号：除特殊注明外， ``Rt, Rn`` 表示ARM寄存器R0-R7。 ``immN`` 表示具有N位宽度的即时值，因此 ``imm5`` 的范围限制为0-31。
-``[Rn + imm5]`` 为通过添加Rn和偏移值 ``imm5`` 获得的内存地址的内容。偏移值单位为字节。这些指令不会影响条件标志。
+Symbol: Except for special notes， ``Rt, Rn`` means ARM registers R0-R7.  ``immN`` means an instant value with N-bit width, so the range of ``imm5`` is limited to 0-31. 
+``[Rn + imm5]`` is the content of the memory address obtained by adding Rn and offset value  ``imm5`` . The unit of offset value is byte. These instructions will not affect the condition flags.
 
-寄存器存储
+Register storage
 --------------
 
-* str(Rt, [Rn, imm7]) ``[Rn + imm7] = Rt`` 储存一个32位字
-* strb(Rt, [Rn, imm5]) ``[Rn + imm5] = Rt`` 储存一个字节(b0-b7)
-* strh(Rt, [Rn, imm6]) ``[Rn + imm6] = Rt`` 储存一个16位半字(b0-b15)
+* str(Rt, [Rn, imm7]) ``[Rn + imm7] = Rt`` Store a 32-bit word
+* strb(Rt, [Rn, imm5]) ``[Rn + imm5] = Rt`` Store one byte (b0-b7)
+* strh(Rt, [Rn, imm6]) ``[Rn + imm6] = Rt`` Store a 16-bit halfword (b0-b15)
 
-指定即时偏差值的单位为字节。因此在 ``str`` 的情况下，7位值使得可用31字的最大偏差访问32位字对齐值。
-在 ``strh`` 的情况下，6位值使得可用31半字的最大偏差访问16位半字对齐值。
+Specify the unit of immediate deviation value in bytes. So in case of  ``str`` , the 7-bit value makes it possible to access the 32-bit word alignment value with the maximum deviation of 31 words.
+In the case of ``strh`` , the 6-bit value makes it possible to access the 16-bit halfword alignment value with the maximum deviation of 31 halfwords.
