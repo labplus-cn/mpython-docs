@@ -1,69 +1,69 @@
-比对指令
+Compare instructions
 =======================
 
-这些指令对两个参数执行算术或逻辑指令，放弃结果但会设置条件标志。通常，这些指令用于在执行条件分支之前，在不更改数据值的前提下测试数据值。
+These instructions perform arithmetic or logical instructions on two parameters, discarding the result but setting the condition flag. Generally, these instructions are used to test the data value without changing the data value before executing the conditional branch.
 
-文件规范
+File specification
 --------------------
 
-符号： ``Rd, Rm, Rn`` 表示ARM寄存器R0-R7。 ``imm8`` 表示一个具有8位宽度的即时值。
+Symbol： ``Rd, Rm, Rn`` means ARM registers R0-R7.  ``imm8`` represents an instant value with 8-bit width.
 
-应用程序状态寄存器(APSR)
+Application Status Register (APSR)
 ----------------------------------------------
 
-这包含四个由条件分支指令测试的位。通常情况下，条件分支将测试多个位，例如 ``bge(LABEL)`` 。
-条件码的含义取决于算术指令的操作数是否被视为有符号或无符号整数。因此， ``bhi(LABEL)`` 假定处理无符号数， ``bgt(LABEL)`` 假定处理有符号数。
+This contains four bits tested by conditional branch instructions. Normally, the conditional branch will test multiple bits, such as  ``bge(LABEL)`` .
+The meaning of the condition code depends on whether the operand of the arithmetic instruction is regarded as a signed or unsigned integer. Therefore, ``bhi(LABEL)`` is assumed to handle unsigned numbers, and ``bgt(LABEL)`` is assumed to handle signed numbers.
 
-APSR位
+APSR bit
 ---------
 
 * Z (zero)
 
-若运算的结果为0或比对的操作数相等，则设置为0。
+If the result of the operation is 0 or the compared operands are equal, set to 0.
 
 * N (negative)
 
-若结果为负，则设置为N。
+If the result is negative, set to N.
 
 * C (carry)
 
-若结果溢出MSB，则加法设定进位标记，例如把0x80000000和0x80000000相加。由于二进制补码算术的性质，
-这种行为在减法时反转，清除借助进位位指示的借位。因此0x10 - 0x01执行为0x10 + 0xffffffff，它将设置进位位。
+If the result overflows the MSB, add the carry flag, for example, add 0x80000000 and 0x80000000. Due to the nature of two's complement arithmetic,
+This behavior reverses during subtraction, clearing borrows indicated by carry. So 0x10 - 0x01 executes as 0x10 + 0xffffffff, it will set the carry bit.
 
 * V (overflow)
 
-若结果（被视为二进制数的补码）具有与操作数相关的"错误"符号，则会设置溢出标志。例如，将1添加到0x7fffffff将设置溢出位，
-因为结果（0x8000000）（被视为二进制补码整数）为负值。请注意：在此情况下，未设置进位位。
+If the result (considered as the complement of the binary number) has an "error" sign related to the operand, an overflow flag will be set. For example, adding 0x7fffffff will set the overflow bit，
+Because the result（0x8000000）(which is regarded as a two's complement integer) is negative. Please note: In this case, the carry is not set.
 
-比对指令
+Compare instructions
 -----------------------
 
-这些指令会设置APSR（应用程序状态寄存器）、N（负）、Z（零）、C（进位）和V（溢出）标志。
+These instructions set the APSR (application status register), N (negative), Z (zero), C (carry), and V (overflow) flags.
 
 * cmp(Rn, imm8) ``Rn - imm8``
 * cmp(Rn, Rm) ``Rn - Rm``
 * cmn(Rn, Rm) ``Rn + Rm``
 * tst(Rn, Rm) ``Rn & Rm``
 
-条件执行
+Conditional Execution
 ---------------------
 
-``It`` 和 ``ite`` 指令提供一种有条件地执行一到四个后续指令而无需标记的方法。
+The ``It`` and ``ite`` instructions provide a way to conditionally execute one to four subsequent instructions without marking.
 
 * it(<condition>) If then
 
-若<condition>为True，则执行下一指令:
+If <condition> is True, execute the next instruction:
 
 ::
 
     cmp(r0, r1)
     it(eq)
     mov(r0, 100) # runs if r0 == r1
-    # execution continues here 此处继续执行
+    # execution continues here 
 
 * ite(<condition>) If then else
 
-若<condtion>为真，执行下一指令，否则执行后续指令，因此:
+If <condtion> is TRUE, execute the next instruction, otherwise execute subsequent instructions, so:
 
 ::
 
@@ -73,4 +73,4 @@ APSR位
     mov(r0, 200) # runs if r0 != r1
     # execution continues here 此处继续执行
 
-这可能回扩展为控制至多四条后续指令的执行：it[x[y[z]]] where x,y,z=t/e; e.g. itt, itee, itete, ittte, itttt, iteee, etc.
+This may be expanded to control the execution of up to four subsequent instructions：it[x[y[z]]] where x,y,z=t/e; e.g. itt, itee, itete, ittte, itttt, iteee, etc.
