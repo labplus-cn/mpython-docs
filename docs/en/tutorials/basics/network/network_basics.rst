@@ -9,7 +9,7 @@ AP mode provides access services (other devices connected to ESP32). For more in
 STA mode
 -------
 
-The mPython Board is packaged based on the network module :ref:`mpython.wifi()<mpython.wifi>` 类简化wifi连接设置::
+The mPython Board is packaged based on the network module :ref:`mpython.wifi()<mpython.wifi>` Simplified wifi connection design::
 
     from mpython import *       #import the mpython module
 
