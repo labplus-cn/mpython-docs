@@ -57,11 +57,11 @@ Randomly generate positive integers in the range of 0 to size binary digits.
 
 Example::
 
-  >>> print( random.getrandbits(1))  #1 binary bit, the range is0~1（十进制：0~1）
+  >>> print( random.getrandbits(1))  #1 binary bit, the range is0~1（Decimal：0~1）
   1
   >>> print(random.getrandbits(1))
   0
-  >>> print(random.getrandbits(8))  #8位二进制位，范围为0000 0000~1111 11111（decimal：0~255）
+  >>> print(random.getrandbits(8))  #8 binary digits, the range is 0000 0000~1111 11111（decimal：0~255）
   224
   >>> print(random.getrandbits(8))
   155
