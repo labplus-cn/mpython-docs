@@ -16,7 +16,7 @@ Constant
 
     Error Code，based on ANSI C/POSIX standard. All error codes start with “E”. Errors can usually be accessed as ``exc.args[0]`` ，amongst ``exc`` is ``OSError`` as an example.
 
-    示例::
+    Example::
 
         try:
             uos.mkdir("my_dir")
