@@ -1,5 +1,5 @@
 *******************************
-:mod:`usocket` -- socket module
+:mod:`usocket` -- Socket Module
 *******************************
 
 .. module:: usocket
