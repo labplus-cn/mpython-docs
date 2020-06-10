@@ -200,12 +200,12 @@ Return to ambient humidity, unit in %。
 Buzzer
 -------
 
-mPython Board buzzer driven by ``music`` module. For details, see :mod:`music` 模块。
+mPython Board buzzer driven by ``music`` module. For details, see :mod:`music` module.
 
 
 button_[A,B] object
 ------
-The Button A and B on the mPython Board. button_a/button_b is a derived class of  ``machine.Pin`` and inherits Pin method. For application method, see :ref:`machine.Pin<machine.Pin>`  。
+The Button A and B on the mPython Board. button_a/button_b is a derived class of  ``machine.Pin`` and inherits Pin method. For application method, see :ref:`machine.Pin<machine.Pin>`  .
 
 
 
@@ -267,7 +267,7 @@ Return touch value
 
 rgb object
 -------
-mPython Board built-in with three WS2812 LED. The RGB object is a derivative of neopixel, methods of inheriting neopixel. For more application, see :ref:`neopixel<neopixel>` 。 
+mPython Board built-in with three WS2812 LED. The RGB object is a derivative of neopixel, methods of inheriting neopixel. For more application, see :ref:`neopixel<neopixel>` . 
 
 .. method:: rgb.write()
 
@@ -300,7 +300,7 @@ Brightness adjustment, range 0~1.0
 
 OLED object
 -------
-The OLED object is a derivative of framebuf, inheriting the method of framebuf. For more application, see :mod:`framebuf<framebuf>` 。 
+The OLED object is a derivative of framebuf, inheriting the method of framebuf. For more application, see :mod:`framebuf<framebuf>` . 
 
 .. method:: oled.poweron()
 
@@ -319,11 +319,11 @@ Set the display brightness。
 
 .. method:: oled.invert(n)
 
-Flip the pixels. When n=1, the unfilled pixels are lit-up, and the filled pixels are off. Otherwise When n=0. The default start is to fill the pixels and light up。
+Flip the pixels. When n=1, the unfilled pixels are lit-up, and the filled pixels are off. Otherwise When n=0. The default start is to fill the pixels and light up.
 
 .. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
 
-OLED panel text display. Apply  `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ open-source sans serif font. Font height 16 pixels, supports English, Simplified Chinese, Traditional Chinese, Japanese and Korean languages。
+OLED panel text display. Apply  `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ open-source sans serif font. Font height 16 pixels, supports English, Simplified Chinese, Traditional Chinese, Japanese and Korean languages.
 When the display string exceeds the width of the display, it will wrap automatically.
 
 Returns the binary (the total pixel width of the character, the x, y coordinates of the subsequent display).
@@ -367,7 +367,7 @@ Returns the binary (the total pixel width of the character, followed by the disp
     :caption: Custom font display
     :linenos:
 
-* :download:`以上自定义字体示例中simfang16、freescpt18、stxingkai20<https://github.com/labplus-cn/mpython-docs/tree/master/examples/display/custom_font>`
+* :download:`In the above custom font examples imfang16、freescpt18、stxingkai20<https://github.com/labplus-cn/mpython-docs/tree/master/examples/display/custom_font>`
 
 .. figure:: /../images/tutorials/helloworld_customfont.jpg
     :width: 400px
@@ -458,7 +458,7 @@ i2c object
 The mPython Board has been instantiated in the  ``I2C`` class, P19 and P20 are the SCL and SDA pins of I2C. I2C devices can be connected to the I2C bus of the mPython Board for operation.
 
 
-Deatils of read and write I2C operations, see :ref:`machine.I2C<machine.I2C>` 模块或 :ref:`I2C基础教程<tutorials_i2c>` 章节。
+Deatils of read and write I2C operations, see :ref:`machine.I2C<machine.I2C>` 模块或 :ref:`I2C basic tutorial <tutorials_i2c>` chapter.
 
 MPythonPin class
 -------
@@ -467,7 +467,7 @@ MPythonPin class
 
 CReate Pin object
 
-- ``pin`` mPython Board pin number definition, see :ref:`掌控板引脚定义<mpython_pinout>` 。
+- ``pin`` mPython Board pin number definition, see :ref:`mPython Board pins definition <mpython_pinout>` 。
 
 - ``mode`` pin mode. Before setting, defahlt is  `mode` = `PinMode.IN`
 
@@ -540,7 +540,7 @@ Provide convenient WiFi connection network or wireless AP function. Note that tu
 
 .. class:: wifi()
 
-Build WiFi object and create ``sta`` object and  ``ap`` object. See :mod:`network` 模块了解更多使用方法。
+Build WiFi object and create ``sta`` object and  ``ap`` object. See :mod:`network` more application of modules.
 
     - STA is used by clients to connect to routers to connect to the network。
     - AP is used to mPython Board as a wireless AP access method
