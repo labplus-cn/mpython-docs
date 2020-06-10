@@ -53,10 +53,10 @@ We customize a pubdata method, the function of this method is to combine into th
         j_d = json.dumps(data)
         j_l = len(j_d)
         arr = bytearray(j_l + 3)
-        arr[0] = 1 #publish数据类型为json
-        arr[1] = int(j_l / 256) # json数据长度 高位字节
-        arr[2] = j_l % 256      # json数据长度 低位字节
-        arr[3:] = j_d.encode('ascii') # json数据
+        arr[0] = 1 #publish the data type is json
+        arr[1] = int(j_l / 256) # json data length high byte
+        arr[2] = j_l % 256      # json data length Low byte
+        arr[3:] = j_d.encode('ascii') # json data
         return arr
 
 The device uses publish messages to upload data points. $dp is the instruction for the system to upload data points (2 byte string)::
