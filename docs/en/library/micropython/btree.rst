@@ -31,7 +31,7 @@ Examples::
     # Now open a database
     db = btree.open(f)
 
-    # The keys you add will be sorted internally in the database 您
+    # The keys you add will be sorted internally in the database 
     db[b"3"] = b"three"
     db[b"1"] = b"one"
     db[b"2"] = b"two"
@@ -57,7 +57,7 @@ Examples::
 
     del db[b"2"]
 
-    # No longer true, prints False 不正确，打印False
+    # No longer true, prints False 
     print(b"2" in db)
 
     # Prints:
