@@ -71,6 +71,6 @@ If <condtion> is TRUE, execute the next instruction, otherwise execute subsequen
     ite(eq)
     mov(r0, 100) # runs if r0 == r1
     mov(r0, 200) # runs if r0 != r1
-    # execution continues here 此处继续执行
+    # execution continues here 
 
 This may be expanded to control the execution of up to four subsequent instructions：it[x[y[z]]] where x,y,z=t/e; e.g. itt, itee, itete, ittte, itttt, iteee, etc.
