@@ -60,7 +60,7 @@ Integrate the accelerometer to make a control angle by tilting the control panel
 
 
 
-The servo and the mPython Board requires the expansion board to connect. See :ref:`掌控板接口引脚说明<mPythonPindesc>` , to understand the available pins for PWM analog output. Use Pin P0. Insert the mPython Board on the expansion board, connect the servo and the expansion board through the dual female Dupont cable, and the Vcc (red) on the servo is connected to the power port “V” of the expansion board. Wire GND (brown) connects to the ground port “G” of the expansion board, and the signal wire (orange) connects to the pin “0” of the expansion board.
+The servo and the mPython Board requires the expansion board to connect. See :ref:`mPython Board port pin manual<mPythonPindesc>` , to understand the available pins for PWM analog output. Use Pin P0. Insert the mPython Board on the expansion board, connect the servo and the expansion board through the dual female Dupont cable, and the Vcc (red) on the servo is connected to the power port “V” of the expansion board. Wire GND (brown) connects to the ground port “G” of the expansion board, and the signal wire (orange) connects to the pin “0” of the expansion board.
 
 .. image:: /../images/classic/Servoconnect.jpg
     :scale: 60 %
