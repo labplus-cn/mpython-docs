@@ -1,7 +1,7 @@
 Introduction to TCP/IP
 ================
 
-*re-copy to* `[廖雪峰Python教程] <https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320037768360d53e4e935ca4a1f96eed1c896ad1217000>`_
+*re-copy to* `[Liao Xuefeng Python tutorial] <https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320037768360d53e4e935ca4a1f96eed1c896ad1217000>`_
 
 
 
