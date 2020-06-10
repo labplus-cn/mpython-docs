@@ -73,7 +73,7 @@ In this example, the ``red``  instance associates timer 4 with LED 1：When the 
 The operation of the  ``green`` instance is similar：The interruption of timer 2 triggers the execution of ``green.cb()`` and switches LED 2. The use of example methods has two major benefits. 
 First, a single class allows code to be shared among multiple hardware instances. Second, as the binding method, the first parameter of the callback function is ``self`` . 
 This allows the callback to access instance data, and save state between successive callbacks. For example, if the above class puts the variable ``self.count``in the constructor.
-Set to 0, ``cb()`` will increment the counter.  ``red`` 和 ``green`` instances will keep an independent count of the number of times each LED has changed state.
+Set to 0, ``cb()`` will increment the counter.  ``red`` and ``green`` instances will keep an independent count of the number of times each LED has changed state.
 
 Create Python objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
