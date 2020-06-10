@@ -23,4 +23,4 @@ First, import the mPython module, Try to touch the P gold finger with your finge
 
   The control board has 6 touch pads on it, touchPad_P、touchPad_Y、touchPad_T、touchPad_H、touchPad_O、touchPad_N，from left to right, and other touch keys are used as above.
 
-.. image:: /../images/掌控板引脚定义-正面.png
+.. image:: /../images/mPython Board pins definition - Front Side.png
