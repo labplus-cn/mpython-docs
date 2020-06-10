@@ -32,4 +32,4 @@ Class
 
     .. method:: decrypt(in_buf, [out_buf])
 
-        类似 `encrypt()` ，但是用于解密。
+        Similar to `encrypt()` , but for decryption.
