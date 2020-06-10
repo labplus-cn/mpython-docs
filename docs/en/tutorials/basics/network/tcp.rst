@@ -16,7 +16,7 @@ TCP communication needs to go through three steps: creating a connection, data t
 
 When the socket is working, the two sides of the connection are divided into server and client, that is, C / S mode, and the TCP communication principle is as follows:
 
-.. figure:: /../images/tutorials/tcp原理.png
+.. figure:: /../images/tutorials/tcp principle.png
     :scale: 90 %
     :align: center
 
