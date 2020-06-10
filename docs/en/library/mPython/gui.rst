@@ -46,7 +46,7 @@ Draw vertical or horizontal columnar bars
     - ``height`` - Column bar height
     - ``progress`` - Column bar percentage
     - ``dir`` - Column bar direction. dir= 1 for horizontal direction, dir= 0 for vertical direction.
-    - ``frame`` -当frame=1时,显示外框；当frame=0时,不显示外框。
+    - ``frame`` - When frame=1 , the frame is displayed; when frame=0 , the frame is not displayed.
 
 .. method:: UI.qr_code(str,x,y,scale=2)
 
