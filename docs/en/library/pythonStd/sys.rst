@@ -40,7 +40,7 @@ Constant
 
 .. data:: implementation
 
-    Objects that contain information about the current Python implementation。对于MicroPython，It has the following attributes：
+    Objects that contain information about the current Python implementation. For MicroPython，it has the following attributes：
 
     * *name* - string "micropython"
     * *version* - Tuple (primary, secondary, micro), e.g. (1, 7, 0)
