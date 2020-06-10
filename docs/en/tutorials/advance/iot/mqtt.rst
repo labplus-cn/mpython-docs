@@ -15,186 +15,186 @@ A protocol that enables one-to-many communication (people call it publish or sub
 
   broker、publisher、subscriber
 
-中介承担着转发MQTT 通信的服务器的作用。相对而言，发布者和订阅者则起着客户端的作用。发布者是负责发送消息的客户端，而订阅
-者是负责接收消息的客户端。MQTT 交换的消息都附带“主题”地址，各个客户端把这个“主题”视为收信地址，对其执行传输消息的操作。
-形象地比喻一下，中介就是接收邮件的邮箱。
+The intermediary assumes the role of a server that forwards MQTT communications. Relatively speaking, publishers and subscribers act as clients. The publisher is the client responsible for sending messages, and the subscriber is the client responsible for receiving messages.
+Messages exchanged by MQTT are accompanied by a “subject” address, and each client regards this “subject” as a receiving address, and performs the operation of transmitting messages to it.
+Metaphorically, an intermediary is a mailbox that receives mail.
 
 .. figure:: /../images/tutorials/IoT/iot_publish.png
   :align: center
   :width: 600 
 
-  MQTT 通信的机制
+ Mechanism of MQTT communication
 
-中介在等待各个客户端对其进行连接。订阅者连接中介，把自己想订阅的主题名称告诉中介。这就叫作订阅。
-然后发布者连接中介，以主题为收信地址发送消息。这就是发布。发布者一发布主题，中介就会把消息传递给订阅了该主题的订阅者。
+The intermediary is waiting for each client to connect to it. The subscriber connects to the intermediary and tells the intermediary the name of the topic he wants to subscribe to. This is called a subscription.
+Then the publisher connects to the intermediary and sends the message with the subject as the receiving address. This is the release. As soon as the publisher publishes the topic, the intermediary will deliver the message to the subscribers who subscribe to the topic.
 
-如上图所示，如果订阅者订阅了主题A，那么只有在发布者发布了主题A 的情况下，中介才会把消息传递给订阅者。订阅者和中介总是处于
-连接状态，而发布者则只需在发布时建立连接，不过要在短期内数次发布时，就需要保持连接状态了。因为中介起着转发消息的作用，所以各
-个客户端彼此之间没有必要知道对方的IP 地址等网络上的收信地址。又因为多个客户端可以订阅同一个主题，所以发布者和订阅者是一
-对多的关系。在设备和服务器的通信中，设备相当于发布者，服务器则相当于订阅者。
+As shown in the figure above, if the subscriber subscribes to topic A, the intermediary will only deliver the message to the subscriber if the publisher posts topic A. 
+Subscribers and intermediaries are always connected, and publishers only need to establish a connection at the time of publication, but to publish several times in a short period of time, you need to stay connected. 
+Because the intermediary plays the role of forwarding messages, there is no need for each client to know the other party’s IP address and other mail receiving addresses on the network. And because multiple clients can subscribe to the same topic, the publisher and subscriber are in a one-to-many relationship.
+In the communication between the device and the server, the device is equivalent to the publisher, and the server is equivalent to the subscriber.
 
 
 .. figure:: /../images/tutorials/IoT/IoT_subscribe.png
   :align: center
   :width: 600 
 
-  MQTT 的主题示例
+  MQTT theme examples
 
 
-主题采用的是分层结构。用“#”和“+”这样的符号能指定多个主题。如上图所示，/Sensor/temperature/# 中使用了“#”符号，这样就
-能指定所有开头为/Sensor/temperature/ 的主题。此外，/Sensor/+/room1中使用了符号“+”，这样一来就能指定所有开头是/Sensor/、结尾是/room1 的主题。
+The theme uses a layered structure. Multiple symbols can be specified with symbols like “#” and “+”. As shown in the figure above, the “#” symbol is used in /Sensor/temperature/# , so that all topics starting with /Sensor/temperature/  can be specified.
+In addition, the symbol “+” is used in /Sensor/+/room1 , so that you can specify all topics that start with /Sensor/、and end with /room1 .
 
-*MQTT原理转载至 [图解物联网 / 日本NTT DATA集团等著；丁灵译. --北京：人民邮电出版社， 2017.4]*
+*The principle of MQTT is reproduced to [Illustrated Internet of Things/ Japan NTT DATA Group；Ding Ling translation. --北京：人民邮电出版社， 2017.4]*
 
-物联网平台介绍
+Introduction to the Internet of Things platform
 ----------------
 
-发布 - 订阅消息传递模式需要消息代理服务器。代理服务器负责根据消息主题向感兴趣的客户端分发消息。
+Announcement - subscribe messaging model requires a message broker server. The proxy server is responsible for distributing messages to interested clients based on the message subject.
 
 .. Hint:: 
 
-    目前互联网中MQTT物联网平台多种多样,大家可根据自己要求选择适合自己的mqtt物联网平台。本人推荐以下几个比较好的物联网平台。
+    At present, there are various MQTT IoT platforms on the Internet, you can choose the mqtt IoT platform that suits you according to your requirements. I recommend the following relatively good IoT platforms.
 
-*  OneNet 中国移动物联网平台：https://open.iot.10086.cn/
+*  OneNet China Mobile IoT platform：https://open.iot.10086.cn/
 
-    - 优点：支持多种通讯协议,如MQTT,HTTP等；可编辑应用功能,可制作数据显示和开关控件的页面UI。
-    - 缺点：平台操作较为复杂、与官方的MQTT稍有不同,对入门者比较不好理解。
+    - Advantages: Support multiple communication protocols, such as MQTT, HTTP, etc.；Editable application function, can make page UI for data display and switch control.
+    - Disadvantages: The platform operation is more complicated, slightly different from the official MQTT, and it is difficult to understand for beginners.
 
-* DFRobot Easy IoT 物联网平台：http://iot.dfrobot.com.cn/
+* DFRobot Easy IoT platform：http://iot.dfrobot.com.cn/
 
-    - 优点：操作简单,适合入门者学习。
-    - 缺点：不能自定义topic；缺少应用端的UI界面编辑,无法呈现数据。
+    - Advantages: simple operation, suitable for beginners to learn.
+    - Disadvantages: Cannot customize topic; lack of UI interface editing on the application side, unable to present data.
 
-* Adafruit IO 物联网平台：https://io.adafruit.com/
+* Adafruit IoT platform：https://io.adafruit.com/
 
-    - 优点：操作简单,适合MQTT教学；有丰富的dashboard编辑功能,可以很好的呈现数据；支持IFTTT,可关联很多的互联网服务,玩法多样。
-    - 缺点：国外服务器,连接不稳定,经常连接不上。
+    - Advantages: simple operation, suitable for MQTT teaching；There are ample dashboard editing functions, which can present data well；Support IFTTT, can be connected to many Internet services, and play variously.
+    - Disadvantages: foreign servers, unstable connection, often unable to connect.
 
-除上述外,你也可以自己搭建个mqtt服务器。
+In addition to the above, you can also build an mqtt server yourself.
 
 
 
-连接MQTT代理服务器
+Connect to MQTT proxy server
 -----------------
 
-下面以Easy IoT 作为讲解如何使用mqtt订阅主题和发布消息。
+The following uses Easy IoT to explain how to use MQTT to subscribe to topics and publish messages.
 
-首先导入需要的模块::
+First, import the required modules::
 
-    from umqtt.simple import MQTTClient    # 导入umqtt.simple模块,用于简单的mqtt客户端功能  
-    from mpython import *                  # 导入mpython模块
+    from umqtt.simple import MQTTClient    # import umqtt.simple module for simple MQTT client function.  
+    from mpython import *                  # import mpython module
 
-掌控板先连接上互联网::
+First, connect the mPython Board to the Internet::
 
-    mywifi=wifi()                           # 实例化wifi类
-    mywifi.connectWiFi("ssid","password")   # wifi连接,ssid为用户名,password为密码
+    mywifi=wifi()                           # Instantiate wifi class
+    mywifi.connectWiFi("ssid","password")   # WiFi connection, ssid is the username, password is the password
 
-实例 MQTTClient::
+Example MQTTClient::
 
-    SERVER = "182.254.130.180"       # Easy IoT的MQTT服务器地址
-    username='yourIotUserName'       # 你的Easy IoT上的Iot_id
-    password='yourIotPassword'       # 你的Easy IoT上的Iot_pwd
-    CLIENT_ID = "yourClientID"       # 你的Easy IoT上的Client ID 
+    SERVER = "182.254.130.180"       # Easy IoT MQTT server address
+    username='yourIotUserName'       # Iot_id on your Easy IoT
+    password='yourIotPassword'       # Iot_pwd on your Easy IoT
+    CLIENT_ID = "yourClientID"       # Client ID on your Easy IoT
 
-    c = MQTTClient(CLIENT_ID, SERVER,1883,username,password)  # MQTTClient类实例
-    c.connect()         # mqtt连接
+    c = MQTTClient(CLIENT_ID, SERVER,1883,username,password)  # MQTTClient class instance
+    c.connect()         # mqtt connect
 
-MQTTClient(client_id, server, port=0, user=None, password=None, keepalive=0), ``client_id`` 参数为mqtt客户端的唯一的id；``server`` 参数为mqtt代理服务器的
-IP地址； ``port`` 参数为mqtt的服务器访问的端口号,一般为1883,不同平台端口会有所不一样；``user`` 参数为用于获取mqtt鉴权的用户名；``password`` 参数为获取mqtt鉴权的password；
-``keepalive`` 参数为连接保存时间,当在keepalive间隔时间内未有订阅或发布等包,将会自动断开连接。
+MQTTClient(client_id, server, port=0, user=None, password=None, keepalive=0), ``client_id`` parameter is the unique id of MQTT client； The ``server`` parameter is for the mqtt proxy server
+IP address； The port number of the server accessed by the ``port`` parameter is mqtt, which is generally 1883, and the port will be different for different platforms；The ``user`` parameter is the username used to obtain mqtt authentication；The ``password`` parameter is the password for obtaining MQTT authentication；
+The ``keepalive`` parameter is the connection save time.When there is no subscription or release package within the keepalive interval, the connection will be automatically disconnected.
 
 .. image:: /../images/tutorials/mqtt_1.png
     :scale: 60%
 
-发布消息
+Announcement
 -------
 
-发布Easy IoT上的设备topic::
+Publish the device topic on Easy IoT::
 
     c.publish("Bkgk2zXb4",'hello')
 
 .. Note:: 
 
-    ``publish(topic, msg)`` , ``topic`` 参数为发布的主题,在Easy IoT的管理界面上,是通过topic来区分设备的,且不能修改,这点需要注意；``msg`` 参数为该主题的消息；
+    ``publish(topic, msg)`` , ``topic`` parameter is the published topic. On the management interface of Easy IoT, the devices are distinguished by topic and cannot be modified.；``msg`` parameter is the message of the topic；
 
-publish后,你可以在Easy IoT工作间的该设备“查看详情”中,查询到刚才发布的消息,如下:
+After publishing, you can find the message just published in the “View Details” of the device in the Easy IoT workshop, as follows:
 
 .. image:: /../images/tutorials/mqtt_2.png
 
 .. image:: /../images/tutorials/mqtt_3.png
 
-订阅主题
+Subscribe to Topics
 -------
 
-设置当接收消息后,打印输出::
+Set to print out after receiving a message::
 
     def sub_cb(topic, msg):             
             print((topic, msg))  
 
     c.set_callback(sub_cb) 
 
-在订阅主题前,需要先设置回调函数 ``set_callback(sub_cb)``, ``sub_cb`` 为当接收的消息后,处理的函数,须包含两个参数。
+Before subscribing to the topic, you need to set the callback function ``set_callback(sub_cb)``, ``sub_cb`` is the function to be processed after receiving the message, which must contain two parameters.
 
-订阅主题, ``topic`` 参数为需要订阅的主题::
+Topic subscription, ``topic`` parameter is the topic to be subscribed::
 
         
     c.subscribe(topic)
 
 
-最后使用 ``wait_msg()`` 等待接收消息::
+Finally use ``wait_msg()`` to wait for the message::
 
     while True:         
             c.wait_msg()  
 
 
-远程开关灯
+Remote lights switching
 ^^^^^^^
 
-以下示例用到mqtt订阅主题功能做的远程控制开关灯::
+The following example uses the remote control switch light made by the MQTT subscription theme function::
 
     from umqtt.simple import MQTTClient    
     from mpython import *   
     from machine import Timer               
 
-    SERVER = "182.254.130.180"            # Easy IoT的MQTT服务器地址
-    username='yourIotUserName'            # 你的Easy IoT上的Iot_id
-    password='yourIotPassword'            # 你的Easy IoT上的Iot_pwd
-    CLIENT_ID = "yourClientID"            # 你的Easy IoT上的Client ID 
+    SERVER = "182.254.130.180"            # Easy IoT MQTT server address
+    username='yourIotUserName'            # Iot_id on your Easy IoT
+    password='yourIotPassword'            # Iot_pwd on your Easy IoT
+    CLIENT_ID = "yourClientID"            # Client ID on your Easy IoT
 
-    TOPIC='yourTopic'                     # 你的Easy IoT上设备的topic
+    TOPIC='yourTopic'                     # Topic of your device on Easy IoT
 
-    mywifi=wifi()                         # 实例化wifi类
-    mywifi.connectWiFi("ssid","password")   # wifi连接,ssid为用户名,password为密码
+    mywifi=wifi()                         # Instantiate WiFi class
+    mywifi.connectWiFi("ssid","password")   # WiFi connection, ssid is the username, password is the password
 
     try:
-        def sub_cb(topic, msg):             # 当接收到订阅消息时的回调函数
-            print((topic, msg))             # 打印接收的主题消息
+        def sub_cb(topic, msg):             # Callback function when a subscription message is received
+            print((topic, msg))             # Print the received topic message
     
-            if topic == TOPIC.encode():     # 如果topic为我们设备的topic时,由于收到为字节类型。这里需要将 TOPIC 转换为字节类型。
+            if topic == TOPIC.encode():     # If the topic is the topic of our device, received byte type. Here you need to convert TOPIC to byte type.
  
-                if msg == b"on":                # 如果消息为“on”,亮灯  
+                if msg == b"on":                # If the message is "on", lights turn ON 
                         rgb.fill((0,20,0))
                         rgb.write()
 
-                elif msg == b"off":         # 如果消息为“off”,灭灯  
+                elif msg == b"off":         # If the message is "off", lights turn OFF
                     rgb.fill((0,0,0))
                     rgb.write()
 
-        c = MQTTClient(CLIENT_ID, SERVER,1883,username,password,keepalive=30)   # MQTTClient类实例,并设置连接保持时间间隔为30秒
-        c.connect()                             # mqtt连接
-        c.set_callback(sub_cb)                  # 设置回调函数
-        c.subscribe(TOPIC)                      # 订阅主题
+        c = MQTTClient(CLIENT_ID, SERVER,1883,username,password,keepalive=30)   # MQTTClient class instance, and set the connection hold interval to 30 seconds
+        c.connect()                             # mqtt connects
+        c.set_callback(sub_cb)                  # Set callback function
+        c.subscribe(TOPIC)                      # Subscribe to topics
         print("Connected to %s" % SERVER)
 
-        tim1 = Timer(1)                          # 创建定时器1
-        tim1.init(period=20000, mode=Timer.PERIODIC,callback=lambda n:c.ping())     # 20秒间隔发送Ping,保持连接
+        tim1 = Timer(1)                          # Create Timer 1
+        tim1.init(period=20000, mode=Timer.PERIODIC,callback=lambda n:c.ping())     # Send PING at 20-second intervals to keep connected
 
         while True:         
-            c.wait_msg()                    # 循环等待消息
+            c.wait_msg()                    # Waiting for messages in a loop
     finally:
-        c.disconnect()                     # 异常时,断开mqtt连接
+        c.disconnect()                     # When abnormal, disconnect MQTT
 
-然后点击进入Easy IoT工作间的该设备“发送消息”,发送该主题消息,如下:
+Then click on the device “Send Message” to enter the Easy IoT workshop to send the topic message as follows:
 
 .. image:: /../images/tutorials/mqtt_4.png
 
