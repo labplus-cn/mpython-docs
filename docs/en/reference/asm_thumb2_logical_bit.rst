@@ -5,7 +5,7 @@ File Specification
 --------------------
 
 Symbol：Except for the special instructions using R0-R15, ``Rd, Rn`` means ARM registers R0-R7.  ``Rn<a-b>`` means the ARM register whose content is in the range of ``a <= contents <= b`` .
-For instructions with two register parameters, both are allowed to be the same. 例如，无论初始内容如何，以下指令都将把R0归零（Python  ``R0 ^= R0`` ）.
+For instructions with two register parameters, both are allowed to be the same. For example, regardless of the initial content, the following instruction will reset R0 to zero (Python  ``R0 ^= R0`` ).
 
 * eor(r0, r0)
 
@@ -45,4 +45,4 @@ count_leading_zeros(Rn) Returns the number of binary zero digits before the firs
 
 bit_reverse(Rn) Returns the bit-reversed content of Rn. If Rn contains bits ``b31 b30..b0`` , then Rd will be set to ``b0 b1 b2..b31`` 。
 
-在执行clz之前，可通过执行一次位反转来计算尾部零点。
+Before executing clz, the null point can be calculated by performing a bit reversal.
