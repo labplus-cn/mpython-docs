@@ -16,11 +16,11 @@ Construct Servo object, use SG90 servo by default. Different servos have differe
 
 .. Hint:: 
 
-    Servo control pin must be a pin that supports PWM (analog output). mPython Board supports PWM pins, for details, see :ref:`掌控板接口引脚说明<mPythonPindesc>` 。
+    Servo control pin must be a pin that supports PWM (analog output). mPython Board supports PWM pins, for details, see :ref:`Pin description of the mPython Board interface <mPythonPindesc>` 。
 
 .. Attention:: 
 
-    * Set  ``actuation_range`` to apply the actual motion range values observed for ``min_us`` and ``max_us`` .
+    * Set  ``actuation_range`` to apply the actual motion values observed for ``min_us`` and ``max_us`` .
     * To extend the pulse width above and below these limits. The servo may stop, buzz, and absorb additional current when stopped. Test carefully to find the safe minimum and maximum.
     * Because the servo PWM cycle is 20ms, the response time is 20ms. When programming, pay attention to the interval between writing the servo angle twice should be at least greater than 20ms。
 
