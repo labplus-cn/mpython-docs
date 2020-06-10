@@ -13,7 +13,7 @@ Using unique addresses, many devices can share the same I2C bus without interfer
 
 ---------------------------------------
 
-When using the control panel, you can use the :ref:`I2C类<machine.I2C>` function to interact with devices on the I2C bus. In most cases, you will act as an I2C “master” and can read and write data with other I2C devices.
+When using the mPython Board, you can use the :ref:`I2C class<machine.I2C>` function to interact with devices on the I2C bus. In most cases, you will act as an I2C “master” and can read and write data with other I2C devices.
 You can also act as an I2C “slave” or peripheral, they are assigned an address and can listen to and respond to requests from other I2C devices.
 
 
@@ -22,7 +22,7 @@ You can also act as an I2C “slave” or peripheral, they are assigned an addre
 Master
 ----------
 
-Most I2C communication modules have similar operation methods. The mPython control board acts as an I2C master device, and the module acts as a slave device, responding to host requests.
+Most I2C communication modules have similar operation methods. The mPython Board acts as an I2C master device, and the module acts as a slave device, responding to host requests.
 The following SHT20 module is used as a demonstration to explain how to read slave device data.
 
 
@@ -68,7 +68,7 @@ The method of reading the humidity is also similar. First send the “0xf5” by
 
 .. Hint:: 
 
-    For more I2C operation methods，see :ref:`I2C类<machine.I2C>` chapter.
+    For more I2C operation methods，see :ref:`I2C class<machine.I2C>` chapter.
 
 
 The complete SHT20 example:
