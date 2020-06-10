@@ -6,7 +6,7 @@
 ==================================================
 
 
-`blue:bit` The module provides the mPython Board library of bluebit kit。
+`blue:bit` The module provides the mPython Board library of bluebit kit.
 
 
 .. contents::
