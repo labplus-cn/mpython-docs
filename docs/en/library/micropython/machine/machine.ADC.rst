@@ -16,7 +16,7 @@ Create an ADC object associated with a set pin. So you can read the analog value
 
  - ``Pin`` - ADC is available on dedicated pins, ESP32 available pins are：IO39、IO36、IO35、IO33、IO34、IO32. The ADC pins of the control board are P0、P1、P2、P3、P4、P10。
 
-Detailed pin definitions  `ESP32引脚功能表. <../../../_images/pinout_wroom_pinout.png>`_ and  :ref:`掌控板引脚定义<mpython_pinout>` chapter。
+Detailed pin definitions  `ESP32 pins function list. <../../../_images/pinout_wroom_pinout.png>`_ and  :ref:` mPython Board pins definition<mpython_pinout>` chapter。
 
 
 Example::
