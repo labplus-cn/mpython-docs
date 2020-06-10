@@ -126,9 +126,6 @@ Returns the current status of the wireless connection.
 .. method::  WLAN.ifconfig([(ip, subnet, gateway, dns)])
 
 
-不带参数时，返回一个4元组(ip, subnet_mask, gateway, DNS_server)
-
-
 Without parameters, a 4-tuple is returned (ip, subnet_mask, gateway, DNS_server)。
 
 - ``ip``：IP address
@@ -205,7 +202,7 @@ HOt Spot mode::
 
   ap = network.WLAN(network.AP_IF)     #Create access point interface
   ap.active(True)                      #Interface Activation
-  ap.config(essid='micropython',password=b"micropython",channel=11,authmode=network.AUTH_WPA_WPA2_PSK)  #设置接入点
+  ap.config(essid='micropython',password=b"micropython",channel=11,authmode=network.AUTH_WPA_WPA2_PSK)  #Set up an access point
 
 
 
