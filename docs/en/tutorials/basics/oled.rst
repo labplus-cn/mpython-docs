@@ -185,7 +185,7 @@ pbm data format::
 The first three lines of the pbm data format are set to label the image. Then the image data. The first line indicates the image format, and the second line is a comment, usually the program used to create it. The third line is the image size。
 The latter is the image data we need. Data storage per pixel bit stream, ``1`` means pixel is on, ``0`` means pixel is off.
 
-:download:`动态显示素材下载 </../../examples/display/素材/scatman.zip>`
+:download:`Dynamic display material download </../../examples/display/material/scatman.zip>`
 
 First upload the pre-prepared pbm pictures of each frame to the root directory of the file system of the control panel.
 
