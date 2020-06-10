@@ -11,7 +11,7 @@ HTTP GET request
 The following example shows how to download a webpage. HTTP uses port 80, you first need to send a “GET” request to download any content. As part of the request, you need to specify the page to retrieve.
 
 .. literalinclude:: /../../examples/network/http_get.py
-    :caption: socket实现HTTP get方法:
+    :caption: socket implements HTTP get method:
     :linenos:
 
 .. Hint::
