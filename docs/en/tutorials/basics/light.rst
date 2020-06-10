@@ -1,7 +1,7 @@
 Light Sensor
 =============
 
-The built-in light sensor on the mPython Board, 掌控板板载光线传感器，use it to sense light changes in the surrounding environment.
+The built-in light sensor on the mPython Board, use it to sense light changes in the surrounding environment.
 
 Example：Light control lamp::
 
@@ -29,8 +29,8 @@ Use ``light`` object to obtain the light sensor data::
 
 .. Note::
 
-    光线传感器使用 ``read()`` 函数来读取数据。返回的值为12bit的ADC采样数据，即最大值为十进制4095。
+    The light sensor uses the  ``read()`` function to read data. The returned value is 12bit ADC sampling data, that is, the maximum value is decimal 4095。
 
 
-学会了如何收集周边环境的光线数据，我们可以结合其他功能做更多有趣的场景。
+Learned how to collect light data of the surrounding environment, we can combine other functions to make more interesting scenes.
 
