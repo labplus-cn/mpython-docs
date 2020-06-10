@@ -9,7 +9,7 @@ Install the cp2104 serial driver in order for REPL to operate on windows on this
 Serial connection
 ----------
 
-To access via USB-serial, you need to use serial terminal software. On Windows such as kitty, xshell are good choices. Set the serial port baud rate to 115200, you can start playing MicroPython串口波特率设置为115200，就可以开始玩MicroPython了。To access via USB-serial, you need to use serial terminal software. 
+To access via USB-serial, you need to use serial terminal software. On Windows such as kitty, xshell are good choices. Set the serial port baud rate to 115200, you can start playing MicroPython. To access via USB-serial, you need to use serial terminal software. 
 
 After establishing the connection through the serial port, you can test whether it is working by pressing the Enter key a few times to test whether it is working properly. If it works, you can see the Python REPL prompt, which is expressed as ``>>>`` 。
 
