@@ -92,7 +92,7 @@ Functions
 
 .. function:: frexp(x)
 
-The float number is disintegrate into mantissa and exponent. 将浮点数分解为尾数和指数。The returned value is tuple返回的值是元组 ``(m, e)`` as such ``x == m * 2**e`` 
+The float number is disintegrate into mantissa and exponent. The returned value is tuple ``(m, e)`` as such ``x == m * 2**e`` 
 absolutely right. If ``x == 0`` ，then the function returns ``(0.0,0)`` ，if not ``0.5 <= abs(m) < 1`` .
 
 .. function:: gamma(x)
