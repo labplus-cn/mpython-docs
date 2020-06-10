@@ -176,7 +176,7 @@ mPython Board and Scratch connect
 Scratch software editing graphical program
 ++++++++++++++++++++++++++++
 
-Sample download :download:`Scratch示例 </../tools/Scratch.zip>` 。
+Sample download :download:`Scratch example </../tools/Scratch.zip>` 。
 
 .. image:: /../images/classic/scratch.gif
     :scale: 50%
