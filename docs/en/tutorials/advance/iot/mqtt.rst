@@ -3,11 +3,11 @@ MQTT
 
 
 
-MQTT（Message Queue Telemetry Transport）,遥测传输协议，提供订阅/发布模式，更为简约、轻量，易于使用，针对受限环境（带宽低、网络延迟高、网络通信不稳定），可以简单概括为物联网打造。
+MQTT (Message Queue Telemetry Transport), a telemetry transport protocol, provides a subscription/publish mode, which is more simple, lightweight, and easy to use. For restricted environments (low bandwidth, high network delay, unstable network communication), it can be simply summarized as.
 
 
-MQTT是一种基于发布 - 订阅的“轻量级”消息传递协议，用于在TCP / IP协议之上使用，它适用于需要“小代码占用”或网络带宽有限的远程位置的连接。
-能实现一对多通信（人们称之为发布或订阅型）的协议。它由3 种功能构成，分别是中介（broker）、发布者（publisher）和订阅者（subscriber）
+MQTT is a “light weight” messaging protocol based on publish-subscribe for use on top of the TCP/IP protocol, it is suitable for connections in remote locations that require "small code footprint" or limited network bandwidth.
+A protocol that enables one-to-many communication (people call it publish or subscribe). It consists of 3 functions, namely broker, publisher and subscriber.
 
 .. figure:: /../images/tutorials/IoT/mqtt.png
   :align: center
