@@ -2,120 +2,118 @@ Yeelight
 =========
 
 
-`Yeelight <https://www.yeelight.com>`_ 拥有完整的智能家居照明产品线，产品系列辐射家居照明系列、台上照明系列、氛围照明系列以及智能控制系列。集前沿技术和至美设计于一体是Yeelight一贯的追求。
-AI技术、BLE MESH技术、全屋智能照明技术均旗下产品进行广泛应用，全线WiFi产品支持智能语音控制，灯光变化，尽在言语之间。
+`Yeelight <https://www.yeelight.com>`_ has a complete smart home lighting product line, product series radiation home lighting series, desk lighting series, atmosphere lighting series and intelligent control series. It is Yeelight's consistent pursuit to integrate cutting-edge technology and beautiful design.
+AI technology, BLE MESH technology, and house full intelligent lighting technology are all widely used in its products. The entire line of WiFi products support intelligent voice control, lighting changes, etc. 
 
-局域网控制
+LAN control
 -----------
 
-Yeelight 支持Google Assistant 和 Amazon Alexa 智能语音控制。还支持国内少有支持的IFTTT。它可以社交媒体、智能硬件等各类网络服务更好的联动。后续我们会讲解IFTTT的有关应用。
-除此外,Yeelight还针对技术爱好者推出,第三方控制协议,可实现局域网内的个性化的控制。本文讲解的掌控板控制Yeelight智能照明设备就是用到该协议。
+Yeelight supports Google Assistant and Amazon Alexa intelligent voice control. Also supports IFTTT. It can interact better with various network services such as social media and smart hardware. In the future, we will explain the relevant applications of IFTTT。
+In addition, Yeelight is also launched for technology enthusiasts. A third-party control protocol can achieve personalized control within the LAN. This protocol is used to control the Yeelight intelligent lighting equipment by the control panel.
 
-Yeelight第三方控制协议：https://www.yeelight.com/download/Yeelight_Inter-Operation_Spec.pdf
+Yeelight third-party control protocol：https://www.yeelight.com/download/Yeelight_Inter-Operation_Spec.pdf
 
 .. figure:: /../images/tutorials/yeelight/yeelight_lan.png
   :target: https://www.yeelight.com/zh_CN/developer
   :align: center
 
-  Yeelight局域网控制
-
-
-准备
+  Yeelight LAN control
+Get Ready
 ++++++
 
-- 首先我们要有个Yeelight智能照明设备,按Yeelight官方声明,市面上在售的所有WiFi照明设备以及后续推出的WiFi产品都会支持局域网控制协议。本人较为推荐Yeelight LED灯泡(彩光版),即经济实惠又能控制颜色。
+- First of all, we must have a Yeelight intelligent lighting device. According to the official statement of Yeelight, all WiFi lighting devices on the market and subsequent WiFi products will support the LAN control protocol. I recommend the Yeelight LED light buld (color version), which is economical and can control the color.
 
 .. figure:: /../images/tutorials/yeelight/yeelight_led.png
   :align: center
   :scale: 30 %
 
-  Yeelight LED灯泡(彩光版)
+  Yeelight LED light bulb (color version)
 
-- YeeLight智能灯泡在使用前，须使用YeeLight APP先配置连接好wifi，并将 "局域网控制" 功能打开。
+- Before using the YeeLight smart light bulb, you must use the YeeLight APP to configure the wifi connection and turn on the "LAN Control" function.
 
 .. figure:: /../images/tutorials/yeelight/yeelight_app.gif
   :align: center
   :width: 400
 
-  Yeelight配置过程
+  Yeelight configuration process
   
-- 掌控板提供 ``yeelight`` 驱动库,该库可在 `awesome-mpython/libary/yeelight <https://github.com/labplus-cn/awesome-mpython/tree/master/library/yeelight>`_ 获取。里面有更详细的 ``yeelight`` 模块的API说明。 ``yeelight.py`` 下载至掌控板的文件系统。
+- The mPython Board provides the  ``yeelight`` driver library, which can be obtained at  `awesome-mpython/libary/yeelight <https://github.com/labplus-cn/awesome-mpython/tree/master/library/yeelight>`_ . There is a more detailed API description of the  ``yeelight`` module.  ``yeelight.py`` downloaded to the file system of the mPython Board.
 
-- 掌控板连接到Yeelight相同的局域网内。 
+- The mPython Board is connected to the same LAN as Yeelight。 
 
 
 
-编程
+Programming
 ++++++
 
 
-发现灯泡
+Discover light bulb
 ~~~~~~~~
 
 
-掌控板和Yeelight灯泡在同局域网内后,我们要控制灯泡,首先需要知道该灯泡的IP地址,我们可以使用 ``discover_bulbs()`` 函数::
+As the mPython Board and the Yeelight bulb are in the same LAN, we need to know the IP address of the bulb first, we can use the  ``discover_bulbs()`` function::
 
-    from mpython import *                   # 导入mpython模块
-    from yeelight import *                  # 导入yeelight模块
+    from mpython import *                   # import mpython module
+    from yeelight import *                  # import yeelight module
 
-    my_wifi = wifi()                        # 连接到与YeeLight相同的局域网内
+    my_wifi = wifi()                        # Connect to the same LAN as YeeLight
     my_wifi.connectWiFi("ssid","password")          
 
 
-    discover_bulbs()                        # 发现局域网内YeeLight的设备信息
+    discover_bulbs()                        # Discover device information of YeeLight in LAN
 
 
-网内的Yeelight灯泡响应并返回包含bulbs属性的字典::
+The Yeelight bulb in the network responds and returns a dictionary containing the bulbs attribute::
 
     >>> discover_bulbs()
     [{'ip': '192.168.0.8', 'capabilities': {'rgb': '16711680', 'bright': '100', 'support': 'get_prop set_default set_power toggle set_bright start_cf stop_cf set_scene cron_add cron_get cron_del set_ct_abx set_rgb set_hsv set_adjust adjust_bright adjust_ct adjust_color set_music set', 'sat': '100', 'power': 'off', 'id': '0x0000000007e7544d', 'name': '', 'fw_ver': '26', 'color_mode': '2', 'hue': '359', 'ct': '3500', 'model': 'color'}, 'port': '55443'}]
 
 
-``discover_bulbs()`` 函数,可获取网内Yeelight设备的属性。从上述返回的来看,该灯泡的IP地址为 ``192.168.0.8`` 。
+``discover_bulbs()`` function to get the attributes of Yeelight devices in the network. From the above return, the IP address of the bulb is ``192.168.0.8`` .
 
-开关控制
+Switch Control
 ~~~~~~~~
 
 
-知道IP地址后,我们构建 ``Bulb`` 对象,对灯泡开关控制::
+Knowing the IP address, we construct the ``Bulb``  object and control the light bulb switch::
 
 
-    bulb=Bulb("192.168.0.8")    # 构建对象
-    bulb.turn_on()              # 开灯指令
-    bulb.turn_off()             # 关灯指令
+    bulb=Bulb("192.168.0.8")    # construct object
+    bulb.turn_on()              # Turn ON instruction
+    bulb.turn_off()             # Turn OFF instruction
  
-除了 ``turn_on()`` 、``turn_off()`` 还可使用 ``toggle()`` 反转状态。
+In addition to ``turn_on()`` 、``turn_off()`` can also use ``toggle()`` to reverse the state.
 
-亮度调节
-~~~~~~~~
+Brightness Adjustment
+~~~~~~~
 
 ::
 
     bulb.set_brightness(100)   
 
-``set_brightness(brightness)`` , ``brightness`` 参数为亮度值,可调范围0~100 。
+``set_brightness(brightness)`` , ``brightness`` parameter of brightness value, range of 0~100 .
 
 
-设置颜色
+Set the color
 ~~~~~~~~~
 
 ::
 
-    bulb.set_rgb(255,0,0)           # 通过RGB设置灯泡颜色
-    bulb.set_hsv(180,100)           # 通过HSV设置灯泡颜色
-    bulb.set_color_temp(1700)       # 设置灯泡色温
+    bulb.set_rgb(255,0,0)           # Set bulb color via RGB
+    bulb.set_hsv(180,100)           # Set bulb color via HSV
+    bulb.set_color_temp(1700)       # Set the bulb color temperature
 
-``yeelight`` 模块提供 ``set_rgb(red, green, blue)`` 和 ``set_hsv(hue, saturation)`` 两个函数。"RGB" 和"HSV" 两种颜色模型来设置灯泡灯光颜色。RGB颜色模型比较常用,相信大家并不陌生。通过对红(R)、绿(G)、蓝(B)三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色。
-HSV（Hue Saturation Value）颜色模型：``hue`` 色调,用角度度量，取值范围为0～359，从红色开始按逆时针方向计算，红色为0°，绿色为120°,蓝色为240°。``saturation`` 饱和度,表示颜色接近光谱色的程度。颜色的饱和度也就愈高。饱和度高，颜色则深而艳。范围0~100。
-Value亮度参数,未提供支持。只需设置 ``hue`` 、``saturation`` 参数即可。在做些彩虹效果,颜色过渡时,HSV更为自然。
+The ``yeelight`` module provides two functions, ``set_rgb(red, green, blue)`` and  ``set_hsv(hue, saturation)`` . "RGB" and "HSV" 2  color models to set the lamp light color. The RGB color model is more commonly used, I believe everyone is no stranger. Various colors can be obtained by changing the three color channels of red(R), green(G), and blue(B) and superimposing them.
+HSV（Hue Saturation Value）：``hue`` measured in degrees, with a value range of 0 to 359, calculated counterclockwise from red, red is 0°, green is 120°, blue is 240°. ``saturation`` means the degree to which the color is close to the spectral color. The higher the saturation of the color. High saturation, deep and gorgeous colors. Range of 0~100.
+Value brightness parameter, no support is provided. Just set the ``hue`` 、``saturation`` parameters. When doing some rainbow effects and color transitions, HSV is more natural.
 
-还可以使用 ``set_color_temp(degrees)`` 函数设置灯泡色温, ``degrees`` 色温参数,范围1700~6500。
+You can also use the  ``set_color_temp(degrees)`` function to set the bulb color temperature,  ``degrees`` color temperature parameter, range 1700~6500。
 
 .. figure:: /../images/tutorials/yeelight/hsv.png
   :align: center
   :scale: 70 %
 
-  Yeelight HSV颜色模型
+  Yeelight HSV color model
 
 
 ------------------------
@@ -124,12 +122,12 @@ Value亮度参数,未提供支持。只需设置 ``hue`` 、``saturation`` 参�
   :align: center
   :scale: 100 %
 
-  掌控板控制Yeelight
+  mPython Board controled Yeelight
 
 .. Attention:: 
 
-  Yeelight,目前WiFi智能设备最多支持4个同时TCP连接。连接尝试将被拒绝。对于每个连接，都有一个命令消息配额限制，
-  也就是每分钟60个指令。所有LAN也有一个总配额限制,144。
+  Yeelight, currently WiFi smart devices support up to 4 simultaneous TCP connections. Connection attempt will be rejected. For each connection, there is a command message quota limit, 
+  That is 60 instructions per minute. All LANs also have a total quota limit of 144. 
 
 
 
