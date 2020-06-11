@@ -1,114 +1,114 @@
 
-贝壳物联
+BIGIOT
 ==============
 
-贝壳物联是一个让你与智能设备沟通更方便的物联网云平台，你可以通过互联网以对话、遥控器等形式与你的智能设备聊天、发送指令，查看实时数据， 
-跟实际需求设置报警条件，通过APP、邮件、短信、微博、微信等方式通知用户。
+BIGIOT is an IoT cloud platform that makes it easier for you to communicate with smart devices. You can chat with your smart device, send instructions, and view real-time data in the form of conversations and remote controls through the Internet,  
+set alarm conditions according to actual needs, and notify users through APP, email, SMS, Weibo, WeChat, etc.
 
 .. figure:: https://www.bigiot.net/Public/upload/UEditor/image/20181024/1540363897144665.jpg
     :width: 550
     :align: center
 
-    贝壳物联架构
+    BIGIOT architecture
 
-- 贝壳物联平台通讯协议：https://www.bigiot.net/help/1.html
+- BIGIOT platform communication protocol：https://www.bigiot.net/help/1.html
 
-掌控板连接贝壳物联
+Connect mPython Board to BIGIOT
 ----------------------------------
 
-准备工作
+Get ready
 +++++++++++++++++++++
 
-* 在使用前,需要先到贝壳物联 https://www.bigiot.net 注册账号,并增加智能设备。
+* First, needs to register an account at https://www.bigiot.net and to add a smart device.
 
-* 程序中,需要用到bigiot的mPython库,你可以到 https://github.com/labplus-cn/awesome-mpython/tree/master/library 获取。 将 bigiot.py 上传到文件系统中。
+* In the program, you need to use bigiot's mPython library, get it at  https://github.com/labplus-cn/awesome-mpython/tree/master/library . bigiot.py upload to the file system.
 
 
 
-设备间通讯
+Communication between devices
 ++++++++++++++++++++++++
 
 
 .. literalinclude:: /../../examples/IoT/bigiot.py
-    :caption: bigiot简单通讯示例::
+    :caption: simple bigiot communication examples::
     :linenos:
 
 
 
-连接贝壳物联平台前,需要确保掌控板已连接到互联网中。在实例设备时 ``Device(id,api_key)`` ,用到贝壳物联的智能设备信息, ``ID`` 和 ``API KEY`` 。
-设置say通讯的回调函数 ``say_callback(f)`` 。f(msg,id,name)回调函数, ``msg`` 参数为接收消息, ``id`` 参数为发送设备ID, ``name`` 参数为设备名称。
-``check_in()`` 为设备上线函数,可在贝壳物联平台上看到设备的连接状态。
-上示例,设置回调函数并将say通讯接收到的数据打印出来。
+Prior connection to BIGIOT platform, ensure the mPython Board is connected to Internet. While instantiating ``Device(id,api_key)`` , use the smart device information of BIGIOT, ``ID`` and  ``API KEY`` .
+Set the callback function for say communication  ``say_callback(f)`` . f(msg,id,name)callback function,  ``msg`` parameter is the received message,  ``id`` parameter is the sending device ID,  ``name`` parameter is the device name.
+``check_in()`` is the online function of the device, you can see the connection status of the device on BIGIOT.
+In the above example, set the callback function and print out the data received by say communication.
 
-客户端向掌控板发送消息
+The client sends a message to the dashboard
 ++++++++++++++++++++++++++++++++++++++++
 
-贝壳物联支持多种客户端与设备间通讯,如浏览器、微信小程序公众号、APP(Android)。
+BIGIOT supports communication between multiple clients and devices, such as browsers, WeChat mini-program public accounts, and APP (Android).
 
 
 .. figure:: /../images/tutorials/IoT/bigiot_1.gif
   :align: center
 
-  浏览器端
+  Browser
 
 .. figure:: /../images/tutorials/IoT/bigiot_2.gif
   :align: center
   :width: 500
 
-  微信小程序
+  WeChat Mini Program
 
-掌控板向设备端或客户端发送
+The mPython Board sends to the device or client
 ++++++++++++++++++++++++++++++++++++++++++
 
-设备
+Device
 ~~~~~~~~~
 
 
-你可在贝壳物联平台上同时添加多个智能设备。只要该智能设备已上线并且知道该设备的 ``ID`` ,你就可以向智能设备发送消息。
+You can add multiple smart devices on the Shell IoT platform at the same time. As long as the smart device is online and knows the ``ID`` of the device, you can send messages to the smart device.
 
-向ID: 7947设备发送消息::
+To ID: 7947 device sends a message::
 
   >>> device.say(device_id = 7947, msg = 'hello I am mPython')
 
-客户端
+Client
 ~~~~~~~~~
 
-向web端或微信等客户端发送消息,你可以在平台"个人信息"查看到你的用户ID::
+Send messages to clients such as web or WeChat, you can view your user ID on the platform "Personal Information" ::
 
   >>> device.say(user_id = 5600, msg = 'hello I am mPython')
 
-群组
+Group
 ~~~~~~~~~
 
-你也可以在平台设置多个智能设备组成群组,向群组发送消息,这样,该组成员均能接收到消息,类似IP组播功能::
+You can also set up multiple smart devices on the platform to form a group and send messages to the group, so that all members of the group can receive messages, similar to the IP multicast function::
 
   >>> device.say(group_id = 145, msg = 'hello I am mPython')
 
-``say(user_id, group_id, device_id, msg)`` 该函数用于设备或客户端的对话。``user_id`` 、``group_id`` 、``device_id`` 参数分别为用户ID、群组ID、设备ID。根据对话对象选择使用参数。
-``msg`` 为对话消息,类型为字符串。
+``say(user_id, group_id, device_id, msg)`` this function is used for device or client conversation. ``user_id`` 、``group_id`` 、``device_id`` parameters are user ID, group ID, device ID. Use parameters according to the dialogue object.
+``msg`` is a conversation message, the type is a string.
 
-向接口发送数据
+Send data to the interface
 ++++++++++++++++++++++
 
-往接口:9564发送掌控板的光线数据::
+To the interface: 9564, send the light data of the mPython Board::
 
   while True:
       val=light.read()
       device.update(9564,str(val))
       sleep(1)
 
-贝壳物联提供接口,用于收集传感器实时数据,并会绘制图表。update(id, data)为上传数据函数。 ``id`` 为接口ID, ``data`` 参数为上传的传感器数据,注意,该类型为字符串。如是int,需要转换成str。
-还有,数据发送不易过快,至少有1秒间隔以上。
+BIGIOT provides an interface for collecting real-time sensor data and drawing charts. update(id, data) is the function of uploading data.  ``id`` is the interface ID, and the ``data`` parameter is the uploaded sensor data. Note that this type is a string. If it is int, it needs to be converted to str.
+Also, data transmission should not be too fast, at least 1 second interval.
 
-语音助手
+Voice Assistant
 ------------------
 
-贝壳物联还能连接天猫精灵、百度语音助手,贝壳物联的设备作为客户端。接收服务端发送来的语音指令。实现语音控制智能家居的应用。
+BIGIOT can also connect with Tmall Genie and Baidu Voice Assistant, and Shell Internet of Things devices as clients. Receive voice commands from the server. Realize the application of voice control for smart home.
 
-天猫精灵绑定控制贝壳物联设备方法
+Tmall Genie control method for BIGIOT
 ++++++++++++++++++++++++++++++++++++++++++++++++
 
-天猫精灵绑定方法参考教程: https://www.bigiot.net/talk/359.html
+Tmall Genie control methodd reference tutorial: https://www.bigiot.net/talk/359.html
 
 
 
