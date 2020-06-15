@@ -1,76 +1,75 @@
 
 
-``mpython`` --- mpython模块(掌控板实验箱)
+``mpython`` --- mpython module (mPython Classroom Kit)
 ===========================================
 
 
-``mpython`` 是掌控板板实验箱兼容掌控板主控的模块,提供掌控板板载资源和相关的功能函数。与掌控板的 `mpython` 模块,会些细微的区别。
-相同的使用方法,在下文将不再说明,可参考掌控板的 :ref:`mpython模块说明 <mpython.py>` 。
+``mpython`` module controls the Starter Set thats compatible with the mPython Board, provide control of the built-in resources and its' related functions. The `mpython` module have some differences with that of the mPython Board.
+For those identical functions and applications will not mentioned here, instead refers to :ref:`mpython module description <mpython.py>` .
 
 .. Attention:: 
 
-    掌控板内置的光线传感器、麦克风、蜂鸣器,在实验箱上位置有所变化。除麦克风, `sound.read()` 前须要 `sound.init()` 。其他使用方式和掌控板是一样的。
+    The location of light sensor, microphone and buzzer in the mPython Starter Set had re-located compared to the mPython Board. Except for microphone, its application  `sound.read()` instead of the earlier  `sound.init()` . Other application method are identical as mPython Board.
 
 
-函数
+Function
 ------------
 
-运动
+Motion
 +++++++++++
 
 
-可以获取MPU6050空间运动传感器当前的3轴加速度、角速度和欧拉角、四元数。通过这些数据,你可以很容易的获取物体的运动姿态。
+You can get the current 3-axis acceleration, angular velocity, Euler angle, and quaternion of the MPU6050 space motion sensor. Through these data, you can easily obtain the motion status of it.
 
 .. method:: motion.get_accel()
 
-返回当前三轴加速度元组(x,y,z)。单位g,范围-2~+2g。
+Return the current three-axis acceleration tuple (x, y, z). Unit g, range -2~+2g。
 
 .. method:: motion.get_gyro()
 
-返回当前三轴角速度元组(x,y,z),范围±500°/秒
+Returns the current three-axis angular velocity tuple (x, y, z), range ±500°/sec
 
 .. method:: motion.get_euler()
 
-返回当前欧拉角元组(Pitch,Roll,Yaw),单位角度
+Returns the current Euler angle tuple (Pitch, Roll, Yaw), unit angle
 
 .. method:: motion.get_quat()
 
-返回当前四元数元组(w,x,y,z)
+Return the current quaternion tuple (w, x, y, z)
 
 
-掌控板触摸按键
+The touchpads on mPython Board
 ++++++++++++++
 
-用法和掌控板一样,用 ``read()`` 获取模拟值。由于实验箱不支持返回模拟值,只能返回0或1023,这点须注意！
+Same as the mPython board, use  ``read()`` to get the analog value. Since this mPython Starter Set box does not support returning analog values, it can only return as 0 or 1023.！
 
 .. method:: touchPad_[P,Y,T,H,O,N].read()
 
-返回触摸值(0或1023)
+Returns touch value (0 or 1023)
 
 RGB LED
 ++++++++++++++
 
-掌控板实验箱集成5x5 RGB LED矩阵,有25颗灯珠,而掌控板上只有3颗。在使用上和掌控板是一样的。
-有关跟多的 ``rgb`` 函数,参考掌控板的 :ref:`mpython模块说明 <mpython.py>` 。
+Compared to only 3 on mPython Board, this mPython Starter Set had integrated 5*5 (total 25 pcs) of RGB LEDs. 
+It is the same as the control panel in use. For more of ``rgb`` function, refers to mPython Board :ref:`mpython module description <mpython.py>` 。
 
 
-麦克风
+Microphone
 ++++++++++++++
 
-.. admonition:: 区别
+.. admonition:: differences
 
-    由于实验箱增加音频编解码芯片专门处理音频数据。所以在 ``sound.read()`` 读取声音响度前,须要初始化设置。
-
+    Due to the addition of audio codec chip in the mPython Starter Set, specifically to deal with audio data. 
 .. staticmethod:: sound.init()
 
-初始化,开启音频解码
+Initialize, enable audio decoding
 
 .. staticmethod:: sound.read()
 
-获取声音响度
+Get the loudness of the sound
 
 .. staticmethod:: sound.deinit()
 
-关闭音频解码
+Turn off audio decoding
 
 
