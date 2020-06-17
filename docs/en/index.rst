@@ -1,4 +1,4 @@
-.. mPython掌控板 documentation master file, created by
+.. mPython Board documentation master file, created by
    sphinx-quickstart on Tue Aug 28 17:25:35 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -11,25 +11,25 @@ Welcome to use mPython!
 mPython board is a teaching and learning tool jointly put forward by the maker education expert committee, maoyouhui and the majority of front-line teachers and participated in the research and development with the representatives of excellent enterprises in the maker education industry. It is an open source hardware for education and a public welfare project.
 
 |
-.. image:: /../images/掌控-动态.gif
+.. image:: /../images/mPython-Motion.gif
 |
 
-| **掌控板官网**: https://www.mpython.cn
-| **GitHub开源**: https://github.com/labplus-cn/mPython
-| **mPython掌控板文档**: https://mPython.readthedocs.io
-| **mPython IDE 软件编程文档**: https://mpythonsoftware.readthedocs.io/
-| **Awesome-mPython(掌控资源大全)** : https://labplus-cn.github.io/awesome-mpython/
+| **mPython Board Official Website**: https://www.mpython.cn
+| **GitHub Open Source**: https://github.com/labplus-cn/mPython
+| **mPython Board Documentation**: https://mPython.readthedocs.io
+| **mPython IDE Software Programming Documentation**: https://mpythonsoftware.readthedocs.io/
+| **Awesome-mPython(Resources)** : https://labplus-cn.github.io/awesome-mpython/
 
 
-*我们已将掌控板项目的软硬件资源分享至GitHub，供各位掌控板爱好者学习阅览*
+*We open the software and hardware resources of the mPython Board project to GitHub to share with mPython Board user to learn and Apply*
 
 .. Attention::
 
-     该项目正在积极开发中。由于ESP32仍然面向开发人员，并非所有外围设备都能完美使用，可能仍然存在一些bug，我们将会不断及时修复和更新。
+     The project is under active development. Since ESP32 is still for developers, not all peripheral devices can be used perfectly, there may still be some bugs, we will continue to fix and update in time.
 
 ---------
 
-mPython掌控板资料
+mPython Board materials
 ---------
 
 .. toctree::
@@ -42,14 +42,14 @@ mPython掌控板资料
 
 .. toctree::
    :maxdepth: 2
-   :caption: 掌控板教程
+   :caption: mPython Board Tutorial
 
    tutorials/basics/index.rst
    tutorials/advance/index.rst
 
 ---------
 
-经典案例
+Classic Examples
 ++++++
 
 .. toctree::
@@ -60,55 +60,55 @@ mPython掌控板资料
 
 ---------
 
-MicroPython类库
+MicroPython Library
 ----------------
 
 .. toctree::
    :maxdepth: 1
-   :caption: MicroPython类库
+   :caption: MicroPython Library
    :hidden:
 
    library/pythonStd/index.rst
    library/micropython/index.rst
 
 
-=========================================   ======================================================
- :ref:`Python标准库<pythonStd>`               兼容CPython,内含Python内建函数、常用module
- :ref:`MicroPython类库<microPythonModu>`      MicroPython的ESP32硬件控制层的模块
-=========================================   ======================================================
+============================================   =============================================================================
+ :ref:`Python Standard Library<pythonStd>`       CPython compatible, contain Python built-in functions、commonly used module
+ :ref:`MicroPython Library<microPythonModu>`     MicroPython ESP32 hardware control module
+============================================   =============================================================================
 
 
-您可以通过 ``help()`` 发现可用的内置库，在REPL中输入以下内容来导入::
+You can find the available built-in libraries through ``help()`` , import the following content in REPL to import::
 
     >>> help('modules')
 
 
-除了本文档中描述的内置库之外，在 :term:`micropython-lib`  中还可以找到来自Python标准库的更多模块以及对它的进一步微Python扩展。
+In addition to the built-in libraries described in this document, the :term:`micropython-lib`  You can also find more modules from the Python standard library and further microPython extensions to it.
 
 ---------
 
-mPython类库
+mPython Library
 -------------
 
 .. toctree::
    :maxdepth: 1
-   :caption: mPython类库
+   :caption: mPython Library
    :hidden:
 
    library/mPython/index.rst
 
        
-- :mod:`mpython`  --------- 掌控板板载相关功能函数                                
-- :mod:`music` --------- 音乐相关功能函数,兼容micro:bit music 模块
-- :mod:`urequests` --------- HTTP客户端的相关功能函数
-- :mod:`umqtt.simple` --------- 简单MQTT客户端功能函数
-- :mod:`gui` --------- GUI类的绘制元素
-- :mod:`audio` --------- 音频播放录音
-- :mod:`radio` --------- 无线广播
-- :mod:`sdcard` --------- 挂载SD卡
-- :mod:`bluebit` --------- blue:bit驱动
-- :mod:`parrot` --------- 掌控拓展板驱动
-- :mod:`ds18x20` --------- ds18b20温度传感器驱动
+- :mod:`mpython`  --------- mPython Board related built-in functions                                
+- :mod:`music` --------- Music related function, micro:bit module compatible
+- :mod:`urequests` --------- Related function of HTTP Client
+- :mod:`umqtt.simple` --------- MQTT Client function
+- :mod:`gui` --------- GUI type drawing elements
+- :mod:`audio` --------- Audio playback recording
+- :mod:`radio` --------- Radio broadcasting
+- :mod:`sdcard` --------- Mount SD Card
+- :mod:`bluebit` --------- blue:bit driver
+- :mod:`parrot` --------- mPython Expansion Board driver
+- :mod:`ds18x20` --------- ds18b20 Temperature Sensor driver
 
 
 
@@ -117,11 +117,11 @@ mPython类库
 
 .. toctree::
    :maxdepth: 1
-   :caption: MicroPython 语法
+   :caption: MicroPython Syntax
 
    reference/index.rst
 
-有关MicroPython特定语言功能的语言参考信息
+References for specific language features of micropython
 
 
 .. toctree::
@@ -136,13 +136,13 @@ mPython类库
    release.rst
 
 
-掌控系列
+mPython Series
 ----------
 
 .. toctree::
    :hidden:
    :maxdepth: 1
-   :caption: 掌控系列
+   :caption: mPython Series
 
    extboard/index.rst
    mpython_classroom_kit/index.rst
@@ -158,7 +158,7 @@ mPython类库
 
 ------------------
 
-索引
+Index
 ==================
 
 * :ref:`genindex`
