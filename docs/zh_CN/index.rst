@@ -98,22 +98,25 @@ mPython类库
    :hidden:
 
    library/mPython/index.rst
+   ext_lib/index.rst
 
-       
-- :mod:`mpython`  --------- 掌控板板载相关功能函数                                
-- :mod:`music` --------- 音乐相关功能函数,兼容micro:bit music 模块
-- :mod:`urequests` --------- HTTP客户端的相关功能函数
-- :mod:`umqtt.simple` --------- 简单MQTT客户端功能函数
-- :mod:`gui` --------- GUI类的绘制元素
-- :mod:`audio` --------- 音频播放录音
-- :mod:`radio` --------- 无线广播
-- :mod:`sdcard` --------- 挂载SD卡
-- :mod:`bluebit` --------- blue:bit驱动
-- :mod:`parrot` --------- 掌控拓展板驱动
-- :mod:`ds18x20` --------- ds18b20温度传感器驱动
+- ``内置库``
 
+   - :mod:`mpython`  --------- 掌控板板载相关功能函数                                
+   - :mod:`music` --------- 音乐相关功能函数,兼容micro:bit music 模块
+   - :mod:`urequests` --------- HTTP客户端的相关功能函数
+   - :mod:`umqtt.simple` --------- 简单MQTT客户端功能函数
+   - :mod:`gui` --------- GUI类的绘制元素
+   - :mod:`audio` --------- 音频播放录音
+   - :mod:`radio` --------- 无线广播
+   - :mod:`sdcard` --------- 挂载SD卡
+   - :mod:`bluebit` --------- blue:bit驱动
+   - :mod:`parrot` --------- 掌控拓展板驱动
+   - :mod:`ds18x20` --------- ds18b20温度传感器驱动
 
+- ``拓展库``
 
+   - `mython_ble <https://mpython-ble.readthedocs.io/>`_ --------- 蓝牙BLE高级库
 
 ---------
 
