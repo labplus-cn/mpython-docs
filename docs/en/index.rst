@@ -11,7 +11,7 @@ Welcome to use mPython!
 mPython board is a teaching and learning tool jointly put forward by the maker education expert committee, maoyouhui and the majority of front-line teachers and participated in the research and development with the representatives of excellent enterprises in the maker education industry. It is an open source hardware for education and a public welfare project.
 
 |
-.. image:: /../images/mPython-Motion.gif
+.. image:: /../images/掌控-动态.gif
 |
 
 | **mPython Board Official Website**: https://www.mpython.cn
@@ -96,21 +96,25 @@ mPython Library
    :hidden:
 
    library/mPython/index.rst
+   ext_lib/index.rst
 
-       
-- :mod:`mpython`  --------- mPython Board related built-in functions                                
-- :mod:`music` --------- Music related function, micro:bit module compatible
-- :mod:`urequests` --------- Related function of HTTP Client
-- :mod:`umqtt.simple` --------- MQTT Client function
-- :mod:`gui` --------- GUI type drawing elements
-- :mod:`audio` --------- Audio playback recording
-- :mod:`radio` --------- Radio broadcasting
-- :mod:`sdcard` --------- Mount SD Card
-- :mod:`bluebit` --------- blue:bit driver
-- :mod:`parrot` --------- mPython Expansion Board driver
-- :mod:`ds18x20` --------- ds18b20 Temperature Sensor driver
+- ``built-in``
 
+   - :mod:`mpython`  --------- mPython Board related built-in functions                                
+   - :mod:`music` --------- Music related function, micro:bit module compatible
+   - :mod:`urequests` --------- Related function of HTTP Client
+   - :mod:`umqtt.simple` --------- MQTT Client function
+   - :mod:`gui` --------- GUI type drawing elements
+   - :mod:`audio` --------- Audio playback recording
+   - :mod:`radio` --------- Radio broadcasting
+   - :mod:`sdcard` --------- Mount SD Card
+   - :mod:`bluebit` --------- blue:bit driver
+   - :mod:`parrot` --------- mPython Expansion Board driver
+   - :mod:`ds18x20` --------- ds18b20 Temperature Sensor driver
 
+- ``extend``
+
+   - `mython_ble <https://mpython-ble.readthedocs.io/>`_ --------- buletooth BLE Higher
 
 
 ---------
@@ -133,7 +137,7 @@ References for specific language features of micropython
 .. toctree::
    :hidden:
 
-   release.rst
+   release <https://github.com/labplus-cn/mpython/releases>
 
 
 mPython Series

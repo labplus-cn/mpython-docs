@@ -135,10 +135,12 @@ mPython类库
    license.rst
 
 
+
 .. toctree::
    :hidden:
 
-   release.rst
+   固件发布 <https://github.com/labplus-cn/mpython/releases>
+ 
 
 
 掌控系列
