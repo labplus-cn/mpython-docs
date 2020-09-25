@@ -321,10 +321,10 @@ Set the display brightness。
 
 Flip the pixels. When n=1, the unfilled pixels are lit-up, and the filled pixels are off. Otherwise When n=0. The default start is to fill the pixels and light up.
 
-.. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
+.. method:: oled.DispChar(s, x, y,mode=TextMode.normal,auto_return=False)
 
 OLED panel text display. Apply  `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ open-source sans serif font. Font height 16 pixels, supports English, Simplified Chinese, Traditional Chinese, Japanese and Korean languages.
-When the display string exceeds the width of the display, it will wrap automatically.
+
 
 Returns the binary (the total pixel width of the character, the x, y coordinates of the subsequent display).
 
@@ -336,7 +336,8 @@ Returns the binary (the total pixel width of the character, the x, y coordinates
         - ``TextMode.rev`` - equals to 2 . Reverse mode, the text is displayed in black, and the background is white.
         - ``TextMode.trans`` - equals to 3 . Transparent mode, transparent text means that the text is written on top of what is already visible in the display. The difference is that the content on the previous screen can still be seen, while for normal, the background will be replaced by the currently selected background color.
         - ``TextMode.xor`` - equals to 4 . XOR mode, if the background is black, the effect is the same as the default mode (normal mode). If the background is white, the text is reversed.
-
+    - ``auto_return`` - auto return,When the display string exceeds the width of the display, it will wrap automatically.
+    
 .. method:: oled.show()
 
 Send frame buffer to OLED display.

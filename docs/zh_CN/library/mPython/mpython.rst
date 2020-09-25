@@ -321,10 +321,9 @@ oled对象为framebuf的衍生类，继承framebuf的方法。更多的使用方
 
 翻转像素点。当n=1时,未填充像素点点亮,填充像素点灭。当n=0时,则反。默认启动是填充像素点点亮。
 
-.. method:: oled.DispChar(s, x, y,mode=TextMode.normal)
+.. method:: oled.DispChar(s, x, y,mode=TextMode.normal,auto_return=False)
 
 oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/noto/help/cjk/>`_ 开源无衬线字体字体。字体高度16像素点,支持英文,简体中文繁体中文，日文和韩文语言。
-当显示字符串超出显示屏宽度可自动换行。
 
 返回(字符总像素点宽度,续接显示的x,y坐标)的二元组。
 
@@ -336,6 +335,7 @@ oled屏显示文本。采用 `Google Noto Sans CJK <http://www.google.cn/get/not
         - ``TextMode.rev`` - 等于2 。反转模式,文本显示黑色,背景为白色。
         - ``TextMode.trans`` - 等于3 。透明模式,透明文本意味着文本被写在显示中已经可见的内容之上。不同之处在于，以前屏幕上的内容仍然可以看到，而对于normal，背景将被当前选择的背景颜色所替代。
         - ``TextMode.xor`` - 等于4 。XOR模式,如果背景是黑色的，效果与默认模式(normal模式)相同。如果背景为白色，则反转文本。
+    - ``auto_return`` - 自动换行,当显示字符串超出显示屏宽度可自动换行。默认不换行。
 
 .. method:: oled.show()
 
