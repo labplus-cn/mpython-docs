@@ -17,6 +17,14 @@
 NTC Temperature module
 -------------
 
+
+.. autoclass:: bluebit.Thermistor
+    :members:
+    :undoc-members: True
+    :exclude-members: 
+    :special-members: '__init__' 
+    :member-order: bysource
+
 .. autoclass:: bluebit.NTC
     :members:
     :undoc-members: True
