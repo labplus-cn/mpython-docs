@@ -9,6 +9,15 @@
 This module provides audio recording and playback functions, using P8 and P9 pins as audio decoding output. As the mPython Board has no integrated speakers, it cannot directly play the audio source. You can use an expansion board with integrated speakers or connect P8 and P9 to the amplifier speakers yourself.
 
 
+How to connect the control board to 3.5mm earphone:
+
+- P8  -- left channel
+- P9  -- right channel
+- GND -- GND
+
+.. image:: /../images/tutorials/audio_interface.png
+  :scale: 120 %
+
 Parameter
 ----------
 

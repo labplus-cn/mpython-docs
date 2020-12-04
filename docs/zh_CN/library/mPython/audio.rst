@@ -8,17 +8,16 @@
 
 该模块提供音频录音播放功能,使用P8和P9引脚作为音频解码输出。 由于掌控板无集成喇叭,并不能直接播放音源。你可以使用带集成喇叭的扩展板或自己将P8,P9外接至功放喇叭。
 
-掌控板接3.5mm耳机方法
+掌控板接3.5mm耳机方法:
 
-P8    --    左声道
+- P8  -- 左声道
+- P9  -- 右声道
+- GND -- GND
 
-P9    --    右声道
+.. image:: /../images/tutorials/audio_interface.png
+  :scale: 120 %
 
-GND --   GND
 
-.. image:: /../images/audio_interface.png
-  :width: 100%
-  :align: left
 
 
 函数
