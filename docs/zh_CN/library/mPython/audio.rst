@@ -16,7 +16,7 @@ P9    --    右声道
 
 GND --   GND
 
-.. image:: /../docs/images/audio_interface.png
+.. image:: /../images/audio_interface.png
   :width: 100%
   :align: left
 
