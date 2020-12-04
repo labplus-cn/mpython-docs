@@ -16,7 +16,7 @@ P9    --    右声道
 
 GND --   GND
 
-.. image:: /../images/audio_interface.png
+.. image:: /../docs/images/audio_interface.png
 
 
 函数
