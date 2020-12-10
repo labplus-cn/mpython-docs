@@ -98,7 +98,7 @@ The acceleration range constant value is follows:
     ========================== ========= =================
 
 
-.. method:: accelerometer.set_resolustion(resolution)
+.. method:: accelerometer.set_resolution(resolution)
 
 Set acceleration resolution, default is 10bit resolution。
 

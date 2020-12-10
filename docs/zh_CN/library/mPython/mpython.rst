@@ -98,7 +98,7 @@
     ========================== ========= =================
 
 
-.. method:: accelerometer.set_resolustion(resolution)
+.. method:: accelerometer.set_resolution(resolution)
 
 设置加速度分辨率,默认,不修改为10bit分辨率。
 
