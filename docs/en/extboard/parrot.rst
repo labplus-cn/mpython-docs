@@ -91,8 +91,9 @@ Features illustration
     Expansion pins are: P0、P1、P2、P3、P5、P6、P7、P11、P13、P14、P15、P16、P19(SCL)、P20(SDA)
 
 .. Important:: 
-    Be aware: Not to use the digital input P5 and P11 to avoid conflict as it was dedicated for USER A and B switch.
-
+    - Be aware: Not to use the digital input P5 and P11 to avoid conflict as it was dedicated for USER A and B switch.
+    - The built-in lithium battery provides only limited drive capability, if needed to drive more powerful devices or for long term stable applications. External USB is recommended for external power supply.
+    
 **Speaker-Audio Playback**
 
     Built-in speaker to support audio playback.
