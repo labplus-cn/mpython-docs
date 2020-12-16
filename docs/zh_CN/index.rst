@@ -158,9 +158,7 @@ mPython类库
   :scale: 80 %
   :target: extboard/index.html
 
-.. image:: /../images/mpython_classroom_kit/mpython_classroom_kit_250.png
-  :scale: 80 %
-  :target: mpython_classroom_kit/index.html
+
 
 
 ------------------
