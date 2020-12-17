@@ -122,13 +122,6 @@
 提供多种平面倾斜、翻转、敲击（类似鼠标点击）、掉落的运动姿态事件。用户可预先设定回调函数，当事件发生后，触发事件回调。
 回调函数定义如，function_callback(event)。`event` 参数为对应事件常量。
 
-.. data:: accelerometer.event_tilt_up
-
-向前倾斜
-
-.. data:: accelerometer.event_tilt_down
-
-向后倾斜
 
 .. data:: accelerometer.event_tilt_left
 
@@ -137,6 +130,15 @@
 .. data:: accelerometer.event_tilt_right
 
 向右倾斜
+
+.. data:: accelerometer.event_tilt_up
+
+向前倾斜
+
+.. data:: accelerometer.event_tilt_down
+
+向后倾斜
+
 
 .. data:: accelerometer.event_face_up
 
@@ -160,18 +162,18 @@
 
 event事件定义如下:
 
-    ========================== ========= 
-        事件                       值     
-        TILT_LEFT                  0      
-        TILT_RIGHT                 1    
-        TILT_UP                    2    
-        TILT_DOWN                  3   
-        FACE_UP                    4     
-        FACE_DOWN                  5   
-        SINGLE_CLICK               6    
-        DOUBLE_CLICK               7     
-        FREEFALL                   8    
-    ========================== =========
+    ================================== ========= 
+        事件                                值     
+        accelerometer.TILT_LEFT           0      
+        accelerometer.TILT_RIGHT          1    
+        accelerometer.TILT_UP             2    
+        accelerometer.TILT_DOWN           3   
+        accelerometer.FACE_UP             4     
+        accelerometer.FACE_DOWN           5   
+        accelerometer.SINGLE_CLICK        6    
+        accelerometer.DOUBLE_CLICK        7     
+        accelerometer.FREEFALL            8    
+    ================================== =========
 
 magnetic
 -----------
