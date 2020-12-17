@@ -175,6 +175,11 @@ event事件定义如下:
         accelerometer.FREEFALL            8    
     ================================== =========
 
+.. literalinclude:: /../../examples/accelerometer/accelerometer_event.py
+    :caption: accelerometer 事件的简单应用
+    :linenos:
+
+
 magnetic
 -----------
 MMC5983MA磁力计函数接口,可获取3轴地磁感应强度、地磁场强度、获取电子罗盘角度。
@@ -272,7 +277,7 @@ button_[a,b]对象
 Button类，按键抽象类。
 
     - ``pin_num`` - IO引脚号
-    - ``reverse`` - 默认为reverse为False。适用于触发为低电平按键。如是触发wi高电平按键，将reverse设为True，翻转下。
+    - ``reverse`` - 默认为reverse为False。适用于触发为低电平按键。如是触发为高电平按键，将reverse设为True，翻转下。
 
 掌控板上button_a、button_b的实例::
 
@@ -289,6 +294,13 @@ Button类，按键抽象类。
 .. data:: Button.event_released
 
 按键释放事件。
+
+
+.. literalinclude:: /../../examples/button/button_event.py
+    :caption: Button 事件回调的简单应用
+    :linenos:
+
+
 
 .. method:: Button.value()
 
@@ -319,7 +331,7 @@ Button类，按键抽象类。
 
 .. method:: Button.irq(handler=None, trigger=(Pin.IRQ_FALLING | Pin.IRQ_RISING), priority=1, wake=None)
 
-配置在引脚的触发源处于活动状态时调用的中断处理程序。
+配置在引脚的触发源处于活动状态时调用的中断处理程序。用法与 machine.Pin.irq 一样。
 
 参数:
 
