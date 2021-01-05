@@ -324,7 +324,7 @@ Button类，按键抽象类。
 
 .. method:: Button.get_presses()
 
-返回按键的运行总数，并在返回之前将该总数重置为零。
+返回按键的按下总数，并在返回之前将该总数重置为零。注意，计数器超过100将不再计数。
 
 
 .. _button.irq:
@@ -359,18 +359,41 @@ Button类，按键抽象类。
     >>> button_a.irq(trigger=Pin.IRQ_FALLING, handler=lambda p:print("button-a press！")) 
 
 
-touchPad_[ ]对象
+touch对象
 ------
-掌控板上共有6个触摸引脚分别touchPad_P/Y/T/H/O/N。
+掌控板上共有6个触摸引脚分别touchpad_p/y/t/h/o/n。是Touch类的实例对象，具体包含函数方法如下。
 
-.. method:: touchPad_[P,Y,T,H,O,N].read()
+
+.. class:: Touch(pin)
+
+
+.. data:: Touch.event_pressed
+
+触摸按键按下事件。当按键事件发生，触发事件回调。回调函数定义如，function_callback(value), ``value`` 为该触摸按键的状态值。
+
+.. data:: Touch.event_released
+
+触摸按键释放事件。
+
+.. method:: Touch.read()
 
 返回触摸值
 
-::
+. method:: Touch.config(threshold)
 
-    >>> touchPad_P.read()
-    >>> 523
+触摸阈值设置
+
+.. method:: Touch.is_pressed()
+
+返回当前是否按住。 ``True`` 表示按键按下，``False`` 则未按下。
+
+.. method:: Touch.was_pressed()
+
+返回 ``True`` 或 ``False`` 指示自设备启动以来或上次调用此方法以来是否按下按钮。调用此方法将清除按下状态，因此必须再次按下按钮，然后才能再次返回 ``True`` 。
+
+.. method:: Touch.get_presses()
+
+返回按键的按下总数，并在返回之前将该总数重置为零。注意，计数器超过100将不再计数。
 
 rgb对象
 -------
