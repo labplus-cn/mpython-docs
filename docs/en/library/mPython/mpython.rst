@@ -117,6 +117,16 @@ This function is used to calibrate the acceleration value deviation of the three
 Note that the calibration data will not be saved after power off. ``x``, ``y``, ``z`` is the adjustment deviation value, the correctable range is ±1g.
 
 
+.. method:: accelerometer.roll_pitch_angle()
+
+Return the Euler Angle (roll , pitch ) calculated by the accelerometer. Note that yaw  requires angular velocity, so it cannot be measured. Returns 2 tuples (roll,pitch) in unit Angle.
+
+Assume that the control panel is an aircraft:
+
+- Roll Angle refers to the included Angle between the plane where the two wings of an aircraft are located and the parallel line. The right roll of the aircraft body is positive and the range is [-180,180]..
+- The pitch Angle refers to the Angle between the nose and the horizontal plane, which is 0 when the plane is parallel and positive when the plane is up, with a range of [-180,180].
+
+.. Attention:: Only by 3 axis acceleration calculation method, only applicable to static, only gravity measurements. In practice, there are other acceleration disturbances, such as vibrations.
 Motion detection event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
