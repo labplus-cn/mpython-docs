@@ -35,5 +35,9 @@ Motor    0x01      0x01/0x02  -100~100
 
 
 .. literalinclude:: /../../examples/mpython-shield/ir_send.py
-    :caption: IR send
+    :caption: NEC code Infrared code example
+    :linenos:
+
+.. literalinclude:: /../../examples/mpython-shield/ir_learn.py
+    :caption: NEC code Infrared learning example
     :linenos:
