@@ -1,14 +1,12 @@
-
-from parrot import IR, IR_encode
+import parrot
 import time
 
-ir_code = IR_encode()
-ir = IR()
+ir_code = parrot.IR_encode()
 
-# NEC编码
-ir_buf = ir_code.encode_nec(0x01, 0x55)
-
-
+ir = parrot.IR()
+ir_buff = ir_code.encode_nec(1, 85)
 while True:
-    ir.send(ir_buf)
-    time.sleep(1)
+    ir.send(ir_buff, 1)
+    time.sleep(3)
+    ir.stop_send()
+    time.sleep(3)

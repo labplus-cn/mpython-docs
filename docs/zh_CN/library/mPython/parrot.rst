@@ -34,5 +34,9 @@ Type     Command   motor_no   speed(int)
     :linenos:
 
 .. literalinclude:: /../../examples/mpython-shield/ir_send.py
-    :caption: 红外发码
+    :caption: NEC编码红外发码示例
+    :linenos:
+
+.. literalinclude:: /../../examples/mpython-shield/ir_learn.py
+    :caption: NEC编码红外学习示例
     :linenos:
