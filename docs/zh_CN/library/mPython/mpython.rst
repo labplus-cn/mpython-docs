@@ -174,7 +174,7 @@
 event事件定义如下:
 
     ================================== ========= 
-        事件                                值     
+        事件                              值     
         accelerometer.TILT_LEFT           0      
         accelerometer.TILT_RIGHT          1    
         accelerometer.TILT_UP             2    
@@ -186,9 +186,48 @@ event事件定义如下:
         accelerometer.FREEFALL            8    
     ================================== =========
 
+.. Attention:: 掌控板v2.3版本以上,去除加速度计运动侦测事件
+
 .. literalinclude:: /../../examples/accelerometer/accelerometer_event.py
     :caption: accelerometer 事件的简单应用
     :linenos:
+
+gyroscope
+-----------------
+
+通过gyroscope对象，您可以获取陀螺仪角速度值，角速度的单位是dps(°/S)。 
+角速度范围±16dps/±32dps/±64dps/±128dps/±256dps/±512dps/±1024dps/±2048dps ,默认为±256 dps。
+
+.. method:: gyroscope.get_x()
+
+获取x轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.get_y()
+
+获取y轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.get_z()
+
+获取z轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.set_range(range)
+设置角速度范围,默认不修改为,范围在±256 dps。
+
+角速度范围值为以下常量:
+
+    ========================== ========= =================
+        常量                       值          定义
+        RANGE_16_DPS               0         范围±16 dps
+        RANGE_32_DPS               16        范围±32 dps
+        RANGE_64_DPS               32        范围±64 dps
+        RANGE_128_DPS              48        范围±128 dps
+        RANGE_256_DPS              64        范围±256 dps
+        RANGE_512_DPS              80        范围±512 dps
+        RANGE_1024_DPS             96        范围±1024 dps
+        RANGE_2048_DPS             112       范围±2048 dps
+    ========================== ========= =================
+
+.. Attention:: 掌控板v2.3版本以上加入陀螺仪传感器
 
 
 magnetic
