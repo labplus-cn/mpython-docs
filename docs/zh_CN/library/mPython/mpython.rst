@@ -228,7 +228,7 @@ gyroscope
         RANGE_2048_DPS             112       范围±2048 dps
     ========================== ========= =================
 
-.. method:: accelerometer.set_offset(x=None, y=None, z=None)
+.. method:: gyroscope.set_offset(x=None, y=None, z=None)
 
 该函数用于校准陀螺仪的3个轴(x,y,z)的角速值偏差。一般情况下无需校准,只有当遇到角速度偏差较大时修正。
 ``x`` , ``y`` , ``z`` 为调整偏差值,可修正范围±1024dps。    
