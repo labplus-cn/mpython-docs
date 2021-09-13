@@ -6,7 +6,7 @@ mPython Expansion Board Introduction
 Overview
 ----
 
-This mPython Expansion Board (or PARROT as named in Library) is a handy and portable, exquisitely designed as the extension for mPython Board. The 12x I/O interface and 2x I2C interface enable its' extension capability to supports unique functions: motor drive, audio playback, speech synthesis and others. unique functions. Expandable 12 channel IO interface and 2 channel I2C interface.
+This mPython Expansion Board (or PARROT as named in Library) is a handy and portable, exquisitely designed as the extension for mPython Board. The 12x I/O interface and 2x I2C interface enable its' extension capability to supports unique functions: motor drive, audio playback, speech synthesis ,infrared emission(ir learning) and others. unique functions. Expandable 12 channel IO interface and 2 channel I2C interface.
 Thus, expand its' connectivity for the diversify IoT application and enhance programming experiences. It realize your ideas, stimulate your creativenesss and imagination.LET‘S CREATE.
 
 .. image:: /../images/extboard/extboard.png
@@ -20,12 +20,13 @@ Characteristics:
     - 2 ways DC Motor driver, 150mA single way.
     - Audio power amplifier and speaker output(mPython Board P8，P9 pin)
     - Speech Synthesis (Text To Speech)
+    - infrared emission, can support infrared learning function
     - Expansion interface of 12x I/O and 2x I2C
     - Exquisite, handy and portable
     - Built-in Lithium Battery or external power input via USB
     - Built-in rechargeable 330mAH lithium battery
     - Operating Voltage:3.3V
-    - Current: `1A@3.3V` (Max)
+    - Current: `1A@3.3V` `2A@VCC`
     - Charging current: 170mA (Max) 
     
 
@@ -41,23 +42,13 @@ Interface denote
 
 - Power indicator status: 
 
-    - v1 version
-        - Power output indicator: 3.3V supplied, indicator lights ON; if not, the indicator goes OFF.
 
-    - v2 version
-        - Power output indicator: 3.3V supplied, indicator lights ON; if not, the indicator goes OFF.
-        - Battery charging indicator: light flashing to indicates the level of charging (total: 4 levels).
+    - Power output indicator: 3.3V supplied, indicator lights ON; if not, the indicator goes OFF.
+    - Battery charging indicator: light flashing to indicates the level of charging (total: 4 levels).
 
 - Charging indicator status: 
 
-    - v1 version 
-        Note: the charging and discharging state would only be indicated when the power switch is on.
-
-        - Charging indicator: during charging, the indicator light is on; when fully charged, the indicator light is off.
-        - Discharge indicator function: the battery power is indicated the rate of the indicator flashes. Higher rate indicates the lower power. Lights ON without indicate it is fully charged.
-
-    - v2 version
-        - Charging indicator function: during charging, the indicator flashes; when it is full, the indicator goes OFF
+    - Charging indicator function: during charging, the indicator flashes; when it is full, the indicator goes OFF
         
 - VCC: the differences with VCC supply and other 3.3V supply. To provide higher than 3.3V for application that require higher voltage and current. Power management, VCC supplied by built-in Lithium battery but when the USB is connected, it will override the VCC supply.
 
@@ -103,6 +94,9 @@ Features illustration
 
     Converts normal language text into speech. Enter the text contents and let the built-in speaker speak it out.
 
+**infrared emission**
+
+    built-in infrared transceiver tube, support NEC coding infrared code. Infrared learning is also supported.
 
 Python Library
 +++++++++
@@ -110,3 +104,4 @@ Python Library
 - :mod:`parrot` module : for motor drive function
 - :mod:`audio` module : for audio playback function
 
+.. Attention:: Infrared emission function has been added in V2.1!

@@ -3,7 +3,7 @@
 Tutorials
 ============
 
-This chapter will explain the basic use of mPython Expansion Board: Motor Drive, Audio Playback, TTS Speech Synthesis. For technical parameter details, refers to :ref:`mPython Expansion Board Introduction <extboard_introduce>` chapter.  
+This chapter will explain the basic use of mPython Expansion Board: Motor Drive, Audio Playback, TTS Speech Synthesis,infrared emission(ir learning). For technical parameter details, refers to :ref:`mPython Expansion Board Introduction <extboard_introduce>` chapter.  
 
 .. image:: /../images/extboard/extboard_back.png
 
@@ -97,49 +97,48 @@ Speech Synthesis (TTS)
 
 TTS (Text To Speech), this is “from Text to Voice”，a big step of man-machine interaction. It transforms text into asking text so that the machine can speak.
 
-Get ready
-+++++
-
-The online speech synthesis function mPython Board used  `iflytek on;ine speech synthesis API <https://www.xfyun.cn/services/online_tts>`_ , To start, users need to register in iFLYTEK open platform and do the corresponding configuration.
-
-- Step 1. Register an account at https://www.xfyun.cn .
-
-.. image:: /../images/extboard/xfyun_1.png
-    :scale: 80 %
 
 
-- Step 2. Create new application, on application platform select "WebAPI"
+Infrared emission
+-------------------
 
-.. image:: /../images/extboard/xfyun_2.gif
+We use a lot of infrared technology in our life, such as TV, air conditioning and other home appliances remote control.
+The encoded data is transmitted through an infrared tube after the carrier wave. Infrared receiving equipment, decoding the encoded data, get effective data. Implement control.
 
+Simply put, infrared encoded valid data consists of 1 BTYES user code + 1 BTYES command code. General user code is used to distinguish manufacturers or suppliers, the actual corresponding key value is the command code.
 
-- Step3. Add "Online Speech Synthesis" service，enter into the program APPID、APIKey example ``TTS`` ，get your own public network IP(http://www.ip138.com) and add to IP White list.
+Before infrared emission, infrared encoded data needs to be generated, and NEC encoding is used here::
 
-.. Attention:: 
+    >>> from parrot import IR_encode, IR
+    >>> ir_buf = ir_code.encode_nec(0x01, 0x01)  # 用户码0x01 , 命令码0x01
 
-    * While processing and after granted authorization, the server will check whether the caller's IP is in the IP white list configured on iFLYTEK open platform, for caller's IP not configured to the white list, the server will decline service.
-    * IP White List, edit the application management card at the console - my application - corresponding service. It will take effect about five minutes after saving. 
-    * Each IP white list can be set up to 5 IP, which are Internet IP. Do not set LAN IP.
-    
-.. image:: /../images/extboard/xfyun_3.gif
+Once we get the infrared encoded data, we can send the infrared data::
 
+    >>> ir = IR()  # 实例红外抽象类
+    >>> ir.send(ir_buf)  #发送预先编译好的红外编码
 
-Text To Speech
-++++++++
+Because the infrared encoding protocol is many. Or when you don't know the code value of the infrared remote control, how can you copy its code? In this case, you need to use infrared learning.
+It can record infrared signals. And then the infrared signal that's recorded is sent out.
 
-.. Attention:: TTS function depends on the network. connect to the network and pay attention to maintain the stable network connectivity!
+The infrared tube of the expansion board is directly opposite the infrared tube of the learning object, and the distance should be within 1CM (the strength of the signal directly affects the success rate of learning).
 
+Start to learn::
 
-.. literalinclude:: /../../examples/audio/tts.py
-    :caption: TTS, Text To Speech example
-    :linenos:
+    >>> ir.learn()      
 
-
-
-
-First, use  ``ntptime.settime()`` to calibrate RTC clock. Then ``player_init()`` initialize. Use ``xunfei_tts_config(api_key, appid )`` , ``appid`` , ``api_key`` as mandatory parameters, Application in the iFLYTEK platform APPID、API_KET. Finally apply ``xunfei_tts(text)``
-To turn this page from Text To Speech.
+Hold down the key to learn as often as possible for 5 seconds. Wait for the result to be returned.
 
 
+    >>> ir.learn()
+    >>> True
+    >>>
 
-TTS supports text conversion between Chinese and English.  You can turn what you want to say into speech in the form of text. In this way, you can add "human mouth" to your mPython Board to simulate the human-computer conversation scene.
+If return to True, it means learning succeeded, Fail means learning failed, repeat the above steps to learn again.
+
+Get the learned infrared encoded data::
+
+    >>> ir_learn = ir.get_learn_data()
+
+Once you get the learning data, you can transmitted infrared data::
+
+    >>> ir.send(ir_learn)
