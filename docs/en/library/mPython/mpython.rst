@@ -98,7 +98,7 @@ The acceleration range constant value is follows:
     ========================== ========= =================
 
 
-.. method:: accelerometer.set_resolustion(resolution)
+.. method:: accelerometer.set_resolution(resolution)
 
 Set acceleration resolution, default is 10bit resolution。
 
@@ -115,6 +115,81 @@ The resolution constant value is follows:
 
 This function is used to calibrate the acceleration value deviation of the three axes (x, y, z) of the accelerometer. Under normal circumstances, no calibration is required, only amend when there is large acceleration deviation.
 Note that the calibration data will not be saved after power off. ``x``, ``y``, ``z`` is the adjustment deviation value, the correctable range is ±1g.
+
+
+.. method:: accelerometer.roll_pitch_angle()
+
+Return the Euler Angle (roll , pitch ) calculated by the accelerometer. Note that yaw  requires angular velocity, so it cannot be measured. Returns 2 tuples (roll,pitch) in unit Angle.
+
+Assume that the control panel is an aircraft:
+
+- Roll Angle refers to the included Angle between the plane where the two wings of an aircraft are located and the parallel line. The right roll of the aircraft body is positive and the range is [-180,180]..
+- The pitch Angle refers to the Angle between the nose and the horizontal plane, which is 0 when the plane is parallel and positive when the plane is up, with a range of [-180,180].
+
+.. Attention:: Only by 3 axis acceleration calculation method, only applicable to static, only gravity measurements. In practice, there are other acceleration disturbances, such as vibrations.
+Motion detection event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Provides a variety of plane tilt, flip, click (similar to mouse click), drop motion posture events. 
+The user can pre-set the callback function and trigger the event callback when the event occurs.
+The callback function is defined as,function_callback(event)。`event` Parameter is the corresponding event constant.
+
+
+.. data:: accelerometer.event_tilt_left
+
+tilt to the left
+
+.. data:: accelerometer.event_tilt_right
+
+tilt to the right
+
+.. data:: accelerometer.event_tilt_up
+
+tilt to the up
+
+.. data:: accelerometer.event_tilt_down
+
+tilt to the down
+
+
+.. data:: accelerometer.event_face_up
+
+face up 
+
+.. data:: accelerometer.event_face_down
+
+face down
+
+.. data:: accelerometer.event_single_click
+
+A single click, similar to a mouse click.
+
+.. data:: accelerometer.event_single_click
+
+Click twice in a row, similar to the double-click operation of the mouse.
+
+.. data:: accelerometer.event_freefall
+
+fall
+
+event define:
+
+    ================================== ========= 
+        EVENT                               值     
+        accelerometer.TILT_LEFT           0      
+        accelerometer.TILT_RIGHT          1    
+        accelerometer.TILT_UP             2    
+        accelerometer.TILT_DOWN           3   
+        accelerometer.FACE_UP             4     
+        accelerometer.FACE_DOWN           5   
+        accelerometer.SINGLE_CLICK        6    
+        accelerometer.DOUBLE_CLICK        7     
+        accelerometer.FREEFALL            8    
+    ================================== =========
+
+.. literalinclude:: /../../examples/accelerometer/accelerometer_event.py
+    :caption: accelerometer event simple example
+    :linenos:
 
 
 Magnetometer
@@ -203,15 +278,46 @@ Buzzer
 mPython Board buzzer driven by ``music`` module. For details, see :mod:`music` module.
 
 
-button_[A,B] object
+button_[a,b] object
 ------
-The Button A and B on the mPython Board. button_a/button_b is a derived class of  ``machine.Pin`` and inherits Pin method. For application method, see :ref:`machine.Pin<machine.Pin>`  .
+
+The Button A and B on the mPython Board. button_a/button_b is ``Button`` class instance Objects. use :ref:`machine.Pin.irq<Pin.irq>` Interrupt implementation. define
+``event_pressed`` and ``event_released`` Button press, release event. Users can easily implement event callbacks. In addition, it also realizes the current or past key status, key times and other functions.
+
+
+.. class:: Button(pin_num, reverse=False)
+
+Button class
+
+    - ``pin_num`` - IO pin number
+    - ``reverse`` - default, reverse is False. Suitable for triggering low level keys. If the trigger is a high level key, set reverse to True, and then reverse.
+
+button_a、button_b instance::
+
+    button_a = Button(Pin.P5)
+    button_b = Button(Pin.P11)
+
+
+When a key event occurs, an event callback is triggered. callback function define, function_callback(pin), ``pin`` is machine.Pin obj.
+ 
+.. data:: Button.event_pressed
+
+Button press event.
+
+.. data:: Button.event_released
+
+Key release event.
+
+
+.. literalinclude:: /../../examples/button/button_event.py
+    :caption: Button event callback example
+    :linenos:
 
 
 
-.. method:: button_[a,b].value()
+.. method:: Button.value()
 
-Get button_[a,b] pin status. PIN I/O, value==1 when the button is not pressed, value==0 when pressed.
+Gets the button pin level status. 1 is high level, 0 bit low level.
 
 ::
 
@@ -219,6 +325,19 @@ Get button_[a,b] pin status. PIN I/O, value==1 when the button is not pressed, v
     >>> 1
     >>> button_a.value()
     >>> 0
+
+
+.. method:: Button.is_pressed()
+
+Returns whether to currently hold. True means that the key is pressed, while False is not pressed.
+
+.. method:: Button.was_pressed()
+
+The return ``True`` or ``False`` indicates whether the button has been pressed since the device started or since this method was last called. Calling this method clears the pressed state, so the button must be pressed again before True can be returned again.
+
+.. method:: Button.get_presses()
+
+Returns the total number of keystrokes run and resets the total to zero before returning.
 
 .. _button.irq:
 

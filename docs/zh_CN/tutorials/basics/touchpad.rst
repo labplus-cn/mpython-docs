@@ -23,4 +23,3 @@
 
   掌控板板载6个触摸焊盘，依次从左到右分别touchPad_P、touchPad_Y、touchPad_T、touchPad_H、touchPad_O、touchPad_N，其他触摸按键使用方法同上。
 
-.. image:: /../images/掌控板引脚定义-正面.png
