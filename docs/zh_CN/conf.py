@@ -8,6 +8,4 @@ project = u'mPython掌控'
 copyright = u'2018-{year} labplus.All Rights Reserved'.format(year=datetime.datetime.now().year)
 author = u'tangliufeng'
 
-version = release = '2.0.1'
-
 language = 'zh_CN'

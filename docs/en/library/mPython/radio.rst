@@ -6,8 +6,7 @@
 :mod:`radio` --- Radio-related functions
 ==========
 
-The radio module provides wireless broadcast function, supports 13 Channel, and can receive broadcast messages sent by members in the same Channel, suitable for multi-board network communication within 10 meters.
-
+The radio module is based on `ESP-NOW <https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/network/esp_now.html>`_ Wireless broadcasting without connection provides wireless broadcast function, supports 13 Channel, and can receive broadcast messages sent by members in the same Channel, suitable for multi-board network communication within 30 meters.
 Parameter
 ----------
 
