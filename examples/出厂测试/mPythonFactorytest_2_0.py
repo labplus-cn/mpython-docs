@@ -1,3 +1,4 @@
+
 from machine import Timer, UART
 from mpython import *
 import time, ubinascii, framebuf
@@ -144,7 +145,7 @@ def play_wave(freq):
     P8 = MPythonPin(8, PinMode.PWM)
     P8.write_analog(512, freq)
 def stop_wave():
-    global P8
+    global P8 
     P8.pwm.deinit()
 
 
@@ -169,13 +170,13 @@ def btn_B_irq(_):
 
 def testoled():
     """屏幕测试"""
-    logo_ = framebuf.FrameBuffer(logo, 128, 64, framebuf.MONO_HLSB)
+    # logo_ = framebuf.FrameBuffer(logo, 128, 64, framebuf.MONO_HLSB)
     #display.invert(1)
-    oled.blit(logo_, 0, 0)
-    oled.show()
-    sleep_ms(1000)
+    # oled.blit(logo_, 0, 0)
+    # oled.show()
+    # sleep_ms(1000)
     oled.fill(0)
-    sleep_ms(200)
+    # sleep_ms(200)
     oled.fill(1)
     oled.show()
 
@@ -187,9 +188,11 @@ button_b.irq(btn_B_irq)
 # 创建定时器1
 tim1 = Timer(1)
 
+color_index = 0
+
 def Rgb_Neopixel():
     """板载RGB测试"""
-    color_index = 0
+    global color_index
     color = ((32, 0, 0), (0, 32, 0), (0, 0, 32))
     for i in range(0, 3):
         rgb[i] = color[color_index]
@@ -211,13 +214,51 @@ def Print_Serial_num():
             u.write(machine_id[:6] + '\n')
             u.write(machine_id[6:] + '\n\r')
 
+#QMI8658自动校准程序
+def automatic_calibration(num=5):
+    time.sleep(1)
+    print('自动校准开始')
+    accelerometer.set_offset(0,0,0)
+    gyroscope.set_offset(0,0,0)
+    num = num #获取误差次数20，取误差平均值
+    a_x_sum = 0
+    a_y_sum = 0
+    a_z_sum = 0
+    g_x_sum = 0
+    g_y_sum = 0
+    g_z_sum = 0
+    for i in range(num):
+        time.sleep(0.1)
+        a_x_sum += accelerometer.get_x()
+        a_y_sum += accelerometer.get_y()
+        a_z_sum += (accelerometer.get_z() + 1)
+        time.sleep(0.1)
+        g_x_sum += gyroscope.get_x()
+        g_y_sum += gyroscope.get_y()
+        g_z_sum += gyroscope.get_z()
+        print('第{}次获取误差值'.format(i+1))
+
+    try:
+        accelerometer.set_offset(-(a_x_sum/num), -(a_y_sum/num),-(a_z_sum/num))
+        print('加速度校准完成\n')
+    except OSError as e:
+        print(e)
+        print("加速计校准值保存到闪存失败！")
+
+    try:
+        print('陀螺仪校准完成\n')
+        gyroscope.set_offset(-(g_x_sum/num), -(g_y_sum/num), -(g_z_sum/num))
+    except OSError as e:
+        print(e)
+        print("陀螺仪校准值保存到闪存失败！")
+
 
 # pixles timer
 tim1.init(period=1000, mode=Timer.PERIODIC, callback=lambda t: Rgb_Neopixel())
 
 #oled full pixel test
 testoled()
-sleep_ms(1500)
+sleep_ms(2000)
 oled.fill(0)
 oled.show()
 
@@ -254,11 +295,14 @@ while True:
     oled.text('id:%s' % machine_id, 3, 48)
     oled.show()
     oled.fill(0)
-    # P2和P3按键同时按下,向雕刻机发送指令
-    if ext.read_analog() == 0 and P2.read_analog() == 4095:
-        Print_Serial_num()
+    # # P2和P3按键同时按下,向雕刻机发送指令
+    # if ext.read_analog() == 0 and P2.read_analog() == 4095:
+    #     Print_Serial_num()
+    # P0和P2按键同时按下，进入加速度校准
+    if P0.read_analog() >= 4000 and P2.read_analog()>=4000:
+        automatic_calibration()
     # P1和P3按键同时按下,进入音频测试模式
-    if ext.read_analog() == 0 and P1.read_analog() ==4095:
+    if ext.read_analog() == 0 and P1.read_analog() >=4000:
         tim1.deinit()
         oled.fill(0)
         oled.DispChar('Audio Test mode:',0,0)
