@@ -41,7 +41,7 @@ Set callback for received subscription message
 
 .. method:: MQTTClient.set_last_will(topic, msg, retain=False, qos=0)
 
-    ``topic`` 和 ``msg`` Byte type
+    ``topic`` and ``msg`` Byte type
 
 Set MQTT “last will” message. Should be called before connect() .
 
@@ -55,13 +55,14 @@ Disconnect from the server, release resources.
 
 .. method:: MQTTClient.ping()
 
-Ping server (response is automatically handled by wait_msg（））
+Ping server (response is automatically handled by wait_msg()）
 
 .. method:: MQTTClient.publish(topic, msg, retain=False, qos=0)
 
-    ``topic`` 和 ``msg`` Byte type
+    ``topic`` and ``msg`` Byte type
 
 Make an announcement
+
 .. method:: MQTTClient.subscribe(topic, qos=0)
 
     ``topic`` Byte type
@@ -70,11 +71,11 @@ Subscribe to topics
 
 .. method:: MQTTClient.wait_msg()
 
-Waiting for server message. Subscription messages will be passed to the callback set via set_callback（）, any other messages will be processed internally. 
+Waiting for server message. Subscription messages will be passed to the callback set via set_callback(）, any other messages will be processed internally. 
 
 .. method:: MQTTClient.check_msg()
 
-Check if the server has any pending messages. If it is, it is processed in the same way as wait_msg（）, if not, it returns immediately.
+Check if the server has any pending messages. If it is, it is processed in the same way as wait_msg(）, if not, it returns immediately.
 
 
 .. Attention:: 
