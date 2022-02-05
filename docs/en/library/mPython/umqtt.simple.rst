@@ -62,6 +62,7 @@ Ping server (response is automatically handled by wait_msg（））
     ``topic`` 和 ``msg`` Byte type
 
 Make an announcement
+
 .. method:: MQTTClient.subscribe(topic, qos=0)
 
     ``topic`` Byte type
