@@ -12,7 +12,7 @@ Provide a subscription/publish model, which is more simple, lightweight, and eas
 
 .. Hint:: 
 
-   Module originate from ``MicroPython-lib`` : https://github.com/micropython/micropython-lib/tree/master/umqtt.simple
+   Module originate from ``MicroPython-lib`` : https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple
 
 create object
 -------------
