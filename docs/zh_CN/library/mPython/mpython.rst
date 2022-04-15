@@ -98,7 +98,7 @@
     ========================== ========= =================
 
 
-.. method:: accelerometer.set_resolustion(resolution)
+.. method:: accelerometer.set_resolution(resolution)
 
 设置加速度分辨率,默认,不修改为10bit分辨率。
 
@@ -115,6 +115,125 @@
 
 该函数用于校准加速度计的3个轴(x,y,z)的加速值偏差。一般情况下无需校准,只有当遇到加速度偏差较大时修正。
 注意,校准数据断电后不会保存。``x`` , ``y`` , ``z`` 为调整偏差值,可修正范围±1g。
+掌控板v2.3版本以上，掉电会保存校准数据。
+
+.. method:: accelerometer.roll_pitch_angle()
+
+返回通过加速度计计算得出的欧拉角(横滚角roll、俯仰角pitch)。注意，偏航角(yaw)需要角速度，故无法测得。返回2元组（roll,pitch），单位角度。
+
+假定，掌控板为飞机：
+
+- 横滚角指飞机两翼所在的平面与平行线之间的夹角，机体向右滚为正,范围为[-180,180].
+- 俯仰角是指机头与水平面的夹角,当飞机平行时则为0,抬头时则为正,范围为[-180,180]
+
+.. Attention:: 只通过3轴加速度计算方式，只适用于静态下，只受重力下的测量。实际中，会受到其他加速度干扰，如震动。
+
+运动侦测事件
+~~~~~~~~~~~~~
+
+提供多种平面倾斜、翻转、敲击（类似鼠标点击）、掉落的运动姿态事件。用户可预先设定回调函数，当事件发生后，触发事件回调。
+回调函数定义如，function_callback(event)。`event` 参数为对应事件常量。
+
+
+.. data:: accelerometer.event_tilt_left
+
+向左倾斜
+
+.. data:: accelerometer.event_tilt_right
+
+向右倾斜
+
+.. data:: accelerometer.event_tilt_up
+
+向前倾斜
+
+.. data:: accelerometer.event_tilt_down
+
+向后倾斜
+
+
+.. data:: accelerometer.event_face_up
+
+正面朝上
+
+.. data:: accelerometer.event_face_down
+
+正面朝下
+
+.. data:: accelerometer.event_single_click
+
+单次敲击，类似鼠标的单击操作。
+
+.. data:: accelerometer.event_single_click
+
+连续敲击两次，类似鼠标的双击操作。
+
+.. data:: accelerometer.event_freefall
+
+坠落
+
+event事件定义如下:
+
+    ================================== ========= 
+        事件                              值     
+        accelerometer.TILT_LEFT           0      
+        accelerometer.TILT_RIGHT          1    
+        accelerometer.TILT_UP             2    
+        accelerometer.TILT_DOWN           3   
+        accelerometer.FACE_UP             4     
+        accelerometer.FACE_DOWN           5   
+        accelerometer.SINGLE_CLICK        6    
+        accelerometer.DOUBLE_CLICK        7     
+        accelerometer.FREEFALL            8    
+    ================================== =========
+
+.. Attention:: 掌控板v2.3版本以上,去除加速度计运动侦测事件
+
+.. literalinclude:: /../../examples/accelerometer/accelerometer_event.py
+    :caption: accelerometer 事件的简单应用
+    :linenos:
+
+gyroscope
+-----------------
+
+通过gyroscope对象，您可以获取陀螺仪角速度值，角速度的单位是dps(°/S)。 
+角速度范围±16dps/±32dps/±64dps/±128dps/±256dps/±512dps/±1024dps/±2048dps ,默认为±256 dps。
+
+.. method:: gyroscope.get_x()
+
+获取x轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.get_y()
+
+获取y轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.get_z()
+
+获取z轴上的角速度测量值，具体取决于方向。
+
+.. method:: gyroscope.set_range(range)
+设置角速度范围,默认不修改为,范围在±256 dps。
+
+角速度范围值为以下常量:
+
+    ========================== ========= =================
+        常量                       值          定义
+        RANGE_16_DPS               0         范围±16 dps
+        RANGE_32_DPS               16        范围±32 dps
+        RANGE_64_DPS               32        范围±64 dps
+        RANGE_128_DPS              48        范围±128 dps
+        RANGE_256_DPS              64        范围±256 dps
+        RANGE_512_DPS              80        范围±512 dps
+        RANGE_1024_DPS             96        范围±1024 dps
+        RANGE_2048_DPS             112       范围±2048 dps
+    ========================== ========= =================
+
+.. method:: gyroscope.set_offset(x=None, y=None, z=None)
+
+该函数用于校准陀螺仪的3个轴(x,y,z)的角速值偏差。一般情况下无需校准,只有当遇到角速度偏差较大时修正。
+``x`` , ``y`` , ``z`` 为调整偏差值,可修正范围±1024dps。    
+
+.. Attention:: 掌控板v2.3版本以上加入陀螺仪传感器
 
 
 magnetic
@@ -205,13 +324,43 @@ BME280是一款集成温度、湿度、气压，三位一体的环境传感器�
 
 button_[a,b]对象
 ------
-掌控板上的a,b按键。button_a/button_b 是 ``machine.Pin`` 衍生类，继承Pin的方法。更详细的使用方法请查阅 :ref:`machine.Pin<machine.Pin>`  。
+
+掌控板上的a,b按键。button_a/button_b 是 ``Button`` 类的实例对象。使用 :ref:`machine.Pin.irq<Pin.irq>` 中断实现。定义了
+``event_pressed`` 和 ``event_released`` 按键按下、释放事件。 用户可轻易的实现事件回调。除此外，还实现当前或过去按键状态、按键次数等函数方法。
+
+.. class:: Button(pin_num, reverse=False)
+
+Button类，按键抽象类。
+
+    - ``pin_num`` - IO引脚号
+    - ``reverse`` - 默认为reverse为False。适用于触发为低电平按键。如是触发为高电平按键，将reverse设为True，翻转下。
+
+掌控板上button_a、button_b的实例::
+
+    button_a = Button(Pin.P5)
+    button_b = Button(Pin.P11)
+
+
+当按键事件发生，触发事件回调。回调函数定义如，function_callback(pin), ``pin`` 为该引脚的machine.Pin对象返回。
+
+.. data:: Button.event_pressed
+
+按键按下事件。
+
+.. data:: Button.event_released
+
+按键释放事件。
+
+
+.. literalinclude:: /../../examples/button/button_event.py
+    :caption: Button 事件回调的简单应用
+    :linenos:
 
 
 
-.. method:: button_[a,b].value()
+.. method:: Button.value()
 
-获取button_[a,b]按键引脚状态。引脚IO以上，当按键为未按下状态时value==1,按下状态时value==0。
+获取按键引脚电平状态。1为高电平，0位低电平。
 
 ::
 
@@ -220,11 +369,25 @@ button_[a,b]对象
     >>> button_a.value()
     >>> 0
 
+
+.. method:: Button.is_pressed()
+
+返回当前是否按住。 ``True`` 表示按键按下，``False`` 则未按下。
+
+.. method:: Button.was_pressed()
+
+返回 ``True`` 或 ``False`` 指示自设备启动以来或上次调用此方法以来是否按下按钮。调用此方法将清除按下状态，因此必须再次按下按钮，然后才能再次返回 ``True`` 。
+
+.. method:: Button.get_presses()
+
+返回按键的按下总数，并在返回之前将该总数重置为零。注意，计数器超过100将不再计数。
+
+
 .. _button.irq:
 
-.. method:: button_[a,b].irq(handler=None, trigger=(Pin.IRQ_FALLING | Pin.IRQ_RISING), priority=1, wake=None)
+.. method:: Button.irq(handler=None, trigger=(Pin.IRQ_FALLING | Pin.IRQ_RISING), priority=1, wake=None)
 
-配置在引脚的触发源处于活动状态时调用的中断处理程序。
+配置在引脚的触发源处于活动状态时调用的中断处理程序。用法与 machine.Pin.irq 一样。
 
 参数:
 
@@ -252,18 +415,41 @@ button_[a,b]对象
     >>> button_a.irq(trigger=Pin.IRQ_FALLING, handler=lambda p:print("button-a press！")) 
 
 
-touchPad_[ ]对象
+touch对象
 ------
-掌控板上共有6个触摸引脚分别touchPad_P/Y/T/H/O/N。
+掌控板上共有6个触摸引脚分别touchpad_p/y/t/h/o/n。是Touch类的实例对象，具体包含函数方法如下。
 
-.. method:: touchPad_[P,Y,T,H,O,N].read()
+
+.. class:: Touch(pin)
+
+
+.. data:: Touch.event_pressed
+
+触摸按键按下事件。当按键事件发生，触发事件回调。回调函数定义如，function_callback(value), ``value`` 为该触摸按键的状态值。
+
+.. data:: Touch.event_released
+
+触摸按键释放事件。
+
+.. method:: Touch.read()
 
 返回触摸值
 
-::
+. method:: Touch.config(threshold)
 
-    >>> touchPad_P.read()
-    >>> 523
+触摸阈值设置
+
+.. method:: Touch.is_pressed()
+
+返回当前是否按住。 ``True`` 表示按键按下，``False`` 则未按下。
+
+.. method:: Touch.was_pressed()
+
+返回 ``True`` 或 ``False`` 指示自设备启动以来或上次调用此方法以来是否按下按钮。调用此方法将清除按下状态，因此必须再次按下按钮，然后才能再次返回 ``True`` 。
+
+.. method:: Touch.get_presses()
+
+返回按键的按下总数，并在返回之前将该总数重置为零。注意，计数器超过100将不再计数。
 
 rgb对象
 -------

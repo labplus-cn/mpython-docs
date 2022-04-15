@@ -29,6 +29,15 @@ Motor    0x01      0x01/0x02  -100~100
    :member-order: bysource
 
 
-.. literalinclude:: /../../examples/motor_simple.py
+.. literalinclude:: /../../examples/mpython-shield/motor_simple.py
     :caption: Motor drive example
+    :linenos:
+
+
+.. literalinclude:: /../../examples/mpython-shield/ir_send.py
+    :caption: NEC code Infrared code example
+    :linenos:
+
+.. literalinclude:: /../../examples/mpython-shield/ir_learn.py
+    :caption: NEC code Infrared learning example
     :linenos:
