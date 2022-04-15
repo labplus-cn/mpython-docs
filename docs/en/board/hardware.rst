@@ -29,7 +29,7 @@ mPython Board had the following hardware features:
   - mPython Board integrated hardwares
 
     - 3-axis Accelerometer MSA300, Range: ±2/4/8/16G
-    - Deomagnetic Sensor MMC5983MA, Range: ±8 Gauss; Accuracy 0.4mGz, Electronic Compass error ±0.5°
+    - Deomagnetic Sensor MMC5983MA, Range: ±8 Gauss; Accuracy 0.4mGs, Electronic Compass error ±0.5°
     - Light Sensor
     - Microphone
     - 3x ws2812 LED, RGB
