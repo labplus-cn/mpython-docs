@@ -671,7 +671,7 @@ Connect WiFi network
 
     - ``ssid`` -WiFi network ID
     - ``password`` -WiFi Password
-    - ``tiemout`` - Link timeout, default 10 seconds
+    - ``timeout`` - Link timeout, default 10 seconds
 
 .. method:: wifi.disconnectWiFi()
 
