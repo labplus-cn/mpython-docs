@@ -737,7 +737,7 @@ wifi类
 
     - ``ssid`` -WiFi网络名称
     - ``password`` -WiFi密码
-    - ``tiemout`` -链接超时,默认10秒
+    - ``timeout`` -链接超时,默认10秒
 
 .. method:: wifi.disconnectWiFi()
 
