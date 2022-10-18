@@ -7,7 +7,7 @@ Class Timer -- Hardware Control Timer
 Timer for hardware processing cycle and event time. Timers are probably the most flexible and heterogeneous hardware types in MCUs and SoCs, and vary greatly from one model to another. 
 MicroPython's Timer class defines a baseline operation that performs callbacks within a given time period (or executes a callback after a delay), and allows a specific board to define more non-standard behaviors (so it cannot be ported to other boards). 
 
-Reference for the timer callback :ref:`重要约束 <machine_callbacks>` 。
+Reference for the timer callback :ref:`important constraints <machine_callbacks>`.
 
 .. note::
 
