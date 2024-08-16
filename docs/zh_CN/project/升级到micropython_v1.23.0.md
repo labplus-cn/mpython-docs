@@ -9,7 +9,7 @@ esp-idf v5.0.4
     esp-idf采用cmake构建编译系统，micropython现支持make和使用idf.py编译系统。make内部也是调用idf.py实现，因些需要了解esp32的编译。
     说明：esp32把用户的应用代码称之为项目。esp-idf不是项目的一部分。
     esp32项目管理：
-    参考文档：<https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-guides/build-system.html中的构建系统章节>
+    参考文档：<https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/>
 
     关于esp32的构建系统，了解：
 
@@ -35,7 +35,7 @@ esp-idf v5.0.4
 ### 模块注册 模块使能
 
 ### 把C变量纳入micropython gc内存管理
-    
+
     参照modespnow做法，例如把_esp_espnow_obj_t *espnow_singleton加入gc管理：
 
     1. gc内存管理结构中，加入*espnow_singleton
@@ -63,8 +63,8 @@ micropython整体做为一个基于esp-idf项目,被定义在main组件中，但
     - MICROPY_BOARD
     - MICROPY_BOARD_DIR
     - SDKCONFIG #合并后的sdkconfig文件位置
-    - include(${MICROPY_BOARD_DIR}/mpconfigboard.cmake) 
-    
+    - include(${MICROPY_BOARD_DIR}/mpconfigboard.cmake)
+
         mpconfigboard.cmake定义了1、各个板的MICROPY_FROZEN_MANIFEST位置（当然也可能没定义）2、SDKCONFIG_DEFAULTS，各个板的skdconfig.xxx集合，有这两项，就可以做下面两件事。
 
         1. 定义MICROPY_FROZEN_MANIFEST # mainfest.py位置，通常在各个板目录下，如果没有，则用boards下的。
@@ -91,7 +91,6 @@ micropython整体做为一个基于esp-idf项目,被定义在main组件中，但
 在没有文件系统的设备上，这也是加载Python代码的唯一方法。
 
     项目中，如果boards/xxx板文件夹中有manifest.py，则用此文件件，此文件会包含port/boards/manifest.py，否则直接用port/boards/manifest.py。
-
 
 # mpython项目组建
 
@@ -137,24 +136,55 @@ TAG
 linux系统按乐鑫要求安装一些库，安装gcc cmake
 
 1. 进入esp-idf，执行./install.sh，安装esp-idf的编译环境。
-2. 执行. ./export.sh，导出相关环境变量。
+2. 执行.
+
+    ```bash
+    cd port
+    ./esp-idf/export.sh # 导出相关环境变量。
+    ```
+
 3. micropython预编译
 
     ```bash
-    $ cd micropython
-    $ make -C mpy-cross
+    cd micropython
+    make -C mpy-cross
     ```
+
 4. 固件编译
+
     ```bash
-    $ cd port
-    $ idf.py -D MICROPY_BOARD=labplus_classroom_kit_nanjing build
-    $ idf.py -D MICROPY_BOARD=labplus_Ledong build
-    $ idf.py -D MICROPY_BOARD=mpython build
+    cd port
+    idf.py -D MICROPY_BOARD=labplus_classroom_kit_nanjing build
+    idf.py -D MICROPY_BOARD=labplus_Ledong build
+    idf.py -D MICROPY_BOARD=mpython build
     ```
+
 5. 固件烧录
+
     ```bash
-    $ idf.py -p /dev/ttyACM0 -b 1500000 flash
+    idf.py -p /dev/ttyACM0 -b 1500000 flash
     ```
+    esptool命令：
+
+    ···bash
+        esptool.py \
+            --port $port --baud $baud --before default_reset --after hard_reset write_flash \
+            --flash_mode dio --flash_freq 40m --flash_size detect 0x410000 "$file"
+    ```
+
+    要在wsl下使用USB设备，参阅：<https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb，安装USBIPD-WIN。>
+    使用以下指令，实现USB设备共享到wsl。
+
+    ···bash
+    usbipd list # 列出usb设备ID，powershell中执行命令
+    usbipd bind --busid <busid> # bind ID，eg:4-4
+    usbipd attach --wsl --busid <busid> # 附加USB设备到wsl
+    lsusb # wsl下，查看USB设备是否附加。
+    usbipd attach --wsl --busid <busid> # 解除附加USB设备到wsl
+
+6. 调试
+
+    vscode安装插件pymakr
 
 # 添加乐动掌控
 
@@ -178,14 +208,53 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
 4. esp32_nvs
 
     复制micropython/ports/esp32/下对应模块到port/builtins/，make_new()中增加以下代码:
+
     ```c
     check_esp_err(nvs_flash_init_partition("user_nvs"));
     check_esp_err(nvs_open_from_partition("user_nvs", ns_name, NVS_READWRITE, &namespace));
     ```
+
     esp32_common.cmake中去掉esp32_nvs.c，mpconfigboard.cmake中增加port/builtins/eps32_nvs.c
 
+5. machine_pin.c
+   esp32_common.cmake去掉对machine_pin.c编译，复制micropython/ports/esp32/machine_pin.c到port/builtins/，此文件添加mpython pin定义。
+
+6. 修改partition-8MiB.csv文件
+
+    保持跟乐动掌控的一致，但会出固件区域不够情况，扩容之，暂不知会有什么问题，之前似似乎有利用扩容区。此文件放在对应board文件下，注意在sdkconfig.board中修改文件路径.
+
+7. 添加micropython-lib库的neopixel.py到port/modules,参照唐工的对应文件做修改。注释掉boards/manifest.py内的对本库的引用。
+
+8. machine_touchpad.c
+
+   esp32_common.cmake去掉对machine_touchpad.c编译，复制micropython/ports/esp32/machine_touchpad.c到port/builtins/，按之版本修改本文件。
+   mpconfigboard.cmake添加此文件编译
+
+9. modframebuf.c
+
+    esp32_common.cmake中禁止modframbuf.c编译，board/mpconfigboard.cmake添加此文件编译。按之前版本做相应修改。此文件影响mpython.py中的GUI库
+    可以用以下命令移除变量或列表中的一项：
+
+    ···bash
+    list(REMOVE_ITEM MICROPY_SOURCE_EXTMOD ${MICROPY_EXTMOD_DIR}/modframebuf.c)
+
+    ```
+
+    待解决：一些函数重定义了，是否用新版的函数，待用户端测试
+
+10. network and radio
+
+11. 离线语音识别及合成
+
+    参考文档：https://docs.espressif.com/projects/esp-sr/zh_CN/latest/esp32/getting_started/readme.html
+
+    参考项目：https://github.com/espressif/esp-skainet
+
+    main_esp32/idf_componnet.yml中添加esp-sr组件：espressif/esp-sr: ">=1.7.0" 
+
+
+
+
 4. bluetooth
-    
 
-
-
+5. tag
