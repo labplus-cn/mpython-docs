@@ -250,7 +250,7 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
 
     参考项目：https://github.com/espressif/esp-skainet
 
-    main_esp32/idf_componnet.yml中添加esp-sr组件：espressif/esp-sr: ">=1.7.0" 
+    main_esp32/idf_componnet.yml中添加esp-sr组件：espressif/esp-sr: ">=1.7.0"
 
 
 
