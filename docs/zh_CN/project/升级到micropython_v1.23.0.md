@@ -164,9 +164,10 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
     ```bash
     idf.py -p /dev/ttyACM0 -b 1500000 flash
     ```
+
     esptool命令：
 
-    ···bash
+    ```bash
         esptool.py \
             --port $port --baud $baud --before default_reset --after hard_reset write_flash \
             --flash_mode dio --flash_freq 40m --flash_size detect 0x410000 "$file"
@@ -218,6 +219,7 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
 
 5. machine_pin.c
    esp32_common.cmake去掉对machine_pin.c编译，复制micropython/ports/esp32/machine_pin.c到port/builtins/，此文件添加mpython pin定义。
+   micropython对有PSRAM的板，限定的CS CLK pin为16 17引脚，需要重新修改machine.h为_machine.h，去掉对16 17脚的禁用。esp32_common.cmake重定义pins_prefix.c make-pins.py路径
 
 6. 修改partition-8MiB.csv文件
 
@@ -246,14 +248,11 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
 
 11. 离线语音识别及合成
 
-    参考文档：https://docs.espressif.com/projects/esp-sr/zh_CN/latest/esp32/getting_started/readme.html
+    参考文档：<https://docs.espressif.com/projects/esp-sr/zh_CN/latest/esp32/getting_started/readme.html>
 
-    参考项目：https://github.com/espressif/esp-skainet
+    参考项目：<https://github.com/espressif/esp-skainet>
 
     main_esp32/idf_componnet.yml中添加esp-sr组件：espressif/esp-sr: ">=1.7.0"
-
-
-
 
 4. bluetooth
 
