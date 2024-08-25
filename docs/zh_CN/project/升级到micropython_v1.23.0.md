@@ -219,7 +219,8 @@ linux系统按乐鑫要求安装一些库，安装gcc cmake
 
 5. machine_pin.c
    esp32_common.cmake去掉对machine_pin.c编译，复制micropython/ports/esp32/machine_pin.c到port/builtins/，此文件添加mpython pin定义。
-   micropython对有PSRAM的板，限定的CS CLK pin为16 17引脚，需要重新修改machine.h为_machine.h，去掉对16 17脚的禁用。esp32_common.cmake重定义pins_prefix.c make-pins.py路径
+   micropython对有PSRAM的板，限定的CS CLK pin为16 17引脚，需要重新修改machine.h为_machine_1.h，去掉对16 17脚的禁用。esp32_common.cmake重定义pins_prefix.c make-pins.py路径
+   machine.c和pins_prefix.c修改含头文件路径为machine_pin_1.h
 
 6. 修改partition-8MiB.csv文件
 
