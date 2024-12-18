@@ -26,7 +26,7 @@ Example::
     mywifi=wifi()
     mywifi.connectWiFi('tang','tang123456')        
     ntptime.host = 'ntp.ntsc.ac.cn'
-    timeout = 1
+    ntptime.timeout = 1
     ntptime.settime()
     print("Success)
 
