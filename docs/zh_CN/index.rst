@@ -1,4 +1,4 @@
-.. mPython掌控板 documentation master file, created by
+﻿.. mPython掌控板 documentation master file, created by
    sphinx-quickstart on Tue Aug 28 17:25:35 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -113,6 +113,9 @@ mPython类库
    - :mod:`bluebit` --------- blue:bit驱动
    - :mod:`parrot` --------- 掌控拓展板驱动
    - :mod:`ds18x20` --------- ds18b20温度传感器驱动
+   - :mod:`servo` --------- 舵机驱动
+   - :mod:`bluetooth` --------- 蓝牙BLE通信
+   - :mod:`iat` --------- 语音识别
 
 - ``拓展库``
 
@@ -152,7 +155,6 @@ mPython类库
    :caption: 掌控系列
 
    extboard/index.rst
-   mpython_classroom_kit/index.rst
 
 .. image:: /../images/extboard/extboard_250.png
   :scale: 80 %
@@ -160,6 +162,19 @@ mPython类库
 
 
 
+
+------------------
+
+内部研发文档
+-------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 内部研发文档
+
+   project/index.rst
+
+面向内部研发团队的技术文档：MicroPython版本迁移、新板型适配、ESP-ADF集成、USB OTG等。
 
 ------------------
 

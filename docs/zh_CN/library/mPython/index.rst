@@ -1,4 +1,4 @@
-mPython类库
+﻿mPython类库
 =============
 
 .. toctree::
@@ -17,5 +17,6 @@ mPython类库
     parrot.rst
     ds18x20.rst
     servo.rst
-
-
+    bluetooth.rst
+    iat.rst
+    mpython_code.rst
